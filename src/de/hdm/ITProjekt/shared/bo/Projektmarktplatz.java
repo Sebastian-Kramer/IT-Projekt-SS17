@@ -27,7 +27,7 @@ public class Projektmarktplatz {
 		this.bez = bez;
 	}
 	public String toString(){
-		return super.toString() + "id , bez:" + this.ID + this.bez;
+		return ID + " " + bez;
 	}
 	
 	public boolean equals(Object o) {
