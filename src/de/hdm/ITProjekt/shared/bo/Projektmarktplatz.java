@@ -7,9 +7,6 @@ public class Projektmarktplatz {
 	private int ID = 0; 
 	private String bez = "";
 	
-	public Projektmarktplatz(){
-		
-	}
 
 	public int getID() {
 		return ID;

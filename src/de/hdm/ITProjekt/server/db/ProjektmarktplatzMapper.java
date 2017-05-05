@@ -42,6 +42,33 @@ public class ProjektmarktplatzMapper {
 		return null;	
 	}
 	
+	public Projektmarktplatz addMarktplatz(Projektmarktplatz pmp){
+		Connection con = DBConnection.connection();
+		
+		try {
+		      Statement stmt = con.createStatement();
+		      
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
+		              + "FROM Projektmarktplatz ");
+		      
+		
+		      if(rs.next()){
+		    	  
+		    	  	pmp.setID(rs.getInt("maxid") + 1);
+		    	  
+		    	  	stmt = con.createStatement();
+		    	  	
+		    		stmt.executeUpdate("INSERT INTO Projektmarktplatz(ID , bez)" + "VALUES (" + pmp.getID() + "," + pmp.getBez() + ")");
+		    	  
+		      }
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+		}
+		return pmp;
+		
+	}
+	
 	
 	
 
