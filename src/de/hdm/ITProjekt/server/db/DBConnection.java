@@ -12,9 +12,9 @@ public class DBConnection {
 	private static Connection con = null;
 
 	private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String localUrl = "jdbc:mysql://localhost:3306/IT Projekt";
+    private static String localUrl = "jdbc:mysql://localhost:3308/IT Projekt";
     private static String user = "root";
-    private static String password = "password";
+    private static String password = "";
     
     public static Connection connection(){
     	
