@@ -30,7 +30,7 @@ public class ProjektmarktplatzMapper {
 			
 			if(rs.next()){
 				Projektmarktplatz p = new Projektmarktplatz();
-				p.setID(rs.getInt("int"));
+				p.setID(rs.getInt("ID"));
 				p.setBez(rs.getString("bez"));
 				return p;
 			}
