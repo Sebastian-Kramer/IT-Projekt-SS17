@@ -20,19 +20,26 @@ public class ProjektmarktplatzMapper {
 		}
 		return pmpMapper;
 	}
-	public ProjektmarktplatzMapper findByKey(int id){
+	public Projektmarktplatz findByKey(int id){
 		Connection con = DBConnection.connection();
 		
 		try{
 			Statement stmt = con.createStatement();
-			Result rs = stmt.executeQuery("SELECT ID, bez FROM Projektmarktplatz "
+			ResultSet rs = stmt.executeQuery("SELECT ID, bez FROM Projektmarktplatz "
           + "WHERE ID=" + id + " ORDER BY bez");
 			
 			if(rs.next()){
 				Projektmarktplatz p = new Projektmarktplatz();
+				p.setID(rs.getInt("int"));
+				p.setBez(rs.getString("bez"));
+				return p;
 			}
 		}
-		
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return null;	
 	}
 	
 	

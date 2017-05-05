@@ -26,8 +26,23 @@ public class Projektmarktplatz {
 	public void setBez(String bez) {
 		this.bez = bez;
 	}
+	public String toString(){
+		return super.toString() + "id , bez:" + this.ID + this.bez;
+	}
 	
-	
+	public boolean equals(Object o) {
+
+	    if (o != null && o instanceof Projektmarktplatz) {
+	      Projektmarktplatz c = (Projektmarktplatz) o;
+	      try {
+	        return super.equals(c);
+	      }
+	      catch (IllegalArgumentException e) {
+	        return false;
+	      }
+	    }
+	    return false;
+	  }
 
 
 }
