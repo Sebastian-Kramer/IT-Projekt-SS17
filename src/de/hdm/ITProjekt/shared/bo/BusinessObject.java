@@ -5,7 +5,7 @@ import java.io.Serializable; //Serialisierung wandelt Objekte in Bytes um und um
 
 public abstract class BusinessObject implements Serializable {
 	
-	private static final long serialVersionUID = 0;
+	private static final long serialVersionUID = 1L;
 	
 	private int id = 0;
 
