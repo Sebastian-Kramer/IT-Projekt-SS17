@@ -55,7 +55,8 @@ public class Projekt extends BusinessObject {
 	}
 
 	public String toString(){
-		return ID + " " + name + " " + beschreibung + " " + startdatum + " " + enddatum;
+		return "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
+				+ beschreibung+ "\n" + "Startdatum: " + startdatum + "Enddatum: " + enddatum;
 	}
 	
 	public boolean equals(Object o) {
