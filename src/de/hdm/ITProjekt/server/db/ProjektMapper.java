@@ -19,6 +19,28 @@ public class ProjektMapper {
 		}
 		return pMapper;
 	}
+	
+	public Projekt findByKey(int id){
+		Connection con = DBConnection.connection();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, bez FROM Projekt "
+          + "WHERE ID=" + id + " ORDER BY bez");
+			
+			if(rs.next()){
+				Projekt p = new Projekt();
+				p.setID(rs.getInt("ID"));
+				p.setName(rs.getString("bez"));
+				return p;
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return null;	
+	}
 }
 
 
