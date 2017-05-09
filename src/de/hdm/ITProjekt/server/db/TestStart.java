@@ -9,11 +9,17 @@ public class TestStart {
 		
 		ProjektmarktplatzMapper t1 = ProjektmarktplatzMapper.pmpMapper();
 		
-		//Projektmarktplatz p1 = new Projektmarktplatz();
+		Projektmarktplatz p1 = new Projektmarktplatz();
 		
 		//p1.setBez("Vertrieb");
 
 		//t1.addMarktplatz(p1);
+		
+		p1.setID(2);
+		
+		p1.setBez("Rechnungswesen");
+		
+		t1.updateMarktplatz(p1);
 		
 		System.out.println(t1.getAll());
 	}
