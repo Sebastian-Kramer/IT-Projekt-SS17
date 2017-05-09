@@ -17,9 +17,9 @@ public class TestStart {
 		
 		p1.setID(2);
 		
-		p1.setBez("Rechnungswesen");
+		//p1.setBez("Rechnungswesen");
 		
-		t1.updateMarktplatz(p1);
+		t1.deleteMarktplatz(p1);
 		
 		System.out.println(t1.getAll());
 	}

@@ -119,6 +119,23 @@ public class ProjektmarktplatzMapper {
 			
 		return p;
 	}
+	public Projektmarktplatz deleteMarktplatz(Projektmarktplatz p){
+		
+		Connection con = DBConnection.connection();
+	
+		try{
+			
+			Statement stmt = con.createStatement();
+			
+			stmt.executeUpdate(" DELETE FROM Projektmarktplatz " +  "WHERE ID= " + p.getID());
+		
+			}
+		catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+			
+		return p;
+	}
 	
 	
 	
