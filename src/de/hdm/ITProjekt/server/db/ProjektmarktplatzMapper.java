@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 
@@ -21,6 +22,8 @@ public class ProjektmarktplatzMapper {
 		}
 		return pmpMapper;
 	}
+	
+	
 	public Projektmarktplatz findByKey(int id){
 		Connection con = DBConnection.connection();
 		
@@ -97,6 +100,24 @@ public class ProjektmarktplatzMapper {
 		}
 		return pmp;
 		
+	}
+	public Projektmarktplatz updateMarktplatz(Projektmarktplatz p){
+		
+		Connection con = DBConnection.connection();
+		
+		try{
+			
+			Statement stmt = con.createStatement();
+			
+			stmt.executeUpdate(" UPDATE Projektmarktplatz " + "SET bez =\""
+								+ p.getBez() + "\" " + "WHERE ID= " + p.getID());
+		
+			}
+		catch (SQLException e2) {
+			e2.printStackTrace();
+		}
+			
+		return p;
 	}
 	
 	
