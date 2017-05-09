@@ -2,6 +2,7 @@ package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 import java.sql.*;
+import java.util.Vector;
 
 
 
@@ -42,7 +43,35 @@ public class ProjektmarktplatzMapper {
 		return null;	
 	}
 	
+	
+	public Vector<Projektmarktplatz> getAll(){
+		
+		 Connection con = DBConnection.connection();
+		 
+		 Vector<Projektmarktplatz> result = new Vector<Projektmarktplatz>();
+		 
+		  try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, bez FROM Projektmarktplatz");
+		  
+		  while (rs.next()) {
+			  Projektmarktplatz p = new Projektmarktplatz();
+			  p.setID(rs.getInt("ID"));
+			  p.setBez(rs.getString("bez"));
+			  
+			  result.addElement(p);
+		  }
+		}
+		    catch (SQLException e2) {
+		        e2.printStackTrace();
+		      }
+		  return result;
+	}
+	
+	
 	public Projektmarktplatz addMarktplatz(Projektmarktplatz pmp){
+		
 		Connection con = DBConnection.connection();
 		
 		try {
@@ -58,7 +87,8 @@ public class ProjektmarktplatzMapper {
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Projektmarktplatz(ID , bez)" + "VALUES (" + pmp.getID() + "," + pmp.getBez() + ")");
+		    		stmt.executeUpdate("INSERT INTO Projektmarktplatz (ID , bez)" + "VALUES (" 
+		    		+ pmp.getID() + "," + "'" + pmp.getBez() + "'" +")");
 		    	  
 		      }
 		}
