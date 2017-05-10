@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.*;
 import java.util.*;
@@ -45,9 +46,15 @@ public class TestStart {
 //		
 //		System.out.println(p.findByKey(2));
 		
+		Person p1 = PersonMapper.perMapper().findByKey(2);
+		System.out.println(p1.getID());
+		System.out.println(p1.getAnrede());
+		System.out.println(p1.getAnschrift());
+		System.out.println(p1.getVorname());
+		System.out.println(p1.getNachname());
 		
-		Organisationseinheit orgeinheit1 = new Organisationseinheit();
-		orgeinheit1.
+		
+		
 	}
 
 }

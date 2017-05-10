@@ -1,6 +1,8 @@
 package de.hdm.ITProjekt.shared.bo;
 
 public class Team extends Organisationseinheit{
+
+	private static final long serialVersionUID = 1L;
 	private String name;
 	private int anzahlMitglieder;
 	private final static String orgeinheit = "Team"; 
