@@ -59,19 +59,11 @@ public class Projekt extends BusinessObject {
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
 	
-	public boolean equals(Object o) {
-
-	    if (o != null && o instanceof Projektmarktplatz) {
-	      Projektmarktplatz c = (Projektmarktplatz) o;
-	      try {
-	        return super.equals(c);
-	      }
-	      catch (IllegalArgumentException e) {
-	        return false;
-	      }
-	    }
-	    return false;
-	  }
+	
+	      
+	    
+	    
+	  
 
 
 }
