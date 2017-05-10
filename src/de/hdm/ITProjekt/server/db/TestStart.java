@@ -39,9 +39,9 @@ public class TestStart {
 		projekt.setEnddatum(enddatum);
 
 	
-		//p.addProjekt(projekt);
+		p.addProjekt(projekt);
 		
-		System.out.println(p.findByKey(1));
+		System.out.println(p.findByKey(2));
 	}
 
 }
