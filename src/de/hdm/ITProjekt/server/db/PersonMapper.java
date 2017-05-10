@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.Vector;
 
 import de.hdm.ITProjekt.shared.bo.Person;
-import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+
 
 public class PersonMapper {
 
@@ -32,7 +32,7 @@ public class PersonMapper {
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, anrede, vorname, nachname FROM organisationseinheit "
+			ResultSet rs = stmt.executeQuery("SELECT ID, anrede, vorname, nachname, anschrift FROM organisationseinheit "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
@@ -41,6 +41,7 @@ public class PersonMapper {
 				p.setAnrede(rs.getString("anrede"));
 				p.setVorname(rs.getString("vorname"));
 				p.setNachname(rs.getString("nachname"));
+				p.setAnschrift(rs.getString("anschrift"));
 				return p;
 			}
 		}
@@ -50,8 +51,11 @@ public class PersonMapper {
 		}
 		return null;	
 	}
-	
 
+	/*
+	 * Notiz von Mert: Nochmal drüber schauen und ausgeben lassen in TestStart!
+	 */
+	
 	public Vector<Person> getAll(){
 		
 		 Connection con = DBConnection.connection();
@@ -61,14 +65,16 @@ public class PersonMapper {
 		  try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, anrede, vorname, nachname FROM organisationseinheit");
+		      ResultSet rs = stmt.executeQuery("SELECT * FROM organisationseinheit");
 		  
 		  while (rs.next()) {
 			  Person p = new Person();
 			  p.setID(rs.getInt("ID"));
-			  p.setAnrede(rs.getString("bez"));
-			  
-			  result.addElement(p);
+			  p.setAnrede(rs.getString("anrede"));
+			  p.setVorname(rs.getString("vorname"));
+			  p.setNachname(rs.getString("nachname"));
+			  p.setAnschrift(rs.getString("anschrift"));
+			  result.add(p);
 		  }
 		}
 		    catch (SQLException e2) {
@@ -76,9 +82,8 @@ public class PersonMapper {
 		      }
 		  return result;
 	}
-	
-	
-	public Projektmarktplatz addMarktplatz(Projektmarktplatz pmp){
+
+	public void createPerson(Person person1){
 		
 		Connection con = DBConnection.connection();
 		
@@ -86,63 +91,66 @@ public class PersonMapper {
 		      Statement stmt = con.createStatement();
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM Projektmarktplatz ");
+		              + "FROM organisationseinheit ");
 		      
 		
 		      if(rs.next()){
 		    	  
-		    	  	pmp.setID(rs.getInt("maxid") + 1);
+		    	  	person1.setID(rs.getInt("maxid") + 1);
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Projektmarktplatz (ID , bez)" + "VALUES (" 
-		    		+ pmp.getID() + "," + "'" + pmp.getBez() + "'" +")");
+		    		stmt.executeUpdate("INSERT INTO organisationseinheit (ID , vorname, nachname, anrede, anschrift)" + "VALUES "
+		    				+ "("+  person1.getID()+ "," + "'" + person1.getVorname() + "'" + "," + "'" + 
+		    				person1.getNachname() + "'" + "," + "'"+person1.getAnrede()+"'"+"," + "'" + person1.getAnschrift()+ "'" +")");
+		    		
+		    		
 		    	  
 		      }
 		}
 		catch(SQLException e2){
 			e2.printStackTrace();
 		}
-		return pmp;
-		
 	}
+
+	public Person updatePerson(Person person1) {
+	    Connection con = DBConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      stmt.executeUpdate("UPDATE organisationseinheit SET " + "vorname=\""
+	          + person1.getVorname() + "\", " + "nachname=\""
+	          + person1.getNachname() + "\", " + "anrede=\"" + person1.getAnrede()+ "\", " + "anschrift=\"" + person1.getAnschrift()
+	          + "\" " + "WHERE id=" + person1.getID());
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
+
+	    return person1;
+	  }
 	
 	
-	public Projektmarktplatz updateMarktplatz(Projektmarktplatz p){
-		
-		Connection con = DBConnection.connection();
-		
-		try{
-			
-			Statement stmt = con.createStatement();
-			
-			stmt.executeUpdate(" UPDATE Projektmarktplatz " + "SET bez =\""
-								+ p.getBez() + "\" " + "WHERE ID= " + p.getID());
-		
-			}
-		catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-			
-		return p;
-	}
-	public Projektmarktplatz deleteMarktplatz(Projektmarktplatz p){
-		
-		Connection con = DBConnection.connection();
+	public void deletePerson(Person person1) {
+	    Connection con = DBConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+	      stmt.executeUpdate("DELETE FROM organisationseinheit " + "WHERE ID=" + person1.getID());
+
+	    }
+	    catch (SQLException e2) {
+	      e2.printStackTrace();
+	    }
 	
-		try{
-			
-			Statement stmt = con.createStatement();
-			
-			stmt.executeUpdate(" DELETE FROM Projektmarktplatz " +  "WHERE ID= " + p.getID());
-		
-			}
-		catch (SQLException e2) {
-			e2.printStackTrace();
-		}
-			
-		return p;
-	}
+	  
 	
 
+	
+
+	
+	}
 }
+
+

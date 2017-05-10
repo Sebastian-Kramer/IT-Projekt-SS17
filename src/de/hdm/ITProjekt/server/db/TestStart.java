@@ -46,15 +46,26 @@ public class TestStart {
 //		
 //		System.out.println(p.findByKey(2));
 		
-		Person p1 = PersonMapper.perMapper().findByKey(2);
-		System.out.println(p1.getID());
-		System.out.println(p1.getAnrede());
-		System.out.println(p1.getAnschrift());
-		System.out.println(p1.getVorname());
-		System.out.println(p1.getNachname());
+		/*
+		 * Test für PersonMapper Einzelaufruf über findbykey Methode
+		 */
+//		Person p1 = PersonMapper.perMapper().findByKey(1);
+//		System.out.println(p1.getID());
+//		System.out.println(p1.getAnrede());
+//		System.out.println(p1.getAnschrift());
+//		System.out.println(p1.getVorname());
+//		System.out.println(p1.getNachname());
+		
+		Person p1= new Person();
+		p1.setID(1);
+	
 		
 		
-		
-	}
+		PersonMapper.perMapper().deletePerson(p1);
 
+								
+		}
 }
+		
+	
+
