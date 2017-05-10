@@ -41,7 +41,7 @@ public class TestStart {
 	
 		p.addProjekt(projekt);
 		
-		System.out.println(p.findByKey(2));
+		System.out.println(p.findByKey(1));
 	}
 
 }
