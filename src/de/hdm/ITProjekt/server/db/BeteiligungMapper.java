@@ -59,7 +59,7 @@ public class BeteiligungMapper {
 		  try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID FROM Ausschreibung");
+		      ResultSet rs = stmt.executeQuery("SELECT ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID FROM Beteiligung");
 		  
 		  while (rs.next()) {
 			  	Beteiligung p = new Beteiligung();
@@ -88,7 +88,7 @@ public class BeteiligungMapper {
 		      Statement stmt = con.createStatement();
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM Ausschreibung ");
+		              + "FROM Beteiligung ");
 		      
 		
 		      if(rs.next()){
@@ -97,9 +97,11 @@ public class BeteiligungMapper {
 		   	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Beteiligung (ID , umfang, startdatum, enddatum, Projekt_ID, Orga_ID)" 
-		    		+ "VALUES (" + a.getID() + ", " + "'" + a.getUmfang() + "'" + ", " + date.format(a.getStartdatum()) + ", " + date.format(a.getEnddatum())
-		    		+ ", " + a.getProjekt_ID() + ", " + a.getOrga_ID()  +")"); 
+		    		stmt.executeUpdate("INSERT INTO Beteiligung (ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID)" 
+		    				+ "VALUES (" + a.getID() + ", " + "'" + a.getUmfang() + "'" 
+		    				+ ", " + "'" + date.format(a.getStartdatum()) + "'" 
+		    				+ ", " + "'" + date.format(a.getEnddatum()) + "'" 
+		    				+ ", " + a.getProjekt_ID() + ", " + a.getOrga_ID()  +")"); 
 		    	  
 		      }
 		}
