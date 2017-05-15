@@ -9,7 +9,7 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 public class BeteiligungMapper {
 	
-	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
 	private static BeteiligungMapper bMapper = null;
 	
@@ -99,8 +99,8 @@ public class BeteiligungMapper {
 		    	  	
 		    		stmt.executeUpdate("INSERT INTO Beteiligung (ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID)" 
 		    				+ "VALUES (" + a.getID() + ", " + "'" + a.getUmfang() + "'" 
-		    				+ ", " + "'" + date.format(a.getStartdatum()) + "'" 
-		    				+ ", " + "'" + date.format(a.getEnddatum()) + "'" 
+		    				+ ", " + "'" + format.format(a.getStartdatum()) + "'" 
+		    				+ ", " + "'" + format.format(a.getEnddatum()) + "'" 
 		    				+ ", " + a.getProjekt_ID() + ", " + a.getOrga_ID()  +")"); 
 		    	  
 		      }
@@ -135,8 +135,9 @@ public class BeteiligungMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE Beteiligung " + "SET umfang=\""
-	          + c.getUmfang() + "\" "+ "WHERE Beteiligung.ID = " + c.getID());
+	      stmt.executeUpdate("UPDATE Beteiligung " + "SET umfang='"
+	          + c.getUmfang() + "', enddatum= '" + format.format(c.getEnddatum())
+	    		  + "' WHERE Beteiligung.ID = " + c.getID());
 
 	    }
 	    catch (SQLException e) {
