@@ -53,7 +53,9 @@ public class Beteiligung extends BusinessObject {
 	
 	public String toString(){
 		return "\n" + "ID: " + ID + "\n" + "umfang: " + umfang + "\n"
-				+ "startdatum: " + startdatum + "\n" + "enddatum: " + enddatum;
+				+ "startdatum: " + startdatum + "\n" + "enddatum: " + enddatum
+				+ "\n" + "gehört zum Projekt: " + Projekt_ID + "\n" 
+				+ "Und wurde von folgender Person erstellt: " + Orga_ID;
 	}
 	
 	public boolean equals(Object o) {
