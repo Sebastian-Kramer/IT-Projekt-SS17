@@ -30,7 +30,7 @@ public class AusschreibungMapper {
 			
 			try{
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum FROM Ausschreibung "
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
 	          + "WHERE ID=" + id + " ORDER BY ID");
 				
 				if(rs.next()){
@@ -54,12 +54,12 @@ public class AusschreibungMapper {
 			 Connection con = DBConnection.connection();
 			 
 			
-		Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
 			 
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum FROM Ausschreibung");
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung");
 			  
 			  while (rs.next()) {
 				  	Ausschreibung p = new Ausschreibung();
@@ -67,6 +67,8 @@ public class AusschreibungMapper {
 					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					p.setBezeichnung(rs.getString("bezeichnung"));
 					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
 				  
 				  result.addElement(p);
 			  }
