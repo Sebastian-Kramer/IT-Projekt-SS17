@@ -12,6 +12,7 @@ public class Projekt extends BusinessObject {
 	private String beschreibung = "";
 	private Date startdatum;
 	private Date enddatum;
+	private int Projektmarktplatz_ID = 0;
 	
 	
 	public int getID() {
@@ -52,6 +53,14 @@ public class Projekt extends BusinessObject {
 
 	public void setEnddatum(Date enddatum) {
 		this.enddatum = enddatum;
+	}
+
+	public int getProjektmarktplatz_ID() {
+		return Projektmarktplatz_ID;
+	}
+
+	public void setProjektmarktplatz_ID(int projektmarktplatz_ID) {
+		Projektmarktplatz_ID = projektmarktplatz_ID;
 	}
 
 	public String toString(){
