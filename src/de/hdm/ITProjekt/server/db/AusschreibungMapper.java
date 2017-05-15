@@ -121,5 +121,23 @@ public class AusschreibungMapper {
 				}
 			}
 		
-		}
+		public Ausschreibung update(Ausschreibung c) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      stmt.executeUpdate("UPDATE Ausschreibung " + "SET ausschreibungstext=\""
+		          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\" "
+		          + "WHERE Ausschreibung.ID=" + c.getID());
+
+		    }
+		    catch (SQLException e) {
+		      e.printStackTrace();
+		    }
+
+		    return c;
+		  }
+		
+}
 
