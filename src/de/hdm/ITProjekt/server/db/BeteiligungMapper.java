@@ -136,8 +136,7 @@ public class BeteiligungMapper {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("UPDATE Beteiligung " + "SET umfang=\""
-	          + c.getUmfang() + "\", " + "enddatum=\"" + c.getEnddatum() + "\" "
-	          + "WHERE Beteiligung.ID=" + c.getID());
+	          + c.getUmfang() + "\" "+ "WHERE Beteiligung.ID = " + c.getID());
 
 	    }
 	    catch (SQLException e) {
