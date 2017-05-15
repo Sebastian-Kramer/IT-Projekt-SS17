@@ -34,16 +34,15 @@ public class OrganisationseinheitMapper {
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, anrede, vorname, nachname FROM Organisationseinheit "
+			ResultSet rs = stmt.executeQuery("SELECT ID, vorname, nachname, straße, hausnummer, plz, ort FROM Organisationseinheit "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
-				Person p = new Person();
-				p.setID(rs.getInt("ID"));
-				p.setAnrede(rs.getString("anrede"));
-				p.setVorname(rs.getString("vorname"));
-				p.setNachname(rs.getString("nachname"));
-				return p;
+				Organisationseinheit o = new Organisationseinheit();
+				o.setID(rs.getInt("ID"));
+				o.setVorname(rs.getString("vorname"));
+				o.setNachname(rs.getString("nachname"));
+				return o;
 			}
 		}
 		catch(SQLException e2){
