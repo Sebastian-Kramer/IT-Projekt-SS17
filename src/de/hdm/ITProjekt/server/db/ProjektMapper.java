@@ -1,13 +1,16 @@
 package de.hdm.ITProjekt.server.db;
 
-
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 
+import com.ibm.icu.text.SimpleDateFormat;
+
 public class ProjektMapper {
+	
+	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private static ProjektMapper pMapper = null;
 	
@@ -75,7 +78,7 @@ public class ProjektMapper {
 		  return result;
 	}
 	
-	public Projekt addProjekt(Projekt pmp){
+	public Projekt insert(Projekt pmp){
 		
 		Connection con = DBConnection.connection();
 		
@@ -92,9 +95,9 @@ public class ProjektMapper {
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Projekt (ID , name, beschreibung, startdatum, enddatum)" 
+		    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID)" 
 		    		+ "VALUES (" + pmp.getID() + "," + "'" + pmp.getName() + "'" + "," + "'" + pmp.getBeschreibung() 
-		    		+ "'" + pmp.getStartdatum()  +  pmp.getEnddatum() +")"); 
+		    		+ "'" + date.format(pmp.getStartdatum())  +  date.format(pmp.getEnddatum()) + pmp.getProjektmarktplatz_ID() +")"); 
 		    	  
 		      }
 		}
@@ -104,6 +107,41 @@ public class ProjektMapper {
 		return pmp;
 		
 	}
+	
+	public void delete(Projekt a){
+		
+		Connection con = DBConnection.connection();
+		
+		try {
+		      Statement stmt = con.createStatement();
+
+		      stmt.executeUpdate("DELETE FROM Projekt " 
+		    		  			+ "WHERE Projekt.ID = " + a.getID());
+			}
+		
+		catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+		}
+	
+	public Projekt update(Projekt c) {
+	    Connection con = DBConnection.connection();
+
+	    try {
+	      Statement stmt = con.createStatement();
+
+	      stmt.executeUpdate("UPDATE Projekt " + "SET name=\""
+	          + c.getName() + "\", " + "beschreibung=\"" + c.getBeschreibung() + "\" "
+	          + "startdatum=\"" + date.format(c.getStartdatum()) + "\" "+ "enddatum=\"" + date.format(c.getBeschreibung()) + "\" "
+	          + "WHERE Projekt.ID=" + c.getID());
+
+	    }
+	    catch (SQLException e) {
+	      e.printStackTrace();
+	    }
+
+	    return c;
+	  }
 }
 
 
