@@ -39,6 +39,8 @@ public class AusschreibungMapper {
 					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					p.setBezeichnung(rs.getString("bezeichnung"));
 					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
 					return p;
 				}
 			}
