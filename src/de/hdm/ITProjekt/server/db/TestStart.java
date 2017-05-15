@@ -19,10 +19,10 @@ public class TestStart {
 	public static void main(String[] args) throws ParseException {
 		
 //		ProjektmarktplatzMapper t1 = ProjektmarktplatzMapper.pmpMapper();
-//		ProjektMapper p = ProjektMapper.pMapper();
+
 //		
 //		Projektmarktplatz p1 = new Projektmarktplatz();
-//		Projekt projekt =  new Projekt();
+
 //		
 		
 //		/* Test Methodenaufrufe:
@@ -33,10 +33,7 @@ public class TestStart {
 //			t1.deleteMarktplatz(p1);
 //		*/
 //
-//		projekt.setName("test");
-//		projekt.setBeschreibung("test");
-//		projekt.setStartdatum(startdatum);
-//		projekt.setEnddatum(enddatum);
+
 //
 //	
 //		p.addProjekt(projekt);
@@ -53,20 +50,34 @@ public class TestStart {
 //		System.out.println(p1.getVorname());
 //		System.out.println(p1.getNachname());
 		
-		String inputDate = "2017-08-01";
-		SimpleDateFormat format =
-                new SimpleDateFormat("yyyy-MM-dd");
-		Date date = format.parse(inputDate);
+		String start 	= "2017-08-01";
+		String end 		= "2017-12-31";
 		
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		Date startdate 	= format.parse(start);
+		Date enddate	= format.parse(end);
+		
+		/*Test mit Beteiligung
 		BeteiligungMapper b = BeteiligungMapper.bMapper();
-		
 		Beteiligung b1 = new Beteiligung();
 		b1.setID(1);
 		b1.setUmfang("Das ist ein Test zum ändern des Inhalts");
-		b1.setEnddatum(date);
-		b.update(b1);
+		b1.setEnddatum(enddate);
+		b.update(b1);*/
 		
-		System.out.println(b.getAll());
+		//Test mit Projekt
+		ProjektMapper p = ProjektMapper.pMapper();
+		Projekt pmp =  new Projekt();
+		
+		pmp.setName("test");
+		pmp.setBeschreibung("test");
+		pmp.setStartdatum(startdate);
+		pmp.setEnddatum(enddate);
+		pmp.setProjektmarktplatz_ID(1);
+		
+		p.insert(pmp);
+		
+		System.out.println(p.getAll());
 						
 		}
 }
