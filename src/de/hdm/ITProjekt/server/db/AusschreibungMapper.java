@@ -5,8 +5,11 @@ import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 
+import com.ibm.icu.text.SimpleDateFormat;
+
 public class AusschreibungMapper {
 	
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
 		private static AusschreibungMapper aMapper = null;
 		
@@ -27,8 +30,8 @@ public class AusschreibungMapper {
 			
 			try{
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT ID, bez FROM Projektmarktplatz "
-	          + "WHERE ID=" + id + " ORDER BY bez");
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum FROM Ausschreibung "
+	          + "WHERE ID=" + id + " ORDER BY ID");
 				
 				if(rs.next()){
 					Ausschreibung p = new Ausschreibung();
@@ -45,6 +48,7 @@ public class AusschreibungMapper {
 			}
 			return null;	
 		}
+		
 		public Vector<Ausschreibung> getAll(){
 			
 			 Connection con = DBConnection.connection();
@@ -88,21 +92,21 @@ public class AusschreibungMapper {
 			      if(rs.next()){
 			    	  
 			    	  	a.setID(rs.getInt("maxid") + 1);
-			    	  
+			   	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum)" 
-			    		+ "VALUES (" + a.getID() + "," + "'" + a.getAusschreibungstext() + "'" + "," + "'" + a.getBezeichnung() 
-			    		+ "'" + "," + a.getDatum()  +")"); 
+			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID)" 
+			    		+ "VALUES (" + a.getID() + ", " + "'" + a.getAusschreibungstext() + "'" + ", " + "'" + a.getBezeichnung() 
+			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID()  +")"); 
 			    	  
 			      }
 			}
 			catch(SQLException e2){
 				e2.printStackTrace();
 			}
-			return a;
-			
+			return a;		
 		}
+		
 		
 		public void deleteAusschreibung(Ausschreibung a){
 			
