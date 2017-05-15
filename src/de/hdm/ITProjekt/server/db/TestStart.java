@@ -60,11 +60,8 @@ public class TestStart {
 		
 		BeteiligungMapper b = BeteiligungMapper.bMapper();
 		
-		Beteiligung b1 = new Beteiligung();
-		
-		System.out.println(b.findByKey(1));
-
-								
+		System.out.println(b.getAll());
+						
 		}
 }
 		
