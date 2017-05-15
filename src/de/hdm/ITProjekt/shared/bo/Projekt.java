@@ -61,8 +61,8 @@ public class Projekt extends BusinessObject {
 	
 	public boolean equals(Object o) {
 
-	    if (o != null && o instanceof Projektmarktplatz) {
-	      Projektmarktplatz c = (Projektmarktplatz) o;
+	    if (o != null && o instanceof Projekt) {
+	      Projekt c = (Projekt) o;
 	      try {
 	        return super.equals(c);
 	      }
