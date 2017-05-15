@@ -64,7 +64,7 @@ public class Projekt extends BusinessObject {
 	}
 
 	public String toString(){
-		return "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
+		return "\n" + "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
 	
