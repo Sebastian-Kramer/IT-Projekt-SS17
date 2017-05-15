@@ -24,12 +24,7 @@ public class TestStart {
 //		Projektmarktplatz p1 = new Projektmarktplatz();
 //		Projekt projekt =  new Projekt();
 //		
-//		
-//		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-//		Date startdatum = date.parse("2017-01-01");
-//		Date enddatum = date.parse("2017-12-31");
-//		
-//		
+		
 //		/* Test Methodenaufrufe:
 //		 	p1.setBez("Vertrieb");
 //			t1.addMarktplatz(p1);		
@@ -58,7 +53,18 @@ public class TestStart {
 //		System.out.println(p1.getVorname());
 //		System.out.println(p1.getNachname());
 		
+		String inputDate = "2017-08-01";
+		SimpleDateFormat format =
+                new SimpleDateFormat("yyyy-MM-dd");
+		Date date = format.parse(inputDate);
+		
 		BeteiligungMapper b = BeteiligungMapper.bMapper();
+		
+		Beteiligung b1 = new Beteiligung();
+		b1.setID(1);
+		b1.setUmfang("Das ist ein Test zum ändern des Inhalts");
+		//b1.setEnddatum(date);
+		b.update(b1);
 		
 		System.out.println(b.getAll());
 						
