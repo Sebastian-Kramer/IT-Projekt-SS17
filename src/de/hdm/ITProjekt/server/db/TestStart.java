@@ -2,6 +2,7 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
@@ -47,7 +48,7 @@ public class TestStart {
 //		System.out.println(p.findByKey(2));
 		
 		/*
-		 * Test für PersonMapper Einzelaufruf über findbykey Methode
+		 * Test fï¿½r PersonMapper Einzelaufruf ï¿½ber findbykey Methode
 		 */
 //		Person p1 = PersonMapper.perMapper().findByKey(1);
 //		System.out.println(p1.getID());
@@ -56,12 +57,10 @@ public class TestStart {
 //		System.out.println(p1.getVorname());
 //		System.out.println(p1.getNachname());
 		
-		Person p1= new Person();
-		p1.setID(1);
+		AusschreibungMapper a1= AusschreibungMapper.aMapper();
 	
 		
-		
-		PersonMapper.perMapper().deletePerson(p1);
+		System.out.println(a1.getAll());
 
 								
 		}
