@@ -63,7 +63,7 @@ public class TestStart {
 		Beteiligung b1 = new Beteiligung();
 		b1.setID(1);
 		b1.setUmfang("Das ist ein Test zum ändern des Inhalts");
-		//b1.setEnddatum(date);
+		b1.setEnddatum(date);
 		b.update(b1);
 		
 		System.out.println(b.getAll());
