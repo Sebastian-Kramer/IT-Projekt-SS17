@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
@@ -57,21 +58,11 @@ public class TestStart {
 //		System.out.println(p1.getVorname());
 //		System.out.println(p1.getNachname());
 		
-		AusschreibungMapper a1= AusschreibungMapper.aMapper();
+		BeteiligungMapper b = BeteiligungMapper.bMapper();
 		
-		Ausschreibung a2 = new Ausschreibung();
+		Beteiligung b1 = new Beteiligung();
 		
-		
-		
-		a2.setAusschreibungstext("Wir benötigen einen Programmierer");
-		a2.setBezeichnung("Test");
-		a2.setDatum(new Date());
-		a2.setProjekt_ID(1);
-		a2.setOrga_ID(1);
-		
-		a1.addAusschreibung(a2);
-		
-		System.out.println(a1.getAll());
+		System.out.println(b.findByKey(1));
 
 								
 		}
