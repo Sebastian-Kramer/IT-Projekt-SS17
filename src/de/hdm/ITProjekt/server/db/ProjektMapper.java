@@ -10,7 +10,7 @@ import com.ibm.icu.text.SimpleDateFormat;
 
 public class ProjektMapper {
 	
-	SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 	
 	private static ProjektMapper pMapper = null;
 	
@@ -59,7 +59,7 @@ public class ProjektMapper {
 		  try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum FROM Projektmarktplatz");
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM Projekt");
 		  
 		  while (rs.next()) {
 			  	Projekt p = new Projekt();
@@ -68,6 +68,7 @@ public class ProjektMapper {
 				p.setBeschreibung(rs.getString("beschreibung"));
 				p.setStartdatum(rs.getDate("startdatum"));
 				p.setEnddatum(rs.getDate("enddatum"));
+				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
 			  
 			  result.addElement(p);
 		  }
@@ -87,8 +88,7 @@ public class ProjektMapper {
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
 		              + "FROM Projekt ");
-		      
-		
+		     	
 		      if(rs.next()){
 		    	  
 		    	  	pmp.setID(rs.getInt("maxid") + 1);
@@ -97,7 +97,9 @@ public class ProjektMapper {
 		    	  	
 		    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID)" 
 		    		+ "VALUES (" + pmp.getID() + "," + "'" + pmp.getName() + "'" + "," + "'" + pmp.getBeschreibung() 
-		    		+ "'" + date.format(pmp.getStartdatum())  +  date.format(pmp.getEnddatum()) + pmp.getProjektmarktplatz_ID() +")"); 
+		    		+ "'" + "," + "'" + format.format(pmp.getStartdatum()) + "'" 
+    				+ "," + "'" + format.format(pmp.getEnddatum()) + "'" 
+    				+ ", " + pmp.getProjektmarktplatz_ID() + ")"); 
 		    	  
 		      }
 		}
@@ -130,10 +132,11 @@ public class ProjektMapper {
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE Projekt " + "SET name=\""
-	          + c.getName() + "\", " + "beschreibung=\"" + c.getBeschreibung() + "\" "
-	          + "startdatum=\"" + date.format(c.getStartdatum()) + "\" "+ "enddatum=\"" + date.format(c.getBeschreibung()) + "\" "
-	          + "WHERE Projekt.ID=" + c.getID());
+	      stmt.executeUpdate("UPDATE Projekt " + "SET name='"
+	          + c.getName() + "', beschreibung='" + c.getBeschreibung() + "', startdatum='" 
+	          + format.format(c.getStartdatum()) + "', enddatum= '" 
+	          + format.format(c.getEnddatum()) 
+	          + "'WHERE Projekt.ID=" + c.getID());
 
 	    }
 	    catch (SQLException e) {
