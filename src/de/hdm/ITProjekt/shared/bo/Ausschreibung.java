@@ -39,11 +39,6 @@ public class Ausschreibung extends BusinessObject {
 		this.datum = datum;
 	}
 	
-	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
-				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
-	}
-	
 	public int getProjekt_ID() {
 		return Projekt_ID;
 	}
@@ -56,6 +51,12 @@ public class Ausschreibung extends BusinessObject {
 	public void setOrga_ID(int orga_ID) {
 		Orga_ID = orga_ID;
 	}
+	
+	public String toString(){
+		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
+				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
+	}
+	
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Ausschreibung) {
