@@ -24,8 +24,8 @@ public class TestStart {
 //		Projekt projekt =  new Projekt();
 //		
 //		
-//		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-//		Date startdatum = date.parse("2017-01-01");
+		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+		Date startdatum = date.parse("2017-01-01");
 //		Date enddatum = date.parse("2017-12-31");
 //		
 //		
@@ -58,7 +58,15 @@ public class TestStart {
 //		System.out.println(p1.getNachname());
 		
 		AusschreibungMapper a1= AusschreibungMapper.aMapper();
-	
+		
+		Ausschreibung a2 = new Ausschreibung();
+		
+		a2.setID(1);
+		a2.setAusschreibungstext("Wir benötigen einen Programmierer");
+		a2.setBezeichnung("Test");
+		a2.setDatum(startdatum);
+		
+		a1.addAusschreibung(a2);
 		
 		System.out.println(a1.getAll());
 
