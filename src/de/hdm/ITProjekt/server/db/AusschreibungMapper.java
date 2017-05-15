@@ -55,11 +55,14 @@ public class AusschreibungMapper {
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT ID FROM Ausschreibung");
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum FROM Ausschreibung");
 			  
 			  while (rs.next()) {
 				  	Ausschreibung p = new Ausschreibung();
 				  	p.setID(rs.getInt("ID"));
+					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					p.setBezeichnung(rs.getString("bezeichnung"));
+					p.setDatum(rs.getDate("datum"));
 				  
 				  result.addElement(p);
 			  }
@@ -100,6 +103,7 @@ public class AusschreibungMapper {
 			return a;
 			
 		}
+		
 		
 		
 
