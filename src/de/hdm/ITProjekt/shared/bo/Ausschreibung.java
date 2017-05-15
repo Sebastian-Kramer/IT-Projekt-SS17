@@ -9,7 +9,9 @@ public class Ausschreibung extends BusinessObject {
 	private int ID = 0; 
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
-	private Date datum;
+	private Date datum = null;
+	private int Projekt_ID = 0;
+	private int Orga_ID = 0;
 	
 	
 	public int getID() {
@@ -42,6 +44,18 @@ public class Ausschreibung extends BusinessObject {
 				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
 	}
 	
+	public int getProjekt_ID() {
+		return Projekt_ID;
+	}
+	public void setProjekt_ID(int projekt_ID) {
+		Projekt_ID = projekt_ID;
+	}
+	public int getOrga_ID() {
+		return Orga_ID;
+	}
+	public void setOrga_ID(int orga_ID) {
+		Orga_ID = orga_ID;
+	}
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Ausschreibung) {
