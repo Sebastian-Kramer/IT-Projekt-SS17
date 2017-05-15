@@ -93,7 +93,7 @@ public class AusschreibungMapper {
 			    	  	
 			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum)" 
 			    		+ "VALUES (" + a.getID() + "," + "'" + a.getAusschreibungstext() + "'" + "," + "'" + a.getBezeichnung() 
-			    		+ "'" + a.getDatum()  +")"); 
+			    		+ "'" + "," + a.getDatum()  +")"); 
 			    	  
 			      }
 			}
@@ -104,7 +104,22 @@ public class AusschreibungMapper {
 			
 		}
 		
-		
-		
+		public void deleteAusschreibung(Ausschreibung a){
+			
+			Connection con = DBConnection.connection();
+			
+			try {
+			      Statement stmt = con.createStatement();
 
-}
+			      stmt.executeUpdate("DELETE FROM Ausschreibung " 
+			    		  			+ "WHERE Ausschreibung.ID = " + a.getID());
+
+				}
+			
+			catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+		
+		}
+
