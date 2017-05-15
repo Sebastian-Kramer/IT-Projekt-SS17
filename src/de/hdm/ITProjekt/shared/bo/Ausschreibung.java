@@ -38,7 +38,7 @@ public class Ausschreibung extends BusinessObject {
 	}
 	
 	public String toString(){
-		return "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
+		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
 				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
 	}
 	
