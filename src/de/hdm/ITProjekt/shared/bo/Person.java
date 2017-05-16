@@ -27,6 +27,7 @@ public class Person extends Organisationseinheit{
 	}
 	
 	
+	
 	public String getVorname() {
 		return vorname;
 	}
