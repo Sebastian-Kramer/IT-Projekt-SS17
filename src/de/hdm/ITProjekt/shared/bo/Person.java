@@ -1,12 +1,14 @@
 package de.hdm.ITProjekt.shared.bo;
 
 public class Person extends Organisationseinheit{
+	
 	private static final long serialVersionUID = 1L;
-	private String vorname;
-	private String nachname;
-	private String anrede;
+	private String vorname = "";
+	private String nachname = "";
+	private String anrede = "";
+	private String anschrift = "";
 	private int ID = 0;
-	private final static String orgeinheit = "Person"; 
+	private int Orga_ID = 0; 
 	
 	public Person(){
 	}
@@ -43,9 +45,19 @@ public class Person extends Organisationseinheit{
 	public void setAnrede(String anrede) {
 		this.anrede = anrede;
 	}
-	public static String getOrgeinheit() {
-		return orgeinheit;
+	public String getAnschrift() {
+		return anschrift;
 	}
+	public void setAnschrift(String anschrift) {
+		this.anschrift = anschrift;
+	}
+	public int getOrga_ID() {
+		return Orga_ID;
+	}
+	public void setOrga_ID(int orga_ID) {
+		Orga_ID = orga_ID;
+	}
+
 	
 
 }
