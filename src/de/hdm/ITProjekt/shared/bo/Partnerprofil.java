@@ -12,13 +12,14 @@ import java.util.Vector;
  * Es wurden nur die Attribute, Vector, Konstruktor und Getter/Setter eingefügt.
  * 
  */
-public class Partnerprofil {
+public class Partnerprofil extends BusinessObject{
 	private Date erstellungsdatum;
 	private Date aenderungsdatum;
 	private String arbeitsgebiet;
 	private int berufserfahrungsJahre;
+	private static final long serialVersionUID = 1L;
 	
-	Vector p1 = new Vector();
+	
 	
 	public Partnerprofil(){
 	}

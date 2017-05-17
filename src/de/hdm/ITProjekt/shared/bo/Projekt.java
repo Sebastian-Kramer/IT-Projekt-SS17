@@ -12,6 +12,7 @@ public class Projekt extends BusinessObject {
 	private String beschreibung = "";
 	private Date startdatum;
 	private Date enddatum;
+	private int Projektmarktplatz_ID = 0;
 	
 	
 	public int getID() {
@@ -54,16 +55,39 @@ public class Projekt extends BusinessObject {
 		this.enddatum = enddatum;
 	}
 
+	public int getProjektmarktplatz_ID() {
+		return Projektmarktplatz_ID;
+	}
+
+	public void setProjektmarktplatz_ID(int projektmarktplatz_ID) {
+		Projektmarktplatz_ID = projektmarktplatz_ID;
+	}
+
 	public String toString(){
-		return "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
+		return "\n" + "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
-	
+
 	
 	      
 	    
 	    
 	  
+
+	public boolean equals(Object o) {
+
+	    if (o != null && o instanceof Projekt) {
+	      Projekt c = (Projekt) o;
+	      try {
+	        return super.equals(c);
+	      }
+	      catch (IllegalArgumentException e) {
+	        return false;
+	      }
+	    }
+	    return false;
+	  }
+
 
 
 }
