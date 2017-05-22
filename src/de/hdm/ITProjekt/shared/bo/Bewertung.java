@@ -7,12 +7,10 @@ public class Bewertung extends BusinessObject {
 	
 	private int ID = 0;
 	private String stellungnahme = "";
-	private double bewertung = 0;
+	private double bewertung = 0.0;
 	//private Date erstellungsdatum;
 	private int Beteiligungs_ID = 0;
 	private int Bewerbungs_ID = 0;
-	
-	
 	
 	
 	public int getID() {
