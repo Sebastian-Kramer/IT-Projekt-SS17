@@ -41,6 +41,7 @@ public Bewertung findByKey(int id){
 				Bewertung p = new Bewertung();
 				p.setID(rs.getInt("ID"));
 				p.setStellungnahme(rs.getString("stellungnahme"));
+				p.setBewertung(rs.getDouble("bewertung"));
 				p.setBeteiligungs_ID(rs.getInt("Beteiligungs_ID"));
 				p.setBewerbungs_ID(rs.getInt("Bewerbungs_ID"));
 				return p;
@@ -62,16 +63,18 @@ public Vector<Bewertung> getAll(){
 	  try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ID, text, wert, erstellungsdatum FROM Bewertung");
+	      ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM Bewertung ");
 	  
 	  while (rs.next()) {
-		  	Bewertung bew = new Bewertung();
-			bew.setId(rs.getInt("ID"));
-			bew.setText(rs.getString("text"));
-			bew.setWert(rs.getDouble("wert"));
-			bew.setErstellungsdatum(rs.getDate("erstellungsdatum"));
+		  	
+		  	Bewertung p = new Bewertung();
+			p.setID(rs.getInt("ID"));
+			p.setStellungnahme(rs.getString("stellungnahme"));
+			p.setBewertung(rs.getDouble("bewertung"));
+			p.setBeteiligungs_ID(rs.getInt("Beteiligungs_ID"));
+			p.setBewerbungs_ID(rs.getInt("Bewerbungs_ID"));
 		  
-		  result.addElement(bew);
+		  result.addElement(p);
 	  }
 	}
 	    catch (SQLException e2) {
@@ -97,9 +100,9 @@ public Bewertung insert(Bewertung bew){
 	   	  
 	    	  	stmt = con.createStatement();
 	    	  	
-	    		stmt.executeUpdate("INSERT INTO Bewertung (ID, text, wert, erstellungsdatum)" 
-	    				+ "VALUES (" + bew.getId() + ", " + "'" + bew.getText() + "'" 
-	    				+ ", " + bew.getWert() + ", "+ "'" + format.format(bew.getErstellungsdatum()) + "'" 
+	    		stmt.executeUpdate("INSERT INTO Bewertung (ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID)" 
+	    				+ "VALUES (" + bew.getId() + ", " + "'" + bew.getStellungnahme() + "'" 
+	    				+ ", " + bew.getBewertung() + ", " + bew.getBeteiligungs_ID() + ", " + bew.getBewerbungs_ID()
 	    				+")"); 
 	    	  
 	      }
@@ -126,22 +129,21 @@ public void delete(Bewertung bew){
 			e2.printStackTrace();
 		}
 }
-	public Bewertung update(Bewertung c) {
+	public Bewertung update(Bewertung bewe) {
 	    Connection con = DBConnection.connection();
 
 	    try {
 	      Statement stmt = con.createStatement();
 
-	      stmt.executeUpdate("UPDATE Bewertung " + "SET text='"
-	          + c.getText() +  "SET wert='" + c.getWert() +"', wert= '" + format.format(c.getErstellungsdatum())
-	    		  + "' WHERE Bewertung.ID = " + c.getId());
+	      stmt.executeUpdate("UPDATE Bewertung " + "SET stellungnahme='"
+	          + bewe.getStellungnahme() + "'" +   "SET bewertung=" + bewe.getBewertung());
 
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();
 	    }
 
-	    return c;
+	    return bewe;
 	  }
 	}
 
