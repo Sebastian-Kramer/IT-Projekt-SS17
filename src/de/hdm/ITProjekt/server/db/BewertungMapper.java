@@ -1,28 +1,31 @@
 package de.hdm.ITProjekt.server.db;
 
+import de.hdm.ITProjekt.shared.bo.Bewertung;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-import de.hdm.ITProjekt.shared.bo.Bewertung;
+
 import com.ibm.icu.text.SimpleDateFormat;
 
 public class BewertungMapper {
 
+	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
-	private static BewertungMapper bewMapper = null;
+	private static BewertungMapper beweMapper = null;
 	
 	protected BewertungMapper(){
 		
 	}
 	
-	public static BewertungMapper bewMapper(){
-		if(bewMapper == null){
-			bewMapper = new BewertungMapper();
+	public static BewertungMapper beweMapper(){
+		if(beweMapper == null){
+			beweMapper = new BewertungMapper();
 		}
-		return bewMapper;
+		return beweMapper;
 	}
 	
 public Bewertung findByKey(int id){
@@ -31,16 +34,16 @@ public Bewertung findByKey(int id){
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, text, wert, erstellungsdatum FROM Bewertung "
+			ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM Bewertung "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
-				Bewertung bew = new Bewertung();
-				bew.setId(rs.getInt("ID"));
-				bew.setText(rs.getString("text"));
-				bew.setWert(rs.getDouble("wert"));
-				bew.setErstellungsdatum(rs.getDate("erstellungsdatum"));
-				return bew;
+				Bewertung p = new Bewertung();
+				p.setID(rs.getInt("ID"));
+				p.setStellungnahme(rs.getString("stellungnahme"));
+				p.setBeteiligungs_ID(rs.getInt("Beteiligungs_ID"));
+				p.setBewerbungs_ID(rs.getInt("Bewerbungs_ID"));
+				return p;
 			}
 		}
 		catch(SQLException e2){
