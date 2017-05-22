@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
 import de.hdm.ITProjekt.server.db.BewerbungMapper;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
@@ -69,15 +70,17 @@ public class TestStart {
 		b.update(b1);*/
 		
 		//Test mit Projekt
-		BewerbungMapper b = BewerbungMapper.bewMapper();
-		Bewerbung b1 =  new Bewerbung();
+		BewertungMapper bewe = BewertungMapper.beweMapper();
+		Bewertung b1 = new Bewertung();
 		
+		b1.setStellungnahme("test");
+		b1.setBewertung(1.0);
 
-		b1.setID(2);
+
 		
-		b.delete(b1);
+		bewe.insert(b1);
 		
-		System.out.println(b.getAll());
+		System.out.println(bewe.getAll());
 	}
 }
 		
