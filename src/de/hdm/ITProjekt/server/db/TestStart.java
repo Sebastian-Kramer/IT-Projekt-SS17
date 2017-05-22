@@ -1,12 +1,15 @@
 package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
+import de.hdm.ITProjekt.server.db.BewerbungMapper;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
+
 import de.hdm.ITProjekt.*;
 import java.util.*;
 import java.text.*;
@@ -50,7 +53,7 @@ public class TestStart {
 //		System.out.println(p1.getVorname());
 //		System.out.println(p1.getNachname());
 		
-		String start 	= "2017-08-01";
+		String start 	= "2017-05-25";
 		String end 		= "2017-12-31";
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -66,17 +69,15 @@ public class TestStart {
 		b.update(b1);*/
 		
 		//Test mit Projekt
-		ProjektMapper p = ProjektMapper.pMapper();
-		Projekt pmp =  new Projekt();
+		BewerbungMapper b = BewerbungMapper.bewMapper();
+		Bewerbung b1 =  new Bewerbung();
 		
-		pmp.setName("test");
-		pmp.setBeschreibung("test");
-		pmp.setStartdatum(startdate);
-		pmp.setEnddatum(enddate);
-		pmp.setProjektmarktplatz_ID(1);
+
+		b1.setID(2);
 		
-		p.insert(pmp);
+		b.delete(b1);
 		
+		System.out.println(b.getAll());
 	}
 }
 		
