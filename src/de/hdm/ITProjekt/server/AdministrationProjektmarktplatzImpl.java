@@ -1,4 +1,4 @@
-package de.hdm.ITProjekt.server.server;
+package de.hdm.ITProjekt.server;
 
 import java.util.ArrayList;
 import java.util.Vector;
