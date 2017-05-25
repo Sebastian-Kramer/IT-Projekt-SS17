@@ -3,6 +3,8 @@ package de.hdm.ITProjekt.server;
 import java.util.ArrayList;
 import java.util.Vector;
 
+import org.mortbay.log.Log;
+
 import de.hdm.ITProjekt.server.db.*;
 import de.hdm.ITProjekt.shared.*;
 import de.hdm.ITProjekt.shared.bo.*;
@@ -20,12 +22,14 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	@Override
 	public Projektmarktplatz createProjektmarktplatz(String bez) throws IllegalArgumentException {
-		Projektmarktplatz p = new Projektmarktplatz();
-		p.setBez(bez);
-		
-		p.setId(1); //Setzen einer vorläufigen ID
-		
-		return this.pmpMapper.addMarktplatz(p);   //Projektmarktplatz-Onjekt in Datenbank speichern
+//		Log.info("start");
+		return null;
+//		Projektmarktplatz p = new Projektmarktplatz();
+//		p.setBez(bez);
+//		
+//		p.setId(1); //Setzen einer vorläufigen ID
+//		
+//		return this.pmpMapper.addMarktplatz(p);   //Projektmarktplatz-Onjekt in Datenbank speichern
 		
 		
 	}

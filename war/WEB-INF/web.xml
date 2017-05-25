@@ -7,15 +7,16 @@
 
   <!-- Servlets -->
   <servlet>
-    <servlet-name>greetServlet</servlet-name>
-    <servlet-class>de.hdm.ITProjekt.server.GreetingServiceImpl</servlet-class>
-  </servlet>
-  
-  <servlet-mapping>
-    <servlet-name>greetServlet</servlet-name>
-    <url-pattern>/it_projekt_ss17/greet</url-pattern>
-  </servlet-mapping>
-  
+  <servlet-name>AdministrationProjektmarktplatzImpl</servlet-name>
+  <servlet-class>
+    de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl
+  </servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>AdministrationProjektmarktplatzImpl</servlet-name>
+  <url-pattern>AdministrationProjektmarktplatz</url-pattern>
+</servlet-mapping>
+    
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>IT_Projekt_SS17.html</welcome-file>

@@ -8,7 +8,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.ITProjekt.shared.bo.*;
 
 
-@RemoteServiceRelativePath("administrationProjektmarktplatz")
+@RemoteServiceRelativePath("AdministrationProjektmarktplatz")
 public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void init() throws IllegalArgumentException; //Initialisierung des Objekts, muss nach Instantiierung aufgerufen werden

@@ -6,7 +6,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.ITProjekt.shared.CommonSettings;
-import de.hdm.thies.bankProjekt.shared.*;
+//import de.hdm.thies.bankProjekt.shared.*;
 
 /**
  * Klasse mit Eigenschaften und Diensten, die für alle Client-seitigen Klassen
@@ -17,30 +17,30 @@ import de.hdm.thies.bankProjekt.shared.*;
  * @since 28.02.2012
  * 
  */
-public class ClientsideSettings extends CommonSettings {
+//public class ClientsideSettings extends CommonSettings {
 
   /**
    * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitgen Dienst
    * namens <code>BankAdministration</code>.
    */
 
-  private static BankAdministrationAsync bankVerwaltung = null;
+//  private static BankAdministrationAsync bankVerwaltung = null;
 
   /**
    * Remote Service Proxy zur Verbindungsaufnahme mit dem Server-seitgen Dienst
    * namens <code>ReportGenerator</code>.
    */
-  private static ReportGeneratorAsync reportGenerator = null;
+//  private static ReportGeneratorAsync reportGenerator = null;
 
   /**
    * Name des Client-seitigen Loggers.
    */
-  private static final String LOGGER_NAME = "BankProjekt Web Client";
+//  private static final String LOGGER_NAME = "BankProjekt Web Client";
   
   /**
    * Instanz des Client-seitigen Loggers.
    */
-  private static final Logger log = Logger.getLogger(LOGGER_NAME);
+//  private static final Logger log = Logger.getLogger(LOGGER_NAME);
 
   /**
    * <p>
@@ -89,9 +89,9 @@ public class ClientsideSettings extends CommonSettings {
    * 
    * @return die Logger-Instanz für die Server-Seite
    */
-  public static Logger getLogger() {
-    return log;
-  }
+//  public static Logger getLogger() {
+//    return log;
+//  }
 
   /**
    * <p>
@@ -111,16 +111,16 @@ public class ClientsideSettings extends CommonSettings {
    * @author Peter Thies
    * @since 28.02.2012
    */
-  public static BankAdministrationAsync getBankVerwaltung() {
-    // Gab es bislang noch keine BankAdministration-Instanz, dann...
-    if (bankVerwaltung == null) {
-      // Zunächst instantiieren wir BankAdministration
-      bankVerwaltung = GWT.create(BankAdministration.class);
-    }
+//  public static BankAdministrationAsync getBankVerwaltung() {
+//    // Gab es bislang noch keine BankAdministration-Instanz, dann...
+//    if (bankVerwaltung == null) {
+//      // Zunächst instantiieren wir BankAdministration
+//      bankVerwaltung = GWT.create(BankAdministration.class);
+//    }
 
     // So, nun brauchen wir die BankAdministration nur noch zurückzugeben.
-    return bankVerwaltung;
-  }
+//    return bankVerwaltung;
+//  }
 
   /**
    * <p>
@@ -140,31 +140,31 @@ public class ClientsideSettings extends CommonSettings {
    * @author Peter Thies
    * @since 28.02.2012
    */
-  public static ReportGeneratorAsync getReportGenerator() {
-    // Gab es bislang noch keine ReportGenerator-Instanz, dann...
-    if (reportGenerator == null) {
-      // Zunächst instantiieren wir ReportGenerator
-      reportGenerator = GWT.create(ReportGenerator.class);
+//  public static ReportGeneratorAsync getReportGenerator() {
+//    // Gab es bislang noch keine ReportGenerator-Instanz, dann...
+//    if (reportGenerator == null) {
+//      // Zunächst instantiieren wir ReportGenerator
+//      reportGenerator = GWT.create(ReportGenerator.class);
 
-      final AsyncCallback<Void> initReportGeneratorCallback = new AsyncCallback<Void>() {
-        @Override
-		public void onFailure(Throwable caught) {
-          ClientsideSettings.getLogger().severe(
-              "Der ReportGenerator konnte nicht initialisiert werden!");
-        }
+//      final AsyncCallback<Void> initReportGeneratorCallback = new AsyncCallback<Void>() {
+//        @Override
+//		public void onFailure(Throwable caught) {
+//          ClientsideSettings.getLogger().severe(
+//              "Der ReportGenerator konnte nicht initialisiert werden!");
+//        }
+//
+//        @Override
+//		public void onSuccess(Void result) {
+//          ClientsideSettings.getLogger().info(
+//              "Der ReportGenerator wurde initialisiert.");
+//        }
+//      };
 
-        @Override
-		public void onSuccess(Void result) {
-          ClientsideSettings.getLogger().info(
-              "Der ReportGenerator wurde initialisiert.");
-        }
-      };
-
-      reportGenerator.init(initReportGeneratorCallback);
-    }
+//      reportGenerator.init(initReportGeneratorCallback);
+//    }
 
     // So, nun brauchen wir den ReportGenerator nur noch zurückzugeben.
-    return reportGenerator;
-  }
+//    return reportGenerator;
+//  }
 
-}
+//}
