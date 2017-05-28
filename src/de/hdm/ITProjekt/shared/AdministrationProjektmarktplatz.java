@@ -19,7 +19,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Projektmarktplatz getProjektmarktplatzById (int ID); //Anzeigen eines bekannten Projektmarktplatz
 	
-	public Vector<Projektmarktplatz> getProjektmarktplatzAll(); //Anzeigen aller Projektmarktplätze
+	Vector<Projektmarktplatz> getProjektmarktplatzAll();
 	
 	public void deleteProjektmarktplatz(Projektmarktplatz p); //Löschen eines Projektmarktplatzes
 	

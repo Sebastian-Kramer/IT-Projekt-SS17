@@ -45,6 +45,7 @@
 package de.hdm.ITProjekt.client;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 import org.mortbay.log.Log;
 
@@ -56,6 +57,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.*;
 
+import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
 import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
 //import de.hdm.ITProjekt.server.db.TestStart;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -79,28 +81,38 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private Label lastUpdatedLabel = new Label();
 	  private ArrayList<String> projektmarktplaetze = new ArrayList<String>();
 	  private AdministrationProjektmarktplatzAsync adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	 
 	  
 	  
 	public void onModuleLoad(){
-		System.out.println("clickhandler");
+		
 		// "projekttabelle" mit einer ID versehen, um mit css aufrufen zu können	
 		projekttabelle.getElement().setId("tabelle-projektmarktplatz");
 		
 		// Tabelle erstellen	
-		projekttabelle.setText(0, 0, "ID");
-	    projekttabelle.setText(0, 1, "Bezeichnung");
+		projekttabelle.setText(0, 0, "Projektmarktplatz");
+	    projekttabelle.setText(0, 1, "Erstelldatum");	    
+	    projekttabelle.setText(0, 2, "Ersteller");
+
+	 
 	    
 	    // Tabelle in "mainPanel" platzieren
 	    mainPanel.add(projekttabelle);	
 	    // Tabelle in HTML referenzieren
 	    RootPanel.get("projektListe").add(mainPanel);
 	    
+	   
+	    
 	    // Button in den addPanel platzieren
+	   
 	    addPanel.add(newSymbolTextBox);
 	    addPanel.add(addProjektButton);
 	    
+	    
 	    // HorizontalPanel (addPanel) in den mainPanel platzieren
 	    mainPanel.add(addPanel);
+	    
+	    tabellebefullen();
 	 
    
 	  addProjektButton.addClickHandler(new ClickHandler() {
@@ -165,7 +177,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	      // TODO Add the stock to the table
 	        int row = projekttabelle.getRowCount();
 	        projektmarktplaetze.add(symbol);
-	        projekttabelle.setText(row, 0, symbol);
+	        projekttabelle.setText(row, 1, symbol);
 	      // TODO Add a button to remove this stock from the table.
 	        Button removeStockButton = new Button("x");
 	        removeStockButton.addClickHandler(new ClickHandler() {
@@ -176,10 +188,42 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	          }
 	        });
 	        projekttabelle.setWidget(row, 3, removeStockButton);
-	      
+	      	     
+		}
+			private void tabellebefullen(){
+				 if (adminService == null) {
+				     
+				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				    }
+				AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>() {
+					   
+				      public void onFailure(Throwable caught) {
+				        // TODO: Do something with errors.
+				      }
 
-	        
-	        // Get the stock price.
-	      
-	    }
+//					@Override
+//					public void onSuccess(String result) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+
+				     @Override
+				     public void onSuccess(Vector<Projektmarktplatz> result) {
+				    	 // TODO Auto-generated method stub
+	
+				     }
+					
+				};
+			
+			
+			adminService.getProjektmarktplatzAll(callback);
+			 int row = projekttabelle.getRowCount();
+			projekttabelle.setText(row, 1, callback.toString());
+			
+		
+		
+				
+			
+			
+			}	
 }

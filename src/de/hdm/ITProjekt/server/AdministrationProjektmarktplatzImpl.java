@@ -14,6 +14,9 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 			implements AdministrationProjektmarktplatz{
 	
+
+	
+	private ArrayList<String> projektmarktplaetze = new ArrayList<String>(); 
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	
@@ -50,6 +53,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Vector<Projektmarktplatz> getProjektmarktplatzAll(){ //Anzeigen aller Projektmarktplatz-Objekte
 		return this.pmpMapper.getAll();
+		
 	}
 
 	@Override
@@ -72,6 +76,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		pmp1.addMarktplatz(p1);
 		return p1;
 	}
+
 	
 	
 	
