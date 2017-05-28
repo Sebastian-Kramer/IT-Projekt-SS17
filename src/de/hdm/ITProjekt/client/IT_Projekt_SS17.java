@@ -140,9 +140,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			}
 		
 	    };
-	    addtabellensatze();
+	    
 	     // Make the call to the stock price service.
-	    adminService.addProjektmarktplatz(newSymbolTextBox.getValue(), callback);
+	    adminService.addProjektmarktplatz(newSymbolTextBox.getText(), callback);
+	    // Tabellenspalteeinfügen
+	    addtabellensatze();
 	}
 	private void addtabellensatze() {
 	      final String symbol = newSymbolTextBox.getText().toUpperCase().trim();

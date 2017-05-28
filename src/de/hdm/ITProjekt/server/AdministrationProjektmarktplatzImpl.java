@@ -68,7 +68,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Projektmarktplatz addProjektmarktplatz(String bez){
 		ProjektmarktplatzMapper pmp1 = ProjektmarktplatzMapper.pmpMapper();
 		Projektmarktplatz p1 = new Projektmarktplatz(bez);
-		p1.setBez(p1.getBez()+"1");		
+		p1.setBez(p1.getBez());		
 		pmp1.addMarktplatz(p1);
 		return p1;
 	}
