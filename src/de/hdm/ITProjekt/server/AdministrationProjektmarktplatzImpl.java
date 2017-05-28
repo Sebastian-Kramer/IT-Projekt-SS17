@@ -14,14 +14,15 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 			implements AdministrationProjektmarktplatz{
 	
+	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	
-	public void init() throws IllegalArgumentException {
+	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
 	}
 
 	@Override
-	public Projektmarktplatz createProjektmarktplatz(String bez) throws IllegalArgumentException {
+	public Projektmarktplatz createProjektmarktplatz(String bez) {
 //		Log.info("start");
 		return null;
 //		Projektmarktplatz p = new Projektmarktplatz();
@@ -35,32 +36,41 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public void save(Projektmarktplatz p) throws IllegalArgumentException { //Speichern/anpassen eines Objekts in der Datenbank
-		pmpMapper.updateMarktplatz(p);
+	public Projektmarktplatz save(Projektmarktplatz p){ //Speichern/anpassen eines Objekts in der Datenbank
+		return this.pmpMapper.updateMarktplatz(p);
 		
 	}
 
 	@Override
-	public Projektmarktplatz getProjektmarktplatzById(int ID) throws IllegalArgumentException {
+	public Projektmarktplatz getProjektmarktplatzById(int ID){
 		
 		return null;
 	}
 
 	@Override
-	public Vector<Projektmarktplatz> getProjektmarktplatzAll() throws IllegalArgumentException { //Anzeigen aller Projektmarktplatz-Objekte
+	public Vector<Projektmarktplatz> getProjektmarktplatzAll(){ //Anzeigen aller Projektmarktplatz-Objekte
 		return this.pmpMapper.getAll();
 	}
 
 	@Override
-	public void deleteProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException {
+	public void deleteProjektmarktplatz(Projektmarktplatz p){
 		this.pmpMapper.deleteMarktplatz(p);
 		
 	}
 
 	@Override
-	public void updateProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException {
+	public void updateProjektmarktplatz(Projektmarktplatz p){
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Projektmarktplatz addProjektmarktplatz(String bez){
+		ProjektmarktplatzMapper pmp1 = ProjektmarktplatzMapper.pmpMapper();
+		Projektmarktplatz p1 = new Projektmarktplatz(bez);
+		p1.setBez(p1.getBez()+"1");		
+		pmp1.addMarktplatz(p1);
+		return p1;
 	}
 	
 	

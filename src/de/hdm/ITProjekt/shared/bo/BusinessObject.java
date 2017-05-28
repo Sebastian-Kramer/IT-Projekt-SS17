@@ -3,7 +3,9 @@ package de.hdm.ITProjekt.shared.bo;
 import java.io.Serializable; //Serialisierung wandelt Objekte in Bytes um und umgekehrt, wir benötigen 
 							//dies um Objekte in einer Datenbank zu speichern
 
-public abstract class BusinessObject implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public abstract class BusinessObject implements IsSerializable {
 	
 	private static final long serialVersionUID = 1L;
 	

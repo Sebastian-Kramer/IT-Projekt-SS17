@@ -1,13 +1,22 @@
 package de.hdm.ITProjekt.shared.bo;
 
+import java.io.Serializable;
+
+import com.google.gwt.user.client.rpc.IsSerializable;
+
 public class Projektmarktplatz extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
 	
 	private int ID = 0; 
-	private String bez = "";
-	
+	private String bez = "";	
 
+	public Projektmarktplatz(){
+		
+	}
+	public Projektmarktplatz(String bez){
+		this.bez = bez;
+	}
 	public int getID() {
 		return ID;
 	}
@@ -40,6 +49,5 @@ public class Projektmarktplatz extends BusinessObject {
 	    }
 	    return false;
 	  }
-
 
 }

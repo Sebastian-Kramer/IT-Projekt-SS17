@@ -8,13 +8,11 @@
   <!-- Servlets -->
   <servlet>
   <servlet-name>AdministrationProjektmarktplatzImpl</servlet-name>
-  <servlet-class>
-    de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl
-  </servlet-class>
+  <servlet-class>de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl</servlet-class>
 </servlet>
 <servlet-mapping>
   <servlet-name>AdministrationProjektmarktplatzImpl</servlet-name>
-  <url-pattern>AdministrationProjektmarktplatz</url-pattern>
+  <url-pattern>/IT_Projekt_SS17/projektmarktplatz</url-pattern>
 </servlet-mapping>
     
   <!-- Default page to serve -->

@@ -8,25 +8,24 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import de.hdm.ITProjekt.shared.bo.*;
 
 
-@RemoteServiceRelativePath("AdministrationProjektmarktplatz")
+@RemoteServiceRelativePath("projektmarktplatz")
 public interface AdministrationProjektmarktplatz extends RemoteService {
 	
-	public void init() throws IllegalArgumentException; //Initialisierung des Objekts, muss nach Instantiierung aufgerufen werden
+	public void init(); //Initialisierung des Objekts, muss nach Instantiierung aufgerufen werden
 	
-	public Projektmarktplatz createProjektmarktplatz(String bez)
-		throws IllegalArgumentException;
+	public Projektmarktplatz createProjektmarktplatz(String bez);
 	
-	public void save(Projektmarktplatz p) throws IllegalArgumentException; //speichern eines Projektmarktplatz-Objekts in der Datenbank
+	public Projektmarktplatz save(Projektmarktplatz p); //speichern eines Projektmarktplatz-Objekts in der Datenbank
 	
-	public Projektmarktplatz getProjektmarktplatzById (int ID) throws IllegalArgumentException; //Anzeigen eines bekannten Projektmarktplatz
+	public Projektmarktplatz getProjektmarktplatzById (int ID); //Anzeigen eines bekannten Projektmarktplatz
 	
-	public Vector<Projektmarktplatz> getProjektmarktplatzAll() throws IllegalArgumentException; //Anzeigen aller Projektmarktplätze
+	public Vector<Projektmarktplatz> getProjektmarktplatzAll(); //Anzeigen aller Projektmarktplätze
 	
-	public void deleteProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException; //Löschen eines Projektmarktplatzes
+	public void deleteProjektmarktplatz(Projektmarktplatz p); //Löschen eines Projektmarktplatzes
 	
-	public void updateProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException; //Editieren eines Projektmarktplatzes
+	public void updateProjektmarktplatz(Projektmarktplatz p); //Editieren eines Projektmarktplatzes
 	
-	
+	public Projektmarktplatz addProjektmarktplatz(String bez);
 	
 	
 	
