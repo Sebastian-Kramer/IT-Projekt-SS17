@@ -85,6 +85,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private AdministrationProjektmarktplatzAsync adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	  
 	
+
 	
 
 	public void onModuleLoad(){
@@ -115,13 +116,13 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	    mainPanel.add(addPanel);
 	    
 	    tabellebefullen();
-	 
+	    
+	       
    
 	  addProjektButton.addClickHandler(new ClickHandler() {
 	    	@Override
 	        public void onClick(ClickEvent event) {
 	    		doStuff();
-	    		refreshProjektList();
 	    		
 	        }
 		      });
@@ -152,7 +153,13 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 			@Override
 			public void onSuccess(Projektmarktplatz result) {
-			
+				
+				 
+	    		int row = projekttabelle.getRowCount();
+	    	  	 projekttabelle.setText(row, 0, result.getBez());
+	    		 
+				
+	    		
 							}
 		
 	    };
@@ -160,6 +167,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	     // Make the call to the stock price service.
 	    adminService.addProjektmarktplatz(newSymbolTextBox.getText(), callback);
 	    
+		
+		 
 	    // Tabellenspalteeinfügen
 //	    addtabellensatze();
 	}
@@ -245,37 +254,37 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			}	
 
 
-			  private void refreshProjektList() {
-				    // Initialize the service proxy.
-				    if (adminService == null) {
-				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-				    }
-					AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>() {
-						   
-					      public void onFailure(Throwable caught) {
-					        // TODO: Do something with errors.
-					    	  Window.alert("Fehler beim Laden der Daten in die Tabelle");
-					      }
-
-//						@Override
-//						public void onSuccess(String result) {
-//							// TODO Auto-generated method stub
+//			  private void refreshProjektList() {
+//				    // Initialize the service proxy.
+//				    if (adminService == null) {
+//				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//				    }
+//					AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>() {
+//						   
+//					      public void onFailure(Throwable caught) {
+//					        // TODO: Do something with errors.
+//					    	  Window.alert("Fehler beim Laden der Daten in die Tabelle");
+//					      }
+//
+////						@Override
+////						public void onSuccess(String result) {
+////							// TODO Auto-generated method stub
+////							
+////						}
+//
+//					     @Override
+//					        	 public void onSuccess(Vector<Projektmarktplatz> result) {
+//						    	 // TODO Auto-generated method stub
+//						    	 if ( result != null){
+//						    		 
+//						    		int row = projekttabelle.getRowCount();
+//						    	  	 projekttabelle.setText(row, 0, newSymbolTextBox.getValue());
+//						    		 
+//						    	 }
+//					     }
 //							
-//						}
-
-					     @Override
-					        	 public void onSuccess(Vector<Projektmarktplatz> result) {
-						    	 // TODO Auto-generated method stub
-						    	 if ( result != null){
-						    		 
-						    		int row = projekttabelle.getRowCount();
-						    	  	 projekttabelle.setText(row, 0, newSymbolTextBox.getValue());
-						    		 
-						    	 }
-					     }
-							
-					};
-						 adminService.getProjektmarktplatzAll(callback);	
-
-			  }
+//					};
+//						 adminService.getProjektmarktplatzAll(callback);	//Das komplette vom callback machen!
+//
+//			  }
 }
