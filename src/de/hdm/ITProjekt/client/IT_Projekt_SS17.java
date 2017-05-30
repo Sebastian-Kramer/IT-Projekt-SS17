@@ -152,12 +152,14 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 			@Override
 			public void onSuccess(Projektmarktplatz result) {
+			
 							}
 		
 	    };
 	    
 	     // Make the call to the stock price service.
 	    adminService.addProjektmarktplatz(newSymbolTextBox.getText(), callback);
+	    
 	    // Tabellenspalteeinfügen
 //	    addtabellensatze();
 	}
@@ -172,15 +174,15 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	        newSymbolTextBox.selectAll();
 	        return;
 	      }
-	      newSymbolTextBox.setText("");
-
-	      // TODO Don't add the stock if it's already in the table.
-	        if (projektmarktplaetze.contains(symbol))
-	        return;
-	      // TODO Add the stock to the table
-	        int row = projekttabelle.getRowCount();
-	        projektmarktplaetze.add(symbol);
-	        projekttabelle.setText(row, 0, symbol);
+//	      newSymbolTextBox.setText("");
+//
+//	      // TODO Don't add the stock if it's already in the table.
+//	        if (projektmarktplaetze.contains(symbol))
+//	        return;
+//	      // TODO Add the stock to the table
+//	        int row = projekttabelle.getRowCount();
+//	        projektmarktplaetze.add(symbol);
+//	        projekttabelle.setText(row, 0, symbol);
 	      // TODO Add a button to remove this stock from the table.
 	        Button removeStockButton = new Button("x");
 	        removeStockButton.addClickHandler(new ClickHandler() {
@@ -190,7 +192,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	            projekttabelle.removeRow(removedIndex + 1);
 	          }
 	        });
-	        projekttabelle.setWidget(row, 3, removeStockButton);
+//	        projekttabelle.setWidget(row, 3, removeStockButton);
 	      	     
 		}
 	
@@ -223,12 +225,12 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				        	 public void onSuccess(Vector<Projektmarktplatz> result) {
 					    	 // TODO Auto-generated method stub
 					    	 if ( result != null){
-					    		 for (Projektmarktplatz c : result){ 	 // Daraus nur eine foreach schleife machen!!!
+//					    		 for (Projektmarktplatz c : result){ 	 // Daraus nur eine foreach schleife machen!!!
 					    			 for (int i = 0 ; i <= result.size() ; i++){
 					    		int row = projekttabelle.getRowCount();
 					    	  	 projekttabelle.setText(row, 0, result.elementAt(i).getBez());
-							    	 
-						    	 }
+							    
+//						    	 }
 					    			 
 					    		 }
 					    	 }
@@ -265,10 +267,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 					        	 public void onSuccess(Vector<Projektmarktplatz> result) {
 						    	 // TODO Auto-generated method stub
 						    	 if ( result != null){
-						    		
+						    		 
 						    		int row = projekttabelle.getRowCount();
-						    	  	 projekttabelle.setText(row, 0, result.lastElement().getBez());
-								    
+						    	  	 projekttabelle.setText(row, 0, newSymbolTextBox.getValue());
+						    		 
 						    	 }
 					     }
 							
