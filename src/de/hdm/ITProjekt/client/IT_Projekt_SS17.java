@@ -44,6 +44,7 @@
 
 package de.hdm.ITProjekt.client;
 
+import java.awt.Menu;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -51,6 +52,7 @@ import org.mortbay.log.Log;
 
 import com.google.gwt.core.client.*;
 import com.google.gwt.event.dom.client.*;
+import com.google.gwt.user.client.Command;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -74,16 +76,17 @@ import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 public class IT_Projekt_SS17 implements EntryPoint {
 	
 	  private VerticalPanel mainPanel = new VerticalPanel();
-	  private FlexTable projekttabelle = new FlexTable();
+	  private FlexTable projekttabelle = new FlexTable(); // muss celltable werden!
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private TextBox newSymbolTextBox = new TextBox();
 	  private Button addProjektButton = new Button("Hinzufuegen");
 	  private Label lastUpdatedLabel = new Label();
 	  private ArrayList<String> projektmarktplaetze = new ArrayList<String>();
 	  private AdministrationProjektmarktplatzAsync adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	 
 	  
-	  
+	
+	
+
 	public void onModuleLoad(){
 		
 		// "projekttabelle" mit einer ID versehen, um mit css aufrufen zu können	
@@ -93,20 +96,19 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		projekttabelle.setText(0, 0, "Projektmarktplatz");
 	    projekttabelle.setText(0, 1, "Erstelldatum");	    
 	    projekttabelle.setText(0, 2, "Ersteller");
-
-	 
+ 
 	    
 	    // Tabelle in "mainPanel" platzieren
 	    mainPanel.add(projekttabelle);	
 	    // Tabelle in HTML referenzieren
 	    RootPanel.get("projektListe").add(mainPanel);
-	    
-	   
+	      	    
 	    
 	    // Button in den addPanel platzieren
 	   
 	    addPanel.add(newSymbolTextBox);
 	    addPanel.add(addProjektButton);
+	   
 	    
 	    
 	    // HorizontalPanel (addPanel) in den mainPanel platzieren
@@ -119,7 +121,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	    	@Override
 	        public void onClick(ClickEvent event) {
 	    		doStuff();
-	    	
+	    		refreshProjektList();
+	    		
 	        }
 		      });
 	 	    
@@ -138,6 +141,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   
 	      public void onFailure(Throwable caught) {
 	        // TODO: Do something with errors.
+
 	      }
 
 //		@Override
@@ -148,16 +152,14 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 			@Override
 			public void onSuccess(Projektmarktplatz result) {
-				
-			
-			}
+							}
 		
 	    };
 	    
 	     // Make the call to the stock price service.
 	    adminService.addProjektmarktplatz(newSymbolTextBox.getText(), callback);
 	    // Tabellenspalteeinfügen
-	    addtabellensatze();
+//	    addtabellensatze();
 	}
 	private void addtabellensatze() {
 	      final String symbol = newSymbolTextBox.getText().toUpperCase().trim();
@@ -191,6 +193,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	        projekttabelle.setWidget(row, 3, removeStockButton);
 	      	     
 		}
+	
+	/*
+	 * Auslesen aus der Datenbank
+	 */
 			private void tabellebefullen(){
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			    if (adminService == null) {
@@ -211,11 +217,13 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //						
 //					}
 
+				      
+				      
 				     @Override
 				        	 public void onSuccess(Vector<Projektmarktplatz> result) {
 					    	 // TODO Auto-generated method stub
 					    	 if ( result != null){
-					    		 for (Projektmarktplatz c : result){ 	 
+					    		 for (Projektmarktplatz c : result){ 	 // Daraus nur eine foreach schleife machen!!!
 					    			 for (int i = 0 ; i <= result.size() ; i++){
 					    		int row = projekttabelle.getRowCount();
 					    	  	 projekttabelle.setText(row, 0, result.elementAt(i).getBez());
@@ -229,19 +237,43 @@ public class IT_Projekt_SS17 implements EntryPoint {
 					    	 }
 						
 					};
-				    	 
-				    
-				
-				
+				    	
 				adminService.getProjektmarktplatzAll(callback);
 			
-			
-		   
-			
-		
-		
-				
-			
-			
 			}	
+
+
+			  private void refreshProjektList() {
+				    // Initialize the service proxy.
+				    if (adminService == null) {
+				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				    }
+					AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>() {
+						   
+					      public void onFailure(Throwable caught) {
+					        // TODO: Do something with errors.
+					    	  Window.alert("Fehler beim Laden der Daten in die Tabelle");
+					      }
+
+//						@Override
+//						public void onSuccess(String result) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+
+					     @Override
+					        	 public void onSuccess(Vector<Projektmarktplatz> result) {
+						    	 // TODO Auto-generated method stub
+						    	 if ( result != null){
+						    		
+						    		int row = projekttabelle.getRowCount();
+						    	  	 projekttabelle.setText(row, 0, result.lastElement().getBez());
+								    
+						    	 }
+					     }
+							
+					};
+						 adminService.getProjektmarktplatzAll(callback);	
+
+			  }
 }
