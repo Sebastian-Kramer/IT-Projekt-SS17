@@ -19,10 +19,18 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getProjektmarktplatzById(int ID, AsyncCallback<Projektmarktplatz> callback);
 
-	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Void> callback);
+//	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
 
 	void updateProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Void> callback);
 
 	void addProjektmarktplatz(String bez, AsyncCallback<Projektmarktplatz> callback);
+
+	void findByBez(String bez, AsyncCallback<Projektmarktplatz> callback);
+
+	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
+	
+	
+
+	
 
 }

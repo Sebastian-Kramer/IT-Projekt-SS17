@@ -21,11 +21,17 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	Vector<Projektmarktplatz> getProjektmarktplatzAll();
 	
-	public void deleteProjektmarktplatz(Projektmarktplatz p); //Löschen eines Projektmarktplatzes
+//	public void deleteProjektmarktplatz(Projektmarktplatz p); //Löschen eines Projektmarktplatzes
 	
 	public void updateProjektmarktplatz(Projektmarktplatz p); //Editieren eines Projektmarktplatzes
 	
 	public Projektmarktplatz addProjektmarktplatz(String bez);
+	
+	public Projektmarktplatz findByBez(String bez);
+
+	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p); // Löschen eines Projektmarktplatzes
+
+	
 	
 	
 	

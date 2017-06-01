@@ -56,17 +56,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 	}
 
-	@Override
-	public void deleteProjektmarktplatz(Projektmarktplatz p){
-		this.pmpMapper.deleteMarktplatz(p);
-		
-	}
+//	@Override
+//	public void deleteProjektmarktplatz(Projektmarktplatz p){
+//		this.pmpMapper.deleteMarktplatz(p);
+//		
+//	}
 
-	@Override
-	public void updateProjektmarktplatz(Projektmarktplatz p){
-		// TODO Auto-generated method stub
-		
-	}
+
 
 	@Override
 	public Projektmarktplatz addProjektmarktplatz(String bez){
@@ -76,8 +72,23 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		pmp1.addMarktplatz(p1);
 		return p1;
 	}
+	public Projektmarktplatz findByBez(String bez){
+		return this.pmpMapper.findByBez(bez);
+	}
 
-	
+	@Override
+	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p) {
+		// TODO Auto-generated method stub
+		return this.pmpMapper.deleteMarktplatz(p);
+	}
+
+	@Override
+	public void updateProjektmarktplatz(Projektmarktplatz p) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 	
 

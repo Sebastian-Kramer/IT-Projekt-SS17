@@ -139,5 +139,26 @@ public class ProjektmarktplatzMapper {
 		return p;
 	}
 
+	public Projektmarktplatz findByBez(String bez){
+		Connection con = DBConnection.connection();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, bez FROM Projektmarktplatz "
+          + "WHERE bez=" + bez);
+			
+			if(rs.next()){
+				Projektmarktplatz p = new Projektmarktplatz();
+				p.setID(rs.getInt("ID"));
+				p.setBez(rs.getString("bez"));
+				return p;
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return null;	
+	}
 }
 	
