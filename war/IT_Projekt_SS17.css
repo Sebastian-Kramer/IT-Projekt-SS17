@@ -2,13 +2,14 @@
 
 
 /** Example rules used by the template application (remove for your app) */
-h1 {
+/**h1 {
   font-size: 2em;
   font-weight: bold;
   color: #777777;
   margin: 40px 0px 70px;
   text-align: center;
-}
+  background: aquamarine;
+}*/
 
 .sendButton {
   display: block;
@@ -41,4 +42,364 @@ h1 {
     border-color: black;
     border-collapse: separate;
  }
+ 
+ /**  Version Sebi */
+ 
+ html {
+	padding: 0 5% 10px;
+}
+
+body {
+	position:relative;
+	background: #d5d5d5;
+	font-family: Arial, Helvetica, sans-serif;
+	width: 1000px;
+	margin:0 auto;
+	font-size: 0.75em;   
+	color: #535353;
+}
+
+* {
+-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+	
+}
+
+
+a {
+	text-decoration: none;
+}
+
+header {
+	width: 100%;
+	height: 240px;
+	margin:20px auto 0px;
+	color:white;
+	background-image: url(Images/ProjektmarktplatzLogo.png)
+}
+header h1 a{
+	display:block;
+	color:white;
+	padding:10px 0 0 20px;
+	font-size:140%;
+}
+header h1 span {
+	font-size:50%;
+	color:white;
+	padding: 0 20px;
+}
+.ribbon{
+	margin: 10px 0 50px;
+	position: relative;
+	background: #333;
+	border: 1px solid rgba(0,0,0,.3);
+	box-shadow: 0px 1px 5px rgba(0,0,0,.2);
+	padding: 10px 15px;
+	clear: both;
+	text-align: center;
+	padding: 10px 9px 10px 10px;
+	width: 47%;
+	margin-left: -10px;
+}
+ 
+/**.ribbon::before{
+	display: block;
+	width: 10px;
+	height: 0px;
+	position: absolute;
+	bottom: -10px;
+	left: -10px;
+	content: "";
+	border-bottom: 10px solid transparent;
+	border-right: 10px solid rgb(0, 80, 116);
+}*/
+ 
+/**.ribbon::after{
+	display: block;
+	width: 10px;
+	height: 0px;
+	position: absolute;
+	bottom: -10px;
+	right: -10px;
+	content: "";
+	border-bottom: 10px solid transparent;
+	border-left: 10px solid rgb(0, 80, 116);
+}*/	
+header a#navlink {
+	display:none;
+	float: right;
+	text-decoration: none;
+	font-size: 1.8em;
+	font-weight: bold;
+	margin:20px 20px 0 0;
+}
+
+
+ul#header-top { 
+	position:absolute; 
+	top:0px; 
+	right:50px;
+	list-style-type: none;  
+}
+ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
+ul#header-top  li:last-child		{ border: none; }	
+
+#box1{
+	background: #2E64FE;
+	width: 100%;
+	height: 410px;
+	margin: -205px 0 0 0;
+}
+
+/** CONTENT **/
+main {
+	float:left;
+	width: 100%;
+	margin: 0 0 10px 0;
+	background: #fff;
+	-webkit-box-shadow: 0 0 80px rgba(0,0,0,0.1) inset, 0 3px 1px rgba(0,0,0,0.15);
+	box-shadow: 0 0 80px rgba(0,0,0,0.1) inset, 0 3px 1px rgba(0,0,0,0.15);
+}
+
+article{
+	padding: 30px;
+	width: 70%;
+	float:right;
+
+}
+
+h1,
+h2 {
+	font-size: 1.75em; 
+	font-weight: normal; 
+	font-family: 'Tauri', serif;  
+	padding-left: 15px; 
+	color: #4E68AD; 
+	text-transform: uppercase;
+	border-left:5px solid #4e68AD;
+}
+	
+h2 span {
+	font-size: 0.70em; 
+	color: #818181; 
+	text-transform: none;
+}
+
+h3	{ 
+	font-size: 1.25em; 
+	font-weight: normal; 
+	padding: 0px; 
+	margin: 0px; 
+	color: #4E68AD; 
+}		
+
+p {
+	text-align: left; 
+	line-height: 1.6em; 
+	padding: 20px 0px
+}
+
+a 	{ 
+	color: #4E68AD; 
+	padding: 5px 15px; 
+	outline: none; 
+	text-decoration: none; 
+}
+a:hover 	{ 
+	color: #818181; 
+	text-decoration: none; 
+}
+a:focus 	{ 
+	outline: none; 
+}
+a.more	{ 
+	float: right; 
+	font-weight: bold; 
+
+
+}
+a.more:hover { 
+	color: #535353; 
+}
+a.more:after{
+	content:" \2192 ";
+	font-size:1.2em;
+	font-weight:bold;
+}
+
+ul.square {
+	list-style-type:square;
+    color: #999999;
+    float: left;
+    margin: 0 0 10px 13px;
+	font-weight:bold;
+}
+
+ul.square li{
+	padding:10px;	
+}
+
+/*DL, DT, DD Datenliste*/
+dl 					{margin-bottom:50px;}
+ 
+dl dt {	
+    float:left;
+    font-weight:bold;
+    margin-right:5px;
+    padding:5px; 
+    width:140px;
+}
+ 
+dl dd {
+    margin:2px 0;
+    padding:5px 0;
+}
+
+section#intro {
+	width: 100%;
+	padding:10px 2%;
+	float: left;
+}
+
+section.spalte {
+	width: 50%;
+	padding:10px 2%;
+	float: left;
+}
+
+section p img {
+	float:left;
+	margin:0 10px 10px 0;
+}
+
+#footer-p {
+	float: left;
+	font-weight: bold;
+	font-size: 12px;
+	margin: 20px 0 0 0;
+}
+nav#navigation{
+ float: left;
+    margin-right: 30px;
+    width: 265px;
+}
+	
+#navigation ul ul {
+	display: none;
+}
+
+#navigation ul li:hover > ul {
+	display: block;
+}
+
+
+#navigation ul {
+	float: left;
+    list-style-type: none;
+    width: 100%;
+	margin-bottom:30px;
+}
+
+#navigation ul li {position:relative;
+}
+#navigation ul li.first-child	{ border-top: 1px #DBDBDB solid; }
+
+#navigation ul li:hover a, #navigation ul li:active a {
+	float: left; 
+	width: 230px; 
+	color: #F5F5F5; 
+	background: #535353;
+}
+	
+#navigation ul li a {
+	
+    border-bottom: 1px solid #DBDBDB;
+    color: #535353;
+    float: left;
+    font-size: 1.1em;
+    line-height: 1.5em;
+    padding: 1em 35px;
+    text-decoration: none;
+    width: 230px;
+}
+
+#navigation ul li a:before{
+	content:" ";
+	display:inline-block;
+	width:10px;
+	height:15px;
+	border-left:5px solid #CCC;
+}	
+		
+#navigation ul ul {
+	position: absolute; 
+	top:143px;left:190px;
+	z-index:99;
+}
+#navigation ul li:hover ul {display:block;}
+#navigation ul ul li {
+	display:block;
+	float: none;
+	position: relative; 
+}
+
+#navigation ul ul li a {
+	background: #97b314;
+	color: #fff;
+}	
+#navigation ul ul li a:hover {
+	background:  #d0ff00;
+	color:gray;
+}
+
+footer p {
+	float: right;
+}
+@media only screen and (max-width: 960px) {
+body{width:100%}	
+header h1.ribbon {width:50%;}
+article {width:100%}
+header a#navlink {
+	display:block;
+}
+}
+/* 1-Spaltenlayout  */
+@media only screen and (max-width: 600px) {
+
+header h1.ribbon {width:80%;}
+
+ul#header-top { 
+	position:relative;
+}
+
+article section.spalte {width:100%;}
+
+nav ul li{width:90%}
+
+#navigation{
+	float:left;
+	clear:left; 
+	width:90%; 
+	padding:0; 
+	margin:0;
+}
+#navigation ul {
+	position:relative;
+	padding:0;
+	margin:0;
+	top:0;
+	left:0%;
+	width:100%;
+	clear:left;
+}
+#navigation li {
+	display: block; 
+	padding: 0;
+	margin: 0;
+}
+			
+}
+ 
+ 
  

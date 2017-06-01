@@ -73,7 +73,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 //import de.hdm.thies.bankProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ProjektmarktplatzSeite;
+//import de.hdm.ITProjekt.client.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.Showcase;
 //import de.hdm.thies.bankProjekt.client.BankProjekt.SetBankCallback;
 
@@ -172,7 +172,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	        /*
 	         * Showcase instantiieren.
 	         */
-	        Showcase showcase = new ProjektmarktplatzSeite();
+	        //Showcase showcase = new ProjektmarktplatzSeite();
 
 	        /*
 	         * FÃ¼r die Ausgaben haben wir ein separates DIV-Element namens "Details"
@@ -181,7 +181,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	         * Elemente dieses DIV.
 	         */
 	        RootPanel.get("Details").clear();
-	        RootPanel.get("Details").add(showcase);
+	        //RootPanel.get("Details").add(showcase);
 	      }
 	    });;
 
@@ -192,11 +192,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 	public void onModuleLoad(){
 		
-		// "projekttabelle" mit einer ID versehen, um mit css aufrufen zu können	
+		// "projekttabelle" mit einer ID versehen, um mit css aufrufen zu kï¿½nnen	
 //		projekttabelle.getElement().setId("tabelle-projektmarktplatz");
 
 	      	    
-		// Größe des div Containers
+		// Grï¿½ï¿½e des div Containers
 		
 //		RootPanel.get("Details").setWidth("50%");
 		
@@ -217,7 +217,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		// Der Spalte einen Namen geben
 		projekttabelle.addColumn(nameColumn, "Bezeichnung");
 		
-		// Eine Spalte auswählen
+		// Eine Spalte auswï¿½hlen
 		
 //		
 //		projekttabelle.setSelectionModel(selectionModel);
@@ -313,7 +313,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	}
 	
 	
-	//Methode zum Hinzufügen von Projektmarktplatz in Datenbank
+	//Methode zum Hinzufï¿½gen von Projektmarktplatz in Datenbank
 //	private void doStuff() {
 //	    // Initialize the service proxy.
 //		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -353,7 +353,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //	   
 //		
 //		 
-//	    // Tabellenspalteeinfügen
+//	    // Tabellenspalteeinfï¿½gen
 ////	    addtabellensatze();
 //	}
 //	private void addtabellensatze() {
@@ -427,7 +427,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //					    	  	
 //					    	  
 //					    	  
-//					    	  	 // Button hinzufügen
+//					    	  	 // Button hinzufï¿½gen
 //					    	  	 projekttabelle.setWidget(row, 3, removeStockButton);
 //					    	  	 
 //					    	  	 
