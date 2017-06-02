@@ -16,7 +16,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
-	  private Button projektmarktplatz = new Button("Projektmarktplatz");
+//	  private Button projektmarktplatz = new Button("Projektmarktplatz");
 	  /**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benÃ¶tigen wir eine Methode
@@ -26,38 +26,31 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  @Override
 	public void onModuleLoad() {
 		  Homeseite startseite = new Homeseite();
-		  addPanel.add(projektmarktplatz);
+		 
 		  mainPanel.add(addPanel);
 		  mainPanel.add(startseite);
 		  RootPanel.get("Details").add(mainPanel);
-		  
+		  RootPanel.get("Navigator").add(new Menubar());
+		
 		
 //	 
-		  projektmarktplatz.addClickHandler(new ClickHandler() {
-		      @Override
-				public void onClick(ClickEvent event) {
-		    	  Showcase showcase = new ProjektmarktplatzSeite();
-		    	  
-		    	  RootPanel.get("Details").clear();
-		    	  RootPanel.get("Details").add(showcase);
-			      }
-			    });;
+		 
 		  
 		 
 		  
 //		    /*
 //		     * Wir bereiten nun die Erstellung eines bescheidenen Navigators vor, der
-//		     * einige Schaltflächen (Buttons) für die Ausführung von Unterprogrammen
+//		     * einige Schaltflï¿½chen (Buttons) fï¿½r die Ausfï¿½hrung von Unterprogrammen
 //		     * enthalten soll.
 //		     * 
-//		     * Die jeweils ausgeführten Unterprogramme sind Demonstratoren
-//		     * exemplarischer Anwendungsfälle des Systems. Auf eine professionelle
+//		     * Die jeweils ausgefï¿½hrten Unterprogramme sind Demonstratoren
+//		     * exemplarischer Anwendungsfï¿½lle des Systems. Auf eine professionelle
 //		     * Gestaltung der Benutzungsschnittstelle wurde bewusst verzichtet, um den
 //		     * Blick nicht von den wesentlichen Funktionen abzulenken. Eine
 //		     * exemplarische GUI-Realisierung findet sich separat.
 //		     * 
 //		     * Die Demonstratoren werden nachfolgend als Showcase bezeichnet. Aus diesem
-//		     * Grund existiert auch eine Basisklasse für sämtliche Showcase-Klassen
+//		     * Grund existiert auch eine Basisklasse fï¿½r sï¿½mtliche Showcase-Klassen
 //		     * namens Showcase.
 //		     */
 //
@@ -69,7 +62,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //
 //		    /*
 //		     * Das VerticalPanel wird einem DIV-Element namens "Navigator" in der
-//		     * zugehörigen HTML-Datei zugewiesen und erhält so seinen Darstellungsort.
+//		     * zugehï¿½rigen HTML-Datei zugewiesen und erhï¿½lt so seinen Darstellungsort.
 //		     */
 //		    RootPanel.get("Navigator").add(navPanel);
 //
@@ -83,13 +76,13 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //		    final Button goToProjektmarktplatz = new Button("Projektmarktplatz");
 //
 //		    /*
-//		     * Unter welchem Namen können wir den Button durch die CSS-Datei des
+//		     * Unter welchem Namen kï¿½nnen wir den Button durch die CSS-Datei des
 //		     * Projekts formatieren?
 //		     */
 //		     goToProjektmarktplatz.setStylePrimaryName("gotoprojektmarktplatz-menubutton");
 //
 //		    /*
-//		     * Hinzufügen des Buttons zum VerticalPanel.
+//		     * Hinzufï¿½gen des Buttons zum VerticalPanel.
 //		     */
 //		    navPanel.add(goToProjektmarktplatz);
 //		    
@@ -103,9 +96,9 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //			        Showcase showcase = new ProjektmarktplatzSeite();
 //
 //			        /*
-//			         * Für die Ausgaben haben wir ein separates DIV-Element namens "Details"
-//			         * in die zugehörige HTML-Datei eingefügt. Bevor wir den neuen Showcase
-//			         * dort einbetten, löschen wir vorsichtshalber sämtliche bisherigen
+//			         * Fï¿½r die Ausgaben haben wir ein separates DIV-Element namens "Details"
+//			         * in die zugehï¿½rige HTML-Datei eingefï¿½gt. Bevor wir den neuen Showcase
+//			         * dort einbetten, lï¿½schen wir vorsichtshalber sï¿½mtliche bisherigen
 //			         * Elemente dieses DIV.
 //			         */
 //			        

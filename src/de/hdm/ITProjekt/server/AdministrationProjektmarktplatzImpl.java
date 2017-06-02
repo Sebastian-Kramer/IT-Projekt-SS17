@@ -79,6 +79,9 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p) {
 		// TODO Auto-generated method stub
+		// Wenn nicht alle Fremdschlüssel gelöscht sind kann Proejktmarktplatz nicht gelöscht werden. Hier muss deleteprojekt auch aufgerufen werden.
+		
+		
 		return this.pmpMapper.deleteMarktplatz(p);
 	}
 

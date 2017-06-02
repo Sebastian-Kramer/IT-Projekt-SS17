@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -30,6 +31,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
+	VerticalPanel vpanel = new VerticalPanel();
 	
 	// Buttons hinzufügen / deklarieren
 	Button deleteprojektmarktplatz = new Button("Projektmarktplatz Löschen");
@@ -48,20 +50,29 @@ public class ProjektmarktplatzSeite extends Showcase{
 	@Override
 	protected void run() {
 		// TODO Auto-generated method stub
-		RootPanel.get("Details").setWidth("100%");
-		ct_Projektmarktplaetze.setWidth("80%", true);
+		//Größe des "div" Containers, sprich der Seite
+		RootPanel.get("Details").setWidth("60%");
+		// Größe der Tablle im div Container, sprich der Seite
+		ct_Projektmarktplaetze.setWidth("100%", true);
 		
-		this.add(hpanel_projektmarktplatz);
 		
-		//Stylen der Buttons 
-//		createprojektmarktplatz.setStylePrimaryName("navi-button");
-//		deleteprojektmarktplatz.setStylePrimaryName("navi-button");
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
 		hpanel_projektmarktplatz.add(createprojektmarktplatz);
 		hpanel_projektmarktplatz.add(deleteprojektmarktplatz);
 		hpanel_projektmarktplatz.add(projektbox);
-		hpanel_projektmarktplatz.add(ct_Projektmarktplaetze);
+		vpanel.add(ct_Projektmarktplaetze);
+//		hpanel_projektmarktplatz.add(ct_Projektmarktplaetze);
+				
+		// In die seite laden
+		this.add(hpanel_projektmarktplatz);
+		this.add(vpanel);
+		
+		
+		//Stylen der Buttons 
+//		createprojektmarktplatz.setStylePrimaryName("navi-button");
+//		deleteprojektmarktplatz.setStylePrimaryName("navi-button");
+		
 		
 		ct_Projektmarktplaetze.setSelectionModel(ssm);
 		
