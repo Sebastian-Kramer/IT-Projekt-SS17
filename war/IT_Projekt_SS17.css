@@ -141,6 +141,7 @@ ul#header-top {
 	top:0px; 
 	right:50px;
 	list-style-type: none;  
+	color: blue;
 }
 ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
 ul#header-top  li:last-child		{ border: none; }	

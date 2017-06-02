@@ -16,7 +16,7 @@ public class ClientsideSettings extends CommonSettings{
 	   * namens <code>BankAdministration</code>.
 	   */
 
-	  private static AdministrationProjektmarktplatzAsync pmpAdmin = null;
+	  private static AdministrationProjektmarktplatzAsync pmpVerwaltung = null;
 	  
 	  /**
 	   * Name des Client-seitigen Loggers.
@@ -79,18 +79,16 @@ public class ClientsideSettings extends CommonSettings{
 		    return log;
 		  }
 
-	  public static AdministrationProjektmarktplatzAsync getPmpAdmin() {
+	  public static AdministrationProjektmarktplatzAsync getpmpVerwaltung() {
 		    // Gab es bislang noch keine BankAdministration-Instanz, dann...
-		    if (pmpAdmin == null) {
+		    if (pmpVerwaltung == null) {
 		      // Zunächst instantiieren wir BankAdministration
-		      pmpAdmin = GWT.create(AdministrationProjektmarktplatz.class);
+		    	pmpVerwaltung = GWT.create(AdministrationProjektmarktplatz.class);
 		   // So, nun brauchen wir die BankAdministration nur noch zurückzugeben.
 		     
 		    }
-			return pmpAdmin;
-		
-
-}
+			return pmpVerwaltung;
+	  }	
 }
 
 

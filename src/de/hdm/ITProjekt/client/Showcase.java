@@ -50,7 +50,7 @@ public void onLoad() {
    */
   protected HTML createHeadline(String text) {
     HTML content = new HTML(text);
-    content.setStylePrimaryName("bankproject-headline");
+    content.setStylePrimaryName("itproject-headline");
     return content;
   }
 
@@ -65,7 +65,7 @@ public void onLoad() {
    */
   protected void append(String text) {
     HTML content = new HTML(text);
-    content.setStylePrimaryName("bankproject-simpletext");
+    content.setStylePrimaryName("itproject-simpletext");
     this.add(content);
   }
 

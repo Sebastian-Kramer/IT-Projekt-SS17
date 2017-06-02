@@ -31,6 +31,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p); // Löschen eines Projektmarktplatzes
 
+//	Projektmarktplatz addProjektmarktplatz(Projektmarktplatz p2);
+
 	
 	
 	

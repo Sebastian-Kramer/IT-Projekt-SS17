@@ -28,6 +28,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByBez(String bez, AsyncCallback<Projektmarktplatz> callback);
 
 	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
+
+//	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);
 	
 	
 
