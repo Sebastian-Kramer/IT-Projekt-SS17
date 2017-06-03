@@ -1,22 +1,37 @@
 package de.hdm.ITProjekt.client;
 
+import de.hdm.ITProjekt.server.LoginServiceImpl;
+import de.hdm.ITProjekt.shared.LoginService;
+import de.hdm.ITProjekt.shared.LoginServiceAsync;
+
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Label;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 
 public class IT_Projekt_SS17 implements EntryPoint {
-	
+		
+	 private LogInInfo loginInfo = null;
+	 private VerticalPanel loginPanel = new VerticalPanel();
+	 private Label loginLabel = new Label("Bitte melden Sie sich mit Ihrem Google-Account an.");
+	 private Anchor signInLink = new Anchor ("Sign In");
+	 private Anchor signOutLink = new Anchor ("Sign Out");
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
 	  private Button projektmarktplatz = new Button("Projektmarktplatz");
+
 	  /**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benötigen wir eine Methode
@@ -25,25 +40,61 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
-		  Homeseite startseite = new Homeseite();
-		  addPanel.add(projektmarktplatz);
-		  mainPanel.add(addPanel);
-		  mainPanel.add(startseite);
-		  RootPanel.get("Details").add(mainPanel);
+		  loadIT_Projekt_SS17();
+	  }
+		 /* LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
-		
-//	 
-		  projektmarktplatz.addClickHandler(new ClickHandler() {
-		      @Override
-				public void onClick(ClickEvent event) {
-		    	  Showcase showcase = new ProjektmarktplatzSeite();
-		    	  
-		    	  RootPanel.get("Details").clear();
-		    	  RootPanel.get("Details").add(showcase);
-			      }
-			    });;
+		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
+			  public void onFailure(Throwable Error) {
+				  Window.alert("Fehler Login");
+				  
+			  }
+			  public void onSuccess(LogInInfo result){
+				  loginInfo = result;
+				  if(loginInfo.isLoggedIn()){
+					  loadIT_Projekt_SS17();
+					  
+				  } else {
+					  loadLogin();
+				  }
+			  }
+			  });
+	  }
+		  */ 
+		  /*
+		 private void loadLogin(){
+			  signInLink.setHref(loginInfo.getLoginUrl());
+			  loginPanel.add(loginLabel);
+			  loginPanel.add(signInLink);
+			  RootPanel.get("Details").add(loginPanel);
+		  }
+		  */
+		  private void loadIT_Projekt_SS17(){
+			  Homeseite startseite = new Homeseite();
+			 // signOutLink.setHref(loginInfo.getLogoutUrl());//
+			  addPanel.add(projektmarktplatz);
+			  mainPanel.add(addPanel);
+			  mainPanel.add(startseite);
+			 // mainPanel.add(signOutLink);;//
+			  RootPanel.get("Details").add(mainPanel);
+			  
+			  
+//		 
+			  projektmarktplatz.addClickHandler(new ClickHandler() {
+			      @Override
+					public void onClick(ClickEvent event) {
+			    	  Showcase showcase = new ProjektmarktplatzSeite();
+			    	  
+			    	  RootPanel.get("Details").clear();
+			    	  RootPanel.get("Details").add(showcase);
+				      }
+				    });;
+			  
+			  } 
 		  
-		 
+	  
+
+
 		  
 //		    /*
 //		     * Wir bereiten nun die Erstellung eines bescheidenen Navigators vor, der
@@ -117,4 +168,5 @@ public class IT_Projekt_SS17 implements EntryPoint {
 //		    
 //}
 	  }
-}
+
+
