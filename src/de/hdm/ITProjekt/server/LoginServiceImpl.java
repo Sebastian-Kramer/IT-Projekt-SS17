@@ -1,7 +1,8 @@
 package de.hdm.ITProjekt.server;
 import de.hdm.ITProjekt.client.LogInInfo;
-import de.hdm.ITProjekt.client.LoginService;
-import de.hdm.ITProjekt.client.LoginServiceAsync;
+import de.hdm.ITProjekt.shared.LoginService;
+import de.hdm.ITProjekt.shared.LoginServiceAsync;
+
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.users.UserService;
