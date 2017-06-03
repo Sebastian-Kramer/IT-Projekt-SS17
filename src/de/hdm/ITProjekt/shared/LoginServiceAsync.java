@@ -1,6 +1,8 @@
-package de.hdm.ITProjekt.client;
+package de.hdm.ITProjekt.shared;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
+import de.hdm.ITProjekt.client.LogInInfo;
 
 public interface LoginServiceAsync {
 
