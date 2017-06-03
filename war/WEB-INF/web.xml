@@ -15,6 +15,16 @@
   <url-pattern>/IT_Projekt_SS17/projektmarktplatz</url-pattern>
 </servlet-mapping>
     
+    <servlet>
+    <servlet-name>LoginService</servlet-name>
+    <servlet-class>de.hdm.ITProjekt.server.LoginServiceImpl</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+    <servlet-name>LoginService</servlet-name>
+    <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
   <!-- Default page to serve -->
   <welcome-file-list>
     <welcome-file>IT_Projekt_SS17.html</welcome-file>
