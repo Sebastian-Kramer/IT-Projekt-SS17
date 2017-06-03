@@ -2,7 +2,9 @@ package de.hdm.ITProjekt.client;
 
 import java.io.Serializable;
 
-public class LogInInfo implements Serializable {
+import com.google.gwt.user.client.rpc.IsSerializable;
+
+public class LogInInfo implements IsSerializable {
 	private static final long serialVersionUID = 1L;
 	private boolean loggedIn = false;
 	private String loginUrl;
