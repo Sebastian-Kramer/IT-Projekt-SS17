@@ -49,8 +49,40 @@ public class ProjektMapper {
 		}
 		return null;	
 	}
+		
+	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID){
+		Connection con = DBConnection.connection();
+		Vector <Projekt> result = new Vector<Projekt>();
+		
+		try {
+		      Statement stmt = con.createStatement();
+		      
+		      ResultSet rs = stmt.executeQuery("SELECT ID FROM Projekt " 
+		      + "WHERE Projektmarktplatz_ID= "+ projektmarktplatzID );
+		      
+		      while (rs.next()) {
+		    	  Projekt p = new Projekt();
+		    	  p.setID(rs.getInt("ID"));
+		    	  
+		    	  // Hinzufügen des neuen Objekts zum Ergebnisvektor
+		    	  result.addElement(p);
+		      }
+		}
+		catch (SQLException e2) {
+		      e2.printStackTrace();
+		    } 
+		 return result;
+	  }
+	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
+
+	    /*
+	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
+	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
+	     */
+	    return findByProjektmarktplatz(projektmarktplatz.getID());
+	  }
 	
-	public Vector<Projekt> getAll(){
+	public Vector<Projekt> getAllProjekte(){
 		
 		 Connection con = DBConnection.connection();
 		 
@@ -110,7 +142,7 @@ public class ProjektMapper {
 		
 	}
 	
-	public void delete(Projekt a){
+	public void deleteProjekt(Projekt a){
 		
 		Connection con = DBConnection.connection();
 		

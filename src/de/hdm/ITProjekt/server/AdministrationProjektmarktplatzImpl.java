@@ -19,11 +19,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private ArrayList<String> projektmarktplaetze = new ArrayList<String>(); 
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
+	private ProjektMapper pMapper = null;
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
+		this.pMapper = ProjektMapper.pMapper();
 	}
-
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden fÃ¼r Projektmarktplatz-Objekte
+	   * ***************************************************************************
+	   */
 	@Override
 	public Projektmarktplatz createProjektmarktplatz(String bez) {
 //		Log.info("start");
@@ -31,7 +37,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		Projektmarktplatz p = new Projektmarktplatz();
 //		p.setBez(bez);
 //		
-//		p.setId(1); //Setzen einer vorläufigen ID
+//		p.setId(1); //Setzen einer vorlï¿½ufigen ID
 //		
 //		return this.pmpMapper.addMarktplatz(p);   //Projektmarktplatz-Onjekt in Datenbank speichern
 		
@@ -62,8 +68,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		
 //	}
 
-
-
 	@Override
 	public Projektmarktplatz addProjektmarktplatz(String bez){
 		ProjektmarktplatzMapper pmp1 = ProjektmarktplatzMapper.pmpMapper();
@@ -77,10 +81,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p) {
+	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
 		// TODO Auto-generated method stub
-		// Wenn nicht alle Fremdschlüssel gelöscht sind kann Proejktmarktplatz nicht gelöscht werden. Hier muss deleteprojekt auch aufgerufen werden.
+		// Wenn nicht alle Fremdschlï¿½ssel gelï¿½scht sind kann Proejktmarktplatz nicht gelï¿½scht werden. Hier muss deleteprojekt auch aufgerufen werden.
 		
+		Vector<Projekt> projekt = this.getProjekteOf(p);
+		
+		if(projekt != null){
+			for(Projekt pr : projekt){
+				this.deleteProjekt(pr);
+			}
+		}
 		
 		return this.pmpMapper.deleteMarktplatz(p);
 	}
@@ -89,6 +100,29 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void updateProjektmarktplatz(Projektmarktplatz p) {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fÃ¼r Projektmarktplatz-Objekte
+	   * ***************************************************************************
+	   */
+	
+	
+	public Vector<Projekt> getProjekteOf(Projektmarktplatz p){
+		return this.pMapper.findByProjektmarktplatz(p);
+	}
+	
+	
+	//Alle Projekte die zu einem Projektmarktplatz gehÃ¶ren werden in einem Vector ausgegeben
+	@Override
+	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID) {
+		// TODO Auto-generated method stub
+		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
+	}
+	
+	public void deleteProjekt(Projekt pr){
+		this.pMapper.deleteProjekt(pr);
 	}
 
 
