@@ -34,7 +34,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteProjekt(Projekt a, AsyncCallback<Void> callback);
 
-
 //	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);
 	
 	
