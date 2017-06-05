@@ -3,7 +3,7 @@ package de.hdm.ITProjekt.server;
 import java.util.ArrayList;
 import java.util.Vector;
 
-import org.mortbay.log.Log;
+//import org.mortbay.log.Log;
 
 import de.hdm.ITProjekt.server.db.*;
 import de.hdm.ITProjekt.shared.*;

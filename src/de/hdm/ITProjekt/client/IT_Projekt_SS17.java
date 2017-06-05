@@ -1,8 +1,8 @@
 package de.hdm.ITProjekt.client;
 
-import de.hdm.ITProjekt.server.LoginServiceImpl;
-import de.hdm.ITProjekt.shared.LoginService;
-import de.hdm.ITProjekt.shared.LoginServiceAsync;
+//import de.hdm.ITProjekt.server.LoginServiceImpl;
+//import de.hdm.ITProjekt.shared.LoginService;
+//import de.hdm.ITProjekt.shared.LoginServiceAsync;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
