@@ -1,6 +1,6 @@
 package de.hdm.ITProjekt.shared.bo;
 
-import java.io.Serializable; //Serialisierung wandelt Objekte in Bytes um und umgekehrt, wir benötigen 
+//import java.io.Serializable; //Serialisierung wandelt Objekte in Bytes um und umgekehrt, wir benï¿½tigen 
 							//dies um Objekte in einer Datenbank zu speichern
 
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -24,8 +24,8 @@ public abstract class BusinessObject implements IsSerializable {
 		return this.getClass().getName() + "#" + this.id; 
 	}
 	
-	public boolean equals(Object o){						//Es wird überprüft ob ein Objekt ungleich NULL ist und gecastet werden kann
-		if (o != null && o instanceof BusinessObject){	//instanceof überprüft ob o zuweisungskompatibel zu BusinessObject ist
+	public boolean equals(Object o){						//Es wird ï¿½berprï¿½ft ob ein Objekt ungleich NULL ist und gecastet werden kann
+		if (o != null && o instanceof BusinessObject){	//instanceof ï¿½berprï¿½ft ob o zuweisungskompatibel zu BusinessObject ist
 			BusinessObject bo = (BusinessObject) o;
 			try {
 				if(bo.getId() == this.id)
@@ -35,11 +35,11 @@ public abstract class BusinessObject implements IsSerializable {
 				return false;
 			}
 			}
-		return false;  //Wenn keine Gleichheit bestimmt wird, false zurückgeben
+		return false;  //Wenn keine Gleichheit bestimmt wird, false zurï¿½ckgeben
 		}
 	
 	public int hashCode(){ //Diese Methode sollte immer definiert werden wenn auch equals definiert wird. Sind objekte gleich, haben sie denselben HashWert.
-		return this.id; 	// equals Methode überprüft die Gleichheit der hashCodes, 
+		return this.id; 	// equals Methode ï¿½berprï¿½ft die Gleichheit der hashCodes, 
 	}
 	}
 

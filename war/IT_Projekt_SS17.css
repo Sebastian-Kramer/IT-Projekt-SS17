@@ -21,6 +21,10 @@
   width: 400px;
 }
 
+#gwt-StackPanel{
+	color:red;
+}
+
 .dialogVPanel {
   margin: 5px;
 }
@@ -150,7 +154,7 @@ ul#header-top  li:last-child		{ border: none; }
 	background: #2E64FE;
 	width: 100%;
 	height: 410px;
-	margin: -205px 0 0 0;
+	margin: -305px 0 0 0;
 }
 
 /** CONTENT **/

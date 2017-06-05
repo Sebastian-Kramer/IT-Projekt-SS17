@@ -29,6 +29,7 @@ public class Homeseite extends Showcase{
 				+ "	</section>	"
 				+ "</article>");
 
+
 		this.add(homePanel);
 	}
 }

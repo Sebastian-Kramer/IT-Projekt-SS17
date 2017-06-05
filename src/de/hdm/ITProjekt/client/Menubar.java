@@ -21,7 +21,8 @@ public class Menubar extends StackPanel {
 		
 	// Die "einzelnen" Seiten in die Panels legen
 	VerticalPanel startseitePanel = new VerticalPanel();
-	VerticalPanel projektseitePanel = new VerticalPanel();
+	//VerticalPanel projektseitePanel = new VerticalPanel();
+	VerticalPanel projektPanel = new VerticalPanel();
 	VerticalPanel beispielseitePanel = new VerticalPanel();
 	
 	// Buttons für die Panels erstellen
@@ -30,8 +31,13 @@ public class Menubar extends StackPanel {
 	Button zurstartseiteButton = new Button("Startseite");
 	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
 	
+	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
+	
+	Button projektButton = new Button("Projekte");
+	
+	
 	//Button in dem Panel "projektseite"
-	Button blablaButton = new Button("blablabutton");
+	//Button blablaButton = new Button("blablabutton");
 	
 	
 	
@@ -50,18 +56,38 @@ public class Menubar extends StackPanel {
 		
 		startseitePanel.setSpacing(5);
 		startseitePanel.setWidth("100%");
+		
+		
+		
+		//Zusammensetzen des ProjektPanels
+		
+		projektPanel.add(projektButton);
+		projektButton.setWidth("200px");
+		projektButton.setStylePrimaryName("navi-button");
+		
+		projektPanel.setSpacing(5);
+		projektPanel.setWidth("100%");
+		
+		
+		
+		
+		
 		// Zusammensetzen des projektseitePanels
 		
-		projektseitePanel.add(blablaButton);
-		blablaButton.setWidth("200px");
-		blablaButton.setStylePrimaryName("navi-button");
-		
-		projektseitePanel.setSpacing(5);
-		
+//		projektseitePanel.add(blablaButton);
+//		blablaButton.setWidth("200px");
+//		blablaButton.setStylePrimaryName("navi-button");
+//		
+//		projektseitePanel.setSpacing(5);
+//		
 		this.setWidth("250px");
 		this.addStyleName("gwt-StackPanel");
 		this.add(startseitePanel, "Startseite");
-		this.add(projektseitePanel, "Projekte");
+//		this.add(projektseitePanel, "Projekte");
+		
+		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
+		
+		this.add(projektPanel, "Projekte");
 	
 	
 		zurstartseiteButton.addClickHandler(new ClickHandler() {
@@ -85,9 +111,31 @@ public class Menubar extends StackPanel {
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
+				
+			}
+		});
+		
+		projektButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				
+				Showcase showcase = new ProjektmarktplatzSeite();
+				//Unser Detail Container wird geleert, damit der Container neu befüllt werden kann
+				RootPanel.get("Details").clear();
+				// Unser Container wird mit dem instanziierten showcase befüllt
+				RootPanel.get("Details").add(showcase);
+				//Der ClickHandel und das ClickEvent referenziert auf die aktuelle Methode
+				currentClickHandler=this;
+				currentClickEvent=event;
+				
+				
 			}
 		});
 	}
+	
+	
 	
 	
 

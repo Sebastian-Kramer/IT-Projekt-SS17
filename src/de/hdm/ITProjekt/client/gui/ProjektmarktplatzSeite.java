@@ -33,7 +33,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	
-	// Buttons hinzufügen / deklarieren
+	// Buttons NUR erstellen
 	Button deleteprojektmarktplatz = new Button("Projektmarktplatz Löschen");
 	Button createprojektmarktplatz = new Button("Projektmarktplatz Anlegen");
 
@@ -43,15 +43,13 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		// TODO Auto-generated method stub
 		return "Projektmarktplatz Suche";
 	}
 
 	@Override
 	protected void run() {
-		// TODO Auto-generated method stub
 		//Größe des "div" Containers, sprich der Seite
-		RootPanel.get("Details").setWidth("60%");
+		RootPanel.get("Details").setWidth("100%");
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_Projektmarktplaetze.setWidth("100%", true);
 		
@@ -61,6 +59,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 		hpanel_projektmarktplatz.add(createprojektmarktplatz);
 		hpanel_projektmarktplatz.add(deleteprojektmarktplatz);
 		hpanel_projektmarktplatz.add(projektbox);
+		
+		// Hinzufügen der Tabelle ins VerticalPanel
 		vpanel.add(ct_Projektmarktplaetze);
 //		hpanel_projektmarktplatz.add(ct_Projektmarktplaetze);
 				
@@ -76,19 +76,18 @@ public class ProjektmarktplatzSeite extends Showcase{
 		
 		ct_Projektmarktplaetze.setSelectionModel(ssm);
 		
-		// Was soll in der Tabelle angezeigt werden?
-		
+		// Was soll in der Tabelle angezeigt werden?		
 		TextColumn<Projektmarktplatz> ProjektmarktplatzTabelleSpaltenName = new TextColumn<Projektmarktplatz>() {
 			@Override
 			public String getValue(Projektmarktplatz object) {
-				// TODO Auto-generated method stub
 				return object.getBez();
 			}
 		};
+	
 		
 		// Wie soll die Spalte (Column) heißen?
 		ct_Projektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Bezeichnung");
-		
+	
 		filltable();	
 		loschenProjektmarktplatz();
 		anlegenProjektmarktplatz();
@@ -113,7 +112,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			@Override
 			public void onSuccess(Vector<Projektmarktplatz> result) {
 				// TODO Auto-generated method stub
-				ct_Projektmarktplaetze.setRowData(0, result	);
+				ct_Projektmarktplaetze.setRowData(0, result);
 				ct_Projektmarktplaetze.setRowCount(result.size(), true);
 				
 					
