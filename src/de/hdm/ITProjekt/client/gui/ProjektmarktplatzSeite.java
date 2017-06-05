@@ -27,7 +27,10 @@ import de.hdm.ITProjekt.client.Showcase;
 public class ProjektmarktplatzSeite extends Showcase{
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	
 	CellTable<Projektmarktplatz> ct_Projektmarktplaetze = new CellTable<Projektmarktplatz>();
+	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
+	
 	
 	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
@@ -40,6 +43,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	// Erlaubt, dass in der Tabelle nur eins ausgewählt werden darf
 	
 	final SingleSelectionModel<Projektmarktplatz> ssm = new SingleSelectionModel<Projektmarktplatz>();
+	SingleSelectionModel<Projektmarktplatz> ssm_fremde = new SingleSelectionModel<Projektmarktplatz>();
 	
 	@Override
 	protected String getHeadlineText() {
@@ -52,7 +56,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 		RootPanel.get("Details").setWidth("100%");
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_Projektmarktplaetze.setWidth("100%", true);
-		
+		// Größe der Tablle im div Container, sprich der Seite
+		ct_alleProjektmarktplaetze.setWidth("100%", true);
 		
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
@@ -63,6 +68,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		// Hinzufügen der Tabelle ins VerticalPanel
 		vpanel.add(ct_Projektmarktplaetze);
 //		hpanel_projektmarktplatz.add(ct_Projektmarktplaetze);
+		vpanel.add(ct_alleProjektmarktplaetze);
 				
 		// In die seite laden
 		this.add(hpanel_projektmarktplatz);
@@ -75,6 +81,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 		
 		
 		ct_Projektmarktplaetze.setSelectionModel(ssm);
+		ct_alleProjektmarktplaetze.setSelectionModel(ssm_fremde);
+		
 		
 		// Was soll in der Tabelle angezeigt werden?		
 		TextColumn<Projektmarktplatz> ProjektmarktplatzTabelleSpaltenName = new TextColumn<Projektmarktplatz>() {
@@ -86,7 +94,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 		
 		// Wie soll die Spalte (Column) heißen?
-		ct_Projektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Bezeichnung");
+		ct_Projektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Alle Projektmarktplätze");
+		ct_alleProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Die eigenen Projektmarktplätze");
 	
 		filltable();	
 		loschenProjektmarktplatz();
