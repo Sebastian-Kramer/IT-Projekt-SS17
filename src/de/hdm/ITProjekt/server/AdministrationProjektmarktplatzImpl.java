@@ -20,6 +20,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
+	private PersonMapper prMApper = null; 
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
@@ -108,6 +109,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Projekt-Objekte
+	   * ***************************************************************************
+	   */
 	
 	public Vector<Projekt> getProjekteOf(Projektmarktplatz p){
 		return this.pMapper.findByProjektmarktplatz(p);
@@ -124,9 +130,23 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void deleteProjekt(Projekt pr){
 		this.pMapper.deleteProjekt(pr);
 	}
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Projekt-Objekte
+	   * ***************************************************************************
+	   */
 
-
-	
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Person-Objekte
+	   * ***************************************************************************
+	   */
+	//Rückgabe einer Person aus der Datenbank
+	@Override
+	public Person getPersonbyID(int id) {
+		
+		return this.prMApper.findByKey(id);
+	}
 	
 
 }

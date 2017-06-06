@@ -37,6 +37,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public void deleteProjekt(Projekt a);
 	
+	public Person getPersonbyID(int id);
+	
 	
 	
 	
