@@ -8,6 +8,7 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public interface AdministrationProjektmarktplatzAsync {
 
@@ -43,6 +44,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
 
 	void getTeamByID(int id, AsyncCallback<Team> callback);
+
+	void GetUnByID(int id, AsyncCallback<Unternehmen> callback);
+
+	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
 
 //	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);

@@ -22,6 +22,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private ProjektMapper pMapper = null;
 	private PersonMapper prMApper = null; 
 	private TeamMapper tMapper = null;
+	private UnternehmenMapper unMapper = null;
+
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
@@ -103,6 +105,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		
 	}
+	/*
+	 * Wird noch von Sebi bearbeitet, bitte nicht weiter machen
+	 */
+//	@Override
+//	public Vector<Projektmarktplatz> getProjektmaktplaetzeOf(Person p) {
+//		Vector <Projektmarktplatz> result = new Vector<>();
+//		
+//		if(p != null && this.pmpMapper != null)
+//		return null;
+//	}	
 	
 	/*
 	   * ***************************************************************************
@@ -173,7 +185,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Team getTeamByID(int id) {
 		return this.tMapper.findByKey(id);
-	}	
+	}
+	
+	
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Unternehmen-Objekte
+	   * ***************************************************************************
+	   */
+	//Rückgabe eines Unternehmens-Objects anhand der übergebenen ID
+	@Override
+	public Unternehmen GetUnByID(int id) {
+		return this.unMapper.findByKey(id);
+	}
+	
 
 	
 	
