@@ -33,7 +33,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 //	Projektmarktplatz addProjektmarktplatz(Projektmarktplatz p2);
 	
-//	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
+	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz);
 	
