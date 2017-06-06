@@ -64,15 +64,23 @@ private class getUser implements AsyncCallback<Person>{
 
 	@Override
 	public void onFailure(Throwable caught) {
-		// TODO Auto-generated method stub
+		Window.alert("Die Person konnte nicht gefunden werden");
 		
 	}
 
 	@Override
 	public void onSuccess(Person result) {
-		// TODO Auto-generated method stub
-		
-	}
+			ListboxIdentitySelection.clear();
+			Listbox2.clear();
+			person = result;
+			Integer personID = result.getID();
+			ListboxIdentitySelection.addItem("Person" + result.getVorname() + " " +
+												result.getNachname() , personID.toString());
+			
+//			if (person.getOrga_ID()!=null) {
+//				projektmarktplatzVerwaltung
+//			}
+		}
 
 	}
 }
