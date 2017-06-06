@@ -67,7 +67,6 @@ public class AusschreibungMapper {
 				  while (rs.next()) {
 					Ausschreibung a = new Ausschreibung();
 					
-					a.setId(rs.getInt("Ausschreibung_Id"));
 				 	a.setID(rs.getInt("ID"));
 					a.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					a.setBezeichnung(rs.getString("bezeichnung"));
