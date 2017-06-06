@@ -9,26 +9,26 @@ public abstract class BusinessObject implements IsSerializable {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int id = 0;
+	private int ID = 0;
 
-	public int getId() {
-		return id;
+	public int getID() {
+		return ID;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setID(int id) {
+		this.ID = id;
 	}
 	
 	public String toString(){
 		//Gibt den Klassennamen und die ID des Objekts aus
-		return this.getClass().getName() + "#" + this.id; 
+		return this.getClass().getName() + "#" + this.ID; 
 	}
 	
 	public boolean equals(Object o){						//Es wird �berpr�ft ob ein Objekt ungleich NULL ist und gecastet werden kann
 		if (o != null && o instanceof BusinessObject){	//instanceof �berpr�ft ob o zuweisungskompatibel zu BusinessObject ist
 			BusinessObject bo = (BusinessObject) o;
 			try {
-				if(bo.getId() == this.id)
+				if(bo.getID() == this.ID)
 					return true;
 			}
 			catch(IllegalArgumentException e){
@@ -39,7 +39,7 @@ public abstract class BusinessObject implements IsSerializable {
 		}
 	
 	public int hashCode(){ //Diese Methode sollte immer definiert werden wenn auch equals definiert wird. Sind objekte gleich, haben sie denselben HashWert.
-		return this.id; 	// equals Methode �berpr�ft die Gleichheit der hashCodes, 
+		return this.ID; 	// equals Methode �berpr�ft die Gleichheit der hashCodes, 
 	}
 	}
 
