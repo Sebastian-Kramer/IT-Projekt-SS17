@@ -43,6 +43,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	Vector<Projekt> getAllProjekte();
 	
+	public Team getTeamByID(int id);
+	
 	
 	
 	

@@ -7,6 +7,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+import de.hdm.ITProjekt.shared.bo.Team;
 
 public interface AdministrationProjektmarktplatzAsync {
 
@@ -40,6 +41,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getAllProjekte(AsyncCallback<Vector<Projekt>> callback);
 
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
+
+	void getTeamByID(int id, AsyncCallback<Team> callback);
 
 
 //	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);

@@ -21,6 +21,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
 	private PersonMapper prMApper = null; 
+	private TeamMapper tMapper = null;
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
@@ -156,9 +157,31 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
 	}
-	
-	
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Person-Objekte
+	   * ***************************************************************************
+	   */
+
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Team-Objekte
+	   * ***************************************************************************
+	   */
+
+	//Rückgabe eines Team-Objects anhand der übergebenen ID
+	@Override
+	public Team getTeamByID(int id) {
+		return this.tMapper.findByKey(id);
+	}	
 
 	
-
+	
+	
+	
+	
+	
+	
+	
+	
 }
