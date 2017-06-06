@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.client.gui;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.ClickableTextCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.*;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -22,12 +23,16 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 
 public class ProjektmarktplatzSeite extends Showcase{
 
+	private static ClickHandler currentClickHandler = null;
+	private static ClickEvent currentClickEvent = null;
+		
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
@@ -51,7 +56,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	protected String getHeadlineText() {
 		return "Projektmarktplatz Suche";
 	}
-
+	
 	@Override
 	protected void run() {
 		//Größe des "div" Containers, sprich der Seite
@@ -102,8 +107,27 @@ public class ProjektmarktplatzSeite extends Showcase{
 							
 							return object.getBez();
 						}
-				    };
-	
+						    
+		 };
+			
+		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
+		    {
+		        @Override
+		        public void onClick(ClickEvent event)
+		       
+		        {
+		    if(ssm != null){
+		        	Showcase showcase = new Projekte(ssm.getSelectedObject());
+		        	RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+		    }
+		    else {
+		    	Window.alert("FEHLEEER");
+		    }
+		        }
+		       
+		    }, ClickEvent.getType());
+			
 		
 		// Wie soll die Spalte (Column) heißen?
 //		ct_alleProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Alle Projektmarktplätze");
@@ -128,12 +152,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 			@Override
 			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
 				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
 			}
 			@Override
 			public void onSuccess(Vector<Projektmarktplatz> result) {
-				// TODO Auto-generated method stub
 				ct_alleProjektmarktplaetze.setRowData(0, result);
 				ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
 				
@@ -144,9 +166,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	}
 	
 	// Löschen aus der Datenbank und Tabelle
-	
-	
-	// Fehler beim Löschen von Projektmarktplatz!!!!... Der Fehler liegt bei selectedObcejt!
+
 	
 	 private void loschenProjektmarktplatz(){
 		deleteprojektmarktplatz.addClickHandler(new ClickHandler(){

@@ -1,12 +1,12 @@
 package de.hdm.ITProjekt.client.gui;
 
-import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
+import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -39,7 +40,15 @@ public class Projekte extends Showcase {
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 
+	public Projekte(){
+		
+	}
 	
+	private Projektmarktplatz projektid;
+	public Projekte(Projektmarktplatz selectedId){
+		this.projektid = selectedId;
+	}
+
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
@@ -48,6 +57,7 @@ public class Projekte extends Showcase {
 
 	@Override
 	protected void run() {
+		
 		RootPanel.get("Details").setWidth("100%");
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
@@ -57,7 +67,8 @@ public class Projekte extends Showcase {
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
 		
-		 Column<Projekt, String> projektname = 
+		
+		Column<Projekt, String> projektname = 
 				    new Column<Projekt, String>(new ClickableTextCell())  {
 				    
 						@Override
@@ -94,9 +105,7 @@ public class Projekte extends Showcase {
 				  new Column<Projekt, String>(new ClickableTextCell())  {
 								    
 			  			@Override
-						public String getValue(Projekt object) {
-						// TODO Auto-generated method stub
-											
+						public String getValue(Projekt object) {					
 						return object.getBeschreibung();
 						}
 				    };	
@@ -104,16 +113,18 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");	
-	filltableprojekte();
+		filltableprojekte();
 	}
+	
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
+		
 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
-
+			 
 			@Override
 			public void onFailure(Throwable caught) {
 				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
@@ -121,11 +132,31 @@ public class Projekte extends Showcase {
 
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
+				Window.alert("Halloonsuccess");
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
+				
 			}
 		 };
-		adminService.getAllProjekte(callback);	
+		adminService.findByProjektmarktplatz(projektid, callback);
+//		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
+//			 
+//				@Override
+//				public void onFailure(Throwable caught) {
+//					Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+//				}
+//
+//				@Override
+//				public void onSuccess(Vector<Projekt> result) {
+//					Window.alert("Halloonsuccess");
+//					ct_alleProjekte.setRowData(0, result);
+//					ct_alleProjekte.setRowCount(result.size(), true);
+//					
+//				}
+//			 };
+//			adminService.getAllProjekte(callback);
+//		
+		
 	}
 
 }

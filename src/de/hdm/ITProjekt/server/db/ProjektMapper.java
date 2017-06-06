@@ -54,18 +54,38 @@ public class ProjektMapper {
 		Connection con = DBConnection.connection();
 		Vector <Projekt> result = new Vector<Projekt>();
 		
-		try {
+//		try {
+//		      Statement stmt = con.createStatement();
+//		      
+//		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM Projekt" 
+//		      + "WHERE Projektmarktplatz_ID= "+ projektmarktplatzID );
+//		      
+//		      while (rs.next()) {
+//		    	  Projekt p = new Projekt();
+//		    	  	p.setID(rs.getInt("ID"));
+//		    	  	p.setName(rs.getString("name"));
+//					p.setBeschreibung(rs.getString("beschreibung"));
+//					p.setStartdatum(rs.getDate("startdatum"));
+//					p.setEnddatum(rs.getDate("enddatum"));
+//					p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+//		    	  // Hinzufügen des neuen Objekts zum Ergebnisvektor
+//		    	  result.addElement(p);
+		 try {
 		      Statement stmt = con.createStatement();
-		      
-		      ResultSet rs = stmt.executeQuery("SELECT ID FROM Projekt " 
-		      + "WHERE Projektmarktplatz_ID= "+ projektmarktplatzID );
-		      
-		      while (rs.next()) {
-		    	  Projekt p = new Projekt();
-		    	  p.setID(rs.getInt("ID"));
-		    	  
-		    	  // Hinzufügen des neuen Objekts zum Ergebnisvektor
-		    	  result.addElement(p);
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM Projekt" + "WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
+		  
+		  while (rs.next()) {
+			  	Projekt p = new Projekt();
+			  	p.setID(rs.getInt("ID"));
+				p.setName(rs.getString("name"));
+				p.setBeschreibung(rs.getString("beschreibung"));
+				p.setStartdatum(rs.getDate("startdatum"));
+				p.setEnddatum(rs.getDate("enddatum"));
+				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+			  
+			  result.addElement(p);
+		  
 		      }
 		}
 		catch (SQLException e2) {
@@ -79,6 +99,7 @@ public class ProjektMapper {
 	     * Wir lesen einfach die Kundennummer (Primärschlüssel) des Customer-Objekts
 	     * aus und delegieren die weitere Bearbeitung an findByOwner(int ownerID).
 	     */
+		
 	    return findByProjektmarktplatz(projektmarktplatz.getID());
 	  }
 	
