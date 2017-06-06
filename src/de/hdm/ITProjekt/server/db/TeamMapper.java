@@ -129,8 +129,8 @@ public Team insert(Team p1){
 	   	  
 	    	  	stmt = con.createStatement();
 	    	  	
-	    		stmt.executeUpdate("INSERT INTO Team (ID, name)" 
-	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" 
+	    		stmt.executeUpdate("INSERT INTO Team (ID, name, UN_ID)" 
+	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" + ", " + p1.getUN_ID() 
 	    				+")"); 
 	    	  
 	      }
@@ -163,16 +163,18 @@ public Team update(Team t) {
 
     try {
     	t.setID(super.update(t));
+    	
     	super.orgMapper().update(t);
     	
     	Statement stmt = con.createStatement();
 
-      if(t.getUN_ID() ==null){
+      if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
+    	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
-    	          + t.getName() +"'" + "," + "UN_ID = " + t.getUN_ID() + "WHERE ID = " + t.getID());
+    	          + t.getName() +"'" + ", UN_ID = " + t.getUN_ID() + " WHERE ID = " + t.getID());
       }
       
     }

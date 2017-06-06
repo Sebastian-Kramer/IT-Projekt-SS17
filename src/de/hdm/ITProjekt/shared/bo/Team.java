@@ -8,6 +8,7 @@ public class Team extends Organisationseinheit{
 	private String name;
 	
 	//Fermdschlüssel Beziehung zu Unternehmen, da jedes Team zu einem UN gehört
+	
 	private Integer UN_ID = null;
 	
 	
@@ -24,7 +25,7 @@ public class Team extends Organisationseinheit{
 	
 	
 	public void setUN_ID(Integer uN_ID) {
-		if (UN_ID == 0){
+		if (uN_ID == 0){
 			this.UN_ID = null;
 		}else{
 			this.UN_ID = uN_ID;
