@@ -118,11 +118,11 @@ public class Menubar extends StackPanel {
 		meineProjekteButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				Showcase showcase = new Projekte();
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-				currentClickHandler=this;
-				currentClickEvent=event;
+//				Showcase showcase = new Projekte();
+//				RootPanel.get("Details").clear();
+//				RootPanel.get("Details").add(showcase);
+//				currentClickHandler=this;
+//				currentClickEvent=event;
 				
 			}
 		});
