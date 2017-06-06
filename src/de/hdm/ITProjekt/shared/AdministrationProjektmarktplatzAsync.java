@@ -37,6 +37,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPersonbyID(int id, AsyncCallback<Person> callback);
 
+
+
 //	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);
 	
 	
