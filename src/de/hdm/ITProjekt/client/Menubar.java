@@ -20,57 +20,54 @@ public class Menubar extends StackPanel {
 	private static ClickEvent currentClickEvent = null;
 		
 	// Die "einzelnen" Seiten in die Panels legen
-	VerticalPanel startseitePanel = new VerticalPanel();
-	//VerticalPanel projektseitePanel = new VerticalPanel();
-	VerticalPanel projektPanel = new VerticalPanel();
-	VerticalPanel beispielseitePanel = new VerticalPanel();
+	VerticalPanel homePanel = new VerticalPanel();
+//	VerticalPanel projektPanel = new VerticalPanel();
+	VerticalPanel projektmarktplatzPanel = new VerticalPanel();
 	
 	// Buttons für die Panels erstellen
 	
-	// Buttons dem Panel "startseite"
-	Button zurstartseiteButton = new Button("Startseite");
-	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
+	// Buttons in dem Panel "home"
 	
+	Button zurstartseiteButton = new Button("Startseite");
+	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
+	Button meineProjekteButton = new Button("Meine Projekte");
+		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
-	Button projektButton = new Button("Projekte");
-	
-	
-	//Button in dem Panel "projektseite"
-	//Button blablaButton = new Button("blablabutton");
-	
-	
+	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
+	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
 	
 	public Menubar(){
 		// Zusammensetzen des startseitePanels
 		
-		startseitePanel.add(zurstartseiteButton);
+		homePanel.add(zurstartseiteButton);
 		zurstartseiteButton.setWidth("200px");
 		zurstartseiteButton.setStylePrimaryName("navi-button");
 		
 		
-		startseitePanel.add(projektmarktplaetzeButton);
-		projektmarktplaetzeButton.setWidth("200px");
-		projektmarktplaetzeButton.setStylePrimaryName("navi-button");
+		homePanel.add(meineBewerbungenButton);
+		meineBewerbungenButton.setWidth("200px");
+		meineBewerbungenButton.setStylePrimaryName("navi-button");
 		
-		
-		startseitePanel.setSpacing(5);
-		startseitePanel.setWidth("100%");
-		
-		
+		homePanel.add(meineProjekteButton);
+		meineProjekteButton.setWidth("200px");
+		meineProjekteButton.setStylePrimaryName("navi-button");
+				
+		homePanel.setSpacing(5);
+		homePanel.setWidth("100%");
 		
 		//Zusammensetzen des ProjektPanels
 		
-		projektPanel.add(projektButton);
-		projektButton.setWidth("200px");
-		projektButton.setStylePrimaryName("navi-button");
+		projektmarktplatzPanel.add(projektmarktplaetzeButton);
+		projektmarktplaetzeButton.setWidth("200px");
+		projektmarktplaetzeButton.setStylePrimaryName("navi-button");
 		
-		projektPanel.setSpacing(5);
-		projektPanel.setWidth("100%");
-		
-		
-		
-		
+		projektmarktplatzPanel.add(stellenausschreibungenButton);
+		stellenausschreibungenButton.setWidth("200px");
+		stellenausschreibungenButton.setStylePrimaryName("navi-button");
+				
+		projektmarktplatzPanel.setSpacing(5);
+		projektmarktplatzPanel.setWidth("100%");
 		
 		// Zusammensetzen des projektseitePanels
 		
@@ -82,12 +79,12 @@ public class Menubar extends StackPanel {
 //		
 		this.setWidth("250px");
 		this.addStyleName("gwt-StackPanel");
-		this.add(startseitePanel, "Startseite");
-//		this.add(projektseitePanel, "Projekte");
+		this.add(homePanel, "Startseite");
+		this.add(projektmarktplatzPanel, "Projekte");
 		
 		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
 		
-		this.add(projektPanel, "Projekte");
+//		this.add(projektPanel, "Projekte");
 	
 	
 		zurstartseiteButton.addClickHandler(new ClickHandler() {
@@ -115,24 +112,22 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
-		projektButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				
-				Showcase showcase = new ProjektmarktplatzSeite();
-				//Unser Detail Container wird geleert, damit der Container neu befüllt werden kann
-				RootPanel.get("Details").clear();
-				// Unser Container wird mit dem instanziierten showcase befüllt
-				RootPanel.get("Details").add(showcase);
-				//Der ClickHandel und das ClickEvent referenziert auf die aktuelle Methode
-				currentClickHandler=this;
-				currentClickEvent=event;
-				
-				
-			}
-		});
+//		projektmarktplatzButton.addClickHandler(new ClickHandler() {
+//			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				Showcase showcase = new ProjektmarktplatzSeite();
+//				//Unser Detail Container wird geleert, damit der Container neu befüllt werden kann
+//				RootPanel.get("Details").clear();
+//				// Unser Container wird mit dem instanziierten showcase befüllt
+//				RootPanel.get("Details").add(showcase);
+//				//Der ClickHandel und das ClickEvent referenziert auf die aktuelle Methode
+//				currentClickHandler=this;
+//				currentClickEvent=event;
+//				
+//				
+//			}
+//		});
 	}
 	
 	

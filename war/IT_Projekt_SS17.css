@@ -10,7 +10,9 @@
   text-align: center;
   background: aquamarine;
 }*/
+.navi-button{
 
+}
 .sendButton {
   display: block;
   font-size: 16pt;
@@ -21,8 +23,8 @@
   width: 400px;
 }
 
-#gwt-StackPanel{
-	color:red;
+.gwt-StackPanel{
+	
 }
 
 .dialogVPanel {
