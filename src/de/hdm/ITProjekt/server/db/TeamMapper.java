@@ -4,8 +4,9 @@ import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 
-public class TeamMapper {
+public class TeamMapper extends OrganisationseinheitMapper{
 
 private static TeamMapper tMapper = null;
 	
@@ -26,16 +27,20 @@ public Team findByKey(int id){
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, name, anzahlMitglieder FROM Team "
-          + "WHERE ID=" + id);
+			ResultSet rs = stmt.executeQuery("SELECT ID, name, UN_ID FROM Team " + "WHERE ID=" + id);
 			
 			if(rs.next()){
-				Team t = new Team();
-				t.setID(rs.getInt("ID"));
-				t.setName(rs.getString("name"));
-				
-				
-				return t;
+					Team t = new Team();
+					t.setID(rs.getInt("ID"));
+					t.setName(rs.getString("name"));
+					t.setUN_ID(rs.getInt("UN_ID"));
+					t.setStraße(super.findByKey(id).getStraße());
+					t.setHausnummer(super.findByKey(id).getHausnummer());
+					t.setOrt(super.findByKey(id).getOrt());
+					t.setPlz(super.findByKey(id).getPlz());
+					t.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+					
+					return t;
 			}
 		}
 		catch(SQLException e2){
@@ -44,6 +49,11 @@ public Team findByKey(int id){
 		}
 		return null;	
 	}
+
+public Team findByObject(Team t){
+	return this.findByKey(t.getID());
+	  
+  }
 
 public Vector<Team> getAll(){
 	
@@ -54,12 +64,13 @@ public Vector<Team> getAll(){
 	  try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ID, name, FROM Team ");
+	      ResultSet rs = stmt.executeQuery("SELECT ID, name, UN_ID FROM Team ");
 	  
 	  while (rs.next()) {
 		  	Team t = new Team();
 			t.setID(rs.getInt("ID"));
 			t.setName(rs.getString("name"));
+			t.setUN_ID(rs.getInt("UN_ID"));
 			
 		  
 		  result.addElement(t);
@@ -70,6 +81,36 @@ public Vector<Team> getAll(){
 	      }
 	  return result;
 }
+
+public Vector<Team> findByUN(int unternehmenId){
+	
+        Connection con = DBConnection.connection();
+         Vector <Team> t = new Vector<Team>();
+
+        try {
+
+          Statement stmt = con.createStatement();
+
+
+          ResultSet rs = stmt.executeQuery("SELECT * FROM team "
+              + "WHERE UN_ID=" + unternehmenId);
+
+
+          while (rs.next()) {
+            // Ergebnis-Tupel in Objekt umwandeln
+        	Team te=new Team();
+            te.setID(rs.getInt("ID"));
+            te.setName(rs.getString("name"));	        
+            te.setUN_ID(rs.getInt("UN_ID"));
+            
+            t.add(te);
+          }
+        }
+        catch (SQLException e) {
+          e.printStackTrace();
+        }
+	  return t;
+  }
 
 public Team insert(Team p1){
 	
@@ -88,7 +129,7 @@ public Team insert(Team p1){
 	   	  
 	    	  	stmt = con.createStatement();
 	    	  	
-	    		stmt.executeUpdate("INSERT INTO Team (ID, name, anzahlMitglieder)" 
+	    		stmt.executeUpdate("INSERT INTO Team (ID, name)" 
 	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" 
 	    				+")"); 
 	    	  
@@ -108,7 +149,7 @@ public void delete(Team p1){
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("DELETE FROM Team " 
-	    		  			+ "WHERE Team.ID = " + p1.getID());
+	    		  			+ "WHERE ID = " + p1.getID());
 
 		}
 	
@@ -117,21 +158,28 @@ public void delete(Team p1){
 		}
 	}
 
-public Team update(Team c) {
+public Team update(Team t) {
     Connection con = DBConnection.connection();
 
     try {
-      Statement stmt = con.createStatement();
+    	t.setID(super.update(t));
+    	super.orgMapper().update(t);
+    	
+    	Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE Team " + "SET name='"
-          + c.getName() + "SET anzahlMitglieder='"
-    	  + "' WHERE Team.ID = " + c.getID());
-
+      if(t.getUN_ID() ==null){
+    	  stmt.executeUpdate("UPDATE Team SET name='"
+    	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
+      }else if (t.getUN_ID() != null){
+    	  stmt.executeUpdate("UPDATE Team SET name='"
+    	          + t.getName() +"'" + "," + "UN_ID = " + t.getUN_ID() + "WHERE ID = " + t.getID());
+      }
+      
     }
     catch (SQLException e) {
       e.printStackTrace();
     }
 
-    return c;
+    return t;
   }
 }
