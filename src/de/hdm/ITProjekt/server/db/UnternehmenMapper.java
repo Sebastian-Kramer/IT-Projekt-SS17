@@ -101,7 +101,7 @@ public void createUnternehmen(Unternehmen u){
 		      Statement stmt = con.createStatement();
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM unternehmen ");
+		              + "FROM Unternehmen ");
 		      
 		
 		      if(rs.next()){
@@ -110,7 +110,7 @@ public void createUnternehmen(Unternehmen u){
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO organisationseinheit (ID , name, )" + "VALUES "
+		    		stmt.executeUpdate("INSERT INTO Unternehmen (ID , name)" + "VALUES "
 		    				+ "("+  u.getID()+ "," + "'" + u.getName() + "'" +")");		    				    			    	  
 		      }
 		}
@@ -129,7 +129,7 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE organisationseinheit SET " + "Name=\""
+      stmt.executeUpdate("UPDATE Unternehmen SET " + "name=\""
           + u.getName() + "\"" + "WHERE ID=" + u.getID());
     }
     catch (SQLException e2) {
@@ -141,12 +141,12 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
 
 
 
-public void deletePerson(Unternehmen unternehmen1) {
+public void deleteUnternehmen(Unternehmen u) {
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
-      stmt.executeUpdate("DELETE FROM organisationseinheit " + "WHERE ID=" + unternehmen1.getID());
+      stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u.getID());
 
     }
     catch (SQLException e2) {
