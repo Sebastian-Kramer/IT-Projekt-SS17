@@ -103,7 +103,7 @@ public Bewertung insert(Bewertung bew){
 		    	  	bew.setID(rs.getInt("maxid") + 1);   	  	
 		    	  	stmt = con.createStatement();
 		    	  	stmt.executeUpdate("INSERT INTO Bewertung (ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID)" 
-		    	  			+ "VALUES (" + bew.getId() + ", " + "'" + bew.getStellungnahme() + "'" 
+		    	  			+ "VALUES (" + bew.getID() + ", " + "'" + bew.getStellungnahme() + "'" 
 		    	  			+ ", " + bew.getBewertung() + ", " + bew.getBeteiligungs_ID() + ", " + bew.getBewerbungs_ID()
 		    	  			+")"); 
 			
@@ -112,7 +112,7 @@ public Bewertung insert(Bewertung bew){
 	    	 else{
 	    	  		
 	    	  		stmt.executeUpdate("INSERT INTO Bewertung (ID, stellungnahme, bewertung, Bewerbungs_ID, Beteiligungs_ID)" 
-		    				+ "VALUES (" + bew.getId() + ", " + "'" + bew.getStellungnahme() + "'" 
+		    				+ "VALUES (" + bew.getID() + ", " + "'" + bew.getStellungnahme() + "'" 
 		    				+ ", " + bew.getBewertung() + ", " + bew.getBewerbungs_ID() + ", " + bew.getBeteiligungs_ID()
 		    				+")"); 
 	    	  	} 
@@ -138,7 +138,7 @@ public void delete(Bewertung bew){
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("DELETE FROM Bewertung " 
-	    		  			+ "WHERE Bewertung.ID = " + bew.getId());
+	    		  			+ "WHERE Bewertung.ID = " + bew.getID());
 
 		}
 	

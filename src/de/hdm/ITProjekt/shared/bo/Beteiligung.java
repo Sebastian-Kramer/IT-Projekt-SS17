@@ -9,7 +9,6 @@ public class Beteiligung extends BusinessObject {
 	 * Eine Beteilgung besitzt verschiedene Attribute, die sich aus dem Umfang der Beteiligung, einem Start- und 
 	 * Enddatum zusammensetzen. Die Beteiligung an einem Projekt erhält man bei einer guten Bewertung seiner Bewerbung
 	 */
-	private int ID = 0; 
 	private String umfang = "";
 	private Date startdatum = null;
 	private Date enddatum = null;
@@ -17,12 +16,6 @@ public class Beteiligung extends BusinessObject {
 	private int Orga_ID = 0;
 	
 	
-	public int getID() {
-		return ID;
-	}
-	public void setID(int iD) {
-		ID = iD;
-	}
 	public String getUmfang() {
 		return umfang;
 	}
@@ -54,12 +47,12 @@ public class Beteiligung extends BusinessObject {
 		Orga_ID = orga_ID;
 	}
 	
-	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "umfang: " + umfang + "\n"
-				+ "startdatum: " + startdatum + "\n" + "enddatum: " + enddatum
-				+ "\n" + "gehört zum Projekt: " + Projekt_ID + "\n" 
-				+ "Und wurde von folgender Person erstellt: " + Orga_ID;
-	}
+//	public String toString(){
+//		return "\n" + "ID: " + BusinessObjects.ID + "\n" + "umfang: " + umfang + "\n"
+//				+ "startdatum: " + startdatum + "\n" + "enddatum: " + enddatum
+//				+ "\n" + "gehört zum Projekt: " + Projekt_ID + "\n" 
+//				+ "Und wurde von folgender Person erstellt: " + Orga_ID;
+//	}
 	
 	public boolean equals(Object o) {
 
