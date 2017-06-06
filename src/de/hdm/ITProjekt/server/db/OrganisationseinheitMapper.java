@@ -126,11 +126,13 @@ public class OrganisationseinheitMapper {
 	  
   }
 	
-	public Organisationseinheit update(Organisationseinheit o){
+	public int update(Organisationseinheit o){
 		
 		Connection con = DBConnection.connection();
+		int id = 0;
 
 		    try {
+		    	id = o.getID();
 		      Statement stmt = con.createStatement();
 
 
@@ -144,7 +146,7 @@ public class OrganisationseinheitMapper {
 		      e.printStackTrace();
 		    }
 
-		    return o;
+		    return id;
 	  }
 	
 	
