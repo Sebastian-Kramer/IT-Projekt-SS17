@@ -56,11 +56,131 @@ private IdentitySelection (int id){
 		ListboxIdentitySelection.setWidth("250px");
 		Listbox2.setWidth("250px");
 		projektmarktplatzVerwaltung.getPersonbyID(id, new getUser());
+		
+		ListboxIdentitySelection.addChangeHandler(new ChangeHandler() {
+
+			@Override
+			public void onChange(ChangeEvent event) {
+//				Navigation.reload();
+				
+			}
+
+		});
+		Listbox2.addChangeHandler(new ChangeHandler() {
+			
+			@Override
+			public void onChange(ChangeEvent event) {
+//				Navigation.reload();
+			}
+		});
+}
+
+	public static IdentitySelection getNavigation(){
+		if (navigation == null){
+			navigation = new IdentitySelection(loginID);
+		}
+		return navigation;
+	}
+	
+	public static int getSelectedIndex(){
+		int selectedID = ListboxIdentitySelection.getSelectedIndex();
+		
+		return selectedID;
+	}
+
+	public static int getSelectedIdentityID(){
+		if(person.getTeam_ID() != 0){
+			if(ListboxIdentitySelection.getSelectedIndex() == 0){
+				return person.getID();
+			}else if(ListboxIdentitySelection.getSelectedIndex() == 1){
+				return team.getID();
+			}else if(ListboxIdentitySelection.getSelectedIndex() == 2){
+				return unternehmen.getID();
+			}
+		}else if (person.getTeam_ID() == null){
+				if (ListboxIdentitySelection.getSelectedIndex() == 0){
+					return person.getID();
+			}else if(ListboxIdentitySelection.getSelectedIndex() == 0){
+				return unternehmen.getID();   
+			}
+		}
+	return 0; 
+	}
+	
+	public static Organisationseinheit getSelectedIdentityAsObject(){
+
+		if(person.getTeam_ID() != null){
+			if(ListboxIdentitySelection.getSelectedIndex()==0){
+				return person;
+			}else if(ListboxIdentitySelection.getSelectedIndex()==1){
+				return team;
+			}else if(ListboxIdentitySelection.getSelectedIndex()==2){
+				return unternehmen;
+			}
+		}else if(person.getTeam_ID() == null){
+			if(ListboxIdentitySelection.getSelectedIndex()==0){
+				return person;
+			}else if(ListboxIdentitySelection.getSelectedIndex()==1){
+				return unternehmen;
+			}
+
+		}
+		return null;
+	}
+	
+	public static int getSelectedProjectMarketplaceId(){
+		for(Projektmarktplatz p : projektmarktplaetze){
+			if(p.getBez()==Listbox2.getSelectedItemText()){
+				return p.getID();
+			}
+		}
+		return 0;
+	}
+	
+	public static Person getUser(){
+		return person;
+	}
+	
+	public static Team getTeamOfUser(){
+		return team;
+	}
+	
+	public static Unternehmen getUnternehmenOfUser(){
+		return unternehmen;
+	}
+	
+	public static ListBox getOwnOrgUnits(){
+		return ListboxIdentitySelection;
+	}
+	
+	public static void deactivateOrgUnits(){
+		ListboxIdentitySelection.setEnabled(false);
+	}
+	
+	public static void deactivateProjectMarkets(){
+		Listbox2.setEnabled(false);
+	}
+	
+	public static void activateOrgUnits(){
+		ListboxIdentitySelection.setEnabled(true);
+	}
+	
+	public static void activateProjectMarkets(){
+		Listbox2.setEnabled(true);
+	}
+	
+	public static void setOwnOrgUnitToZero(){
+		ListboxIdentitySelection.setSelectedIndex(0);
+	}
+	
+	public void reinitialize(){
+		projektmarktplatzVerwaltung.getPersonbyID(loginID, new getUser());
 	}
 
 
-
-private class getUser implements AsyncCallback<Person>{
+	
+	
+	private class getUser implements AsyncCallback<Person>{
 
 	@Override
 	public void onFailure(Throwable caught) {
@@ -75,11 +195,17 @@ private class getUser implements AsyncCallback<Person>{
 			person = result;
 			Integer personID = result.getID();
 			ListboxIdentitySelection.addItem("Person" + result.getVorname() + " " +
-												result.getNachname() , personID.toString());
-			
-//			if (person.getOrga_ID()!=null) {
-//				projektmarktplatzVerwaltung
+												result.getName() , personID.toString());
+			/*
+			 * Wird noch von Sebi bearbeitet, bitte nicht verändern
+			 */
+//			if (person.getTeam_ID() !=null) {
+//				projektmarktplatzVerwaltung.getTeamByID(result.getTeam_ID(), new getTeam());
+//			}else if (person.getUN_ID() != null){
+//				projektmarktplatzVerwaltung.getUnById(result.getUN_ID(), new getUnternehmen());
 //			}
+			
+			
 		}
 
 	}
