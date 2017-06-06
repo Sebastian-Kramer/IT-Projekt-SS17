@@ -121,12 +121,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	
 	//Alle Projekte die zu einem Projektmarktplatz gehören werden in einem Vector ausgegeben
-	@Override
-	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID) {
-		// TODO Auto-generated method stub
-		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
-	}
-	
+//	@Override
+//	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID) {
+//		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
+//	}
+//	
 	public void deleteProjekt(Projekt pr){
 		this.pMapper.deleteProjekt(pr);
 	}
@@ -152,6 +151,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.prMApper.findByKey(id);
 	}
+	@Override
+	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
+		// TODO Auto-generated method stub
+		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
+	}
+	
 	
 
 	
