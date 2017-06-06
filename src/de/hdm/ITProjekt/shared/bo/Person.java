@@ -4,11 +4,11 @@ public class Person extends Organisationseinheit{
 	
 	private static final long serialVersionUID = 1L;
 	
-	private String vorname = "";
+	private String vorname;
 	
-	private String name = "";
+	private String name;
 	
-	private String anrede = "";
+	private String anrede;
 	
 	//Fremdschlüsselbeziehungen werden hier realisiert
 	

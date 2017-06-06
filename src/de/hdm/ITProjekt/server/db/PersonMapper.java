@@ -188,7 +188,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		      if(p.getTeam_ID()==null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede) "
 				            + "VALUES (" + p.getID() + ",'" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() +"')");
+				            + p.getVorname() + "','" + p.getAnrede() +"'" +")");
 			        
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede, Team_ID) "
