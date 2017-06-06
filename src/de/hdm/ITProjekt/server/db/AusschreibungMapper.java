@@ -24,6 +24,7 @@ public class AusschreibungMapper {
 			return aMapper;
 		}
 		
+		//Ausschreibung anhand der übergebenen ID wird zurückgegeben
 		public Ausschreibung findByKey(int id){
 			
 			Connection con = DBConnection.connection();
@@ -51,6 +52,39 @@ public class AusschreibungMapper {
 			return null;	
 		}
 		
+		//Alle Auschreibungen eines Projekts sollen ausgegeben werden
+		 public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId){
+				
+			  Connection con = DBConnection.connection();
+			  Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+			  
+			  try {
+				
+				  Statement stmt = con.createStatement();
+				  ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID FROM Ausschreibung "
+				  		+ "WHERE Projekt_Id=" + projektId + " ORDER BY Bezeichnung");
+				  
+				  while (rs.next()) {
+					Ausschreibung a = new Ausschreibung();
+					
+					a.setId(rs.getInt("Ausschreibung_Id"));
+				 	a.setID(rs.getInt("ID"));
+					a.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					a.setBezeichnung(rs.getString("bezeichnung"));
+					a.setDatum(rs.getDate("datum"));
+					a.setProjekt_ID(rs.getInt("Projekt_ID"));
+					
+					result.add(a);
+				}
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			  return result;
+		  }
+		
+		
+		//Alle Auschreibungen aus der Datenbank werden ausgegeben
 		public Vector<Ausschreibung> getAll(){
 			
 			 Connection con = DBConnection.connection();

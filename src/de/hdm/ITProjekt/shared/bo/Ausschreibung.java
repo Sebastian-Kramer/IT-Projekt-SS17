@@ -10,7 +10,13 @@ public class Ausschreibung extends BusinessObject {
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
 	private Date datum = null;
+	
+	//Realisierung der Fremdschlüssel Beziehungen
+	
 	private int Projekt_ID = 0;
+	
+	private int Partnerprofil_ID = 0;
+	
 	private int Orga_ID = 0;
 	
 	
@@ -37,13 +43,18 @@ public class Ausschreibung extends BusinessObject {
 	}
 	public void setDatum(Date datum) {
 		this.datum = datum;
-	}
-	
+	}	
 	public int getProjekt_ID() {
 		return Projekt_ID;
 	}
 	public void setProjekt_ID(int projekt_ID) {
 		Projekt_ID = projekt_ID;
+	}
+	public int getPartnerprofil_ID() {
+		return Partnerprofil_ID;
+	}
+	public void setPartnerprofil_ID(int partnerprofil_ID) {
+		Partnerprofil_ID = partnerprofil_ID;
 	}
 	public int getOrga_ID() {
 		return Orga_ID;
@@ -51,7 +62,6 @@ public class Ausschreibung extends BusinessObject {
 	public void setOrga_ID(int orga_ID) {
 		Orga_ID = orga_ID;
 	}
-	
 	public String toString(){
 		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
 				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
