@@ -35,7 +35,7 @@ public Partnerprofil findByKey(int id){
 			
 			if(rs.next()){
 				Partnerprofil p = new Partnerprofil();
-				p.setId(rs.getInt("ID"));
+				p.setID(rs.getInt("ID"));
 				p.setErstellungsdatum(rs.getDate("startdatum"));
 				p.setAenderungsdatum(rs.getDate("enddatum"));
 				p.setArbeitsgebiet(rs.getString("arbeitsgebiet"));
@@ -63,7 +63,7 @@ public Vector<Partnerprofil> getAll(){
 	  
 	  while (rs.next()) {
 		  	Partnerprofil p = new Partnerprofil();
-		  	p.setId(rs.getInt("ID"));
+		  	p.setID(rs.getInt("ID"));
 			p.setErstellungsdatum(rs.getDate("startdatum"));
 			p.setAenderungsdatum(rs.getDate("enddatum"));
 			p.setArbeitsgebiet(rs.getString("arbeitsgebiet"));
@@ -92,12 +92,12 @@ public Partnerprofil insert(Partnerprofil pp1){
 	
 	      if(rs.next()){
 	    	  
-	    	  	pp1.setId(rs.getInt("maxid") + 1);
+	    	  	pp1.setID(rs.getInt("maxid") + 1);
 	   	  
 	    	  	stmt = con.createStatement();
 	    	  	
 	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre)" 
-	    				+ "VALUES (" + pp1.getId() 
+	    				+ "VALUES (" + pp1.getID() 
 	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" 
 	    				+ ", " + "'" + format.format(pp1.getAenderungsdatum()) + "'" 
 	                    + ", " + "'" + pp1.getArbeitsgebiet() 
@@ -119,7 +119,7 @@ public void delete(Partnerprofil a){
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("DELETE FROM Partnerprofil " 
-	    		  			+ "WHERE Partnerprofil.ID = " + a.getId());
+	    		  			+ "WHERE Partnerprofil.ID = " + a.getID());
 
 		}
 	
@@ -136,7 +136,7 @@ public Partnerprofil update(Partnerprofil c) {
 
       stmt.executeUpdate("UPDATE Partnerprofil " + "SET änderungsdatum='"
           + format.format(c.getAenderungsdatum()) + "', arbeitsgebiet= '" + c.getArbeitsgebiet() +  "', berufserfahrungsJahre= '" + c.getBerufserfahrungsJahre()
-    		  + "' WHERE Partnerprofil.ID = " + c.getId());
+    		  + "' WHERE Partnerprofil.ID = " + c.getID());
 
     }
     catch (SQLException e) {

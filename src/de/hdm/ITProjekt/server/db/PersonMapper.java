@@ -174,39 +174,45 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 	}
 	
 
-	public void createPerson(Person p){
+	public Person createPerson(Person p){
 		
 		Connection con = DBConnection.connection();
 		
 		try {
 		      Statement stmt = con.createStatement();
+		      
 		      p.setID(super.insert(p));
-		      
+		      		      
 		      stmt = con.createStatement();
-		      
 		     		
 		      if(p.getTeam_ID()==null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede) "
 				            + "VALUES (" + p.getID() + ",'" + p.getName() + "','"
 				            + p.getVorname() + "','" + p.getAnrede() +"')");
+			        
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede, Team_ID) "
 				            + "VALUES (" + p.getID() + ",'" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "','" + p.getTeam_ID() +"')");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getTeam_ID() +")");
+			        
 		        }else if(p.getTeam_ID()==null && p.getUN_ID()!=null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede, UN_ID) "
 				            + "VALUES (" + p.getID() + ",'" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "','" + p.getUN_ID() +"')");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() +")");
+			        
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()!=null){
 			        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			        stmt.executeUpdate("INSERT INTO Person (ID, name, vorname, anrede, UN_ID, Team_ID) "
 			            + "VALUES (" + p.getID() + ",'" + p.getName() + "','"
-			            + p.getVorname() + "','" + p.getAnrede() + "','" + p.getUN_ID() + "','" + p.getTeam_ID() +"')");
-		        }        
+			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +")");
+		        } 
+		      
 		}
 		catch(SQLException e2){
 			e2.printStackTrace();
+			System.out.println("Falsche Werte");
 		}
+		return p;
 	}
 
 	public Person updatePerson(Person p) {

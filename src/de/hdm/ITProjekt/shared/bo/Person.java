@@ -28,8 +28,8 @@ public class Person extends Organisationseinheit{
 	public String getName() {
 		return name;
 	}
-	public void setName(String nachname) {
-		this.name = nachname;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getAnrede() {
 		return anrede;
@@ -43,8 +43,8 @@ public class Person extends Organisationseinheit{
 	}
 	
 	public void setTeam_ID(Integer team_ID) {
-		if(Team_ID==0){
-			this.Team_ID=null;
+		if(team_ID==0){
+			this.Team_ID = null;
 		}else{
 			this.Team_ID = team_ID;	
 		}
@@ -53,8 +53,8 @@ public class Person extends Organisationseinheit{
 		return UN_ID;
 	}
 	public void setUN_ID(Integer uN_ID) {
-		if(UN_ID==0){
-			this.UN_ID=null;
+		if(uN_ID==0){
+			this.UN_ID = null;
 		}else{
 			this.UN_ID = uN_ID;
 		}
