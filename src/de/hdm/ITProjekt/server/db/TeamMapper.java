@@ -33,7 +33,7 @@ public Team findByKey(int id){
 				Team t = new Team();
 				t.setID(rs.getInt("ID"));
 				t.setName(rs.getString("name"));
-				t.setAnzahlMitglieder(rs.getInt("anzahlMitglieder"));
+				
 				
 				return t;
 			}
@@ -54,13 +54,13 @@ public Vector<Team> getAll(){
 	  try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ID, name, anzahlMitglieder FROM Team ");
+	      ResultSet rs = stmt.executeQuery("SELECT ID, name, FROM Team ");
 	  
 	  while (rs.next()) {
 		  	Team t = new Team();
 			t.setID(rs.getInt("ID"));
 			t.setName(rs.getString("name"));
-			t.setAnzahlMitglieder(rs.getInt("anzahlMitglieder"));
+			
 		  
 		  result.addElement(t);
 	  }
@@ -90,7 +90,7 @@ public Team insert(Team p1){
 	    	  	
 	    		stmt.executeUpdate("INSERT INTO Team (ID, name, anzahlMitglieder)" 
 	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" 
-	    				+ ", " + p1.getAnzahlMitglieder() +")"); 
+	    				+")"); 
 	    	  
 	      }
 	}
@@ -124,7 +124,7 @@ public Team update(Team c) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE Team " + "SET name='"
-          + c.getName() + "SET anzahlMitglieder='" + c.getAnzahlMitglieder()
+          + c.getName() + "SET anzahlMitglieder='"
     	  + "' WHERE Team.ID = " + c.getID());
 
     }
