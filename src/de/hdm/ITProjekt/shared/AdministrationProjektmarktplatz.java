@@ -39,6 +39,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Person getPersonbyID(int id);
 	
+	Vector<Projekt> getAllProjekte();
+	
 	
 	
 	

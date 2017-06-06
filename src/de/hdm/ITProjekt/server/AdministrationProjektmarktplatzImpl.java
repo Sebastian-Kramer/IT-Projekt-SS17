@@ -130,6 +130,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void deleteProjekt(Projekt pr){
 		this.pMapper.deleteProjekt(pr);
 	}
+	
+	@Override
+	public Vector<Projekt> getAllProjekte() {
+		return this.pMapper.getAllProjekte();
+	}
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Projekt-Objekte
@@ -147,6 +152,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.prMApper.findByKey(id);
 	}
+	
+
 	
 
 }
