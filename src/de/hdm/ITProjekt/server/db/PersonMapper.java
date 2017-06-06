@@ -254,6 +254,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 	  }
 	
 	
+	
 	public void deletePerson(Person p) {
 	    Connection con = DBConnection.connection();
 
