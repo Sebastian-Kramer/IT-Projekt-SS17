@@ -5,7 +5,10 @@ import java.util.Date;
 public class Beteiligung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
-	
+	/*
+	 * Eine Beteilgung besitzt verschiedene Attribute, die sich aus dem Umfang der Beteiligung, einem Start- und 
+	 * Enddatum zusammensetzen. Die Beteiligung an einem Projekt erhält man bei einer guten Bewertung seiner Bewerbung
+	 */
 	private int ID = 0; 
 	private String umfang = "";
 	private Date startdatum = null;
