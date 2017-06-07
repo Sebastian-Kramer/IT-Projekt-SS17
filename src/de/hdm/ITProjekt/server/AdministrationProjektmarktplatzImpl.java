@@ -157,6 +157,39 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
 	}
 	
+	// Methoden von Ausschreibung 
+	@Override
+	public Ausschreibung findByKey(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Vector<Ausschreibung> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Ausschreibung addAusschreibung(Object String) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Ausschreibung deleteAusschreibung(Ausschreibung a) {
+		return null;
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Ausschreibung update(Ausschreibung c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 	
 
 	
