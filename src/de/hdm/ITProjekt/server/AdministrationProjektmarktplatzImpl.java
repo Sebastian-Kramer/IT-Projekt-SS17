@@ -23,11 +23,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private PersonMapper prMApper = null; 
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
+	private BewerbungMapper bewMapper = null;
 
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
 		this.pMapper = ProjektMapper.pMapper();
+		this.bewMapper = BewerbungMapper.bewMapper();
 	}
 	/*
 	   * ***************************************************************************
@@ -198,9 +200,25 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Unternehmen GetUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
+	@Override
+	public Vector<Bewerbung> getAllBewerbungen() {
+		// TODO Auto-generated method stub
+		return this.bewMapper.getAll();
+	}
 	
-
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden fürBewerbung-Objekte
+	   * ***************************************************************************
+	   */
 	
+	
+	
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
+	   * ***************************************************************************
+	   */
 	
 	
 	

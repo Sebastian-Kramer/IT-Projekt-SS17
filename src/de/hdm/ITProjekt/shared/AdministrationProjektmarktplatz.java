@@ -49,6 +49,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Unternehmen GetUnByID (int id);
 	
+	Vector<Bewerbung> getAllBewerbungen();
+	
 	
 	
 	

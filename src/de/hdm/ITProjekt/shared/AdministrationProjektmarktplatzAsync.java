@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
@@ -46,6 +47,11 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getTeamByID(int id, AsyncCallback<Team> callback);
 
 	void GetUnByID(int id, AsyncCallback<Unternehmen> callback);
+
+	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
+
+	
+	
 
 	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
