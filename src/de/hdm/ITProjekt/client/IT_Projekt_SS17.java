@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 
 public class IT_Projekt_SS17 implements EntryPoint {
@@ -71,10 +72,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		  }
 		  */
 		  private void loadIT_Projekt_SS17(){
-			  Homeseite startseite = new Homeseite();
+			  
+			  Showcase showcase = new Homeseite();
 			 // signOutLink.setHref(loginInfo.getLogoutUrl());//
 			  mainPanel.add(addPanel);
-			  mainPanel.add(startseite);
+			  mainPanel.add(showcase);
 			 // mainPanel.add(signOutLink);;//
 			  RootPanel.get("Details").add(mainPanel);
 			  RootPanel.get("Navigator").add(new Menubar());
