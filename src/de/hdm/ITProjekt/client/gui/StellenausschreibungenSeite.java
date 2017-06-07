@@ -1,4 +1,4 @@
-//package de.hdm.ITProjekt.client.gui;
+package de.hdm.ITProjekt.client.gui;
 //
 //import java.util.Date;
 //import java.util.Vector;
