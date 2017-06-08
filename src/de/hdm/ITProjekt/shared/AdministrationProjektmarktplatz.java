@@ -62,11 +62,12 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	 
 	public Vector<Ausschreibung> getAll();
 	
+	
 	public Ausschreibung addAusschreibung(Ausschreibung a);
 	
 	public void deleteAusschreibung(Ausschreibung a);
 	
-	public Ausschreibung update(Ausschreibung c);
+	public Ausschreibung update(Ausschreibung c) ;
 
 	
 	

@@ -51,9 +51,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
 	
-	
 	// Methodenköpfe von AusschreibungMapper
-	
+
 	void findByKey(int id, AsyncCallback<Ausschreibung> callback);
 
 	void getAlLAuscchreibungenBy(int projektId, AsyncCallback<Vector<Ausschreibung>> callback);
@@ -65,6 +64,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Void> callback);
 
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
+	
+	
+	
+	
 
 	
 
