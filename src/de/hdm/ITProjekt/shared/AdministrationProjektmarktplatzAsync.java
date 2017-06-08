@@ -44,19 +44,19 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
 
 
-	// Methodenköpfe von AusschreibungMapper
-	
-	void findByKey(int id, AsyncCallback<Ausschreibung> callback);
-
-	void getAlLAuscchreibungenBy(int projektId, AsyncCallback<Vector<Ausschreibung>> callback);
-
-	void getAll(AsyncCallback<Vector<Ausschreibung>> callback);
-
-	void addAusschreibung(Object string, AsyncCallback<Ausschreibung> callback);
-
-	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
-
-	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
+//	// Methodenköpfe von AusschreibungMapper
+//	
+//	void findByKey(int id, AsyncCallback<Ausschreibung> callback);
+//
+//	void getAlLAuscchreibungenBy(int projektId, AsyncCallback<Vector<Ausschreibung>> callback);
+//
+//	void getAll(AsyncCallback<Vector<Ausschreibung>> callback);
+//
+//	void addAusschreibung(Object string, AsyncCallback<Ausschreibung> callback);
+//
+//	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
+//
+//	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
 	
 	
 

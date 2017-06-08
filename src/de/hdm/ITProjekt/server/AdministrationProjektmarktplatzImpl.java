@@ -24,12 +24,15 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
+//	private  AusschreibungMapper aMapper = null; 
 
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
 		this.pMapper = ProjektMapper.pMapper();
 		this.bewMapper = BewerbungMapper.bewMapper();
+//		this.aMapper = AusschreibungMapper.aMapper();
+		
 	}
 	/*
 	   * ***************************************************************************
@@ -184,37 +187,37 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	 * ABSCHNITT, Anfang: Methoden für Ausschreibung
 	 * ***************************************************************************
 	 */
-	@Override
-	public Ausschreibung findByKey(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Vector<Ausschreibung> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Ausschreibung addAusschreibung(Object String) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Ausschreibung deleteAusschreibung(Ausschreibung a) {
-		return null;
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public Ausschreibung update(Ausschreibung c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public Ausschreibung findByKey(int id) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public Vector<Ausschreibung> getAll() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public Ausschreibung addAusschreibung(Object String) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
+//	@Override
+//	public Ausschreibung deleteAusschreibung(Ausschreibung a) {
+//		return null;
+//		// TODO Auto-generated method stub
+//		
+//	}
+//	@Override
+//	public Ausschreibung update(Ausschreibung c) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 	
 	/*

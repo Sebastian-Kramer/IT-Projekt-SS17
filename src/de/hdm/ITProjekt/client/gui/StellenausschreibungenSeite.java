@@ -1,4 +1,4 @@
-package de.hdm.ITProjekt.client.gui;
+//package de.hdm.ITProjekt.client.gui;
 //
 //import java.util.Date;
 //import java.util.Vector;
@@ -52,6 +52,10 @@ package de.hdm.ITProjekt.client.gui;
 //
 //	
 //
+//
+//	public StellenausschreibungenSeite(Ausschreibung selectedObject) {
+//		// TODO Auto-generated constructor stub
+//	}
 //
 //	@Override
 //	protected String getHeadlineText() {
