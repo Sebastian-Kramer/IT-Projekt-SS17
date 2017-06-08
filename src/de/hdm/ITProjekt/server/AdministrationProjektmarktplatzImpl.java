@@ -24,14 +24,14 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
-//	private  AusschreibungMapper aMapper = null; 
+	private  AusschreibungMapper aMapper = null; 
 
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
 		this.pMapper = ProjektMapper.pMapper();
 		this.bewMapper = BewerbungMapper.bewMapper();
-//		this.aMapper = AusschreibungMapper.aMapper();
+		this.aMapper = AusschreibungMapper.aMapper();
 		
 	}
 	/*
@@ -187,37 +187,35 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	 * ABSCHNITT, Anfang: Methoden für Ausschreibung
 	 * ***************************************************************************
 	 */
-//	@Override
-//	public Ausschreibung findByKey(int id) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	@Override
-//	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	@Override
-//	public Vector<Ausschreibung> getAll() {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	@Override
-//	public Ausschreibung addAusschreibung(Object String) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
-//	@Override
-//	public Ausschreibung deleteAusschreibung(Ausschreibung a) {
-//		return null;
-//		// TODO Auto-generated method stub
-//		
-//	}
-//	@Override
-//	public Ausschreibung update(Ausschreibung c) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	@Override
+	public Ausschreibung findByKey(int id) {
+		// TODO Auto-generated method stub
+		return this.aMapper.findByKey(id);
+	}
+	@Override
+	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAlLAuscchreibungenBy(projektId);
+	}
+	@Override
+	public Vector<Ausschreibung> getAll() {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAll();
+	}
+	@Override
+	public Ausschreibung addAusschreibung(Ausschreibung a) {
+		// TODO Auto-generated method stub
+		return this.aMapper.addAusschreibung(a);
+	}
+	@Override
+	public void deleteAusschreibung(Ausschreibung a) {
+
+	}
+	@Override
+	public Ausschreibung update(Ausschreibung c) {
+		// TODO Auto-generated method stub
+		return this.aMapper.update(c);
+	}
 	
 	
 	/*
@@ -261,6 +259,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewMapper.getAll();
 	}
+	
 	
 	
 	
