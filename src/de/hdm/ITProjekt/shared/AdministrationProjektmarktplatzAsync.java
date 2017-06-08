@@ -1,13 +1,14 @@
 package de.hdm.ITProjekt.shared;
 
 import java.util.Vector;
-
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public interface AdministrationProjektmarktplatzAsync {
 
@@ -42,6 +43,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
 
+
 	// Methodenköpfe von AusschreibungMapper
 	
 	void findByKey(int id, AsyncCallback<Ausschreibung> callback);
@@ -57,6 +59,18 @@ public interface AdministrationProjektmarktplatzAsync {
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
 	
 	
+
+	void getTeamByID(int id, AsyncCallback<Team> callback);
+
+	void GetUnByID(int id, AsyncCallback<Unternehmen> callback);
+
+	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
+
+	
+	
+
+	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
+
 
 
 //	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);
