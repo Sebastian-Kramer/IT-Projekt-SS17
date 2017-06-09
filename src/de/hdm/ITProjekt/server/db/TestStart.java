@@ -1,52 +1,60 @@
-//package de.hdm.ITProjekt.server.db;
+package de.hdm.ITProjekt.server.db;
+//
+import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
+import de.hdm.ITProjekt.server.db.BewerbungMapper;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
+import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
+import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
+//
+import de.hdm.ITProjekt.*;
+import java.util.*;
+
+import org.mortbay.log.Log;
+
+import java.text.*;
+
+import com.ibm.icu.text.SimpleDateFormat;
+//
 ////
-//import de.hdm.ITProjekt.server.db.ProjektmarktplatzMapper;
-//import de.hdm.ITProjekt.server.db.BewerbungMapper;
-//import de.hdm.ITProjekt.shared.bo.Bewerbung;
-//import de.hdm.ITProjekt.shared.bo.Bewertung;
-//import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
-//import de.hdm.ITProjekt.shared.bo.Ausschreibung;
-//import de.hdm.ITProjekt.shared.bo.Beteiligung;
-//import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
-//import de.hdm.ITProjekt.shared.bo.Person;
-//import de.hdm.ITProjekt.shared.bo.Projekt;
-////
-//import de.hdm.ITProjekt.*;
-//import java.util.*;
-//
-//import org.mortbay.log.Log;
-//
-//import java.text.*;
-//
-//import com.ibm.icu.text.SimpleDateFormat;
-//
-////
-//public class TestStart {
-////	
-////	public static void testtest (String text) {
-////		ProjektmarktplatzMapper pmp = ProjektmarktplatzMapper.pmpMapper();
-////		Projektmarktplatz p1 = new Projektmarktplatz();
-////		p1.setBez(text);
-////		p1.setID(10);
-////		pmp.addMarktplatz(p1);
-////	}
-////	
-//	public static void main(String[] args) throws ParseException {
-//	
-////		ProjektmarktplatzMapper t1 = ProjektmarktplatzMapper.pmpMapper();
-//
-////		
-////		Projektmarktplatz p1 = new Projektmarktplatz();
-//
-////		
-//		
-////		/* Test Methodenaufrufe:
-////		 	p1.setBez("Vertrieb");
-////			t1.addMarktplatz(p1);		
-////			p1.setID(2);
-////			p1.setBez("Rechnungswesen");
-////			t1.deleteMarktplatz(p1);
-////		*/
+public class TestStart {
+	
+	public static void main(String[] args) throws ParseException {
+	
+		PersonMapper  p = PersonMapper.perMapper();
+		Person pe = new Person();
+		
+		pe.setAnrede("Herr");
+		pe.setName("test");
+		pe.setVorname("test");
+		pe.setPartnerprofil_ID(1);
+		
+		p.createPerson(pe);
+	
+
+
+	
+
+	
+	
+	
+		
+	}
+}
+		
+		/* Test Methodenaufrufe:
+		 	p1.setBez("Vertrieb");
+			t1.addMarktplatz(p1);		
+			p1.setID(2);
+			p1.setBez("Rechnungswesen");
+			t1.deleteMarktplatz(p1);
+		*/
 //
 //
 ////
