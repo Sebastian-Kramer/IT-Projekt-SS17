@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.MeinProfil;
 import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
@@ -34,6 +35,7 @@ public class Menubar extends StackPanel {
 	Button zurstartseiteButton = new Button("Startseite");
 	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
 	Button meineProjekteButton = new Button("Meine Projekte");
+	Button meinPartnerprofilButton = new Button("Mein Profil");
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
@@ -55,6 +57,10 @@ public class Menubar extends StackPanel {
 		homePanel.add(meineProjekteButton);
 		meineProjekteButton.setWidth("200px");
 		meineProjekteButton.setStylePrimaryName("navi-button");
+		
+		homePanel.add(meinPartnerprofilButton);
+		meinPartnerprofilButton.setWidth("200px");
+		meinPartnerprofilButton.setStylePrimaryName("navi-button");
 				
 		homePanel.setSpacing(5);
 		homePanel.setWidth("100%");
@@ -166,6 +172,16 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
+		
+		meinPartnerprofilButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event){
+				Showcase showcase = new MeinProfil();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
+			}
+		});
 	}
 	
 	
