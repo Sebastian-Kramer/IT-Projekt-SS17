@@ -54,7 +54,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		return "Projektmarktplatz Suche";
+		return "<h1>Projektmarktplatz Suche</h1>";
 	}
 	
 	@Override
@@ -117,7 +117,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		       
 		        {
 		    if(ssm != null){
-		        	Showcase showcase = new Projekte(ssm.getSelectedObject());
+		        	Showcase showcase = new Projekte(ssm.getSelectedObject().getID());
 		        	RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 		    }
@@ -133,82 +133,87 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		ct_alleProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Alle Projektmarktplätze");
 //		ct_eigeneProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Die eigenen Projektmarktplätze");
 		ct_alleProjektmarktplaetze.addColumn(linkColumn, "Bezeichnung");
-	
-		filltable();	
-		loschenProjektmarktplatz();
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
+//		filltable();	
+//		loschenProjektmarktplatz();
 		anlegenProjektmarktplatz();
 			}
 	
 
 		// Beim ersten Mal laden der Seite, die Daten aus der Datenbank lesen
 	
-	private void filltable(){
-	
-		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-		 if (adminService == null) {
-	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }
-		 AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>(){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
-			}
-			@Override
-			public void onSuccess(Vector<Projektmarktplatz> result) {
-				ct_alleProjektmarktplaetze.setRowData(0, result);
-				ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
-				
-					
-				}
-			};
-		adminService.getProjektmarktplatzAll(callback);
-	}
+//	private void filltable(){
+//	
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		 AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+//			}
+//			@Override
+//			public void onSuccess(Vector<Projektmarktplatz> result) {
+//				ct_alleProjektmarktplaetze.setRowData(0, result);
+//				ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
+//				
+//					
+//				}
+//			};
+//		adminService.getProjektmarktplatzAll(callback);
+//	}
 	
 	// Löschen aus der Datenbank und Tabelle
 
-	
-	 private void loschenProjektmarktplatz(){
-		deleteprojektmarktplatz.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				// TODO Auto-generated method stub
-				// "selectedobject" sprich die angewählte Zeile in der Tabelle wird instanziiert
-				Projektmarktplatz selectedObject = ssm.getSelectedObject();
-				if (selectedObject != null){
-					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-					 if (adminService == null) {
-				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-				    }
-					 AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>(){
-
-						@Override
-						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-							Window.alert("Fehler beim Löschen");
-							
-						}
-
-						@Override
-						public void onSuccess(Projektmarktplatz result) {
-							// TODO Auto-generated method stub
-							Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-							refreshlist();
-						}
-						};
-						adminService.deleteProjektmarktplatz(selectedObject, callback);
-				}
-}
-		});
-	 }
-	 
+//	
+//	 private void loschenProjektmarktplatz(){
+//		deleteprojektmarktplatz.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				// TODO Auto-generated method stub
+//				// "selectedobject" sprich die angewählte Zeile in der Tabelle wird instanziiert
+//				Projektmarktplatz selectedObject = ssm.getSelectedObject();
+//				if (selectedObject != null){
+//					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//					 if (adminService == null) {
+//				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//				    }
+//					 AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>(){
+//
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Fehler beim Löschen");
+//							
+//						}
+//
+//						@Override
+//						public void onSuccess(Projektmarktplatz result) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+//							refreshlist();
+//						}
+//						};
+//						adminService.deleteProjektmarktplatz(selectedObject, callback);
+//				}
+//}
+//		});
+//	 }
+//	 
 	 // Liste erneuern, der Trigger ist das Löschen eines Projektmarktplatzes
 	 private void refreshlist(){
 		 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
+		 
 		 AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>(){
 
 			@Override
@@ -219,7 +224,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			@Override
 			public void onSuccess(Vector<Projektmarktplatz> result) {
 				// TODO Auto-generated method stub
-				ct_alleProjektmarktplaetze.setRowData(0, result	);
+				ct_alleProjektmarktplaetze.setRowData(0, result);
 				ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
 				
 					
@@ -256,7 +261,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 				
 					@Override
 					public void onSuccess(Projektmarktplatz result) {
-						filltable();  		
+//						filltable();  		
 									}
 				
 			    };
@@ -268,6 +273,45 @@ public class ProjektmarktplatzSeite extends Showcase{
 });
 }
 	
+	public class getProjektmarktplatzAusDB implements AsyncCallback<Vector<Projektmarktplatz>>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+		}
+
+		@Override
+		public void onSuccess(Vector<Projektmarktplatz> result) {
+			// TODO Auto-generated method stub	
+			ct_alleProjektmarktplaetze.setRowData(0, result);
+			ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
+			
+		}
+		
+	}
+//	private void filltable(){
+//	
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		 AsyncCallback<Vector<Projektmarktplatz>> callback = new AsyncCallback<Vector<Projektmarktplatz>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+//			}
+//			@Override
+//			public void onSuccess(Vector<Projektmarktplatz> result) {
+//				ct_alleProjektmarktplaetze.setRowData(0, result);
+//				ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
+//				
+//					
+//				}
+//			};
+//		adminService.getProjektmarktplatzAll(callback);
+//	}
 	 
 }
 	

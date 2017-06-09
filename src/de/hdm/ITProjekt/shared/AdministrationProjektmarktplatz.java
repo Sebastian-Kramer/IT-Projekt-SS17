@@ -45,15 +45,47 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	Vector<Projekt> getAllProjekte();
 	
+
+
+
 	public Team getTeamByID(int id);
 	
 	public Unternehmen GetUnByID (int id);
 	
 	Vector<Bewerbung> getAllBewerbungen();
 	
+		// Methoden von Ausschreibung
+	
+	public Ausschreibung findByKey(int id);
+	
+	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId);
+	 
+	public Vector<Ausschreibung> getAll();
 	
 	
+	public Ausschreibung addAusschreibung(Ausschreibung a);
 	
+	public void deleteAusschreibung(Ausschreibung a);
+	
+	public Ausschreibung update(Ausschreibung c) ;
+
+	
+	
+
+
+
+	
+
+	
+	
+
+	
+	
+
+
+
+	
+
 	
 	
 

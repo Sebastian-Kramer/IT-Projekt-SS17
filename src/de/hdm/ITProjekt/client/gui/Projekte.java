@@ -44,8 +44,8 @@ public class Projekte extends Showcase {
 		
 	}
 	
-	private Projektmarktplatz projektid;
-	public Projekte(Projektmarktplatz selectedId){
+	private int projektid;
+	public Projekte(int selectedId){
 		this.projektid = selectedId;
 	}
 
@@ -113,9 +113,16 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");	
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
+//		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
 		filltableprojekte();
-	}
 	
+	
+}
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -139,7 +146,9 @@ public class Projekte extends Showcase {
 			}
 		 };
 		adminService.findByProjektmarktplatz(projektid, callback);
-//		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
+
+		 
+//		 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
 //			 
 //				@Override
 //				public void onFailure(Throwable caught) {
@@ -154,9 +163,32 @@ public class Projekte extends Showcase {
 //					
 //				}
 //			 };
-//			adminService.getAllProjekte(callback);
+//			adminService.getProjekteOf(projektid, callback);
 //		
-		
-	}
-
+//		
+//	}
+//		class getProjekteOfProjektmarktplatz implements AsyncCallback<Vector<Projekt>>{
+//
+//			
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				// TODO Auto-generated method stub
+//				Window.alert("Failed bro");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Vector<Projekt> result) {
+//				Window.alert("onsuccess");
+//				ct_alleProjekte.setRowData(0, result);
+//				ct_alleProjekte.setRowCount(result.size(), true);
+//			}
+//			
+//		}
 }
+}
+
+
+
+
+

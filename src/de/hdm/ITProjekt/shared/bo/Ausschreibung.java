@@ -20,6 +20,12 @@ public class Ausschreibung extends BusinessObject {
 	private int Orga_ID = 0;
 	
 	
+	public Ausschreibung(Ausschreibung selectedObject) {
+		// TODO Auto-generated constructor stub
+	}
+	public Ausschreibung() {
+		// TODO Auto-generated constructor stub
+	}
 	public int getID() {
 		return ID;
 	}
