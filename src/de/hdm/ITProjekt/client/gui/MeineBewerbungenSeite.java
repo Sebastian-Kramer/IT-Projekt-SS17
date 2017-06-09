@@ -84,7 +84,7 @@ public class MeineBewerbungenSeite extends Showcase {
 					public void onClick(ClickEvent event) {
 						
 						if(ssm != null){
-							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject());
 							RootPanel.get("Details").clear();
 							RootPanel.get("Details").add(dialogBox);
 						}

@@ -25,11 +25,11 @@ public class DialogBoxBewerbung extends DialogBox {
 	Button schliessen = new Button("schliessen");
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
-//	private Bewerbung bewerbungId;
-//	public DialogBoxBewerbung(Bewerbung selectedId){
-//		this.bewerbungId = selectedId;
-		
-//	}
+	private Bewerbung bewerbungId;
+	public DialogBoxBewerbung(Bewerbung selectedId){
+		this.bewerbungId = selectedId;
+	
+	}
 //	private static ClickHandler currentClickHandler = null;
 //	private static ClickEvent currentClickEvent = null;
 	
