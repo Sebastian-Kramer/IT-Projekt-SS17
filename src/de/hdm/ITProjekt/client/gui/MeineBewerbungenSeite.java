@@ -6,16 +6,20 @@ import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
@@ -38,6 +42,10 @@ public class MeineBewerbungenSeite extends Showcase {
 	private TextBox bewerbungbox = new TextBox();
 	HorizontalPanel hpanel_bewerbung = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
+	
+	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<Bewerbung>();
+	
+//	Button bewerbungÖffnen = new Button ("öffnen");
 
 	@Override
 	protected String getHeadlineText() {
@@ -53,8 +61,11 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		vpanel.add(ct_alleBewerbungen);
 		
+		
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
+		
+		ct_alleBewerbungen.setSelectionModel(ssm);
 		
 		Column<Bewerbung, String> erstelldatum =
 				new Column<Bewerbung, String>(new ClickableTextCell()){
@@ -65,6 +76,24 @@ public class MeineBewerbungenSeite extends Showcase {
 						return object.getErstelldatum().toString();
 					}
 		};
+		
+		ct_alleBewerbungen.addDomHandler(new ClickHandler()
+				{
+
+					@Override
+					public void onClick(ClickEvent event) {
+						
+						if(ssm != null){
+							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+							RootPanel.get("Details").clear();
+							RootPanel.get("Details").add(dialogBox);
+						}
+						else{
+							Window.alert("Fehler");
+						}
+					}
+			
+				}, ClickEvent.getType());
 		
 //		Column<Bewerbung, String> ausschreibung =
 //				new Column<Bewerbung,String>(new ClickableTextCell()){
