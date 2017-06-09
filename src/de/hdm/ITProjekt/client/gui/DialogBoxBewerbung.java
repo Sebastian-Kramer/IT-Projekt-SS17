@@ -25,6 +25,7 @@ public class DialogBoxBewerbung extends DialogBox {
 	Button schliessen = new Button("schliessen");
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
+	
 	private Bewerbung bewerbungId;
 	public DialogBoxBewerbung(Bewerbung selectedId){
 		this.bewerbungId = selectedId;
@@ -40,12 +41,15 @@ public class DialogBoxBewerbung extends DialogBox {
 		setGlassEnabled(true);
 		bewerbungstext.setReadOnly(true);
 		bewerbungstext.setText(text);
+		bewerbungstext.setCharacterWidth(80);
+		bewerbungstext.setVisibleLines(30);
 		bewerbungstextft.setWidget(0, 0, bewerbungstext);
 		bewerbungstextft.setWidget(1, 0, schliessen);
 		vp.add(schliessen);
 		vp.add(bewerbungstext);
 		
 		setWidget(vp);
+		
 		schliessen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
 				DialogBoxBewerbung.this.hide();

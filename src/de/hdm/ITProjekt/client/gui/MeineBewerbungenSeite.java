@@ -43,9 +43,10 @@ public class MeineBewerbungenSeite extends Showcase {
 	HorizontalPanel hpanel_bewerbung = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	
-	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<Bewerbung>();
+	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
 	
-//	Button bewerbungÖffnen = new Button ("öffnen");
+	Button bewerbungAnzeigen = new Button ("Bewerbung anzeigen");
+	
 
 	@Override
 	protected String getHeadlineText() {
@@ -64,6 +65,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
+		hpanel_bewerbung.add(bewerbungAnzeigen);
 		
 		ct_alleBewerbungen.setSelectionModel(ssm);
 		
@@ -77,23 +79,46 @@ public class MeineBewerbungenSeite extends Showcase {
 					}
 		};
 		
-		ct_alleBewerbungen.addDomHandler(new ClickHandler()
-				{
+		
+		bewerbungAnzeigen.addClickHandler(new ClickHandler(){
 
-					@Override
-					public void onClick(ClickEvent event) {
-						
-						if(ssm != null){
-							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject());
-							RootPanel.get("Details").clear();
-							RootPanel.get("Details").add(dialogBox);
-						}
-						else{
-							Window.alert("Fehler");
-						}
-					}
+			@Override
+			public void onClick(ClickEvent event) {
+				if(ssm != null){
+				DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+					int left = Window.getClientWidth() / 3;
+					int top = Window.getClientHeight() / 3;
+					dialogBox.setPopupPosition(left, top);
+					dialogBox.show();
+				}
+			else{
+					Window.alert("Fehler");
+				
+			}
+			}
+		});		
 			
-				}, ClickEvent.getType());
+			
+		
+//		ct_alleBewerbungen.addDomHandler(new ClickHandler()
+//				{
+//
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						
+//						if(ssm != null){
+//							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+//							int left = Window.getClientWidth() / 3;
+//							int top = Window.getClientHeight() / 3;
+//							dialogBox.setPopupPosition(left, top);
+//							dialogBox.show();
+//						}
+//						else{
+//							Window.alert("Fehler");
+//						}
+//					}
+//			
+//				}, ClickEvent.getType());
 		
 //		Column<Bewerbung, String> ausschreibung =
 //				new Column<Bewerbung,String>(new ClickableTextCell()){
@@ -166,6 +191,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		
 	}
+	
 	
 
 
