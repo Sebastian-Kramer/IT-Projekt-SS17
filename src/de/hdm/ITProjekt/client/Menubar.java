@@ -9,8 +9,10 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
+import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 
 public class Menubar extends StackPanel {
 	
@@ -113,7 +115,7 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
-		// Dieser ClickHandler gehört nicht hierher!! Wurde von Mert als Test angelegt!!!
+		// Dieser ClickHandler gehï¿½rt nicht hierher!! Wurde von Mert als Test angelegt!!!
 		
 		meineProjekteButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
@@ -124,6 +126,26 @@ public class Menubar extends StackPanel {
 //				currentClickHandler=this;
 //				currentClickEvent=event;
 				
+			}
+		});
+		
+		meineBewerbungenButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event){
+				Showcase showcase = new MeineBewerbungenSeite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
+			}
+		});
+		
+		stellenausschreibungenButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event){
+				Showcase showcase = new StellenausschreibungenSeite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
 			}
 		});
 		

@@ -23,11 +23,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private PersonMapper prMApper = null; 
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
+	private BewerbungMapper bewMapper = null;
+	private  AusschreibungMapper aMapper = null; 
 
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
 		this.pMapper = ProjektMapper.pMapper();
+		this.bewMapper = BewerbungMapper.bewMapper();
+		this.aMapper = AusschreibungMapper.aMapper();
+		
 	}
 	/*
 	   * ***************************************************************************
@@ -132,6 +137,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pMapper.findByProjektmarktplatz(p);
 	}
 	
+	@Override
+	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
+		// TODO Auto-generated method stub
+		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
+	}
 	
 	//Alle Projekte die zu einem Projektmarktplatz gehören werden in einem Vector ausgegeben
 	@Override
@@ -164,16 +174,56 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.prMApper.findByKey(id);
 	}
-	@Override
-	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
-		// TODO Auto-generated method stub
-		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
-	}
+	
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Person-Objekte
 	   * ***************************************************************************
 	   */
+
+	
+	/*
+	 * ***************************************************************************
+	 * ABSCHNITT, Anfang: Methoden für Ausschreibung
+	 * ***************************************************************************
+	 */
+	@Override
+	public Ausschreibung findByKey(int id) {
+		// TODO Auto-generated method stub
+		return this.aMapper.findByKey(id);
+	}
+	@Override
+	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAlLAuscchreibungenBy(projektId);
+	}
+	@Override
+	public Vector<Ausschreibung> getAll() {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAll();
+	}
+	@Override
+	public Ausschreibung addAusschreibung(Ausschreibung a) {
+		// TODO Auto-generated method stub
+		return this.aMapper.addAusschreibung(a);
+	}
+	@Override
+	public void deleteAusschreibung(Ausschreibung a) {
+
+	}
+	@Override
+	public Ausschreibung update(Ausschreibung c) {
+		// TODO Auto-generated method stub
+		return this.aMapper.update(c);
+	}
+	
+	
+	/*
+	   * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Person-Objekte
+	   * ***************************************************************************
+	   */
+	
 
 	/*
 	   * ***************************************************************************
@@ -198,9 +248,63 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Unternehmen GetUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
+	@Override
+	public Vector<Bewerbung> getAllBewerbungen() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Ausschreibung findByKey(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Vector<Ausschreibung> getAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Ausschreibung addAusschreibung(Ausschreibung a) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void deleteAusschreibung(Ausschreibung a) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public Ausschreibung update(Ausschreibung c) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
-
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden fürBewerbung-Objekte
+	   * ***************************************************************************
+	   */
+	@Override
+	public Vector<Bewerbung> getAllBewerbungen() {
+		// TODO Auto-generated method stub
+		return this.bewMapper.getAll();
+	}
 	
+	
+	
+	
+	
+	
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
+	   * ***************************************************************************
+	   */
 	
 	
 	
