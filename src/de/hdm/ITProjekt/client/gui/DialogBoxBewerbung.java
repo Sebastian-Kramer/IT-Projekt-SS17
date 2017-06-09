@@ -39,6 +39,7 @@ public class DialogBoxBewerbung extends DialogBox {
 		setText(text);
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
+		this.center();
 		bewerbungstext.setReadOnly(true);
 		bewerbungstext.setText(text);
 		bewerbungstext.setCharacterWidth(80);

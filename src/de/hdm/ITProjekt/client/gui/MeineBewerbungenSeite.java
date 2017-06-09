@@ -46,7 +46,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
 	
 	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
-//	Button bewerbungLöschen_button	= new Button ("Bewerbung löschen");
+	Button bewerbungLoeschen_button	= new Button ("Bewerbung zurückziehen");
 	
 
 	@Override
@@ -67,7 +67,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
 		hpanel_bewerbung.add(bewerbungAnzeigen_button);
-//		hpanel_bewerbung.add(bewerbungLöschen_button);
+		hpanel_bewerbung.add(bewerbungLoeschen_button);
 		
 		ct_alleBewerbungen.setSelectionModel(ssm);
 		
@@ -102,47 +102,72 @@ public class MeineBewerbungenSeite extends Showcase {
 			}
 		});	
 		
+			bewerbungLoeschen_button.addClickHandler(new ClickHandler(){
+
+				@Override
+			public void onClick(ClickEvent event) {
+					if(ssm != null){
+						Bewerbung ausgewaehlteBew = new Bewerbung();
+						ausgewaehlteBew.setID(ssm.getSelectedObject().getID());
+						adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								Window.alert("Löschen fehlgeschlagen");
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Bewerbung erfolgreich gelöscht");
+								refreshList();
+								
+							}
+							
+						});
+					}
+					
+					
+							}
+				});
 		
 			
+			
+			
 		
+		
+			
+//		private void bewerbungLöschen(){
 //		bewerbungLöschen_button.addClickHandler(new ClickHandler(){
 //
 //			@Override
 //		public void onClick(ClickEvent event) {
-//				Bewerbung selectedObject = ssm.getSelectedObject();
-//				if (selectedObject != null){
-//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//						 if (adminService == null) {
-//				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//			}
-//						 AsyncCallback<Void> callback = new AsyncCallback<Void>(){
-//							 @Override
-//								public void onFailure(Throwable caught) {
-//									Window.alert("Dumm gelaufen");
-//									
-//								}
+//				if(ssm != null){
+//					Bewerbung ausgewählteBew = new Bewerbung();
+//					ausgewählteBew.setID(ssm.getSelectedObject().getID());
+//					adminService.deleteBewerbung(ausgewählteBew, new AsyncCallback<Void>(){
 //
-//								@Override
-//								public void onSuccess(Bewerbung result) {
-//								
-//									
-//								}
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Löschen fehlgeschlagen");
+//						}
 //
-//								@Override
-//								public void onSuccess(Void result) {
-//									// TODO Auto-generated method stub
-//									
-//								}
-//								
-//							 };
-//							 adminService.deleteBewerbung(selectedObject, callback);
-//							 
-//						 }
-//			}
-//	});
-		
-		
-				
+//						@Override
+//						public void onSuccess(Void result) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+//						
+//					});
+//				}
+//				
+//						}
+//			});
+//	
+//		
+//		
+//		}
 			
 			
 			
@@ -204,6 +229,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 		ct_alleBewerbungen.addColumn(erstelldatum, "Erstelldatum");
 		filltablebewerbungen();
+		refreshList();
 	}
 	
 	private void filltablebewerbungen(){
@@ -234,8 +260,62 @@ public class MeineBewerbungenSeite extends Showcase {
 			 
 		 }
 
-					
+	private void refreshList(){
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		 AsyncCallback<Vector<Bewerbung>> callback = new AsyncCallback<Vector <Bewerbung>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
 				
+			}
+
+			@Override
+			public void onSuccess(Vector<Bewerbung> result) {
+				ct_alleBewerbungen.setRowData(0, result);
+				ct_alleBewerbungen.setRowCount(result.size(),true);
+				
+			}
+			
+			 
+		 };
+		 adminService.getAllBewerbungen(callback);
+	}			
+		
+//	private void bewerbungLoeschen(){
+//		bewerbungLoeschen_button.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//		public void onClick(ClickEvent event) {
+//				if(ssm != null){
+//					Bewerbung ausgewaehlteBew = new Bewerbung();
+//					ausgewaehlteBew.setID(ssm.getSelectedObject().getID());
+//					adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
+//
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Löschen fehlgeschlagen");
+//						}
+//
+//						@Override
+//						public void onSuccess(Void result) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+//						
+//					});
+//				}
+//				
+//						}
+//			});
+//	
+//		
+//		
+//		}
 			
 		}
 		

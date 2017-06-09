@@ -57,6 +57,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	Vector<Bewerbung> getAllBewerbungen();
 	
+	public void deleteBewerbung(Bewerbung a);
+	
 	
 	
 		// Methoden von Ausschreibung

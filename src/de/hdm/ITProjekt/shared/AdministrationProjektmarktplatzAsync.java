@@ -67,6 +67,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
 
+	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
+
 	
 
 	
