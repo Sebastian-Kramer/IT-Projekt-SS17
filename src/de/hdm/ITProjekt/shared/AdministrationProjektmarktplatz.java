@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.shared.bo.*;
 
@@ -45,6 +46,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	Vector<Projekt> getAllProjekte();
 	
+	
+	
 
 
 
@@ -53,6 +56,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Unternehmen GetUnByID (int id);
 	
 	Vector<Bewerbung> getAllBewerbungen();
+	
+	
 	
 		// Methoden von Ausschreibung
 	

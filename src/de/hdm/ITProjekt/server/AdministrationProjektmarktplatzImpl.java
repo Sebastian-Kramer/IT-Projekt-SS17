@@ -265,6 +265,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	
 	
+	
+	
+	
+	
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte

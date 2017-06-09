@@ -45,7 +45,8 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
 	
-	Button bewerbungAnzeigen = new Button ("Bewerbung anzeigen");
+	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
+//	Button bewerbungLöschen_button	= new Button ("Bewerbung löschen");
 	
 
 	@Override
@@ -65,7 +66,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
-		hpanel_bewerbung.add(bewerbungAnzeigen);
+		hpanel_bewerbung.add(bewerbungAnzeigen_button);
+//		hpanel_bewerbung.add(bewerbungLöschen_button);
 		
 		ct_alleBewerbungen.setSelectionModel(ssm);
 		
@@ -80,7 +82,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		};
 		
 		
-		bewerbungAnzeigen.addClickHandler(new ClickHandler(){
+		bewerbungAnzeigen_button.addClickHandler(new ClickHandler(){
 
 			@Override
 			public void onClick(ClickEvent event) {
@@ -92,11 +94,59 @@ public class MeineBewerbungenSeite extends Showcase {
 					dialogBox.show();
 				}
 			else{
-					Window.alert("Fehler");
+//				if (ssm.getSelectedObject() == null){
+					Window.alert("Bitte Bewerbung auswählen");
+//				}
 				
 			}
 			}
-		});		
+		});	
+		
+		
+			
+		
+//		bewerbungLöschen_button.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//		public void onClick(ClickEvent event) {
+//				Bewerbung selectedObject = ssm.getSelectedObject();
+//				if (selectedObject != null){
+//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//						 if (adminService == null) {
+//				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//			}
+//						 AsyncCallback<Void> callback = new AsyncCallback<Void>(){
+//							 @Override
+//								public void onFailure(Throwable caught) {
+//									Window.alert("Dumm gelaufen");
+//									
+//								}
+//
+//								@Override
+//								public void onSuccess(Bewerbung result) {
+//								
+//									
+//								}
+//
+//								@Override
+//								public void onSuccess(Void result) {
+//									// TODO Auto-generated method stub
+//									
+//								}
+//								
+//							 };
+//							 adminService.deleteBewerbung(selectedObject, callback);
+//							 
+//						 }
+//			}
+//	});
+		
+		
+				
+			
+			
+			
+	
 			
 			
 		
@@ -187,10 +237,10 @@ public class MeineBewerbungenSeite extends Showcase {
 					
 				
 			
-
+		}
 		
-		
-	}
+	
+	
 	
 	
 
