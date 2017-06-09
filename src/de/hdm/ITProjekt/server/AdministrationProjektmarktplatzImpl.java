@@ -248,41 +248,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Unternehmen GetUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
-	@Override
-	public Vector<Bewerbung> getAllBewerbungen() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Ausschreibung findByKey(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Vector<Ausschreibung> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public Ausschreibung addAusschreibung(Ausschreibung a) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void deleteAusschreibung(Ausschreibung a) {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public Ausschreibung update(Ausschreibung c) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	/*
 	 * ***************************************************************************
@@ -294,8 +260,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewMapper.getAll();
 	}
-	
-	
+
 	
 	
 	
