@@ -251,6 +251,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.unMapper.findByKey(id);
 	}
 	
+	
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Anfang: Methoden fürBewerbung-Objekte
@@ -262,23 +263,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.bewMapper.getAll();
 	}
 
-	
-	
-	
-	
-	
-	
+	@Override
+	public void deleteBewerbung(Bewerbung a) {
+		// TODO Auto-generated method stub
+		this.bewMapper.delete(a);
+	}
+
+
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
 	   * ***************************************************************************
 	   */
-	
-	
-	
-	
-	
-	
-	
-	
 }
