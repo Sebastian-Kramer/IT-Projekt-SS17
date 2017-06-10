@@ -2,6 +2,8 @@ package de.hdm.ITProjekt.shared;
 
 import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.view.client.SingleSelectionModel;
+
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Person;
@@ -64,6 +66,17 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Void> callback);
 
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
+
+	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
+
+	
+
+	
+
+	
+
+	
+
 	
 	
 	
