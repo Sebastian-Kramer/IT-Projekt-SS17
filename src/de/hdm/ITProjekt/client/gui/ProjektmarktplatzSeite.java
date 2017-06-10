@@ -17,6 +17,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -38,6 +40,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	
+	private Projektmarktplatz p1;
 	
 	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
@@ -49,8 +52,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 	// Erlaubt, dass in der Tabelle nur eins ausgewählt werden darf
 	
-	final SingleSelectionModel<Projektmarktplatz> ssm = new SingleSelectionModel<Projektmarktplatz>();
-	final SingleSelectionModel<Projektmarktplatz> ssm_fremde = new SingleSelectionModel<Projektmarktplatz>();
+//	private Projektmarktplatz p1 = new Projektmarktplatz();
+	
+	final SingleSelectionModel<Projektmarktplatz> ssm_projektmarktplatz_alle = new SingleSelectionModel<Projektmarktplatz>();
+	final SingleSelectionModel<Projektmarktplatz> ssm_projektmarktplatz_eigene = new SingleSelectionModel<Projektmarktplatz>();
 	
 	@Override
 	protected String getHeadlineText() {
@@ -65,7 +70,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		ct_alleProjektmarktplaetze.setWidth("100%", true);
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_eigeneProjektmarktplaetze.setWidth("100%", true);
-		
+
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
 		hpanel_projektmarktplatz.add(createprojektmarktplatz);
@@ -87,8 +92,19 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		deleteprojektmarktplatz.setStylePrimaryName("navi-button");
 		
 		
-		ct_alleProjektmarktplaetze.setSelectionModel(ssm);
-		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_fremde);
+		ct_alleProjektmarktplaetze.setSelectionModel(ssm_projektmarktplatz_alle);
+		ssm_projektmarktplatz_alle.addSelectionChangeHandler(new Handler() {
+			
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				// TODO Auto-generated method stub
+				p1 = ssm_projektmarktplatz_alle.getSelectedObject();
+				Showcase showcase = new Projekte(p1);
+	        	RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_projektmarktplatz_eigene);
 		
 		
 		// Was soll in der Tabelle angezeigt werden?		
@@ -109,24 +125,30 @@ public class ProjektmarktplatzSeite extends Showcase{
 						}
 						    
 		 };
-			
-		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
-		    {
-		        @Override
-		        public void onClick(ClickEvent event)
-		       
-		        {
-		    if(ssm != null){
-		        	Showcase showcase = new Projekte(ssm.getSelectedObject().getID());
-		        	RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
-		    }
-		    else {
-		    	Window.alert("FEHLEEER");
-		    }
-		        }
-		       
-		    }, ClickEvent.getType());
+		
+		
+		 
+//		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
+//		    {
+//		        @Override
+//		        public void onClick(ClickEvent event)
+//		       
+//		        {
+//		    if(p1 != null){
+//		    	
+//		    	Window.alert("ssm noch bef�llt");
+////		    		Projektmarktplatz p_objekt = ssm_projektmarktplatz_eigene.getSelectedObject();
+//		        	Showcase showcase = new Projekte(p1);
+//		        	RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//					
+//		    }
+//		    else {
+//		    	Window.alert("FEHLEEER");
+//		    }
+//		        }
+//		       
+//		    }, ClickEvent.getType());
 			
 		
 		// Wie soll die Spalte (Column) heißen?
@@ -138,6 +160,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
 		adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
+		
 //		filltable();	
 //		loschenProjektmarktplatz();
 		anlegenProjektmarktplatz();

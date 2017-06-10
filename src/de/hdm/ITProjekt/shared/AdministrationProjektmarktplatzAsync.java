@@ -33,7 +33,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
 
-	void findByProjektmarktplatz(int projektmarktplatzID, AsyncCallback<Vector<Projekt>> callback);
+//	void findByProjektmarktplatz(int projektmarktplatzID, AsyncCallback<Vector<Projekt>> callback);
 
 	void deleteProjekt(Projekt a, AsyncCallback<Void> callback);
 
@@ -64,9 +64,7 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Void> callback);
 
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
-	
-	
-	
+
 	
 
 	

@@ -30,7 +30,7 @@ public class Projekte extends Showcase {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projekt> ct_alleProjekte = new CellTable<Projekt>();
-	final SingleSelectionModel<Projektmarktplatz> ssm = new SingleSelectionModel<Projektmarktplatz>();
+
 	
 	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
@@ -39,15 +39,22 @@ public class Projekte extends Showcase {
 	Button projekt = new Button("IchBinEinPlatzhalter");
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
-
+	private Projektmarktplatz projektid;
+	private ProjektmarktplatzSeite pmpseite;
+	 
 	public Projekte(){
 		
 	}
 	
-	private int projektid;
-	public Projekte(int selectedId){
-		this.projektid = selectedId;
+	
+
+	public Projekte(Projektmarktplatz p_objekt) {
+		// TODO Auto-generated constructor stub
+	
+		this.projektid = p_objekt;
 	}
+
+
 
 	@Override
 	protected String getHeadlineText() {
@@ -57,7 +64,11 @@ public class Projekte extends Showcase {
 
 	@Override
 	protected void run() {
-		
+		if (projektid != null){
+			Window.alert("ist befüllt");
+		}else{
+			Window.alert("nicht mehr befüllt");
+		}
 		RootPanel.get("Details").setWidth("100%");
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
@@ -113,10 +124,12 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");	
+		
 //		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 //		 if (adminService == null) {
 //	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 //	    }
+		
 //		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
 //		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
 		filltableprojekte();
@@ -185,8 +198,8 @@ public class Projekte extends Showcase {
 //			}
 //			
 //		}
-}
-}
+	}}
+
 
 
 

@@ -35,7 +35,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	//public Vector <Projektmarktplatz> getProjektmaktplaetzeOf(Person p);
 	
-	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
+//	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz);
 	
@@ -70,8 +70,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Ausschreibung update(Ausschreibung c) ;
 
 	
-	
 
+	
+	
 
 
 	
