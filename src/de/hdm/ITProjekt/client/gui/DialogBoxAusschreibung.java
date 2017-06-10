@@ -13,53 +13,63 @@ import com.google.gwt.user.client.ui.TextArea;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
-import de.hdm.ITProjekt.server.db.BewerbungMapper;
+import de.hdm.ITProjekt.shared.bo.*;
+
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
-import de.hdm.ITProjekt.shared.bo.Bewerbung;
 
-public class DialogBoxBewerbung extends DialogBox {
+
+
+public class DialogBoxAusschreibung extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	VerticalPanel vp = new VerticalPanel();
-	
+	VerticalPanel vp1 = new VerticalPanel();
 	Button schliessen = new Button("schliessen");
+	Button bewerben = new Button("Auf Stelle bewerben");
 	
-	TextArea bewerbungstext = new TextArea();
-	FlexTable bewerbungstextft = new FlexTable();
+	TextArea ausschreibungstext = new TextArea();
+	FlexTable ausschreibungstextft = new FlexTable();
 	
-	private Bewerbung bewerbungId;
-	public DialogBoxBewerbung(Bewerbung selectedId){
-		this.bewerbungId = selectedId;
 	
-	}
-//	private static ClickHandler currentClickHandler = null;
-//	private static ClickEvent currentClickEvent = null;
-	
-	public DialogBoxBewerbung(String text){
-		schliessen.setStylePrimaryName("navi-button");
-		setText(text);
+	public DialogBoxAusschreibung (String text, String bezeichnung){
+		setText(bezeichnung);
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		this.center();
-		bewerbungstext.setReadOnly(true);
-		bewerbungstext.setText(text);
-		bewerbungstext.setCharacterWidth(80);
-		bewerbungstext.setVisibleLines(30);
-		bewerbungstextft.setWidget(0, 0, bewerbungstext);
-		bewerbungstextft.setWidget(1, 0, schliessen);
-		vp.add(bewerbungstext);
+		ausschreibungstext.setReadOnly(true);
+		ausschreibungstext.setText(text);
+		ausschreibungstext.setCharacterWidth(80);
+		ausschreibungstext.setVisibleLines(30);
+		ausschreibungstextft.setWidget(0, 0, ausschreibungstext);
+		ausschreibungstextft.setWidget(1, 0, schliessen);
+		ausschreibungstextft.setWidget(1, 0, bewerben);
+		vp.add(ausschreibungstext);
+		vp.add(ausschreibungstextft);
 		vp.add(schliessen);
+		vp.add(bewerben);
+		
 		
 		setWidget(vp);
 		
 		schliessen.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event){
-				DialogBoxBewerbung.this.hide();
+			public void onClick(ClickEvent event) {
+				DialogBoxAusschreibung.this.hide();
+				
 			}
+			
 		});
 		
-		
+		bewerben.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				
+			}
+			
+		});
 	}
 
+	
 }

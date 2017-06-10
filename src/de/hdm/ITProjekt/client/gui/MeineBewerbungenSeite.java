@@ -39,7 +39,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	CellTable<Bewerbung> ct_alleBewerbungen = new CellTable<Bewerbung>();
 	
-	private TextBox bewerbungbox = new TextBox();
+	
 	HorizontalPanel hpanel_bewerbung = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	

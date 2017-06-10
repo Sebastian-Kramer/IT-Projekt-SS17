@@ -45,10 +45,11 @@ public class StellenausschreibungenSeite extends Showcase {
 	//Buttons erstellen
 	Button deleteausschreibung = new Button("Stellenausschreibung entfernen");
 	Button createausschreibung = new Button("Stellenausschreibung anlegen");
+	Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	
 	// Erlaubt das anklicken in Tabellen
 	
-	final SingleSelectionModel <Ausschreibung> ssm = new SingleSelectionModel<Ausschreibung>();
+	final SingleSelectionModel <Ausschreibung> ssm = new SingleSelectionModel<>();
 	final SingleSelectionModel <Ausschreibung> ssm_fremde = new SingleSelectionModel<Ausschreibung>();
 
 	
@@ -79,6 +80,7 @@ public class StellenausschreibungenSeite extends Showcase {
 		hpanel_ausschreibung.add(createausschreibung);
 		hpanel_ausschreibung.add(deleteausschreibung);
 		hpanel_ausschreibung.add(ausschreibungbox);
+		hpanel_ausschreibung.add(showausschreibung);
 
 				
 		// Hinzufügen der Tabelle ins VerticalPanel
@@ -92,7 +94,7 @@ public class StellenausschreibungenSeite extends Showcase {
 		//Stylen der Button
 		
 		ct_alleAusschreibungen.setSelectionModel(ssm);
-		ct_eigeneAusschreibungen.setSelectionModel(ssm_fremde);
+		//ct_eigeneAusschreibungen.setSelectionModel(ssm_fremde);
 		
 		//Was soll in der Tabelle angezeigt werden
 		
@@ -129,39 +131,57 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	
 	};
 	
+	showausschreibung.addClickHandler(new ClickHandler(){
+
+		@Override
+		public void onClick(ClickEvent event) {
+			// TODO Auto-generated method stub
+			if(ssm !=null){
+				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(ssm.getSelectedObject().getAusschreibungstext(), ssm.getSelectedObject().getBezeichnung());
+				int left = Window.getClientHeight() / 3;
+				int top = Window.getClientWidth() / 3;
+				dialogBox.setPopupPosition(left, top);
+				dialogBox.show();
+			}
+			else{
+				Window.alert("Bitte Ausschreibung ausw�hlen");
+			}
+		}
+		
+	});
 	
 
-	ct_alleAusschreibungen.addDomHandler(new ClickHandler()
-    {
-        @Override
-        public void onClick(ClickEvent event)
-       
-        {
-    if(ssm != null){
-        	Showcase showcase = new StellenausschreibungenSeite(ssm.getSelectedObject().getID());
-        	RootPanel.get("Details").clear();
-			RootPanel.get("Details").add(showcase);
-    }
-    else {
-    	Window.alert("FEHLEEER");
-    }
-        }
-       
-    }, ClickEvent.getType());
+//	ct_alleAusschreibungen.addDomHandler(new ClickHandler()
+//    {
+//        @Override
+//        public void onClick(ClickEvent event)
+//       
+//        {
+//    if(ssm != null){
+//        	Showcase showcase = new StellenausschreibungenSeite(ssm.getSelectedObject().getID());
+//        	RootPanel.get("Details").clear();
+//			RootPanel.get("Details").add(showcase);
+//    }
+//    else {
+//    	Window.alert("FEHLEEER");
+//    }
+//        }
+//       
+//    }, ClickEvent.getType());
 
 	// Wie soll die Spalte (Column) heißen?
 
 	ct_alleAusschreibungen.addColumn(Bezeichnung, "Bezeichnung");
-	ct_alleAusschreibungen.addColumn(Datum, "Datum");
+	ct_alleAusschreibungen.addColumn(Datum, "Einstelldatum");
 	ct_alleAusschreibungen.addColumn(Stellenbeschreibung, "Stellenbeschreibung");
 	
-	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-	 if (adminService == null) {
-      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-    }
-	adminService.getAll(new getAusschreibungAusDB());
+//	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//	 if (adminService == null) {
+//      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//    }
+//	adminService.getAll(new getAusschreibungAusDB());
 	filltableausschreibung();
-//	loschenAusschreibung();
+	loschenAusschreibung();
 //	anlegenAusschreibung();
 		}
 
@@ -184,7 +204,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	public void onSuccess(Vector<Ausschreibung> result) {
 		ct_alleAusschreibungen.setRowData(0, result);
 		ct_alleAusschreibungen.setRowCount(result.size(), true);	
-		Window.alert("Giuse ist scheiße");
+		
 	}
 		 };
 		adminService.getAll(callback);

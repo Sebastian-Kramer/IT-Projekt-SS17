@@ -1,5 +1,4 @@
 package de.hdm.ITProjekt.client.gui;
-
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -18,48 +17,16 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 
-public class DialogBoxBewerbung extends DialogBox {
-	
+public class DialogBoxBewerbungAnlegen extends DialogBox {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	VerticalPanel vp = new VerticalPanel();
 	
-	Button schliessen = new Button("schliessen");
+	Button sendBewerbung = new Button("Bewerbung abschicken");
+	Button cancelBewerbung = new Button("Bewerbung abbrechen");
 	
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
 	
-	private Bewerbung bewerbungId;
-	public DialogBoxBewerbung(Bewerbung selectedId){
-		this.bewerbungId = selectedId;
 	
-	}
-//	private static ClickHandler currentClickHandler = null;
-//	private static ClickEvent currentClickEvent = null;
-	
-	public DialogBoxBewerbung(String text){
-		schliessen.setStylePrimaryName("navi-button");
-		setText(text);
-		setAnimationEnabled(true);
-		setGlassEnabled(true);
-		this.center();
-		bewerbungstext.setReadOnly(true);
-		bewerbungstext.setText(text);
-		bewerbungstext.setCharacterWidth(80);
-		bewerbungstext.setVisibleLines(30);
-		bewerbungstextft.setWidget(0, 0, bewerbungstext);
-		bewerbungstextft.setWidget(1, 0, schliessen);
-		vp.add(bewerbungstext);
-		vp.add(schliessen);
-		
-		setWidget(vp);
-		
-		schliessen.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event){
-				DialogBoxBewerbung.this.hide();
-			}
-		});
-		
-		
-	}
 
 }

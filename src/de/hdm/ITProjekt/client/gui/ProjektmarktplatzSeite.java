@@ -109,6 +109,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 						}
 						    
 		 };
+		 
+		 
 			
 		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
 		    {
@@ -261,7 +263,8 @@ public class ProjektmarktplatzSeite extends Showcase{
 				
 					@Override
 					public void onSuccess(Projektmarktplatz result) {
-//						filltable();  		
+//						filltable();
+						refreshlist();
 									}
 				
 			    };
