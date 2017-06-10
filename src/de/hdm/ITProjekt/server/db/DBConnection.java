@@ -14,7 +14,9 @@ public class DBConnection {
 
 	private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-    private static String localUrl = "jdbc:mysql://localhost:3306/it-projekt";
+
+    private static String localUrl = "jdbc:mysql://localhost:3306/it projekt";
+
 
     private static String user = "root";
     private static String password = "";
