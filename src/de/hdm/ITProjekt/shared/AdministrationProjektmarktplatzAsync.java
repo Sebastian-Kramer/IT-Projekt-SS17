@@ -69,13 +69,13 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
 
+	
+
 	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
 
 
-//	void addProjektmarktplatz(Projektmarktplatz p2, AsyncCallback<Projektmarktplatz> callback);
-	
-	
+void addProjekt(Projekt pmp, AsyncCallback<Projekt> callback);
 
 	
 

@@ -122,7 +122,7 @@ public class ProjektMapper {
 		  return result;
 	}
 	
-	public Projekt insert(Projekt pmp){
+	public Projekt addProjekt(Projekt pmp){
 		
 		Connection con = DBConnection.connection();
 		

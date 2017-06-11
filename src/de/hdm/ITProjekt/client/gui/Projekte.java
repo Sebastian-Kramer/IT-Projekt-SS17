@@ -78,7 +78,7 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBox dialogbox = new DialogBoxProjekte();
+				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(dialogbox);
 			}

@@ -133,6 +133,9 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	
+	
+	
+	
 	public Vector<Projekt> getProjekteOf(Projektmarktplatz p){
 		return this.pMapper.findByProjektmarktplatz(p.getID());
 	}
@@ -158,6 +161,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Vector<Projekt> getAllProjekte() {
 		return this.pMapper.getAllProjekte();
+	}
+	
+	@Override
+	public Projekt addProjekt(Projekt pmp) {
+		return this.pMapper.addProjekt(pmp);
+		
 	}
 	/*
 	   * ***************************************************************************
@@ -268,6 +277,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		this.bewMapper.delete(a);
 	}
+	
 
 
 	/*

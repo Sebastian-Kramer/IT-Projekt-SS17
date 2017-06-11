@@ -55,7 +55,7 @@ public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 			@Override
 			public void onClick(ClickEvent event) {
 				if (bezeichnung.getText().isEmpty()){
-					Window.alert("Bitte Geben Sie einen Projektmarktplatznamen ein");
+					Window.alert("Bitte geben Sie ein Projektmarktplatzname ein");
 					}
 				else{
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
