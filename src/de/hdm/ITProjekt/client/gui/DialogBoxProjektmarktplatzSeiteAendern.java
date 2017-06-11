@@ -23,7 +23,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
-	// Konflikt
+	// Konflikt gelöst
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
