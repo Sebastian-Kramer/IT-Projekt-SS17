@@ -42,6 +42,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	
+	private Projektmarktplatz p1;
 	
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
@@ -51,10 +52,14 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 	// Erlaubt, dass in der Tabelle nur eins ausgewählt werden darf
 	
+
 	final SingleSelectionModel<Projektmarktplatz> ssm_alleProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
 	final SingleSelectionModel<Projektmarktplatz> ssm_eigeneProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
 	
 	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
+
+//	private Projektmarktplatz p1 = new Projektmarktplatz();
+
 	
 	@Override
 	protected String getHeadlineText() {
@@ -70,7 +75,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		ct_alleProjektmarktplaetze.setWidth("100%", true);
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_eigeneProjektmarktplaetze.setWidth("100%", true);
-		
+
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
 		hpanel_projektmarktplatz.add(bearbeitungsmodus_deaktiv);
@@ -92,8 +97,24 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		deleteprojektmarktplatz.setStylePrimaryName("navi-button");
 		
 		
+
 		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);	
 		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_eigeneProjektmarktplaetze);
+
+		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+		ssm_alleProjektmarktplaetze.addSelectionChangeHandler(new Handler() {
+			
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				// TODO Auto-generated method stub
+				p1 = ssm_alleProjektmarktplaetze.getSelectedObject();
+				Showcase showcase = new Projekte(p1);
+	        	RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+
 		
 		
 		// Was soll in der Tabelle angezeigt werden?		
@@ -114,6 +135,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 						}
 						    
 		 };
+
 		 bearbeitungsmodus_deaktiv.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -158,6 +180,31 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		       
 //		    }, ClickEvent.getType());
 //			
+
+		
+		 
+//		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
+//		    {
+//		        @Override
+//		        public void onClick(ClickEvent event)
+//		       
+//		        {
+//		    if(p1 != null){
+//		    	
+//		    	Window.alert("ssm noch bef�llt");
+////		    		Projektmarktplatz p_objekt = ssm_projektmarktplatz_eigene.getSelectedObject();
+//		        	Showcase showcase = new Projekte(p1);
+//		        	RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//					
+//		    }
+//		    else {
+//		    	Window.alert("FEHLEEER");
+//		    }
+//		        }
+//		       
+//		    }, ClickEvent.getType());
+
 		
 		// Wie soll die Spalte (Column) heißen?
 //		ct_alleProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Alle Projektmarktplätze");
@@ -168,6 +215,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
 		adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
+		
 //		filltable();	
 //		loschenProjektmarktplatz();
 //		anlegenProjektmarktplatz();

@@ -69,25 +69,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
 
-	
-
-	
-
-	
-
-	
-
-	
-	
-	
-	
-
-	
-
-	
-	
-
-
 	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
 

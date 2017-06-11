@@ -134,13 +134,15 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   */
 	
 	public Vector<Projekt> getProjekteOf(Projektmarktplatz p){
-		return this.pMapper.findByProjektmarktplatz(p);
+		return this.pMapper.findByProjektmarktplatz(p.getID());
 	}
 	
 	@Override
-	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
+	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz p) {
 		// TODO Auto-generated method stub
-		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
+		
+		
+		return this.pMapper.findByProjektmarktplatz(p);
 	}
 	
 	//Alle Projekte die zu einem Projektmarktplatz gehören werden in einem Vector ausgegeben
@@ -260,31 +262,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewMapper.getAll();
 	}
+
 	@Override
 	public void deleteBewerbung(Bewerbung a) {
 		// TODO Auto-generated method stub
 		this.bewMapper.delete(a);
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
+
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
 	   * ***************************************************************************
 	   */
-	
-	
-	
-	
-	
-	
-	
-	
 }

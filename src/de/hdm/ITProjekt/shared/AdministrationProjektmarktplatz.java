@@ -77,8 +77,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Ausschreibung update(Ausschreibung c) ;
 
 	
-	
 
+	
+	
 
 
 	
