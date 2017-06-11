@@ -73,16 +73,16 @@ public class ProjektMapper {
 		 try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt" + "WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
 		  
 		  while (rs.next()) {
 			  	Projekt p = new Projekt();
-			  
+			  	p.setID(rs.getInt("ID"));
 				p.setName(rs.getString("name"));
 				p.setBeschreibung(rs.getString("beschreibung"));
 				p.setStartdatum(rs.getDate("startdatum"));
 				p.setEnddatum(rs.getDate("enddatum"));
-			
+				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
 			  
 			  result.addElement(p);
 		  

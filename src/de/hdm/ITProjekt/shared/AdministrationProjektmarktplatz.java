@@ -24,7 +24,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 //	public void deleteProjektmarktplatz(Projektmarktplatz p); //L�schen eines Projektmarktplatzes
 	
-	public void updateProjektmarktplatz(Projektmarktplatz p); //Editieren eines Projektmarktplatzes
+	Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p);
 	
 	public Projektmarktplatz addProjektmarktplatz(String bez);
 	
@@ -36,7 +36,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	//public Vector <Projektmarktplatz> getProjektmaktplaetzeOf(Person p);
 	
-	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
+//	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz);
 	

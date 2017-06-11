@@ -13,6 +13,13 @@
 .navi-button{
 
 }
+.bearbungsmodusdeaktiv-button{
+	
+	background-color: red;
+}
+.bearbungsmodusaktiv-button{
+	background-color: green;
+}
 .sendButton {
   display: block;
   font-size: 16pt;

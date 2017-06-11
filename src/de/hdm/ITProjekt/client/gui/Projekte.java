@@ -4,6 +4,8 @@ import java.util.Vector;
 
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
@@ -11,6 +13,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -36,7 +39,7 @@ public class Projekte extends Showcase {
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
 	VerticalPanel vpanel_projekte = new VerticalPanel();
 	
-	Button projekt = new Button("IchBinEinPlatzhalter");
+	Button add_projekt = new Button("Projekt Hinzufügen");
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 
@@ -44,9 +47,9 @@ public class Projekte extends Showcase {
 		
 	}
 	
-	private int projektid;
-	public Projekte(int selectedId){
-		this.projektid = selectedId;
+	private Projektmarktplatz selectedProjektmarktplatz;
+	public Projekte(Projektmarktplatz selectedObject){
+		this.selectedProjektmarktplatz = selectedObject;
 	}
 
 	@Override
@@ -61,12 +64,21 @@ public class Projekte extends Showcase {
 		RootPanel.get("Details").setWidth("100%");
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
-		hpanel_projekte.add(projekt);
+		hpanel_projekte.add(add_projekt);
 		
 		vpanel_projekte.add(ct_alleProjekte);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
 		
+		add_projekt.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				DialogBox dialogbox = new DialogBoxProjekte();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(dialogbox);
+			}
+		});
 		
 		Column<Projekt, String> projektname = 
 				    new Column<Projekt, String>(new ClickableTextCell())  {
@@ -139,13 +151,15 @@ public class Projekte extends Showcase {
 
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
-				Window.alert("Halloonsuccess");
+				if (result != null){
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
-				
+				} else{
+					Window.alert("Keine Projekte");
+				}
 			}
 		 };
-		adminService.findByProjektmarktplatz(projektid, callback);
+		adminService.findByProjektmarktplatz(selectedProjektmarktplatz, callback);
 
 		 
 //		 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
