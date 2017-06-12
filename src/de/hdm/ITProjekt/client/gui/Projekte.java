@@ -196,8 +196,6 @@ public class Projekte extends Showcase {
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
 				if (result != null){
-					
-				Window.alert("" + result.size());
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
 				} else{
