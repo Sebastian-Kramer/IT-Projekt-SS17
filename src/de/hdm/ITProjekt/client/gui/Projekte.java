@@ -39,7 +39,8 @@ public class Projekte extends Showcase {
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
 	VerticalPanel vpanel_projekte = new VerticalPanel();
 	
-	Button add_projekt = new Button("Projekt Hinzuf�gen");
+	Button add_projekt = new Button("Projekt Hinzufügen");
+	Button delete_projekt = new Button("Projekt Löschen");
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 
@@ -65,10 +66,12 @@ public class Projekte extends Showcase {
 	@Override
 	protected void run() {
 		
+				
 		RootPanel.get("Details").setWidth("100%");
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(add_projekt);
+		hpanel_projekte.add(delete_projekt);
 		
 		vpanel_projekte.add(ct_alleProjekte);
 		this.add(hpanel_projekte);
@@ -79,8 +82,7 @@ public class Projekte extends Showcase {
 			@Override
 			public void onClick(ClickEvent event) {
 				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(dialogbox);
+				dialogbox.center();
 			}
 		});
 		
@@ -138,9 +140,45 @@ public class Projekte extends Showcase {
 //		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
 //		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
 		filltableprojekte();
+		deleteProjekt();
 	
 	
 }
+	
+	private void deleteProjekt(){
+
+		 delete_projekt.addClickHandler(new ClickHandler(){
+			 
+				@Override
+				public void onClick(ClickEvent event) {
+					// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
+					Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+					if (selectedProjektObject != null){
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+					    }
+						 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
+	
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								Window.alert("Fehler beim Löschen");
+								
+							}
+	
+							@Override
+							public void onSuccess(Projekt result) {
+								Window.alert("Projekt wurde erfolgreich gelöscht");
+								filltableprojekte();
+								
+							}
+							};
+							adminService.deleteProjekt(selectedProjektObject, callback);
+					}
+	}
+			});
+		 }
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -158,6 +196,8 @@ public class Projekte extends Showcase {
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
 				if (result != null){
+					
+				Window.alert("" + result.size());
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
 				} else{

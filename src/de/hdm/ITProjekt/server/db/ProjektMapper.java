@@ -61,7 +61,7 @@ public class ProjektMapper {
 
 		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
 		  
-		  while (rs.next()) {
+		  
 		      
 		      while (rs.next()) {
 
@@ -77,7 +77,7 @@ public class ProjektMapper {
 		  
 		      }
 		  	}
-		 }
+		 
 		catch (SQLException e2) {
 		      e2.printStackTrace();
 		    } 
@@ -153,7 +153,7 @@ public class ProjektMapper {
 		
 	}
 	
-	public void deleteProjekt(Projekt a){
+	public Projekt deleteProjekt(Projekt a){
 		
 		Connection con = DBConnection.connection();
 		
@@ -167,6 +167,7 @@ public class ProjektMapper {
 		catch (SQLException e2) {
 				e2.printStackTrace();
 			}
+		return a;
 		}
 	
 	public Projekt update(Projekt c) {

@@ -40,7 +40,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz);
 	
-	public void deleteProjekt(Projekt a);
+	public Projekt deleteProjekt(Projekt a);
 	
 	public Person getPersonbyID(int id);
 	

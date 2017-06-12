@@ -154,8 +154,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
 //	}
 	
-	public void deleteProjekt(Projekt pr){
-		this.pMapper.deleteProjekt(pr);
+	public Projekt deleteProjekt(Projekt pr){
+		return this.pMapper.deleteProjekt(pr);
 	}
 	
 	@Override

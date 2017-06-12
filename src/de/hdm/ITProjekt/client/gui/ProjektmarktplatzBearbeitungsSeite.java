@@ -48,8 +48,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		// TODO Auto-generated method stub
-		return null;
+		return "<h1>Projektmarktplatz Suche</h1>";
 	}
 
 	@Override
