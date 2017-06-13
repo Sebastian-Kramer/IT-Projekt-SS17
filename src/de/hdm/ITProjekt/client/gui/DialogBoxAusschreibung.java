@@ -32,13 +32,13 @@ public class DialogBoxAusschreibung extends DialogBox {
 	FlexTable ausschreibungstextft = new FlexTable();
 	
 	
-	public DialogBoxAusschreibung (String text, String bezeichnung){
-		setText(bezeichnung);
+	public DialogBoxAusschreibung (Ausschreibung selectedAusschreibung){
+		setText(selectedAusschreibung.getBezeichnung());
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		this.center();
 		ausschreibungstext.setReadOnly(true);
-		ausschreibungstext.setText(text);
+		ausschreibungstext.setText(selectedAusschreibung.getAusschreibungstext());
 		ausschreibungstext.setCharacterWidth(80);
 		ausschreibungstext.setVisibleLines(30);
 		ausschreibungstextft.setWidget(0, 0, ausschreibungstext);
@@ -64,7 +64,9 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				DialogBoxAusschreibung.this.hide();
+				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung);
+				DialogBoxBewerbungAnlegen.show();
 				
 			}
 			

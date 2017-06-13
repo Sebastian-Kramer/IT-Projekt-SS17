@@ -25,6 +25,8 @@ public class DialogBoxBewerbung extends DialogBox {
 	
 	Button schliessen = new Button("schliessen");
 	
+	
+	
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
 	

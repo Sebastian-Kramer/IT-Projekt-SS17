@@ -51,6 +51,8 @@ public class StellenausschreibungenSeite extends Showcase {
 	
 	final SingleSelectionModel <Ausschreibung> ssm = new SingleSelectionModel<>();
 	final SingleSelectionModel <Ausschreibung> ssm_fremde = new SingleSelectionModel<Ausschreibung>();
+	
+	private Ausschreibung a1 = new Ausschreibung();
 
 	
 	public StellenausschreibungenSeite(){
@@ -137,7 +139,8 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			if(ssm !=null){
-				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(ssm.getSelectedObject().getAusschreibungstext(), ssm.getSelectedObject().getBezeichnung());
+				a1 = ssm.getSelectedObject();
+				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1);
 				int left = Window.getClientHeight() / 3;
 				int top = Window.getClientWidth() / 3;
 				dialogBox.setPopupPosition(left, top);
