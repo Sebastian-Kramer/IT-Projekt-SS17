@@ -119,6 +119,7 @@ import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.*;
@@ -127,6 +128,7 @@ public class IdentitySelection extends FlexTable{
 
 	private static int loginID = 1;
 	private static IdentitySelection navigation=null;
+	
 	private static ListBox ListboxIdentitySelection = new ListBox();
 	private static ListBox Listbox2 = new ListBox();
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
@@ -136,6 +138,8 @@ public class IdentitySelection extends FlexTable{
 	private static Unternehmen unternehmen;
 	private static Projektmarktplatz projektmarktplatz;
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
+	private Menubar menubar;
+	private boolean marktplatz = false;
 	
 private IdentitySelection (int id){
 		
@@ -292,16 +296,84 @@ private IdentitySelection (int id){
 			/*
 			 * Wird noch von Sebi bearbeitet, bitte nicht verändern
 			 */
-//			if (person.getTeam_ID() !=null) {
-//				projektmarktplatzVerwaltung.getTeamByID(result.getTeam_ID(), new getTeam());
-//			}else if (person.getUN_ID() != null){
-//				projektmarktplatzVerwaltung.getUnById(result.getUN_ID(), new getUnternehmen());
-//			}
+			if (person.getTeam_ID() !=null) {
+				projektmarktplatzVerwaltung.getTeamByID(result.getTeam_ID(), new getTeam());
+			}else if (person.getUN_ID() != null){
+				projektmarktplatzVerwaltung.getUnByID(result.getUN_ID(), new getUnternehmen());
+			}
+			projektmarktplatzVerwaltung.getMarktplatzByPerson(result, new getProjektmarktplatz());
 			
+		}
+	
+	}
+	
+	private class getTeam implements AsyncCallback<Team>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Team der Person konnte nicht geladen werden");		
+		}
+
+		@Override
+		public void onSuccess(Team result) {
+			
+			Integer TeamID=result.getID();
+			ListboxIdentitySelection.addItem("Team: "+result.getName(),TeamID.toString());	
+			team=result;
+			if(person.getUN_ID()!=null){
+				projektmarktplatzVerwaltung.getUnByID(person.getUN_ID(), new getUnternehmen());
+			}
+			
+		}
+		
+	}
+	
+	private class getUnternehmen implements AsyncCallback<Unternehmen>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Unternehmen der Person konnte nicht geladen werden");			
+		}
+
+		@Override
+		public void onSuccess(Unternehmen result) {
+			Integer UnternehmenID=result.getID();
+			ListboxIdentitySelection.addItem("Unternehmen: "+result.getName(),UnternehmenID.toString());
+			unternehmen=result;
+			}
 			
 		}
 
+	private class getProjektmarktplatz implements AsyncCallback<Vector<Projektmarktplatz>>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Der Projektmarktplatz der Person konnte nicht geladen werden");		
+		}
+		
+		@Override
+		public void onSuccess(Vector<Projektmarktplatz> result) {
+			
+			if (result != null){
+				if (result.isEmpty()){
+					ListboxIdentitySelection.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
+					menubar.getProjektmarktplaetzeButton().click();
+					RootPanel.get("Navigator").clear();
+				}else{
+					marktplatz = true;
+					for(Projektmarktplatz p : result){
+					ListboxIdentitySelection.addItem(p.getBez());
+					}
+					projektmarktplaetze = result;
+					RootPanel.get("Navigator").add(menubar);
+				}
+				
+			}
+			
+		}
+		
 	}
+	
 }
 
 
