@@ -20,7 +20,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void save(Projektmarktplatz p, AsyncCallback<Projektmarktplatz>callback);
 	
-
 	void getProjektmarktplatzAll(AsyncCallback<Vector<Projektmarktplatz>> callback);
 
 	void getProjektmarktplatzById(int ID, AsyncCallback<Projektmarktplatz> callback);
@@ -75,7 +74,9 @@ public interface AdministrationProjektmarktplatzAsync {
 
 
 
-void addProjekt(Projekt pmp, AsyncCallback<Projekt> callback);
+	void addProjekt(Projekt pmp, AsyncCallback<Projekt> callback);
+
+	void getMarktplatzByPerson(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
 	
 

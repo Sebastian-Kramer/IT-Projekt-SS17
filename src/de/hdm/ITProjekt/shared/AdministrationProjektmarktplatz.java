@@ -32,6 +32,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p); // L�schen eines Projektmarktplatzes
 
+	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p);
+	
 //	Projektmarktplatz addProjektmarktplatz(Projektmarktplatz p2);
 	
 	//public Vector <Projektmarktplatz> getProjektmaktplaetzeOf(Person p);
