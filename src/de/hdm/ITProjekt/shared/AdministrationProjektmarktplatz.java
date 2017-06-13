@@ -79,6 +79,13 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Team getTeamByID(int id);
 
 	Unternehmen getUnByID(int id);
+	
+	
+	/*
+	 * Methoden von Bewerbung
+	 */
+	
+	public Bewerbung insert(Bewerbung a);
 
 	
 

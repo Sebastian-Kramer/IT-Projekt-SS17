@@ -32,7 +32,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 	FlexTable ausschreibungstextft = new FlexTable();
 	
 	
-	public DialogBoxAusschreibung (Ausschreibung selectedAusschreibung){
+	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung){
 		setText(selectedAusschreibung.getBezeichnung());
 		setAnimationEnabled(true);
 		setGlassEnabled(true);

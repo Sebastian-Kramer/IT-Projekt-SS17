@@ -75,6 +75,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getUnByID(int id, AsyncCallback<Unternehmen> callback);
 
+	void insert(Bewerbung a, AsyncCallback<Bewerbung> callback);
+
 	
 
 	

@@ -26,6 +26,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private BewerbungMapper bewMapper = null;
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
+	
 
 	
 	public void init() {
@@ -294,6 +295,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void deleteBewerbung(Bewerbung a) {
 		// TODO Auto-generated method stub
 		this.bewMapper.delete(a);
+	}
+	@Override
+	public Bewerbung insert(Bewerbung a) {
+		return this.bewMapper.insert(a);
 	}
 
 
