@@ -38,8 +38,6 @@ public Partnerprofil findByKey(int id){
 				p.setID(rs.getInt("ID"));
 				p.setErstellungsdatum(rs.getDate("startdatum"));
 				p.setAenderungsdatum(rs.getDate("enddatum"));
-				p.setArbeitsgebiet(rs.getString("arbeitsgebiet"));
-				p.setBerufserfahrungsJahre(rs.getInt("berufserfahrungsJahre"));
 				return p;
 			}
 		}
@@ -66,8 +64,6 @@ public Vector<Partnerprofil> getAll(){
 		  	p.setID(rs.getInt("ID"));
 			p.setErstellungsdatum(rs.getDate("startdatum"));
 			p.setAenderungsdatum(rs.getDate("enddatum"));
-			p.setArbeitsgebiet(rs.getString("arbeitsgebiet"));
-			p.setBerufserfahrungsJahre(rs.getInt("berufserfahrungsJahre"));
 			result.addElement(p);
 		  
 		  result.addElement(p);
@@ -99,9 +95,7 @@ public Partnerprofil insert(Partnerprofil pp1){
 	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre)" 
 	    				+ "VALUES (" + pp1.getID() 
 	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" 
-	    				+ ", " + "'" + format.format(pp1.getAenderungsdatum()) + "'" 
-	                    + ", " + "'" + pp1.getArbeitsgebiet() 
-	                    + ","  + "'" + pp1.getBerufserfahrungsJahre() +")"); 
+	    				+ ", " + "'" + format.format(pp1.getAenderungsdatum()) + "'" + ")"); 
 	    	  
 	      }
 	}
@@ -135,8 +129,7 @@ public Partnerprofil update(Partnerprofil c) {
       Statement stmt = con.createStatement();
 
       stmt.executeUpdate("UPDATE Partnerprofil " + "SET änderungsdatum='"
-          + format.format(c.getAenderungsdatum()) + "', arbeitsgebiet= '" + c.getArbeitsgebiet() +  "', berufserfahrungsJahre= '" + c.getBerufserfahrungsJahre()
-    		  + "' WHERE Partnerprofil.ID = " + c.getID());
+          + format.format(c.getAenderungsdatum()) + "', arbeitsgebiet= '" + "' WHERE Partnerprofil.ID = " + c.getID());
 
     }
     catch (SQLException e) {
