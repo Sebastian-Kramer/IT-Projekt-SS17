@@ -24,7 +24,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
-	private  AusschreibungMapper aMapper = null; 
+	private AusschreibungMapper aMapper = null;
+	private TeilnahmeMapper tnMapper = null;
 
 	
 	public void init() {
@@ -32,6 +33,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.pMapper = ProjektMapper.pMapper();
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
+		this.tnMapper = TeilnahmeMapper.tnMapper();
 		
 	}
 	/*
@@ -120,6 +122,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		if(p != null && this.pmpMapper != null)
 //		return null;
 //	}	
+	
+	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p){
+		
+		Vector<Projektmarktplatz> result = new Vector<>();
+		
+		if(p != null && this.pmpMapper != null){
+			
+			Vector <Projektmarktplatz> pmp = this.tnMapper.findRelatedProjektMarktplaetze(p);
+			
+			if(pmp != null){
+				result.addAll(pmp);
+			}
+		}
+		return result;
+	}
 	
 	/*
 	   * ***************************************************************************
@@ -277,7 +294,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		this.bewMapper.delete(a);
 	}
-	
 
 
 	/*
@@ -285,4 +301,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
 	   * ***************************************************************************
 	   */
+	
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Teilnahmen einer Person an einem Marktplatz
+	   * ***************************************************************************
+	   */
+	
+	
 }
