@@ -10,7 +10,7 @@ import de.hdm.ITProjekt.shared.bo.*;
 
 public class TeilnahmeMapper {
 	
-	public static TeilnahmeMapper tmMapper = null;
+	public static TeilnahmeMapper tnMapper = null;
 	
 	
 	protected TeilnahmeMapper(){
@@ -18,11 +18,11 @@ public class TeilnahmeMapper {
 	}
 	
 	
-	public static TeilnahmeMapper tmMapper(){
-		if(tmMapper == null){
-			tmMapper = new TeilnahmeMapper();
+	public static TeilnahmeMapper tnMapper(){
+		if(tnMapper == null){
+			tnMapper = new TeilnahmeMapper();
 		}
-		return tmMapper;
+		return tnMapper;
 	}
 	
 	public void hinzufuegenTeilnahme(Person p, Projektmarktplatz pm){
