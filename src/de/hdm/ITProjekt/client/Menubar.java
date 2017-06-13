@@ -16,6 +16,8 @@ import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+
 public class Menubar extends StackPanel {
 	
 	
@@ -23,6 +25,8 @@ public class Menubar extends StackPanel {
 	
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
+	
+	IdentitySelection idSelection = null;
 		
 	// Die "einzelnen" Seiten in die Panels legen
 	VerticalPanel homePanel = new VerticalPanel();
@@ -38,7 +42,7 @@ public class Menubar extends StackPanel {
 	Button zurstartseiteButton = new Button("Startseite");
 	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
 	Button meineProjekteButton = new Button("Meine Projekte");
-	Button meinPartnerprofilButton = new Button("Mein Profil");
+	Button meinProfilButton = new Button("Mein Profil");
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
@@ -63,9 +67,9 @@ public class Menubar extends StackPanel {
 		meineProjekteButton.setWidth("200px");
 		meineProjekteButton.setStylePrimaryName("navi-button");
 		
-		homePanel.add(meinPartnerprofilButton);
-		meinPartnerprofilButton.setWidth("200px");
-		meinPartnerprofilButton.setStylePrimaryName("navi-button");
+		homePanel.add(meinProfilButton);
+		meinProfilButton.setWidth("200px");
+		meinProfilButton.setStylePrimaryName("navi-button");
 				
 		homePanel.setSpacing(5);
 		homePanel.setWidth("100%");
@@ -178,18 +182,36 @@ public class Menubar extends StackPanel {
 //			}
 //		});
 		
-		meinPartnerprofilButton.addClickHandler(new ClickHandler(){
+		meinProfilButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
+				currentClickHandler=this;
+				currentClickEvent=event;
+//				idSelection.deactivateProjectMarkets();
+//				idSelection.activateOrgUnits();
+//				
+//				Organisationseinheit selectedIdentity = idSelection.getSelectedIdentityAsObject();	
+//				
 				Showcase showcase = new MeinProfilAnzeigen();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
-				currentClickHandler=this;
-				currentClickEvent=event;
+
 			}
 		});
 	}
+	
+	
 	public Button getProjektmarktplaetzeButton() {
 		return projektmarktplaetzeButton;
+	}
+
+
+	public IdentitySelection getIdSelection() {
+		return idSelection;
+	}
+
+
+	public void setIdSelection(IdentitySelection idSelection) {
+		this.idSelection = idSelection;
 	}
 	
 	

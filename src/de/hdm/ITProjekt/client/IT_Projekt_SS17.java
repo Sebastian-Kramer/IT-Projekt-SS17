@@ -74,12 +74,15 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		  private void loadIT_Projekt_SS17(){
 			  
 			  Showcase showcase = new Homeseite();
+			  Menubar mb = new Menubar();
 			 // signOutLink.setHref(loginInfo.getLogoutUrl());//
 			  mainPanel.add(addPanel);
 			  mainPanel.add(showcase);
 			 // mainPanel.add(signOutLink);;//
+			  
 			  RootPanel.get("Details").add(mainPanel);
 			  RootPanel.get("Navigator").add(new Menubar());
+			  //RootPanel.get("Header").add(mb.getIdSelection());
 			  
 		  }	  
 //		 
