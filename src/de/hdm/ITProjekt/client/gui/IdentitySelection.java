@@ -46,12 +46,13 @@ public class IdentitySelection extends FlexTable{
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
+	private VerticalPanel vpanel = new VerticalPanel();
 	
 	public IdentitySelection (int id){
 		
 		this.setWidget(1, 0, new Label("Nutze Identität von: "));		
 		this.setWidget(1, 1, ListboxIdentitySelection);
-		this.setStylePrimaryName("header-top");
+		this.setStylePrimaryName("Header");
 		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
 		this.setWidget(2, 1, Listbox2);
 		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -59,8 +60,10 @@ public class IdentitySelection extends FlexTable{
 		ListboxIdentitySelection.setWidth("250px");
 		Listbox2.setWidth("250px");
 		projektmarktplatzVerwaltung.getPersonbyID(id, new getUser());
-		
-		
+		vpanel.setWidth("100%");
+		vpanel.add(ListboxIdentitySelection);
+		RootPanel.get("test").add(vpanel);
+		ListboxIdentitySelection.setStylePrimaryName("listboxidentityselection");
 		
 		
 		
