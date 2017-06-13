@@ -183,6 +183,9 @@ public class Menubar extends StackPanel {
 			}
 		});
 	}
+	public Button getProjektmarktplaetzeButton() {
+		return projektmarktplaetzeButton;
+	}
 	
 	
 	
