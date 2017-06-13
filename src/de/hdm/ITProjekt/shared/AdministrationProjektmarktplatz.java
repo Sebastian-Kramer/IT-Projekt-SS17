@@ -55,7 +55,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Team getTeamByID(int id);
 	
-	public Unternehmen GetUnByID (int id);
 	
 	Vector<Bewerbung> getAllBewerbungen();
 	
@@ -83,6 +82,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
  * Methoden von Projekten
  */
 	public Projekt addProjekt(Projekt pmp);
+
+	Unternehmen getUnByID(int id);
 	
 
 

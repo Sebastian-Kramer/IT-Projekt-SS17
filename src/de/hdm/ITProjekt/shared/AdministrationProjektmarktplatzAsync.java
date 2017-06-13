@@ -48,7 +48,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getTeamByID(int id, AsyncCallback<Team> callback);
 
-	void GetUnByID(int id, AsyncCallback<Unternehmen> callback);
+	void getUnByID(int id, AsyncCallback<Unternehmen> callback);
 
 	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
 	

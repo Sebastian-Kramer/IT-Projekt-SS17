@@ -272,8 +272,9 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	//Rückgabe eines Unternehmens-Objects anhand der übergebenen ID
+
 	@Override
-	public Unternehmen GetUnByID(int id) {
+	public Unternehmen getUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
 	
@@ -294,6 +295,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		this.bewMapper.delete(a);
 	}
+
 
 
 	/*
