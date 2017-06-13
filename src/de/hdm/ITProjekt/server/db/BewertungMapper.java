@@ -9,8 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Vector;
-
-import com.ibm.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 
 public class BewertungMapper {
 
