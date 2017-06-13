@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.MeinProfil;
 import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
 import de.hdm.ITProjekt.client.gui.Projekte;
@@ -28,6 +29,8 @@ public class Menubar extends StackPanel {
 //	VerticalPanel projektPanel = new VerticalPanel();
 	VerticalPanel projektmarktplatzPanel = new VerticalPanel();
 	
+	
+	
 	// Buttons für die Panels erstellen
 	
 	// Buttons in dem Panel "home"
@@ -41,6 +44,8 @@ public class Menubar extends StackPanel {
 	
 	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
 	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
+	
+	IdentitySelection is = null;
 	
 	public Menubar(){
 		// Zusammensetzen des startseitePanels
