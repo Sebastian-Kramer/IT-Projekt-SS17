@@ -25,7 +25,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 
-public class MeinProfil extends Showcase{
+public class MeinProfilAnzeigen extends Showcase{
 	
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
