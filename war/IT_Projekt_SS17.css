@@ -10,8 +10,16 @@
   text-align: center;
   background: aquamarine;
 }*/
+
 .navi-button{
 
+}
+
+.IdentityPanel{
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
 }
 
 ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
@@ -32,6 +40,10 @@ ul#header-top  li:last-child		{ border: none; }
 
 div#test{
 	
+}
+
+div#body-body{
+	background: aliceblue;
 }
 .bearbungsmodusdeaktiv-button{
 	
@@ -100,7 +112,17 @@ body {
 }
 
 IdentityPanel{
-	
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
+}
+listboxidentityselection
+{
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
 }
 
 * {
@@ -119,12 +141,12 @@ header {
 	width: 100%;
 	height: 240px;
 	margin:20px auto 0px;
-	background: grey;
-	background-image: url(Images/ProjektmarktplatzLogo.png)
+	background: #35bbc0;
+
 }
 
 header p{
-	color: #7686bf;
+	color: #fdfefe;
 	width: 100%;
     height: 210px;
     margin: -110px 0 0 0; 
@@ -132,13 +154,13 @@ header p{
 
 header h1 a{
 	display:block;
-	color: blue;
+	color: #fdfefe;
 	padding:10px 0 0 20px;
 	font-size:140%;
 }
 header h1 span {
 	font-size:50%;
-	color:blue;
+	color:#fdfefe;
 	padding: 0 20px;
 }
 .ribbon{
@@ -252,7 +274,7 @@ p {
 }
 
 a 	{ 
-	color: #4E68AD; 
+	color: white; 
 	padding: 5px 15px; 
 	outline: none; 
 	text-decoration: none; 

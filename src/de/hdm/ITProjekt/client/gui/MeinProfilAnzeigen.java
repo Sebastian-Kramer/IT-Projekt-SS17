@@ -151,8 +151,8 @@ public class MeinProfilAnzeigen extends Showcase{
 			//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln			
 			vpanel.setSpacing(8);
 			
-			form.setWidget(0,  1, anredeBox);
-			form.setWidget(0, 0, anredeListBox);
+			form.setWidget(0,  1, anredeListBox);
+			form.setWidget(0, 0, anrede);
 			
 			form.setWidget(1,  1, vnameBox);
 			form.setWidget(1, 0, vorname);

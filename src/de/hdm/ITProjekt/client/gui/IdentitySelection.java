@@ -38,6 +38,7 @@ public class IdentitySelection extends FlexTable{
 	
 	private static ListBox ListboxIdentitySelection = new ListBox();
 	private static ListBox Listbox2 = new ListBox();
+	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
 	private static AdministrationProjektmarktplatzAsync projektmarktplatzVerwaltung = ClientsideSettings.getpmpVerwaltung();
 	private static Person person;
@@ -46,13 +47,15 @@ public class IdentitySelection extends FlexTable{
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
+	
 	private VerticalPanel vpanel = new VerticalPanel();
 	
-	public IdentitySelection (int id){
+	public IdentitySelection (int id, final Menubar menubar){
 		
+		this.menubar = menubar;
 		this.setWidget(1, 0, new Label("Nutze Identität von: "));		
 		this.setWidget(1, 1, ListboxIdentitySelection);
-		this.setStylePrimaryName("Header");
+		this.setStylePrimaryName("IdentityPanel");
 		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
 		this.setWidget(2, 1, Listbox2);
 		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
@@ -60,18 +63,12 @@ public class IdentitySelection extends FlexTable{
 		ListboxIdentitySelection.setWidth("250px");
 		Listbox2.setWidth("250px");
 		projektmarktplatzVerwaltung.getPersonbyID(id, new getUser());
-		vpanel.setWidth("100%");
-		vpanel.add(ListboxIdentitySelection);
-		RootPanel.get("test").add(vpanel);
-		ListboxIdentitySelection.setStylePrimaryName("listboxidentityselection");
-		
-		
-		
+
 		ListboxIdentitySelection.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
-				//Menubar
+				menubar.reload();
 				
 			}
 
@@ -80,19 +77,14 @@ public class IdentitySelection extends FlexTable{
 			
 			@Override
 			public void onChange(ChangeEvent event) {
-//				Navigation.reload();
+				menubar.reload();
 			}
 		});
-}
-
-	public static IdentitySelection getNavigation(){
-		if (navigation == null){
-			navigation = new IdentitySelection(loginID);
-		}
-		return navigation;
 	}
+
 	
 	public static int getSelectedIndex(){
+		
 		int selectedID = ListboxIdentitySelection.getSelectedIndex();
 		
 		return selectedID;
@@ -163,6 +155,10 @@ public class IdentitySelection extends FlexTable{
 		return ListboxIdentitySelection;
 	}
 	
+	public ListBox Listbox2(){
+		return Listbox2;
+	}
+	
 	public static void deactivateOrgUnits(){
 		ListboxIdentitySelection.setEnabled(false);
 	}
@@ -186,15 +182,23 @@ public class IdentitySelection extends FlexTable{
 	public void reinitialize(){
 		projektmarktplatzVerwaltung.getPersonbyID(loginID, new getUser());
 	}
-
+	
+	private IdentitySelection getThis(){
+		return this;
+	}
+	
+	public boolean getisMarktplatzSet(){
+		return marktplatz;
+	}
 
 	
 	
-	private class getUser implements AsyncCallback<Person>{
+private class getUser implements AsyncCallback<Person>{
 
 	@Override
 	public void onFailure(Throwable caught) {
 		Window.alert("Die Person konnte nicht gefunden werden");
+		Window.alert("wegen des folgenden Fehlers: " + caught.toString());
 		
 	}
 
@@ -204,11 +208,9 @@ public class IdentitySelection extends FlexTable{
 			Listbox2.clear();
 			person = result;
 			Integer personID = result.getID();
-			ListboxIdentitySelection.addItem("Person" + result.getVorname() + " " +
+			ListboxIdentitySelection.addItem("Person: " + result.getVorname() + " " +
 												result.getName() , personID.toString());
-			/*
-			 * Wird noch von Sebi bearbeitet, bitte nicht verändern
-			 */
+					
 			if (person.getTeam_ID() !=null) {
 				projektmarktplatzVerwaltung.getTeamByID(result.getTeam_ID(), new getTeam());
 			}else if (person.getUN_ID() != null){

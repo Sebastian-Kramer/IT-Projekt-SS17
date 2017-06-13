@@ -214,7 +214,9 @@ public class Menubar extends StackPanel {
 		this.idSelection = idSelection;
 	}
 	
-	
+	public void reload(){
+		currentClickHandler.onClick(currentClickEvent);
+	}
 	
 	
 
