@@ -4,8 +4,7 @@ import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
-
-import com.ibm.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 
 public class PartnerprofilMapper {
 
