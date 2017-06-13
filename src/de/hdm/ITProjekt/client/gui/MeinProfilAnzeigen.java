@@ -54,17 +54,17 @@ public class MeinProfilAnzeigen extends Showcase{
 	
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
-	private VerticalPanel vpanel1 = new VerticalPanel();
+	HorizontalPanel hpanel = new HorizontalPanel();
 	
 	
-	private FlexTable ftable_form = new FlexTable();
-	private FlexTable ftable_team = new FlexTable();
-	private FlexTable ftable_unternehmen = new FlexTable();
+	private FlexTable form = new FlexTable();
+//	private FlexTable ftable_team = new FlexTable();
+//	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
-	private static DialogBox db_team = new DialogBox();
-	private static DialogBox db_unternehmen = new DialogBox();
-	private Button closeTeam = new Button("Schließen");
-	private Button closeUnternehmen = new Button("Schließen");
+//	private static DialogBox db_team = new DialogBox();
+//	private static DialogBox db_unternehmen = new DialogBox();
+//	private Button closeTeam = new Button("Schließen");
+//	private Button closeUnternehmen = new Button("Schließen");
 
 	//Anlegen der Buttons für verschiedene Funktionen
 	private Button bearbeiten = new Button("Bearbeiten");
@@ -73,35 +73,36 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button newTeam = new Button("Team hinzufügen");
 	private Button newUN = new Button("Unternehmen hinzufügen");
 	
-	private Button teamErstellenButton = new Button("Team Erstellen");
-	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
-	private SuggestBox sb_teamHinzufuegen = new SuggestBox(oracle_teamHinzufuegen);
-	private Button teamHinzufuegenButton = new Button("OK");
+	private Button partnerprofil = new Button("Weiter zum Partnerprofil");
 	
-	private Button unternehmenErstellenButton = new Button("Unternehmen Erstellen");
-	private MultiWordSuggestOracle oracle_unternehmenHinzufuegen= new MultiWordSuggestOracle();
-	private SuggestBox sb_unternehmenHinzufuegen = new SuggestBox(oracle_unternehmenHinzufuegen);
-	private Button unternehmenHinzufuegenButton = new Button("OK");
-	
-	private Label anredeLabel = new Label("Anrede");
-	private Label vnameLabel = new Label("Vorname");
-	private Label nnameLabel = new Label("Nachname");
-	private Label strasseLabel = new Label("Straße");
-	private Label hausnrLabel = new Label("Hausnummer");
-	private Label plzLabel = new Label("Postleitzahl");
-	private Label ortLabel = new Label("Ort");
+//	private Button teamErstellenButton = new Button("Team Erstellen");
+//	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
+//	private SuggestBox sb_teamHinzufuegen = new SuggestBox(oracle_teamHinzufuegen);
+//	private Button teamHinzufuegenButton = new Button("OK");
+//	
+//	private Button unternehmenErstellenButton = new Button("Unternehmen Erstellen");
+//	private MultiWordSuggestOracle oracle_unternehmenHinzufuegen= new MultiWordSuggestOracle();
+//	private SuggestBox sb_unternehmenHinzufuegen = new SuggestBox(oracle_unternehmenHinzufuegen);
+//	private Button unternehmenHinzufuegenButton = new Button("OK");
 
 	//Erstellen der Text- bzw. ListBoxen
-		private ListBox anredeListBox = new ListBox();
-		private TextBox anredeBox = new TextBox();
-		private TextBox vnameBox = new TextBox();
-		private TextBox nnameBox = new TextBox();
-		private TextBox strasseBox = new TextBox();
-		private TextBox hausnrBox = new TextBox();
-		private TextBox plzBox = new TextBox();
-		private TextBox ortBox = new TextBox();
-
-		
+	private ListBox anredeListBox = new ListBox();
+	private TextBox anredeBox = new TextBox();
+	private TextBox vnameBox = new TextBox();
+	private TextBox nnameBox = new TextBox();
+	private TextBox strasseBox = new TextBox();
+	private TextBox hausnrBox = new TextBox();
+	private TextBox plzBox = new TextBox();
+	private TextBox ortBox = new TextBox();
+	
+	//Erstellen der Labels
+	private Label anrede = new Label("Anrede");
+	private Label vorname = new Label("Vorname");
+	private Label nachname = new Label("Nachname");
+	private Label straße = new Label("Straße");
+	private Label hausnr = new Label("Hausnummer");
+	private Label plz = new Label("Postleitzahl");
+	private Label ort = new Label("Ort");
 		
 		@Override
 		protected String getHeadlineText() {
@@ -109,6 +110,9 @@ public class MeinProfilAnzeigen extends Showcase{
 		}
 		@Override
 		protected void run() {
+			
+			
+			this.add(partnerprofil);
 			
 			vnameBox.setText(p.getVorname());
 			nnameBox.setText(p.getName());
@@ -118,24 +122,70 @@ public class MeinProfilAnzeigen extends Showcase{
 			plzBox.setText(Integer.toString(p.getPlz()));
 			ortBox.setText(p.getOrt());
 			
-			anredeBox.setReadOnly(true);
-			vnameBox.setReadOnly(true);
-			nnameBox.setReadOnly(true);
-			strasseBox.setReadOnly(true);
-			hausnrBox.setReadOnly(true);
-			plzBox.setReadOnly(true);
-			ortBox.setReadOnly(true);
+//			anredeBox.setReadOnly(true);
+//			vnameBox.setReadOnly(true);
+//			nnameBox.setReadOnly(true);
+//			strasseBox.setReadOnly(true);
+//			hausnrBox.setReadOnly(true);
+//			plzBox.setReadOnly(true);
+//			ortBox.setReadOnly(true);
 			
+			//Stylen der Buttons
+			bearbeiten.setStylePrimaryName("myprofil-button");
+			speichern.setStylePrimaryName("myprofil-button");
+			abbrechen.setStylePrimaryName("myprofil-button");
+			newTeam.setStylePrimaryName("myprofil-button");
+			newUN.setStylePrimaryName("myprofil-button");
 			
-			RootPanel.get("Details").setWidth("100%");
+//			RootPanel.get("Details").add(vpanel);
+//			RootPanel.get("Details").setWidth("100%");
 			
 			anredeListBox.addItem("Herr");
 			anredeListBox.addItem("Frau");
-			RootPanel.get("Details").add(anredeBox);
-			RootPanel.get("Details").add(vnameBox);
-			RootPanel.get("Details").add(anredeListBox);
+//			RootPanel.get("Details").add(anredeBox);
+//			RootPanel.get("Details").add(vnameBox);
+//			RootPanel.get("Details").add(anredeListBox);
+//			RootPanel.get("Details").add(bearbeiten);
+			
+			
+			//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln			
+			vpanel.setSpacing(8);
+			
+			form.setWidget(0,  1, anredeBox);
+			form.setWidget(0, 0, anredeListBox);
+			
+			form.setWidget(1,  1, vnameBox);
+			form.setWidget(1, 0, vorname);
+			
+			form.setWidget(2,  1, nnameBox);
+			form.setWidget(2, 0, nachname);
+			
+			form.setWidget(3,  1, strasseBox);
+			form.setWidget(3, 0, straße);
+			
+			form.setWidget(4,  1, hausnrBox);
+			form.setWidget(4, 0, hausnr);
+			
+			form.setWidget(5,  1, plzBox);
+			form.setWidget(5, 0, plz);
+			
+			form.setWidget(6,  1, ortBox);
+			form.setWidget(6, 0, ort);
+			
+			
 			
 			ft_buttonPanel.setWidget(0, 0, bearbeiten);
+			ft_buttonPanel.setWidget(0, 1, speichern);
+			ft_buttonPanel.setWidget(0, 2, abbrechen);
+			ft_buttonPanel.setWidget(0, 3, newTeam);
+			ft_buttonPanel.setWidget(0, 4, newUN);
+			//ft_buttonPanel.setWidget(0, 5, partnerprofil);
+			
+
+			vpanel.add(ft_buttonPanel);
+			vpanel.add(form);
+			this.add(vpanel);
+			this.setSpacing(8);
 			
 		}
 

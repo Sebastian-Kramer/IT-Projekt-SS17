@@ -13,6 +13,20 @@
 .navi-button{
 
 }
+
+ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
+ul#header-top  li:last-child		{ border: none; }
+
+.myprofil-button{
+	border-radius: 0px;
+  	font-family: Calibri;
+  	color: #000000;
+  	font-size: 15px;
+  	padding: 8px 20px 8px 20px;
+  	border: solid #e6e6e6 2px;
+	
+}
+
 .bearbungsmodusdeaktiv-button{
 	
 	background-color: red;
