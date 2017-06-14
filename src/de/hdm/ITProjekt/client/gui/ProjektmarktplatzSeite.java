@@ -129,8 +129,6 @@ public class ProjektmarktplatzSeite extends Showcase{
 				    
 						@Override
 						public String getValue(Projektmarktplatz object) {
-							// TODO Auto-generated method stub
-							
 							return object.getBez();
 						}
 						    
@@ -155,7 +153,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			        	RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 			        }else{
-			        	Window.alert("Kein Projektmarktplatz angewählt");
+			        	Window.alert("Kein Projektmarktplatz angewï¿½hlt");
 			        }
 			    	
 			    	
@@ -191,7 +189,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		        {
 //		    if(p1 != null){
 //		    	
-//		    	Window.alert("ssm noch befüllt");
+//		    	Window.alert("ssm noch befï¿½llt");
 ////		    		Projektmarktplatz p_objekt = ssm_projektmarktplatz_eigene.getSelectedObject();
 //		        	Showcase showcase = new Projekte(p1);
 //		        	RootPanel.get("Details").clear();

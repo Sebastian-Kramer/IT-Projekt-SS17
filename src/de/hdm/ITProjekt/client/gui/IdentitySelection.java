@@ -36,8 +36,8 @@ public class IdentitySelection extends FlexTable{
 	private static int loginID = 1;
 	private static IdentitySelection navigation=null;
 	
-	private static ListBox ListboxIdentitySelection = new ListBox();
-	private static ListBox Listbox2 = new ListBox();
+	private ListBox orgEinheit = new ListBox();
+//	private static ListBox Listbox2 = new ListBox();
 	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
 	private static AdministrationProjektmarktplatzAsync projektmarktplatzVerwaltung = ClientsideSettings.getpmpVerwaltung();
@@ -48,23 +48,22 @@ public class IdentitySelection extends FlexTable{
 	private Menubar menubar;
 	private boolean marktplatz = false;
 	
-	private VerticalPanel vpanel = new VerticalPanel();
 	
 	public IdentitySelection (int id, final Menubar menubar){
 		
 		this.menubar = menubar;
 		this.setWidget(1, 0, new Label("Nutze Identität von: "));		
-		this.setWidget(1, 1, ListboxIdentitySelection);
+		this.setWidget(1, 1, orgEinheit);
 		this.setStylePrimaryName("IdentityPanel");
-		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
-		this.setWidget(2, 1, Listbox2);
+//		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
+//		this.setWidget(2, 1, Listbox2);
 		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-		ListboxIdentitySelection.setWidth("250px");
-		Listbox2.setWidth("250px");
+//		cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
+		orgEinheit.setWidth("250px");
+//		Listbox2.setWidth("250px");
 		projektmarktplatzVerwaltung.getPersonbyID(id, new getUser());
 
-		ListboxIdentitySelection.addChangeHandler(new ChangeHandler() {
+		orgEinheit.addChangeHandler(new ChangeHandler() {
 
 			@Override
 			public void onChange(ChangeEvent event) {
@@ -73,56 +72,56 @@ public class IdentitySelection extends FlexTable{
 			}
 
 		});
-		Listbox2.addChangeHandler(new ChangeHandler() {
-			
-			@Override
-			public void onChange(ChangeEvent event) {
-				menubar.reload();
-			}
-		});
+//		Listbox2.addChangeHandler(new ChangeHandler() {
+//			
+//			@Override
+//			public void onChange(ChangeEvent event) {
+//				menubar.reload();
+//			}
+//		});
 	}
 
 	
-	public static int getSelectedIndex(){
+	public int getSelectedIndex(){
 		
-		int selectedID = ListboxIdentitySelection.getSelectedIndex();
+		int selectedID = orgEinheit.getSelectedIndex();
 		
 		return selectedID;
 	}
 
-	public static int getSelectedIdentityID(){
+	public int getSelectedIdentityID(){
 		if(person.getTeam_ID() != 0){
-			if(ListboxIdentitySelection.getSelectedIndex() == 0){
+			if(orgEinheit.getSelectedIndex() == 0){
 				return person.getID();
-			}else if(ListboxIdentitySelection.getSelectedIndex() == 1){
+			}else if(orgEinheit.getSelectedIndex() == 1){
 				return team.getID();
-			}else if(ListboxIdentitySelection.getSelectedIndex() == 2){
+			}else if(orgEinheit.getSelectedIndex() == 2){
 				return unternehmen.getID();
 			}
 		}else if (person.getTeam_ID() == null){
-				if (ListboxIdentitySelection.getSelectedIndex() == 0){
+				if (orgEinheit.getSelectedIndex() == 0){
 					return person.getID();
-			}else if(ListboxIdentitySelection.getSelectedIndex() == 0){
+			}else if(orgEinheit.getSelectedIndex() == 1){
 				return unternehmen.getID();   
 			}
 		}
 	return 0; 
 	}
 	
-	public static Organisationseinheit getSelectedIdentityAsObject(){
+	public Organisationseinheit getSelectedIdentityAsObject(){
 
 		if(person.getTeam_ID() != null){
-			if(ListboxIdentitySelection.getSelectedIndex()==0){
+			if(orgEinheit.getSelectedIndex()==0){
 				return person;
-			}else if(ListboxIdentitySelection.getSelectedIndex()==1){
+			}else if(orgEinheit.getSelectedIndex()==1){
 				return team;
-			}else if(ListboxIdentitySelection.getSelectedIndex()==2){
+			}else if(orgEinheit.getSelectedIndex()==2){
 				return unternehmen;
 			}
 		}else if(person.getTeam_ID() == null){
-			if(ListboxIdentitySelection.getSelectedIndex()==0){
+			if(orgEinheit.getSelectedIndex()==0){
 				return person;
-			}else if(ListboxIdentitySelection.getSelectedIndex()==1){
+			}else if(orgEinheit.getSelectedIndex()==1){
 				return unternehmen;
 			}
 
@@ -130,53 +129,53 @@ public class IdentitySelection extends FlexTable{
 		return null;
 	}
 	
-	public static int getSelectedProjectMarketplaceId(){
-		for(Projektmarktplatz p : projektmarktplaetze){
-			if(p.getBez()==Listbox2.getSelectedItemText()){
-				return p.getID();
-			}
-		}
-		return 0;
-	}
+//	public static int getSelectedProjectMarketplaceId(){
+//		for(Projektmarktplatz p : projektmarktplaetze){
+//			if(p.getBez()==Listbox2.getSelectedItemText()){
+//				return p.getID();
+//			}
+//		}
+//		return 0;
+//	}
 	
-	public static Person getUser(){
+	public Person getUser(){
 		return person;
 	}
 	
-	public static Team getTeamOfUser(){
+	public Team getTeamOfUser(){
 		return team;
 	}
 	
-	public static Unternehmen getUnternehmenOfUser(){
+	public Unternehmen getUnternehmenOfUser(){
 		return unternehmen;
 	}
 	
-	public static ListBox getOwnOrgUnits(){
-		return ListboxIdentitySelection;
+	public  ListBox getOwnOrgUnits(){
+		return orgEinheit;
 	}
 	
-	public ListBox Listbox2(){
-		return Listbox2;
+//	public ListBox Listbox2(){
+//		return Listbox2;
+//	}
+	
+	public void deactivateOrgUnits(){
+		orgEinheit.setEnabled(false);
 	}
 	
-	public static void deactivateOrgUnits(){
-		ListboxIdentitySelection.setEnabled(false);
+//	public void deactivateProjectMarkets(){
+//		Listbox2.setEnabled(false);
+//	}
+	
+	public void activateOrgUnits(){
+		orgEinheit.setEnabled(true);
 	}
 	
-	public static void deactivateProjectMarkets(){
-		Listbox2.setEnabled(false);
-	}
+//	public void activateProjectMarkets(){
+//		Listbox2.setEnabled(true);
+//	}
 	
-	public static void activateOrgUnits(){
-		ListboxIdentitySelection.setEnabled(true);
-	}
-	
-	public static void activateProjectMarkets(){
-		Listbox2.setEnabled(true);
-	}
-	
-	public static void setOwnOrgUnitToZero(){
-		ListboxIdentitySelection.setSelectedIndex(0);
+	public void setOwnOrgUnitToZero(){
+		orgEinheit.setSelectedIndex(0);
 	}
 	
 	public void reinitialize(){
@@ -187,9 +186,9 @@ public class IdentitySelection extends FlexTable{
 		return this;
 	}
 	
-	public boolean getisMarktplatzSet(){
-		return marktplatz;
-	}
+//	public boolean getisMarktplatzSet(){
+//		return marktplatz;
+//	}
 
 	
 	
@@ -204,11 +203,11 @@ private class getUser implements AsyncCallback<Person>{
 
 	@Override
 	public void onSuccess(Person result) {
-			ListboxIdentitySelection.clear();
-			Listbox2.clear();
+			orgEinheit.clear();
+//			Listbox2.clear();
 			person = result;
 			Integer personID = result.getID();
-			ListboxIdentitySelection.addItem("Person: " + result.getVorname() + " " +
+			orgEinheit.addItem("Person: " + result.getVorname() + " " +
 												result.getName() , personID.toString());
 					
 			if (person.getTeam_ID() !=null) {
@@ -233,7 +232,7 @@ private class getUser implements AsyncCallback<Person>{
 		public void onSuccess(Team result) {
 			
 			Integer TeamID=result.getID();
-			ListboxIdentitySelection.addItem("Team: "+result.getName(),TeamID.toString());	
+			orgEinheit.addItem("Team: "+result.getName(),TeamID.toString());	
 			team=result;
 			if(person.getUN_ID()!=null){
 				projektmarktplatzVerwaltung.getUnByID(person.getUN_ID(), new getUnternehmen());
@@ -253,7 +252,7 @@ private class getUser implements AsyncCallback<Person>{
 		@Override
 		public void onSuccess(Unternehmen result) {
 			Integer UnternehmenID=result.getID();
-			ListboxIdentitySelection.addItem("Unternehmen: "+result.getName(),UnternehmenID.toString());
+			orgEinheit.addItem("Unternehmen: "+result.getName(),UnternehmenID.toString());
 			unternehmen=result;
 			}
 			
@@ -271,13 +270,13 @@ private class getUser implements AsyncCallback<Person>{
 			
 			if (result != null){
 				if (result.isEmpty()){
-					ListboxIdentitySelection.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
+					orgEinheit.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
 					menubar.getProjektmarktplaetzeButton().click();
 					RootPanel.get("Navigator").clear();
 				}else{
 					marktplatz = true;
 					for(Projektmarktplatz p : result){
-					ListboxIdentitySelection.addItem(p.getBez());
+					orgEinheit.addItem(p.getBez());
 					}
 					projektmarktplaetze = result;
 					RootPanel.get("Navigator").add(menubar);

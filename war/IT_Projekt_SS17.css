@@ -22,7 +22,7 @@
 	top: 80px;
 }
 
-ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
+ul#header-top  li			{ float: right; list-style-^type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
 ul#header-top  li:last-child		{ border: none; }
 
 .myprofil-button{
@@ -41,7 +41,9 @@ ul#header-top  li:last-child		{ border: none; }
 div#test{
 	
 }
-
+div#idendity{
+	float: right;
+}
 div#body-body{
 	background: aliceblue;
 }

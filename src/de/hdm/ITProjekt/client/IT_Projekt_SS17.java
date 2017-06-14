@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.shared.LoginService;
@@ -45,7 +46,6 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  @Override
 	public void onModuleLoad() {
 		  
-	  
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
 		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
@@ -56,6 +56,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  public void onSuccess(LogInInfo result){
 				  loginInfo = result;
 				  if(loginInfo.isLoggedIn()){
+					  RootPanel.get("idendity").add(new IdentitySelection(0, null));	
 					  loadIT_Projekt_SS17();
 					  
 				  } else {
