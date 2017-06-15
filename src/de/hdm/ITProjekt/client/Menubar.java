@@ -14,6 +14,7 @@ import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
 import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
+import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
@@ -43,6 +44,7 @@ public class Menubar extends StackPanel {
 	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
 	Button meineProjekteButton = new Button("Meine Projekte");
 	Button meinProfilButton = new Button("Mein Profil");
+	Button registrierung = new Button("Registrierung");
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
@@ -71,6 +73,13 @@ public class Menubar extends StackPanel {
 		meinProfilButton.setWidth("200px");
 		meinProfilButton.setStylePrimaryName("navi-button");
 				
+		// Wird später gelöscht, sobald registrierung steht!!!
+		homePanel.add(registrierung);
+		registrierung.setWidth("200px");
+		registrierung.setStylePrimaryName("navi-button");
+		
+		
+		
 		homePanel.setSpacing(5);
 		homePanel.setWidth("100%");
 		
@@ -181,6 +190,16 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
+		
+		registrierung.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new RegistrierungsForm();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
 		
 		meinProfilButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){

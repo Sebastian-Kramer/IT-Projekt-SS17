@@ -3,8 +3,7 @@ import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
-
-import com.ibm.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 
 public class EigenschaftMapper {
 	
@@ -38,7 +37,7 @@ public class EigenschaftMapper {
 					e.setID(rs.getInt("ID"));
 					e.setName(rs.getString("name"));
 					e.setWert(rs.getString("wert"));
-			//		e.setPartnerprofil_ID(rs.getPartnerprofil_ID("partnerprofil_ID"));
+					e.setPartnerprofil_ID(rs.getInt("partnerprofil_ID"));
 					
 					return e;
 				}
@@ -67,7 +66,7 @@ public class EigenschaftMapper {
 				  	e.setID(rs.getInt("ID"));
 					e.setName(rs.getString("name"));
 					e.setWert(rs.getString("wert"));
-			//		e.setPartnerprofil_ID(rs.getPartnerprofil_ID("partnerprofil_ID"));
+					e.setPartnerprofil_ID(rs.getInt("partnerprofil_ID"));
 					
 				  
 				  result.addElement(e);
@@ -108,38 +107,39 @@ public class EigenschaftMapper {
 			
 		}
 		
-//	public void delete(EigenschaftMapper e){
-//			
-//			Connection con = DBConnection.connection();
-//			
-//			try {
-//			      Statement stmt = con.createStatement();
-//
-//			      stmt.executeUpdate("DELETE FROM Eigenschaft " 
-//			    		  			+ "WHERE Eigenschaft.ID = " + e.getID());
-//				}
-//			
-//			catch (SQLException e2) {
-//					e2.printStackTrace();
-//				}
-//			}
-//		
-//		public EigenschaftMapper update(EigenschaftMapper e) {
-//		    Connection con = DBConnection.connection();
-//
-//		    try {
-//		      Statement stmt = con.createStatement();
-//
-//		      stmt.executeUpdate("UPDATE Eigenschaft " + "SET name='"
-//		          + e.getName() + "', wert='" + e.getWert() + "partnerprofil ID" + e.getPartnerprofil_ID() );
-//
-//		    }
-//		    catch (SQLException c) {
-//		      c.printStackTrace();
-//		    }
-//
-//		    return e;
-//		  }
+	public void delete(Eigenschaft e){
+			
+			Connection con = DBConnection.connection();
+			
+			try {
+			      Statement stmt = con.createStatement();
+
+			      stmt.executeUpdate("DELETE FROM Eigenschaft " 
+			    		  			+ "WHERE Eigenschaft.ID = " + e.getID());
+				}
+			
+			catch (SQLException e2) {
+					e2.printStackTrace();
+				}
+			}
+		
+		public Eigenschaft update(Eigenschaft e) {
+		    Connection con = DBConnection.connection();
+
+		    try {
+		      Statement stmt = con.createStatement();
+
+		      stmt.executeUpdate("UPDATE Eigenschaft " + "SET name='"
+		          + e.getName() + "', wert='" + e.getWert() + "partnerprofil ID" + e.getPartnerprofil_ID() );
+
+		    }
+		    catch (SQLException c) {
+		      c.printStackTrace();
+		    }
+
+		    return e;
+		  }
+	
 
 	}
 
