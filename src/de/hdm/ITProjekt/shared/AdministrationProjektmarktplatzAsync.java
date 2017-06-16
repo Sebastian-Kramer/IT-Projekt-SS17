@@ -86,7 +86,9 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	// Methoden für Person
 	
-	void createPerson(Person p, AsyncCallback<Person> callback);
+	void createPerson(String vorname, String nachname, String anrede, String strasse, int hausnr,
+			int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId,
+			AsyncCallback<Person> callback);
 	
 
 	

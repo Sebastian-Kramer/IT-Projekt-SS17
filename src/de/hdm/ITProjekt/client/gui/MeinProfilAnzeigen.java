@@ -41,7 +41,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	
 	private IdentitySelection identitySelection = null;
 	private Menubar mb = null;
-	Person p = new Person();
+	private Person p = new Person();
 	
 	public MeinProfilAnzeigen(){
 		
@@ -187,10 +187,10 @@ public class MeinProfilAnzeigen extends Showcase{
 			this.add(vpanel);
 			this.setSpacing(8);
 			
-		}
-
-	
-	}
+		}}
+//
+//	private class getPersonausDB implements AsyncCallback 
+//	}
 
 	
 	

@@ -205,8 +205,22 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.prMApper.findByKey(id);
 	}
+	
 	@Override
-	public Person createPerson(Person p) {
+	public Person createPerson(String vorname, String nachname, String anrede, String strasse,
+			int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) {
+		Person p = new Person();
+		p.setID(0);
+		p.setVorname(vorname);
+		p.setName(nachname);
+		p.setAnrede(anrede);
+		p.setStraße(strasse);
+		p.setHausnummer(hausnr);
+		p.setPlz(plz);
+		p.setOrt(ort);
+		p.setPartnerprofil_ID(partnerprofilId);
+		p.setTeam_ID(teamId);
+		p.setUN_ID(unternehmenId);		
 		return this.prMApper.createPerson(p);
 	}
 	
@@ -306,6 +320,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewerbung insert(Bewerbung a) {
 		return this.bewMapper.insert(a);
 	}
+	
 	
 	/*
 	 * ***************************************************************************
