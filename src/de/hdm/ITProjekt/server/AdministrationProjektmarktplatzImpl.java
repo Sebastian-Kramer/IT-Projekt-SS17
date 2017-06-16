@@ -20,7 +20,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
-	private PersonMapper prMApper = null; 
+	private PersonMapper personMapper = null; 
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
@@ -32,11 +32,14 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	public void init() {
 		this.pmpMapper = ProjektmarktplatzMapper.pmpMapper(); //Initialisierung der Mapper
+		this.personMapper = PersonMapper.perMapper();
 		this.pMapper = ProjektMapper.pMapper();
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
 		this.tnMapper = TeilnahmeMapper.tnMapper();
 		this.orgMapper = OrganisationseinheitMapper.orgMapper();
+		this.tMapper = TeamMapper.tMapper();
+		this.unMapper = UnternehmenMapper.unMapper();
 		
 	}
 	/*
@@ -203,7 +206,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Person getPersonbyID(int id) {
 		
-		return this.prMApper.findByKey(id);
+		return this.personMapper.findByKey(id);
 	}
 	
 	@Override
@@ -221,7 +224,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		p.setPartnerprofil_ID(partnerprofilId);
 		p.setTeam_ID(teamId);
 		p.setUN_ID(unternehmenId);		
-		return this.prMApper.createPerson(p);
+		return this.personMapper.createPerson(p);
 	}
 	
 	/*
