@@ -238,7 +238,7 @@ private class getUser implements AsyncCallback<Person>{
 			}else if (person.getUN_ID() != null){
 				adminService.getUnByID(result.getUN_ID(), new getUnternehmen());
 			}
-			adminService.getMarktplatzByPerson(result, new getProjektmarktplatz());
+//			adminService.getMarktplatzByPerson(result, new getProjektmarktplatz());
 			
 		}
 	
@@ -285,35 +285,35 @@ private class getUser implements AsyncCallback<Person>{
 			
 		}
 
-	private class getProjektmarktplatz implements AsyncCallback<Vector<Projektmarktplatz>>{
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Der Projektmarktplatz der Person konnte nicht geladen werden");		
-		}
-		
-		@Override
-		public void onSuccess(Vector<Projektmarktplatz> result) {
-			
-			if (result != null){
-				if (result.isEmpty()){
-					orgEinheit.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
-					menubar.getProjektmarktplaetzeButton().click();
-					RootPanel.get("Navigator").clear();
-				}else{
-					marktplatz = true;
-					for(Projektmarktplatz p : result){
-					orgEinheit.addItem(p.getBez());
-					}
-					projektmarktplaetze = result;
-					RootPanel.get("Navigator").add(menubar);
-				}
-				
-			}
-			
-		}
-		
-	}
+//	private class getProjektmarktplatz implements AsyncCallback<Vector<Projektmarktplatz>>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Der Projektmarktplatz der Person konnte nicht geladen werden");		
+//		}
+//		
+//		@Override
+//		public void onSuccess(Vector<Projektmarktplatz> result) {
+//			
+//			if (result != null){
+//				if (result.isEmpty()){
+//					orgEinheit.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
+//					menubar.getProjektmarktplaetzeButton().click();
+//					RootPanel.get("Navigator").clear();
+//				}else{
+//					marktplatz = true;
+//					for(Projektmarktplatz p : result){
+//					orgEinheit.addItem(p.getBez());
+//					}
+//					projektmarktplaetze = result;
+//					RootPanel.get("Navigator").add(menubar);
+//				}
+//				
+//			}
+//			
+//		}
+//		
+//	}
 	
 }
 

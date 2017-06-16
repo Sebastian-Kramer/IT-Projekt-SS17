@@ -6,10 +6,10 @@ public class Organisationseinheit extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 
-	private String straße = "";
-	private int hausnummer = 0;
-	private int plz = 0;
-	private String ort = "";
+	private String straße;
+	private int hausnummer;
+	private int plz;
+	private String ort;
 	
 	private Integer Partnerprofil_ID = 0;
 	
