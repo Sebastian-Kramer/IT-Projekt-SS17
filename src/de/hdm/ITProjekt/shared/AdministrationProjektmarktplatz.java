@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.shared.bo.*;
 
@@ -23,7 +24,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 //	public void deleteProjektmarktplatz(Projektmarktplatz p); //L�schen eines Projektmarktplatzes
 	
-	public void updateProjektmarktplatz(Projektmarktplatz p); //Editieren eines Projektmarktplatzes
+	Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p);
 	
 	public Projektmarktplatz addProjektmarktplatz(String bez);
 	
@@ -31,28 +32,28 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p); // L�schen eines Projektmarktplatzes
 
+	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p);
+	
 //	Projektmarktplatz addProjektmarktplatz(Projektmarktplatz p2);
 	
 	//public Vector <Projektmarktplatz> getProjektmaktplaetzeOf(Person p);
 	
-	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
+//	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz);
 	
-	public void deleteProjekt(Projekt a);
+	public Projekt deleteProjekt(Projekt a);
 	
 	public Person getPersonbyID(int id);
 	
 	Vector<Projekt> getAllProjekte();
-	
 
-
-
-	public Team getTeamByID(int id);
-	
-	public Unternehmen GetUnByID (int id);
 	
 	Vector<Bewerbung> getAllBewerbungen();
+	
+	public void deleteBewerbung(Bewerbung a);
+	
+	
 	
 		// Methoden von Ausschreibung
 	
@@ -70,8 +71,31 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Ausschreibung update(Ausschreibung c) ;
 
 	
-	
+/*
+ * Methoden von Projekten
+ */
+	public Projekt addProjekt(Projekt pmp);
 
+	public Team getTeamByID(int id);
+
+	Unternehmen getUnByID(int id);
+	
+	
+	/*
+	 * Methoden von Bewerbung
+	 */
+	
+	public Bewerbung insert(Bewerbung a);
+
+	
+	// Methoden von Organisationseinheit
+	
+	// public Organisationseinheit insert ( Organisationseinheit o);
+
+	//Methoden von Person
+	
+	public Person createPerson(Person p);
+	
 
 
 	

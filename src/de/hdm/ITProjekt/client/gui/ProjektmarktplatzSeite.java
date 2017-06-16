@@ -13,10 +13,14 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SingleSelectionModel;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
@@ -38,39 +42,45 @@ public class ProjektmarktplatzSeite extends Showcase{
 	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	
+	private Projektmarktplatz p1;
 	
-	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	
 	// Buttons NUR erstellen
-	Button deleteprojektmarktplatz = new Button("Projektmarktplatz Löschen");
-	Button createprojektmarktplatz = new Button("Projektmarktplatz Anlegen");
+	Button bearbeitungsmodus_deaktiv = new Button("Bearbeitungsansicht");
 
 	// Erlaubt, dass in der Tabelle nur eins ausgewählt werden darf
 	
-	final SingleSelectionModel<Projektmarktplatz> ssm = new SingleSelectionModel<Projektmarktplatz>();
-	final SingleSelectionModel<Projektmarktplatz> ssm_fremde = new SingleSelectionModel<Projektmarktplatz>();
+
+	final SingleSelectionModel<Projektmarktplatz> ssm_alleProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
+	final SingleSelectionModel<Projektmarktplatz> ssm_eigeneProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
+	
+	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
+
+//	private Projektmarktplatz p1 = new Projektmarktplatz();
+
 	
 	@Override
 	protected String getHeadlineText() {
 		return "<h1>Projektmarktplatz Suche</h1>";
 	}
-	
+
 	@Override
 	protected void run() {
+				
 		//Größe des "div" Containers, sprich der Seite
 		RootPanel.get("Details").setWidth("100%");
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_alleProjektmarktplaetze.setWidth("100%", true);
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_eigeneProjektmarktplaetze.setWidth("100%", true);
-		
+
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
-		hpanel_projektmarktplatz.add(createprojektmarktplatz);
-		hpanel_projektmarktplatz.add(deleteprojektmarktplatz);
-		hpanel_projektmarktplatz.add(projektbox);
+		hpanel_projektmarktplatz.add(bearbeitungsmodus_deaktiv);
+	
+		
 		
 		// Hinzufügen der Tabelle ins VerticalPanel
 		vpanel.add(ct_alleProjektmarktplaetze);
@@ -83,12 +93,28 @@ public class ProjektmarktplatzSeite extends Showcase{
 		
 		
 		//Stylen der Buttons 
-//		createprojektmarktplatz.setStylePrimaryName("navi-button");
+		bearbeitungsmodus_deaktiv.setStylePrimaryName("bearbungsmodusdeaktiv-button");
 //		deleteprojektmarktplatz.setStylePrimaryName("navi-button");
 		
 		
-		ct_alleProjektmarktplaetze.setSelectionModel(ssm);
-		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_fremde);
+
+		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);	
+		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_eigeneProjektmarktplaetze);
+
+		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+		ssm_alleProjektmarktplaetze.addSelectionChangeHandler(new Handler() {
+			
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				// TODO Auto-generated method stub
+				p1 = ssm_alleProjektmarktplaetze.getSelectedObject();
+				Showcase showcase = new Projekte(p1);
+	        	RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+
 		
 		
 		// Was soll in der Tabelle angezeigt werden?		
@@ -103,31 +129,80 @@ public class ProjektmarktplatzSeite extends Showcase{
 				    
 						@Override
 						public String getValue(Projektmarktplatz object) {
-							// TODO Auto-generated method stub
-							
 							return object.getBez();
 						}
 						    
 		 };
+
+		 bearbeitungsmodus_deaktiv.addClickHandler(new ClickHandler() {
 			
-		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
-		    {
-		        @Override
-		        public void onClick(ClickEvent event)
-		       
-		        {
-		    if(ssm != null){
-		        	Showcase showcase = new Projekte(ssm.getSelectedObject().getID());
-		        	RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
-		    }
-		    else {
-		    	Window.alert("FEHLEEER");
-		    }
-		        }
-		       
-		    }, ClickEvent.getType());
-			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		 ssm_alleProjektmarktplaetze.addSelectionChangeHandler(new Handler() {
+			    @Override
+			    public void onSelectionChange(final SelectionChangeEvent event)
+			    {
+			    	selectedObject_alleProjektmarktplaetze = ssm_alleProjektmarktplaetze.getSelectedObject();
+			        if (selectedObject_alleProjektmarktplaetze != null){
+			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze);
+			        	RootPanel.get("Details").clear();
+						RootPanel.get("Details").add(showcase);
+			        }else{
+			        	Window.alert("Kein Projektmarktplatz angew�hlt");
+			        }
+			    	
+			    	
+			    }
+			});
+		 
+//		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
+//		    {
+//		        @Override
+//		        public void onClick(ClickEvent event)
+//		       
+//		        {
+//		    if(ssm_alleProjektmarktplaetze != null){
+//		        	Showcase showcase = new Projekte(ssm_alleProjektmarktplaetze.getSelectedObject().getID());
+//		        	RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//		    }
+//		    else {
+//		    	Window.alert("FEHLEEER");
+//		    }
+//		        }
+//		       
+//		    }, ClickEvent.getType());
+//			
+
+		
+		 
+//		ct_alleProjektmarktplaetze.addDomHandler(new ClickHandler()
+//		    {
+//		        @Override
+//		        public void onClick(ClickEvent event)
+//		       
+//		        {
+//		    if(p1 != null){
+//		    	
+//		    	Window.alert("ssm noch bef�llt");
+////		    		Projektmarktplatz p_objekt = ssm_projektmarktplatz_eigene.getSelectedObject();
+//		        	Showcase showcase = new Projekte(p1);
+//		        	RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//					
+//		    }
+//		    else {
+//		    	Window.alert("FEHLEEER");
+//		    }
+//		        }
+//		       
+//		    }, ClickEvent.getType());
+
 		
 		// Wie soll die Spalte (Column) heißen?
 //		ct_alleProjektmarktplaetze.addColumn(ProjektmarktplatzTabelleSpaltenName, "Alle Projektmarktplätze");
@@ -138,9 +213,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
 		adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
+		
 //		filltable();	
 //		loschenProjektmarktplatz();
-		anlegenProjektmarktplatz();
+//		anlegenProjektmarktplatz();
 			}
 	
 
@@ -179,7 +255,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 //			public void onClick(ClickEvent event) {
 //				// TODO Auto-generated method stub
 //				// "selectedobject" sprich die angewählte Zeile in der Tabelle wird instanziiert
-//				Projektmarktplatz selectedObject = ssm.getSelectedObject();
+//				Projektmarktplatz selectedObject = ssm_alleProjektmarktplaetze.getSelectedObject();
 //				if (selectedObject != null){
 //					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 //					 if (adminService == null) {
@@ -235,43 +311,44 @@ public class ProjektmarktplatzSeite extends Showcase{
 	 }
 	 
 	 
-	 private void anlegenProjektmarktplatz(){
-		 		createprojektmarktplatz.addClickHandler(new ClickHandler(){
-
-							 			
-		 			@Override
-					public void onClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						
-					
-			    // Initialize the service proxy.
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-			    if (adminService == null) {
-			     
-			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-			    }
-			    
-			     // Set up the callback object.
-			    AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>() {
-			   
-			      public void onFailure(Throwable caught) {
-			        // TODO: Do something with errors.
-			    	  Window.alert("onFailure");
-			    }
-				
-					@Override
-					public void onSuccess(Projektmarktplatz result) {
-//						filltable();  		
-									}
-				
-			    };
-			    
-			     // Make the call to the stock price service.
-				   adminService.addProjektmarktplatz(projektbox.getValue(), callback);
-			    
-	 }
-});
-}
+//	 private void anlegenProjektmarktplatz(){
+//		 		bearbeitungsmodus_deaktiv.addClickHandler(new ClickHandler(){
+//
+//							 			
+//		 			@Override
+//					public void onClick(ClickEvent event) {
+//						// TODO Auto-generated method stub
+//						
+//					
+//			    // Initialize the service proxy.
+//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//			    if (adminService == null) {
+//			     
+//			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//			    }
+//			    
+//			     // Set up the callback object.
+//			    AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>() {
+//			   
+//			      public void onFailure(Throwable caught) {
+//			        // TODO: Do something with errors.
+//			    	  Window.alert("onFailure");
+//			    }
+//				
+//					@Override
+//					public void onSuccess(Projektmarktplatz result) {
+////						filltable();
+//						refreshlist();
+//									}
+//				
+//			    };
+//			    
+//			     // Make the call to the stock price service.
+//				   adminService.addProjektmarktplatz(projektbox.getValue(), callback);
+//			    
+//	 }
+//});
+//}
 	
 	public class getProjektmarktplatzAusDB implements AsyncCallback<Vector<Projektmarktplatz>>{
 

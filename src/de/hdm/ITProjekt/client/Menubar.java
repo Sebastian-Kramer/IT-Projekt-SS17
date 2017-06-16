@@ -9,10 +9,15 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.IdentitySelection;
+import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
 import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
+import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
+
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 
 public class Menubar extends StackPanel {
 	
@@ -21,11 +26,15 @@ public class Menubar extends StackPanel {
 	
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
+	
+	IdentitySelection idSelection = null;
 		
 	// Die "einzelnen" Seiten in die Panels legen
 	VerticalPanel homePanel = new VerticalPanel();
 //	VerticalPanel projektPanel = new VerticalPanel();
 	VerticalPanel projektmarktplatzPanel = new VerticalPanel();
+	
+	
 	
 	// Buttons für die Panels erstellen
 	
@@ -34,11 +43,15 @@ public class Menubar extends StackPanel {
 	Button zurstartseiteButton = new Button("Startseite");
 	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
 	Button meineProjekteButton = new Button("Meine Projekte");
+	Button meinProfilButton = new Button("Mein Profil");
+	Button registrierung = new Button("Registrierung");
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
 	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
 	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
+	
+	IdentitySelection is = null;
 	
 	public Menubar(){
 		// Zusammensetzen des startseitePanels
@@ -55,7 +68,18 @@ public class Menubar extends StackPanel {
 		homePanel.add(meineProjekteButton);
 		meineProjekteButton.setWidth("200px");
 		meineProjekteButton.setStylePrimaryName("navi-button");
+		
+		homePanel.add(meinProfilButton);
+		meinProfilButton.setWidth("200px");
+		meinProfilButton.setStylePrimaryName("navi-button");
 				
+		// Wird später gelöscht, sobald registrierung steht!!!
+		homePanel.add(registrierung);
+		registrierung.setWidth("200px");
+		registrierung.setStylePrimaryName("navi-button");
+		
+		
+		
 		homePanel.setSpacing(5);
 		homePanel.setWidth("100%");
 		
@@ -166,9 +190,52 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
+		
+		registrierung.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new RegistrierungsForm();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		
+		meinProfilButton.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event){
+				currentClickHandler=this;
+				currentClickEvent=event;
+//				idSelection.deactivateProjectMarkets();
+//				idSelection.activateOrgUnits();
+//				
+//				Organisationseinheit selectedIdentity = idSelection.getSelectedIdentityAsObject();	
+//				
+				Showcase showcase = new MeinProfilAnzeigen();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+
+			}
+		});
 	}
 	
 	
+	public Button getProjektmarktplaetzeButton() {
+		return projektmarktplaetzeButton;
+	}
+
+
+	public IdentitySelection getIdSelection() {
+		return idSelection;
+	}
+
+
+	public void setIdSelection(IdentitySelection idSelection) {
+		this.idSelection = idSelection;
+	}
+	
+	public void reload(){
+		currentClickHandler.onClick(currentClickEvent);
+	}
 	
 	
 

@@ -24,7 +24,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
-	private  AusschreibungMapper aMapper = null; 
+	private AusschreibungMapper aMapper = null;
+	private TeilnahmeMapper tnMapper = null;
+	private OrganisationseinheitMapper orgMapper = null;
+	
 
 	
 	public void init() {
@@ -32,6 +35,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.pMapper = ProjektMapper.pMapper();
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
+		this.tnMapper = TeilnahmeMapper.tnMapper();
+		this.orgMapper = OrganisationseinheitMapper.orgMapper();
 		
 	}
 	/*
@@ -106,8 +111,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 
 	@Override
-	public void updateProjektmarktplatz(Projektmarktplatz p) {
-		// TODO Auto-generated method stub
+	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p) {
+		return this.pmpMapper.updateMarktplatz(p);
 		
 	}
 	/*
@@ -121,6 +126,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return null;
 //	}	
 	
+	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p){
+		
+		Vector<Projektmarktplatz> result = new Vector<>();
+		
+		if(p != null && this.pmpMapper != null){
+			
+			Vector <Projektmarktplatz> pmp = this.tnMapper.findRelatedProjektMarktplaetze(p);
+			
+			if(pmp != null){
+				result.addAll(pmp);
+			}
+		}
+		return result;
+	}
+	
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Projektmarktplatz-Objekte
@@ -133,29 +153,40 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	
+	
+	
+	
 	public Vector<Projekt> getProjekteOf(Projektmarktplatz p){
+		return this.pMapper.findByProjektmarktplatz(p.getID());
+	}
+	
+	@Override
+	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz p) {
+		// TODO Auto-generated method stub
+		
+		
 		return this.pMapper.findByProjektmarktplatz(p);
 	}
 	
-	@Override
-	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz) {
-		// TODO Auto-generated method stub
-		return this.pMapper.findByProjektmarktplatz(projektmarktplatz);
-	}
-	
 	//Alle Projekte die zu einem Projektmarktplatz gehören werden in einem Vector ausgegeben
-	@Override
-	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID) {
-		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
-	}
+//	@Override
+//	public Vector<Projekt> findByProjektmarktplatz(int projektmarktplatzID) {
+//		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
+//	}
 	
-	public void deleteProjekt(Projekt pr){
-		this.pMapper.deleteProjekt(pr);
+	public Projekt deleteProjekt(Projekt pr){
+		return this.pMapper.deleteProjekt(pr);
 	}
 	
 	@Override
 	public Vector<Projekt> getAllProjekte() {
 		return this.pMapper.getAllProjekte();
+	}
+	
+	@Override
+	public Projekt addProjekt(Projekt pmp) {
+		return this.pMapper.addProjekt(pmp);
+		
 	}
 	/*
 	   * ***************************************************************************
@@ -173,6 +204,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Person getPersonbyID(int id) {
 		
 		return this.prMApper.findByKey(id);
+	}
+	@Override
+	public Person createPerson(Person p) {
+		return this.prMApper.createPerson(p);
 	}
 	
 	/*
@@ -220,7 +255,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	/*
 	   * ***************************************************************************
-	   * ABSCHNITT, Ende: Methoden für Person-Objekte
+	   * ABSCHNITT, Ende: Methoden für Ausschreibung-Objekte
 	   * ***************************************************************************
 	   */
 	
@@ -244,10 +279,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	//Rückgabe eines Unternehmens-Objects anhand der übergebenen ID
+
 	@Override
-	public Unternehmen GetUnByID(int id) {
+	public Unternehmen getUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
+	
 	
 	/*
 	 * ***************************************************************************
@@ -259,11 +296,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewMapper.getAll();
 	}
-	
-	
-	
-	
-	
+
+	@Override
+	public void deleteBewerbung(Bewerbung a) {
+		// TODO Auto-generated method stub
+		this.bewMapper.delete(a);
+	}
+	@Override
+	public Bewerbung insert(Bewerbung a) {
+		return this.bewMapper.insert(a);
+	}
 	
 	/*
 	 * ***************************************************************************
@@ -271,9 +313,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	
-	
-	
-	
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Organisationseinheit
+	   * ***************************************************************************
+	   */
+//	@Override
+//	public Organisationseinheit insert(Organisationseinheit o) {
+//		// TODO Auto-generated method stub
+//		return this.orgMapper.insert(o);
+//	}
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fürOrganisationseinheit
+	   * ***************************************************************************
+	   */
 	
 	
 	

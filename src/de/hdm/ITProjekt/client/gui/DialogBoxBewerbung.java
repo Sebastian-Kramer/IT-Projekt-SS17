@@ -22,9 +22,14 @@ public class DialogBoxBewerbung extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	VerticalPanel vp = new VerticalPanel();
+	
 	Button schliessen = new Button("schliessen");
+	
+	
+	
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
+	
 	private Bewerbung bewerbungId;
 	public DialogBoxBewerbung(Bewerbung selectedId){
 		this.bewerbungId = selectedId;
@@ -38,19 +43,24 @@ public class DialogBoxBewerbung extends DialogBox {
 		setText(text);
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
+		this.center();
 		bewerbungstext.setReadOnly(true);
 		bewerbungstext.setText(text);
+		bewerbungstext.setCharacterWidth(80);
+		bewerbungstext.setVisibleLines(30);
 		bewerbungstextft.setWidget(0, 0, bewerbungstext);
 		bewerbungstextft.setWidget(1, 0, schliessen);
-		vp.add(schliessen);
 		vp.add(bewerbungstext);
+		vp.add(schliessen);
 		
 		setWidget(vp);
+		
 		schliessen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
 				DialogBoxBewerbung.this.hide();
 			}
 		});
+		
 		
 	}
 

@@ -5,8 +5,7 @@ import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
-
-import com.ibm.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 
 public class ProjektMapper {
 	
@@ -54,40 +53,30 @@ public class ProjektMapper {
 		Connection con = DBConnection.connection();
 		Vector <Projekt> result = new Vector<Projekt>();
 		
-//		try {
-//		      Statement stmt = con.createStatement();
-//		      
-//		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM Projekt" 
-//		      + "WHERE Projektmarktplatz_ID= "+ projektmarktplatzID );
-//		      
-//		      while (rs.next()) {
-//		    	  Projekt p = new Projekt();
-//		    	  	p.setID(rs.getInt("ID"));
-//		    	  	p.setName(rs.getString("name"));
-//					p.setBeschreibung(rs.getString("beschreibung"));
-//					p.setStartdatum(rs.getDate("startdatum"));
-//					p.setEnddatum(rs.getDate("enddatum"));
-//					p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
-//		    	  // Hinzufügen des neuen Objekts zum Ergebnisvektor
-//		    	  result.addElement(p);
+
 		 try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt" + "WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
 		  
-		  while (rs.next()) {
+		  
+		      
+		      while (rs.next()) {
+
 			  	Projekt p = new Projekt();
-			  
+			  	p.setID(rs.getInt("ID"));
 				p.setName(rs.getString("name"));
 				p.setBeschreibung(rs.getString("beschreibung"));
 				p.setStartdatum(rs.getDate("startdatum"));
 				p.setEnddatum(rs.getDate("enddatum"));
-			
-			  
+				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+
 			  result.addElement(p);
 		  
 		      }
-		}
+		  	}
+		 
 		catch (SQLException e2) {
 		      e2.printStackTrace();
 		    } 
@@ -132,7 +121,7 @@ public class ProjektMapper {
 		  return result;
 	}
 	
-	public Projekt insert(Projekt pmp){
+	public Projekt addProjekt(Projekt pmp){
 		
 		Connection con = DBConnection.connection();
 		
@@ -163,7 +152,7 @@ public class ProjektMapper {
 		
 	}
 	
-	public void deleteProjekt(Projekt a){
+	public Projekt deleteProjekt(Projekt a){
 		
 		Connection con = DBConnection.connection();
 		
@@ -177,6 +166,7 @@ public class ProjektMapper {
 		catch (SQLException e2) {
 				e2.printStackTrace();
 			}
+		return a;
 		}
 	
 	public Projekt update(Projekt c) {

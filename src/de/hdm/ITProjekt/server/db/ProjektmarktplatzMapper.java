@@ -111,10 +111,11 @@ public class ProjektmarktplatzMapper {
 			
 			Statement stmt = con.createStatement();
 			
-			stmt.executeUpdate(" UPDATE Projektmarktplatz " + "SET bez =\""
-								+ p.getBez() + "\" " + "WHERE ID= " + p.getID());
-		
-			}
+			stmt.executeUpdate(" UPDATE Projektmarktplatz SET bez = '" + p.getBez()
+  		  +"' WHERE ID =" + p.getID() + ";");
+		}
+
+			
 		catch (SQLException e2) {
 			e2.printStackTrace();
 		}

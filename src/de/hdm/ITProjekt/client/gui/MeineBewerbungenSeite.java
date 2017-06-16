@@ -39,13 +39,15 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	CellTable<Bewerbung> ct_alleBewerbungen = new CellTable<Bewerbung>();
 	
-	private TextBox bewerbungbox = new TextBox();
+	
 	HorizontalPanel hpanel_bewerbung = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	
-	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<Bewerbung>();
+	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
 	
-//	Button bewerbungÖffnen = new Button ("öffnen");
+	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
+	Button bewerbungLoeschen_button	= new Button ("Bewerbung zurückziehen");
+	
 
 	@Override
 	protected String getHeadlineText() {
@@ -64,6 +66,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
+		hpanel_bewerbung.add(bewerbungAnzeigen_button);
+		hpanel_bewerbung.add(bewerbungLoeschen_button);
 		
 		ct_alleBewerbungen.setSelectionModel(ssm);
 		
@@ -77,23 +81,119 @@ public class MeineBewerbungenSeite extends Showcase {
 					}
 		};
 		
-		ct_alleBewerbungen.addDomHandler(new ClickHandler()
-				{
+		
+		bewerbungAnzeigen_button.addClickHandler(new ClickHandler(){
 
-					@Override
-					public void onClick(ClickEvent event) {
-						
-						if(ssm != null){
-							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject());
-							RootPanel.get("Details").clear();
-							RootPanel.get("Details").add(dialogBox);
-						}
-						else{
-							Window.alert("Fehler");
-						}
+			@Override
+			public void onClick(ClickEvent event) {
+				if(ssm != null){
+				DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+					int left = Window.getClientWidth() / 3;
+					int top = Window.getClientHeight() / 3;
+					dialogBox.setPopupPosition(left, top);
+					dialogBox.show();
+				}
+			else{
+//				if (ssm.getSelectedObject() == null){
+					Window.alert("Bitte Bewerbung auswählen");
+//				}
+				
+			}
+			}
+		});	
+		
+			bewerbungLoeschen_button.addClickHandler(new ClickHandler(){
+
+				@Override
+			public void onClick(ClickEvent event) {
+					if(ssm != null){
+						Bewerbung ausgewaehlteBew = new Bewerbung();
+						ausgewaehlteBew.setID(ssm.getSelectedObject().getID());
+						adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								Window.alert("Löschen fehlgeschlagen");
+							}
+
+							@Override
+							public void onSuccess(Void result) {
+								Window.alert("Bewerbung erfolgreich gelöscht");
+								refreshList();
+								
+							}
+							
+						});
 					}
+					
+					
+							}
+				});
+		
 			
-				}, ClickEvent.getType());
+			
+			
+		
+		
+			
+//		private void bewerbungLöschen(){
+//		bewerbungLöschen_button.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//		public void onClick(ClickEvent event) {
+//				if(ssm != null){
+//					Bewerbung ausgewählteBew = new Bewerbung();
+//					ausgewählteBew.setID(ssm.getSelectedObject().getID());
+//					adminService.deleteBewerbung(ausgewählteBew, new AsyncCallback<Void>(){
+//
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Löschen fehlgeschlagen");
+//						}
+//
+//						@Override
+//						public void onSuccess(Void result) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+//						
+//					});
+//				}
+//				
+//						}
+//			});
+//	
+//		
+//		
+//		}
+			
+			
+			
+	
+			
+			
+		
+//		ct_alleBewerbungen.addDomHandler(new ClickHandler()
+//				{
+//
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						
+//						if(ssm != null){
+//							DialogBoxBewerbung dialogBox = new DialogBoxBewerbung(ssm.getSelectedObject().getBewerbungstext());
+//							int left = Window.getClientWidth() / 3;
+//							int top = Window.getClientHeight() / 3;
+//							dialogBox.setPopupPosition(left, top);
+//							dialogBox.show();
+//						}
+//						else{
+//							Window.alert("Fehler");
+//						}
+//					}
+//			
+//				}, ClickEvent.getType());
 		
 //		Column<Bewerbung, String> ausschreibung =
 //				new Column<Bewerbung,String>(new ClickableTextCell()){
@@ -129,6 +229,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 		ct_alleBewerbungen.addColumn(erstelldatum, "Erstelldatum");
 		filltablebewerbungen();
+		refreshList();
 	}
 	
 	private void filltablebewerbungen(){
@@ -159,13 +260,68 @@ public class MeineBewerbungenSeite extends Showcase {
 			 
 		 }
 
-					
-				
-			
+	private void refreshList(){
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		 AsyncCallback<Vector<Bewerbung>> callback = new AsyncCallback<Vector <Bewerbung>>(){
 
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler");
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Bewerbung> result) {
+				ct_alleBewerbungen.setRowData(0, result);
+				ct_alleBewerbungen.setRowCount(result.size(),true);
+				
+			}
+			
+			 
+		 };
+		 adminService.getAllBewerbungen(callback);
+	}			
 		
+//	private void bewerbungLoeschen(){
+//		bewerbungLoeschen_button.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//		public void onClick(ClickEvent event) {
+//				if(ssm != null){
+//					Bewerbung ausgewaehlteBew = new Bewerbung();
+//					ausgewaehlteBew.setID(ssm.getSelectedObject().getID());
+//					adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
+//
+//						@Override
+//						public void onFailure(Throwable caught) {
+//							// TODO Auto-generated method stub
+//							Window.alert("Löschen fehlgeschlagen");
+//						}
+//
+//						@Override
+//						public void onSuccess(Void result) {
+//							// TODO Auto-generated method stub
+//							
+//						}
+//						
+//					});
+//				}
+//				
+//						}
+//			});
+//	
+//		
+//		
+//		}
+			
+		}
 		
-	}
+	
+	
+	
 	
 
 
