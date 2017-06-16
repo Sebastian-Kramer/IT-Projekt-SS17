@@ -88,8 +88,13 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Bewerbung insert(Bewerbung a);
 
 	
+	// Methoden von Organisationseinheit
+	
+	// public Organisationseinheit insert ( Organisationseinheit o);
 
-
+	//Methoden von Person
+	
+	public Person createPerson(Person p);
 	
 
 

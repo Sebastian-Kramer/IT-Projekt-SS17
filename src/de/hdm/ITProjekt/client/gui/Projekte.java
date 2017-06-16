@@ -51,6 +51,7 @@ public class Projekte extends Showcase {
 	
 
 	private Projektmarktplatz selectedProjektmarktplatz;
+	
 	public Projekte(Projektmarktplatz selectedObject){
 		this.selectedProjektmarktplatz = selectedObject;
 	}

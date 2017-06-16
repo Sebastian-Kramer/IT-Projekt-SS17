@@ -26,6 +26,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private BewerbungMapper bewMapper = null;
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
+	private OrganisationseinheitMapper orgMapper = null;
 	
 
 	
@@ -35,6 +36,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
 		this.tnMapper = TeilnahmeMapper.tnMapper();
+		this.orgMapper = OrganisationseinheitMapper.orgMapper();
 		
 	}
 	/*
@@ -203,6 +205,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.prMApper.findByKey(id);
 	}
+	@Override
+	public Person createPerson(Person p) {
+		return this.prMApper.createPerson(p);
+	}
 	
 	/*
 	   * ***************************************************************************
@@ -249,7 +255,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	/*
 	   * ***************************************************************************
-	   * ABSCHNITT, Ende: Methoden für Person-Objekte
+	   * ABSCHNITT, Ende: Methoden für Ausschreibung-Objekte
 	   * ***************************************************************************
 	   */
 	
@@ -300,9 +306,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewerbung insert(Bewerbung a) {
 		return this.bewMapper.insert(a);
 	}
-
-
-
+	
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
@@ -311,9 +315,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	/*
 	 * ***************************************************************************
-	   * ABSCHNITT, Anfang: Methoden für Teilnahmen einer Person an einem Marktplatz
+	   * ABSCHNITT, Anfang: Methoden für Organisationseinheit
 	   * ***************************************************************************
 	   */
+//	@Override
+//	public Organisationseinheit insert(Organisationseinheit o) {
+//		// TODO Auto-generated method stub
+//		return this.orgMapper.insert(o);
+//	}
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden fürOrganisationseinheit
+	   * ***************************************************************************
+	   */
+	
+	
 	
 	
 }

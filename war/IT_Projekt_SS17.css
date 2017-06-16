@@ -10,8 +10,42 @@
   text-align: center;
   background: aquamarine;
 }*/
+
 .navi-button{
 
+}
+
+.IdentityPanel{
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
+}
+
+ul#header-top  li			{ float: right; list-style-^type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
+ul#header-top  li:last-child		{ border: none; }
+
+.myprofil-button{
+	border-radius: 0px;
+  	font-family: Calibri;
+  	color: #000000;
+  	font-size: 15px;
+  	padding: 8px 20px 8px 20px;
+  	border: solid #e6e6e6 2px;
+	
+}
+.listboxidentityselection{
+	float: right;
+}
+
+div#test{
+	
+}
+div#idendity{
+	float: right;
+}
+div#body-body{
+	background: aliceblue;
 }
 .bearbungsmodusdeaktiv-button{
 	
@@ -80,7 +114,17 @@ body {
 }
 
 IdentityPanel{
-	
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
+}
+listboxidentityselection
+{
+	float: right;
+	position: absolute;
+	right: 20px;
+	top: 80px;
 }
 
 * {
@@ -99,12 +143,12 @@ header {
 	width: 100%;
 	height: 240px;
 	margin:20px auto 0px;
-	background: grey;
-	background-image: url(Images/ProjektmarktplatzLogo.png)
+	background: #35bbc0;
+
 }
 
 header p{
-	color: #7686bf;
+	color: #fdfefe;
 	width: 100%;
     height: 210px;
     margin: -110px 0 0 0; 
@@ -112,13 +156,13 @@ header p{
 
 header h1 a{
 	display:block;
-	color: blue;
+	color: #fdfefe;
 	padding:10px 0 0 20px;
 	font-size:140%;
 }
 header h1 span {
 	font-size:50%;
-	color:blue;
+	color:#fdfefe;
 	padding: 0 20px;
 }
 .ribbon{
@@ -175,8 +219,6 @@ ul#header-top {
 	list-style-type: none;  
 	color: blue;
 }
-ul#header-top  li			{ float: right; list-style-type: none; padding: 0px 8px; border-left: 1px #ACACAC solid; }
-ul#header-top  li:last-child		{ border: none; }	
 
 #box1{
 	background: #2E64FE;
@@ -234,98 +276,11 @@ p {
 }
 
 a 	{ 
-	color: #4E68AD; 
+	color: white; 
 	padding: 5px 15px; 
 	outline: none; 
 	text-decoration: none; 
 }
-a:hover 	{ 
-	color: #818181; 
-	text-decoration: none; 
-}
-a:focus 	{ 
-	outline: none; 
-}
-a.more	{ 
-	float: right; 
-	font-weight: bold; 
-
-
-}
-a.more:hover { 
-	color: #535353; 
-}
-a.more:after{
-	content:" \2192 ";
-	font-size:1.2em;
-	font-weight:bold;
-}
-
-ul.square {
-	list-style-type:square;
-    color: #999999;
-    float: left;
-    margin: 0 0 10px 13px;
-	font-weight:bold;
-}
-
-ul.square li{
-	padding:10px;	
-}
-
-/*DL, DT, DD Datenliste*/
-dl 					{margin-bottom:50px;}
- 
-dl dt {	
-    float:left;
-    font-weight:bold;
-    margin-right:5px;
-    padding:5px; 
-    width:140px;
-}
- 
-dl dd {
-    margin:2px 0;
-    padding:5px 0;
-}
-
-section#intro {
-	width: 100%;
-	padding:10px 2%;
-	float: left;
-}
-
-section.spalte {
-	width: 50%;
-	padding:10px 2%;
-	float: left;
-}
-
-section p img {
-	float:left;
-	margin:0 10px 10px 0;
-}
-
-#footer-p {
-	float: left;
-	font-weight: bold;
-	font-size: 12px;
-	margin: 20px 0 0 0;
-}
-nav#navigation{
- float: left;
-    margin-right: 30px;
-    width: 265px;
-}
-	
-#navigation ul ul {
-	display: none;
-}
-
-#navigation ul li:hover > ul {
-	display: block;
-}
-
 
 #navigation ul {
 	float: left;
@@ -334,57 +289,7 @@ nav#navigation{
 	margin-bottom:30px;
 }
 
-#navigation ul li {position:relative;
-}
-#navigation ul li.first-child	{ border-top: 1px #DBDBDB solid; }
 
-#navigation ul li:hover a, #navigation ul li:active a {
-	float: left; 
-	width: 230px; 
-	color: #F5F5F5; 
-	background: #535353;
-}
-	
-#navigation ul li a {
-	
-    border-bottom: 1px solid #DBDBDB;
-    color: #535353;
-    float: left;
-    font-size: 1.1em;
-    line-height: 1.5em;
-    padding: 1em 35px;
-    text-decoration: none;
-    width: 230px;
-}
-
-#navigation ul li a:before{
-	content:" ";
-	display:inline-block;
-	width:10px;
-	height:15px;
-	border-left:5px solid #CCC;
-}	
-		
-#navigation ul ul {
-	position: absolute; 
-	top:143px;left:190px;
-	z-index:99;
-}
-#navigation ul li:hover ul {display:block;}
-#navigation ul ul li {
-	display:block;
-	float: none;
-	position: relative; 
-}
-
-#navigation ul ul li a {
-	background: #97b314;
-	color: #fff;
-}	
-#navigation ul ul li a:hover {
-	background:  #d0ff00;
-	color:gray;
-}
 
 footer p {
 	float: right;
@@ -406,9 +311,6 @@ ul#header-top {
 	position:relative;
 }
 
-article section.spalte {width:100%;}
-
-nav ul li{width:90%}
 
 #navigation{
 	float:left;

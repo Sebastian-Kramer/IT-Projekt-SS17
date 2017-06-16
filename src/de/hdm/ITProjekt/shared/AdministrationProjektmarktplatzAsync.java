@@ -6,6 +6,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
@@ -77,6 +78,15 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void insert(Bewerbung a, AsyncCallback<Bewerbung> callback);
 
+	
+
+	// Methoden für Organisationseinheit
+	
+	// void insert(Organisationseinheit o, AsyncCallback<Organisationseinheit> callback);
+
+	// Methoden für Person
+	
+	void createPerson(Person p, AsyncCallback<Person> callback);
 	
 
 	

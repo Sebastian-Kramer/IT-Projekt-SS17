@@ -18,8 +18,11 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
+import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
+import de.hdm.ITProjekt.shared.LoginService;
+import de.hdm.ITProjekt.shared.LoginServiceAsync;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
@@ -42,9 +45,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
-		  loadIT_Projekt_SS17();
-	  }
-		 /* LoginServiceAsync loginService = GWT.create(LoginService.class);
+		  
+		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
 		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
 			  public void onFailure(Throwable Error) {
@@ -54,6 +56,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  public void onSuccess(LogInInfo result){
 				  loginInfo = result;
 				  if(loginInfo.isLoggedIn()){
+					  RootPanel.get("idendity").add(new IdentitySelection(0, null));	
 					  loadIT_Projekt_SS17();
 					  
 				  } else {
@@ -62,24 +65,27 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  }
 			  });
 	  }
-		  */ 
-		  /*
+		  
+		  
 		 private void loadLogin(){
 			  signInLink.setHref(loginInfo.getLoginUrl());
 			  loginPanel.add(loginLabel);
 			  loginPanel.add(signInLink);
 			  RootPanel.get("Details").add(loginPanel);
 		  }
-		  */
+		  
 		  private void loadIT_Projekt_SS17(){
 			  
 			  Showcase showcase = new Homeseite();
-			 // signOutLink.setHref(loginInfo.getLogoutUrl());//
+			  Menubar mb = new Menubar();
+			  signOutLink.setHref(loginInfo.getLogoutUrl());//
 			  mainPanel.add(addPanel);
 			  mainPanel.add(showcase);
-			 // mainPanel.add(signOutLink);;//
+			  mainPanel.add(signOutLink);;//
+			  
 			  RootPanel.get("Details").add(mainPanel);
 			  RootPanel.get("Navigator").add(new Menubar());
+			  RootPanel.get("Header").add(mb.getIdSelection());
 			  
 		  }	  
 //		 
