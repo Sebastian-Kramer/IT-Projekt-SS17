@@ -20,7 +20,11 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class RegistrierungsForm extends Showcase{
 
@@ -44,7 +48,7 @@ public class RegistrierungsForm extends Showcase{
 	private Label anrede = new Label("Anrede");
 	private Label vorname = new Label("Vorname");
 	private Label nachname = new Label("Nachname");
-	private Label straße = new Label("Straße");
+	private Label strasse = new Label("Straße");
 	private Label hausnr = new Label("Hausnummer");
 	private Label plz = new Label("Postleitzahl");
 	private Label ort = new Label("Ort");
@@ -56,6 +60,10 @@ public class RegistrierungsForm extends Showcase{
 	private TextBox plzBox = new TextBox();
 	private TextBox ortBox = new TextBox();
 
+	
+	private Partnerprofil partnerprofil = new Partnerprofil();
+	private Team team = new Team();
+	private Unternehmen unternehmen = new Unternehmen();
 	private Person person = new Person();
 	
 	@Override
@@ -79,7 +87,7 @@ public class RegistrierungsForm extends Showcase{
 		form.setWidget(2, 0, nachname);
 		
 		form.setWidget(3,  1, strasseBox);
-		form.setWidget(3, 0, straße);
+		form.setWidget(3, 0, strasse);
 		
 		form.setWidget(4,  1, hausnrBox);
 		form.setWidget(4, 0, hausnr);
@@ -101,21 +109,22 @@ public class RegistrierungsForm extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				person.setAnrede(anredeListbox.getSelectedValue());
-				person.setVorname(vnameBox.getText());
-				person.setName(nnameBox.getText());
-				person.setStraße(strasseBox.getText());
-				person.setHausnummer(Integer.parseInt(hausnrBox.getText()));
-				person.setPlz(Integer.parseInt(plzBox.getValue()));
-				person.setOrt(ortBox.getValue());
-			
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 if (adminService == null) {
-			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-			    }
-				adminService.createPerson(person, new setPersoninDB());
-			}
-		});
+							
+				if (vnameBox.getText().isEmpty()){
+					Window.alert("Bitte geben Sie Ihren Vornamen an");
+				}if (nnameBox.getText().isEmpty()){
+					Window.alert("Bitte geben Sie Ihren Nachnamen an");
+				}else{
+					Window.alert("balbla");
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 
+					if (adminService == null) {
+					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+					 }
+				    adminService.createPerson(vnameBox.getValue(), nnameBox.getValue(), anrede.getText(), strasse.getText(), Integer.parseInt(hausnr.getText()), Integer.parseInt(plz.getText()), ort.getText(), partnerprofil.getID(), team.getID(), unternehmen.getID(), new setPersoninDB());
+
+		
+				}}});
 		
 		abbrechen.addClickHandler(new ClickHandler() {
 			
@@ -127,7 +136,27 @@ public class RegistrierungsForm extends Showcase{
 			}
 		});
 	}
-	
+//	private void setPerson(){
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		AsyncCallback<Person> callback = new AsyncCallback<Person>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Person result) {
+//				// TODO Auto-generated method stub
+//				
+//			}
+//			
+//		};adminService.createPerson(person, callback);
+//	}
 private class setPersoninDB implements AsyncCallback<Person>{
 
 	@Override
