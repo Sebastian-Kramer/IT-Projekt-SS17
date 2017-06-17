@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
@@ -103,6 +104,7 @@ public class MeinProfilAnzeigen extends Showcase{
 //	 }
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+
 	private Person user = new Person();
 
 		@Override
@@ -124,13 +126,13 @@ public class MeinProfilAnzeigen extends Showcase{
 			ortBox.setText(user.getOrt());
 			
 			
-//			vnameBox.setReadOnly(true);
-//			nnameBox.setReadOnly(true);
-//			anredeBox.setReadOnly(true);
-//			strasseBox.setReadOnly(true);
-//			hausnrBox.setReadOnly(true);
-//			plzBox.setReadOnly(true);
-//			ortBox.setReadOnly(true);
+			vnameBox.setReadOnly(true);
+			nnameBox.setReadOnly(true);
+			anredeBox.setReadOnly(true);
+			strasseBox.setReadOnly(true);
+			hausnrBox.setReadOnly(true);
+			plzBox.setReadOnly(true);
+			ortBox.setReadOnly(true);
 			
 			//Stylen der Buttons
 			bearbeiten.setStylePrimaryName("myprofil-button");

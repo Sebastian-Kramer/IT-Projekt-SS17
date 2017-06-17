@@ -88,13 +88,6 @@ public class IdentitySelection extends FlexTable{
 			}
 
 		});
-//		Listbox2.addChangeHandler(new ChangeHandler() {
-//			
-//			@Override
-//			public void onChange(ChangeEvent event) {
-//				menubar.reload();
-//			}
-//		});
 	}
 
 	
@@ -145,14 +138,14 @@ public class IdentitySelection extends FlexTable{
 		return null;
 	}
 	
-	public int getSelectedProjectMarketplaceId(){
-		for(Projektmarktplatz p : projektmarktplaetze){
-			if(p.getBez()==Listbox2.getSelectedItemText()){
-				return p.getID();
-			}
-		}
-		return 0;
-	}
+//	public int getSelectedProjectMarketplaceId(){
+//		for(Projektmarktplatz p : projektmarktplaetze){
+//			if(p.getBez()==Listbox2.getSelectedItemText()){
+//				return p.getID();
+//			}
+//		}
+//		return 0;
+//	}
 	
 	public Person getUser(){
 		return person;
@@ -170,25 +163,25 @@ public class IdentitySelection extends FlexTable{
 		return orgEinheit;
 	}
 	
-	public ListBox Listbox2(){
-		return Listbox2;
-	}
+//	public ListBox Listbox2(){
+//		return Listbox2;
+//	}
 	
 	public void deactivateOrgUnits(){
 		orgEinheit.setEnabled(false);
 	}
 	
-	public void deactivateProjectMarkets(){
-		Listbox2.setEnabled(false);
-	}
+//	public void deactivateProjectMarkets(){
+//		Listbox2.setEnabled(false);
+//	}
 	
 	public void activateOrgUnits(){
 		orgEinheit.setEnabled(true);
 	}
 	
-	public void activateProjectMarkets(){
-		Listbox2.setEnabled(true);
-	}
+//	public void activateProjectMarkets(){
+//		Listbox2.setEnabled(true);
+//	}
 	
 	public void setOwnOrgUnitToZero(){
 		orgEinheit.setSelectedIndex(0);
@@ -206,9 +199,9 @@ public class IdentitySelection extends FlexTable{
 		return this;
 	}
 	
-	public boolean getisMarktplatzSet(){
-		return marktplatz;
-	}
+//	public boolean getisMarktplatzSet(){
+//		return marktplatz;
+//	}
 
 	
 	
