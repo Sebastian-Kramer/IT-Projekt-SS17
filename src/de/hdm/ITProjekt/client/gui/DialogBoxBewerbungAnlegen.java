@@ -50,6 +50,8 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 		setText("Bewerbung verfassen");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
+		bewerbungstext.setCharacterWidth(80);
+		bewerbungstext.setVisibleLines(30);
 		bewerbungstextft.setWidget(0, 0, bewerbungstext_label);
 		bewerbungstextft.setWidget(0, 1, bewerbungstext);
 		bewerbungstextft.setWidget(1, 1, sendBewerbung);
