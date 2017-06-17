@@ -34,7 +34,7 @@ import de.hdm.ITProjekt.shared.bo.*;
 
 public class IdentitySelection extends FlexTable{
 
-	private static int loginID = 2;
+	
 	private static IdentitySelection navigation=null;
 	
 	private ListBox orgEinheit = new ListBox();
@@ -43,17 +43,21 @@ public class IdentitySelection extends FlexTable{
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
 	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	private static Person person;
+
+
+	public static void setPerson(Person person) {
+		IdentitySelection.person = person;
+	}
+
 	private static Team team;
 	private static Unternehmen unternehmen;
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
-	private Person user = new Person();
 	
 	
-	public IdentitySelection (int id, final Menubar menubar){
-		
-		this.menubar = menubar;
+	public IdentitySelection (Person person, final Menubar menubar){
+	
 		this.setWidget(1, 0, new Label("Organisationseinheiten: "));		
 		this.setWidget(1, 1, orgEinheit);
 
@@ -74,7 +78,7 @@ public class IdentitySelection extends FlexTable{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		adminService.getPersonbyID(id, new getUser());
+		adminService.getPersonbyID(person.getID(), new getUser());
 
 //		orgEinheit.addItem(person.getName());
 //		orgEinheit.addItem(team.getName());
@@ -195,7 +199,7 @@ public class IdentitySelection extends FlexTable{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		adminService.getPersonbyID(loginID, new getUser());
+		adminService.getPersonbyID(person.getID(), new getUser());
 	}
 	
 	private IdentitySelection getThis(){

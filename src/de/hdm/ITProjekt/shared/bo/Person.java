@@ -6,6 +6,8 @@ public class Person extends Organisationseinheit{
 	
 	private String vorname;
 	
+	private String email;
+
 	private String name;
 	
 	private String anrede;
@@ -17,7 +19,12 @@ public class Person extends Organisationseinheit{
 	private Integer UN_ID = null;
 	
 	
-	
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	
 	public String getVorname() {
 		return vorname;

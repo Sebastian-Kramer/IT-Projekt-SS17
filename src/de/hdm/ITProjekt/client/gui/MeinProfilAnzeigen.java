@@ -48,7 +48,9 @@ public class MeinProfilAnzeigen extends Showcase{
 		this.identitySelection = identitySelection;
 		user = (Person) identitySelection.getSelectedIdentityAsObject();
 	}
-	
+	public MeinProfilAnzeigen(Person person){
+		this.user = person;
+	}
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
@@ -91,8 +93,10 @@ public class MeinProfilAnzeigen extends Showcase{
 	private TextBox hausnrBox = new TextBox();
 	private TextBox plzBox = new TextBox();
 	private TextBox ortBox = new TextBox();
+	private TextBox emailBox = new TextBox();
 	
 	//Erstellen der Labels
+	private Label email = new Label("E-Mail");
 	private Label anrede = new Label("Anrede");
 	private Label vorname = new Label("Vorname");
 	private Label nachname = new Label("Nachname");
@@ -117,39 +121,17 @@ public class MeinProfilAnzeigen extends Showcase{
 		}
 		@Override
 		protected void run() {
-			
+
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			 if (adminService == null) {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
-			AsyncCallback<Person> callback = new AsyncCallback<Person>(){
-
-				@Override
-				public void onFailure(Throwable caught) {
-					Window.alert("Personendaten wurden nicht geladen");
-					
-				}
-
-				@Override
-				public void onSuccess(Person result) {
-					user.setName(result.getName());
-					
-				}
-				
-			};
+			adminService.getPersonbyID(user.getID(), new getPersonausDB());
 			
-			adminService.getPersonbyID(2, callback);
 			this.add(partnerprofil);
 			
-			vnameBox.setText(user.getVorname());
-			nnameBox.setText(user.getName());
-			anredeBox.setText(user.getAnrede());
-			strasseBox.setText(user.getStraße());
-			hausnrBox.setText(Integer.toString(user.getHausnummer()));
-			plzBox.setText(Integer.toString(user.getPlz()));
-			ortBox.setText(user.getOrt());
 			
-			
+			emailBox.setReadOnly(true);
 			vnameBox.setReadOnly(true);
 			nnameBox.setReadOnly(true);
 			anredeBox.setReadOnly(true);
@@ -174,26 +156,29 @@ public class MeinProfilAnzeigen extends Showcase{
 			//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln			
 			vpanel.setSpacing(8);
 			
-			form.setWidget(0,  1, anredeListBox);
-			form.setWidget(0, 0, anrede);
+			form.setWidget(0, 1, emailBox);
+			form.setWidget(0, 0, email);
 			
-			form.setWidget(1,  1, vnameBox);
-			form.setWidget(1, 0, vorname);
+			form.setWidget(1,  1, anredeListBox);
+			form.setWidget(1, 0, anrede);
 			
-			form.setWidget(2,  1, nnameBox);
-			form.setWidget(2, 0, nachname);
+			form.setWidget(2,  1, vnameBox);
+			form.setWidget(2, 0, vorname);
 			
-			form.setWidget(3,  1, strasseBox);
-			form.setWidget(3, 0, straße);
+			form.setWidget(3,  1, nnameBox);
+			form.setWidget(3, 0, nachname);
+		
+			form.setWidget(4,  1, strasseBox);
+			form.setWidget(4, 0, straße);
 			
-			form.setWidget(4,  1, hausnrBox);
-			form.setWidget(4, 0, hausnr);
+			form.setWidget(5,  1, hausnrBox);
+			form.setWidget(5, 0, hausnr);
 			
-			form.setWidget(5,  1, plzBox);
-			form.setWidget(5, 0, plz);
+			form.setWidget(6,  1, plzBox);
+			form.setWidget(6, 0, plz);
 			
-			form.setWidget(6,  1, ortBox);
-			form.setWidget(6, 0, ort);
+			form.setWidget(7,  1, ortBox);
+			form.setWidget(7, 0, ort);
 			
 			
 			
@@ -222,9 +207,16 @@ public class MeinProfilAnzeigen extends Showcase{
 
 		@Override
 		public void onSuccess(Person result) {
-			Window.alert("Vor User");
-			user.setName(result.getName());
-			Window.alert("Nach User");
+			emailBox.setText(result.getEmail());
+			vnameBox.setText(result.getVorname());
+			nnameBox.setText(result.getName());
+			anredeBox.setText(result.getAnrede());
+			strasseBox.setText(result.getStraße());
+			hausnrBox.setText(Integer.toString(result.getHausnummer()));
+			plzBox.setText(Integer.toString(result.getPlz()));
+			ortBox.setText(result.getOrt());
+			
+			
 			
 		}
 

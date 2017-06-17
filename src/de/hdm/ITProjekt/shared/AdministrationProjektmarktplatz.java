@@ -97,7 +97,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Person createPerson(String vorname, String nachname, String anrede, 
 			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId);
 	
-//	public Person 
+	public Vector <Person> getAllPerson(); 
+	
+	
 
 
 	

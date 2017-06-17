@@ -1,5 +1,7 @@
 package de.hdm.ITProjekt.client;
 
+import java.util.Vector;
+
 //import de.hdm.ITProjekt.server.LoginServiceImpl;
 //import de.hdm.ITProjekt.shared.LoginService;
 //import de.hdm.ITProjekt.shared.LoginServiceAsync;
@@ -14,6 +16,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
 
@@ -21,8 +24,12 @@ import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
+import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.LoginService;
 import de.hdm.ITProjekt.shared.LoginServiceAsync;
+import de.hdm.ITProjekt.shared.bo.Person;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
@@ -34,10 +41,16 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
+	  private Person p1 = new Person();
+	  
+	  private Person personobject = new Person();
+
+	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 
 //	  private Button projektmarktplatz = new Button("Projektmarktplatz");
 
-	  /**
+	  
+	/**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benötigen wir eine Methode
 	   * <code>public void onModuleLoad()</code>. Diese ist das GWT-Pendant der
@@ -55,12 +68,14 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  }
 			  public void onSuccess(LogInInfo result){
 				  loginInfo = result;
+				  
 				  if(loginInfo.isLoggedIn()){
-					  RootPanel.get("idendity").add(new IdentitySelection(2, null));	
-					  loadIT_Projekt_SS17();
+					
+					  bereitsEingeloggt();
 					  
 				  } else {
-					  loadLogin();
+					  nichtEingeloggt();
+					  
 				  }
 			  }
 			  });
@@ -68,31 +83,73 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		  
 		  
 		 private void loadLogin(){
-			  signInLink.setHref(loginInfo.getLoginUrl());
-			  loginPanel.add(loginLabel);
-			  loginPanel.add(signInLink);
-			  RootPanel.get("Details").add(loginPanel);
+			  
 		  }
-		  
-		  private void loadIT_Projekt_SS17(){
+		 
+		 private void nichtEingeloggt(){
+			 signInLink.setHref(loginInfo.getLoginUrl());
+			  loginPanel.add(loginLabel);
+			  loginPanel.add(signInLink);  
+			  RootPanel.get("login").add(loginPanel);
+			 
+		 }
+		 private void bereitsEingeloggt(){
+			 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+	
+			  adminService.getPersonbyID(1, new getPersonFurMenubar());
+		
 			  
-			  Showcase showcase = new Homeseite();
-			  Menubar mb = new Menubar();
-			  signOutLink.setHref(loginInfo.getLogoutUrl());//
-			  mainPanel.add(addPanel);
-			  mainPanel.add(showcase);
-			  mainPanel.add(signOutLink);;//
-			  
-			  RootPanel.get("Details").add(mainPanel);
-			  RootPanel.get("Navigator").add(new Menubar());
-			  RootPanel.get("Header").add(mb.getIdSelection());
-			  
-		  }	  
+		 }
+	  	  
 //		 
-			
+		 private class getPersonFurMenubar implements AsyncCallback<Person>{
 
-		  
-	  
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler beim Laden der Daten");
+			}
+
+			@Override
+			public void onSuccess(Person result) {
+				  Showcase showcase = new Homeseite();
+				  Menubar mb = new Menubar(result);
+				  signOutLink.setHref(loginInfo.getLogoutUrl());//
+				  mainPanel.add(addPanel);
+				  mainPanel.add(showcase);
+				  RootPanel.get("idendity").add(new IdentitySelection(result, mb));
+				  RootPanel.get("login").add(signOutLink);
+				  RootPanel.get("Details").add(mainPanel);
+				  RootPanel.get("Navigator").add(new Menubar(result));
+				  RootPanel.get("Header").add(mb.getIdSelection());
+			}
+			 
+		 }
+
+		  private class getAllPerson implements AsyncCallback <Vector<Person>>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Fehler beim Laden der Person aus der Datenbank");
+			}
+
+			@Override
+			public void onSuccess(Vector<Person> result) {
+				for (int i = 0 ; i<= result.size(); i++){
+				if(loginInfo.getEmailAddress() == result.elementAt(i).getEmail()){
+					Window.alert("AHSDHASDHUAD");
+//					bereitsEingeloggt();
+						}
+				else{
+					Showcase showcase = new RegistrierungsForm();
+					RootPanel.get("Details").add(showcase);
+					
+				}
+					}
+				}  
+		  	}
 
 
 		  
