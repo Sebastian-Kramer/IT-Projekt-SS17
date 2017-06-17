@@ -31,7 +31,7 @@ public class RegistrierungsForm extends Showcase{
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	private AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private VerticalPanel vpanel_registrierung = new VerticalPanel();
 	private HorizontalPanel hpanel_registrierung = new HorizontalPanel();

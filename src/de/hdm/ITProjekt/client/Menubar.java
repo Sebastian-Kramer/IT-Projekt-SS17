@@ -16,7 +16,7 @@ import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
-
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 
@@ -28,7 +28,7 @@ public class Menubar extends StackPanel {
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-		
+	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	// Die "einzelnen" Seiten in die Panels legen
 	VerticalPanel homePanel = new VerticalPanel();
 //	VerticalPanel projektPanel = new VerticalPanel();
@@ -51,9 +51,12 @@ public class Menubar extends StackPanel {
 	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
 	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
 	
-	IdentitySelection is = null;
+	private Person person = new Person();
 	
-	public Menubar(){
+	
+	IdentitySelection is = null;
+			
+	public Menubar(final Person person){
 		// Zusammensetzen des startseitePanels
 		
 		homePanel.add(zurstartseiteButton);
@@ -205,7 +208,7 @@ public class Menubar extends StackPanel {
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
 				currentClickEvent=event;
-				Showcase showcase = new MeinProfilAnzeigen();
+				Showcase showcase = new MeinProfilAnzeigen(person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 //				is.activateOrgUnits();
