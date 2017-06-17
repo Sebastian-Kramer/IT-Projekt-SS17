@@ -43,6 +43,8 @@ public class Projekte extends Showcase {
 	Button delete_projekt = new Button("Projekt Löschen");
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
+	
+	
 
 	 
 	public Projekte(){

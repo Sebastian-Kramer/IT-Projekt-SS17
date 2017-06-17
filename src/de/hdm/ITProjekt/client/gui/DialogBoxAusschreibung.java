@@ -28,8 +28,8 @@ public class DialogBoxAusschreibung extends DialogBox {
 	Button schliessen = new Button("schliessen");
 	Button bewerben = new Button("Auf Stelle bewerben");
 	
-	TextArea ausschreibungstext = new TextArea();
-	FlexTable ausschreibungstextft = new FlexTable();
+	private TextArea ausschreibungstext = new TextArea();
+	private FlexTable ausschreibungstextft = new FlexTable();
 	
 	
 	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung, final Person person){
