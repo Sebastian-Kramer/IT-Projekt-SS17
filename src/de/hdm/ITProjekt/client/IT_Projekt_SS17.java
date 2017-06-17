@@ -56,7 +56,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  public void onSuccess(LogInInfo result){
 				  loginInfo = result;
 				  if(loginInfo.isLoggedIn()){
-					  RootPanel.get("idendity").add(new IdentitySelection(0, null));	
+					  RootPanel.get("idendity").add(new IdentitySelection(2, null));	
 					  loadIT_Projekt_SS17();
 					  
 				  } else {

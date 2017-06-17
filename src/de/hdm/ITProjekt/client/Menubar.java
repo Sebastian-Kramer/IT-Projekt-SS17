@@ -18,6 +18,7 @@ import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Person;
 
 public class Menubar extends StackPanel {
 	
@@ -27,7 +28,6 @@ public class Menubar extends StackPanel {
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-	IdentitySelection idSelection = null;
 		
 	// Die "einzelnen" Seiten in die Panels legen
 	VerticalPanel homePanel = new VerticalPanel();
@@ -205,14 +205,31 @@ public class Menubar extends StackPanel {
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
 				currentClickEvent=event;
-//				idSelection.deactivateProjectMarkets();
-//				idSelection.activateOrgUnits();
-//				
-//				Organisationseinheit selectedIdentity = idSelection.getSelectedIdentityAsObject();	
-//				
 				Showcase showcase = new MeinProfilAnzeigen();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+//				is.activateOrgUnits();
+//			
+//				Organisationseinheit selectedIdentity = is.getSelectedIdentityAsObject();	
+//				
+//				if(selectedIdentity instanceof Person){
+//					Showcase showcase = new MeinProfilAnzeigen(selectedIdentity);
+//					RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);}
+//				}else if(selectedIdentity instanceof Team){
+//					Showcase showcase = new TeamProfilAnzeigenForm(identityMarketChoice, getNavigation());
+//					RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//					
+//				//Falls der Index 2 ist, dann ist ein Unternehmen aktiv und es wird die UnternehmenProfilAnzeigenForm geladen.
+//				}else if(selectedIdentity instanceof Unternehmen){
+//					Showcase showcase = new UnternehmenProfilAnzeigenForm(identityMarketChoice, getNavigation());
+//					RootPanel.get("Details").clear();
+//					RootPanel.get("Details").add(showcase);
+//				}
+
+//				RootPanel.get("Details").clear();
+//				RootPanel.get("Details").add(showcase);
 
 			}
 		});
@@ -225,18 +242,20 @@ public class Menubar extends StackPanel {
 
 
 	public IdentitySelection getIdSelection() {
-		return idSelection;
+		return is;
 	}
 
 
 	public void setIdSelection(IdentitySelection idSelection) {
-		this.idSelection = idSelection;
+		this.is = idSelection;
 	}
 	
 	public void reload(){
 		currentClickHandler.onClick(currentClickEvent);
 	}
-	
+	public Menubar getMenubar(){
+		return this;
+	}
 	
 
 }

@@ -89,7 +89,7 @@ public class OrganisationseinheitMapper {
 		}
 	
 	
-		public int insert(Organisationseinheit o){
+		protected int insert(Organisationseinheit o){
 		 
 	    Connection con = DBConnection.connection();
 	    int id=0;
@@ -112,7 +112,7 @@ public class OrganisationseinheitMapper {
 
 	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 
-	        stmt.executeUpdate("INSERT INTO Organisationseinheit (ID, straße, hausnummer, plz, ort, Partnerprofil_ID) "
+	        stmt.executeUpdate("INSERT INTO Organisationseinheit (ID, strasse, hausnummer, plz, ort, Partnerprofil_ID) "
 	            + "VALUES ('" + o.getID() + "','" + o.getStraße() + "','"
 	            + o.getHausnummer() + "','" + o.getPlz() + "','" + o.getOrt() + "', " + o.getPartnerprofil_ID() + ")");
 	      }

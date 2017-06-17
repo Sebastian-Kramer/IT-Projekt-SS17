@@ -94,8 +94,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	//Methoden von Person
 	
-	public Person createPerson(Person p);
+	public Person createPerson(String vorname, String nachname, String anrede, 
+			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId);
 	
+//	public Person 
 
 
 	

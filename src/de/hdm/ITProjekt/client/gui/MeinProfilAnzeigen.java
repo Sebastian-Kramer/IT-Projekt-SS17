@@ -1,13 +1,12 @@
 package de.hdm.ITProjekt.client.gui;
 
-import com.google.gwt.cell.client.ClickableTextCell;
-import com.google.gwt.core.client.GWT;
+
+
+import java.util.Vector;
+
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-
-import com.google.gwt.user.cellview.client.CellTable;
-import com.google.gwt.user.cellview.client.Column;
-import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -18,15 +17,15 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
-import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
@@ -34,22 +33,20 @@ import de.hdm.ITProjekt.shared.bo.Person;
 
 public class MeinProfilAnzeigen extends Showcase{
 	
-	private static ClickHandler currentClickHandler = null;
-	private static ClickEvent currentClickEvent = null;
 	
-	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+
+	
 	
 	private IdentitySelection identitySelection = null;
 	private Menubar mb = null;
-	Person p = new Person();
+
 	
 	public MeinProfilAnzeigen(){
 		
 	}
-	public MeinProfilAnzeigen(IdentitySelection identitySelection, Menubar mb){
+	public MeinProfilAnzeigen(IdentitySelection identitySelection){
 		this.identitySelection = identitySelection;
-		this.mb = mb;
-		p = (Person) identitySelection.getSelectedIdentityAsObject();
+		user = (Person) identitySelection.getSelectedIdentityAsObject();
 	}
 	
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
@@ -103,7 +100,17 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Label hausnr = new Label("Hausnummer");
 	private Label plz = new Label("Postleitzahl");
 	private Label ort = new Label("Ort");
-		
+	
+//	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//	 if (adminService == null) {
+//   adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	 }
+	
+	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	
+	private Person user = new Person();
+
+	
 		@Override
 		protected String getHeadlineText() {
 			return "<h2>Mein Profil</2>";
@@ -111,24 +118,45 @@ public class MeinProfilAnzeigen extends Showcase{
 		@Override
 		protected void run() {
 			
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+			AsyncCallback<Person> callback = new AsyncCallback<Person>(){
+
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Personendaten wurden nicht geladen");
+					
+				}
+
+				@Override
+				public void onSuccess(Person result) {
+					user.setName(result.getName());
+					
+				}
+				
+			};
 			
+			adminService.getPersonbyID(2, callback);
 			this.add(partnerprofil);
 			
-			vnameBox.setText(p.getVorname());
-			nnameBox.setText(p.getName());
-			anredeBox.setText(p.getAnrede());
-			strasseBox.setText(p.getStraße());
-			hausnrBox.setText(Integer.toString(p.getHausnummer()));
-			plzBox.setText(Integer.toString(p.getPlz()));
-			ortBox.setText(p.getOrt());
+			vnameBox.setText(user.getVorname());
+			nnameBox.setText(user.getName());
+			anredeBox.setText(user.getAnrede());
+			strasseBox.setText(user.getStraße());
+			hausnrBox.setText(Integer.toString(user.getHausnummer()));
+			plzBox.setText(Integer.toString(user.getPlz()));
+			ortBox.setText(user.getOrt());
 			
-//			anredeBox.setReadOnly(true);
-//			vnameBox.setReadOnly(true);
-//			nnameBox.setReadOnly(true);
-//			strasseBox.setReadOnly(true);
-//			hausnrBox.setReadOnly(true);
-//			plzBox.setReadOnly(true);
-//			ortBox.setReadOnly(true);
+			
+			vnameBox.setReadOnly(true);
+			nnameBox.setReadOnly(true);
+			anredeBox.setReadOnly(true);
+			strasseBox.setReadOnly(true);
+			hausnrBox.setReadOnly(true);
+			plzBox.setReadOnly(true);
+			ortBox.setReadOnly(true);
 			
 			//Stylen der Buttons
 			bearbeiten.setStylePrimaryName("myprofil-button");
@@ -137,15 +165,10 @@ public class MeinProfilAnzeigen extends Showcase{
 			newTeam.setStylePrimaryName("myprofil-button");
 			newUN.setStylePrimaryName("myprofil-button");
 			
-//			RootPanel.get("Details").add(vpanel);
-//			RootPanel.get("Details").setWidth("100%");
 			
 			anredeListBox.addItem("Herr");
 			anredeListBox.addItem("Frau");
-//			RootPanel.get("Details").add(anredeBox);
-//			RootPanel.get("Details").add(vnameBox);
-//			RootPanel.get("Details").add(anredeListBox);
-//			RootPanel.get("Details").add(bearbeiten);
+
 			
 			
 			//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln			
@@ -179,18 +202,37 @@ public class MeinProfilAnzeigen extends Showcase{
 			ft_buttonPanel.setWidget(0, 2, abbrechen);
 			ft_buttonPanel.setWidget(0, 3, newTeam);
 			ft_buttonPanel.setWidget(0, 4, newUN);
-			//ft_buttonPanel.setWidget(0, 5, partnerprofil);
 			
 
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);
+			
 			this.add(vpanel);
 			this.setSpacing(8);
 			
 		}
 
-	
+	private class getPersonausDB implements AsyncCallback<Person> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Daten der Person konnten nicht ausgelesen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			Window.alert("Vor User");
+			user.setName(result.getName());
+			Window.alert("Nach User");
+			
+		}
+
+
+		
 	}
+}
+	
 
 	
 	

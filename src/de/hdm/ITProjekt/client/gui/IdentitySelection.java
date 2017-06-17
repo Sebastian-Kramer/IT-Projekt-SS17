@@ -14,6 +14,7 @@ import com.google.gwt.event.dom.client.DomEvent;
 import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.IsWidget;
@@ -33,36 +34,54 @@ import de.hdm.ITProjekt.shared.bo.*;
 
 public class IdentitySelection extends FlexTable{
 
-	private static int loginID = 1;
+	private static int loginID = 2;
 	private static IdentitySelection navigation=null;
 	
 	private ListBox orgEinheit = new ListBox();
 //	private static ListBox Listbox2 = new ListBox();
 	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
-	private static AdministrationProjektmarktplatzAsync projektmarktplatzVerwaltung = ClientsideSettings.getpmpVerwaltung();
+	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	private static Person person;
 	private static Team team;
 	private static Unternehmen unternehmen;
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
+	private Person user = new Person();
 	
 	
 	public IdentitySelection (int id, final Menubar menubar){
 		
 		this.menubar = menubar;
-		this.setWidget(1, 0, new Label("Nutze Identität von: "));		
+		this.setWidget(1, 0, new Label("Organisationseinheiten: "));		
 		this.setWidget(1, 1, orgEinheit);
-		this.setStylePrimaryName("IdentityPanel");
-//		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
+
+		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
 //		this.setWidget(2, 1, Listbox2);
+		
+		
+		this.setStylePrimaryName("IdentityPanel");
+		
 		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-//		cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
+	    cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 		orgEinheit.setWidth("250px");
 //		Listbox2.setWidth("250px");
-		projektmarktplatzVerwaltung.getPersonbyID(id, new getUser());
+		
+	
+		
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		adminService.getPersonbyID(id, new getUser());
 
+//		orgEinheit.addItem(person.getName());
+//		orgEinheit.addItem(team.getName());
+//		orgEinheit.addItem(unternehmen.getName());
+		
+		
+		
 		orgEinheit.addChangeHandler(new ChangeHandler() {
 
 			@Override
@@ -72,13 +91,6 @@ public class IdentitySelection extends FlexTable{
 			}
 
 		});
-//		Listbox2.addChangeHandler(new ChangeHandler() {
-//			
-//			@Override
-//			public void onChange(ChangeEvent event) {
-//				menubar.reload();
-//			}
-//		});
 	}
 
 	
@@ -90,7 +102,7 @@ public class IdentitySelection extends FlexTable{
 	}
 
 	public int getSelectedIdentityID(){
-		if(person.getTeam_ID() != 0){
+		if(person.getTeam_ID() != null){
 			if(orgEinheit.getSelectedIndex() == 0){
 				return person.getID();
 			}else if(orgEinheit.getSelectedIndex() == 1){
@@ -129,7 +141,7 @@ public class IdentitySelection extends FlexTable{
 		return null;
 	}
 	
-//	public static int getSelectedProjectMarketplaceId(){
+//	public int getSelectedProjectMarketplaceId(){
 //		for(Projektmarktplatz p : projektmarktplaetze){
 //			if(p.getBez()==Listbox2.getSelectedItemText()){
 //				return p.getID();
@@ -179,7 +191,11 @@ public class IdentitySelection extends FlexTable{
 	}
 	
 	public void reinitialize(){
-		projektmarktplatzVerwaltung.getPersonbyID(loginID, new getUser());
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		adminService.getPersonbyID(loginID, new getUser());
 	}
 	
 	private IdentitySelection getThis(){
@@ -209,13 +225,16 @@ private class getUser implements AsyncCallback<Person>{
 			Integer personID = result.getID();
 			orgEinheit.addItem("Person: " + result.getVorname() + " " +
 												result.getName() , personID.toString());
-					
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }	
 			if (person.getTeam_ID() !=null) {
-				projektmarktplatzVerwaltung.getTeamByID(result.getTeam_ID(), new getTeam());
+				adminService.getTeamByID(result.getTeam_ID(), new getTeam());
 			}else if (person.getUN_ID() != null){
-				projektmarktplatzVerwaltung.getUnByID(result.getUN_ID(), new getUnternehmen());
+				adminService.getUnByID(result.getUN_ID(), new getUnternehmen());
 			}
-			projektmarktplatzVerwaltung.getMarktplatzByPerson(result, new getProjektmarktplatz());
+//			adminService.getMarktplatzByPerson(result, new getProjektmarktplatz());
 			
 		}
 	
@@ -235,7 +254,11 @@ private class getUser implements AsyncCallback<Person>{
 			orgEinheit.addItem("Team: "+result.getName(),TeamID.toString());	
 			team=result;
 			if(person.getUN_ID()!=null){
-				projektmarktplatzVerwaltung.getUnByID(person.getUN_ID(), new getUnternehmen());
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				adminService.getUnByID(person.getUN_ID(), new getUnternehmen());
 			}
 			
 		}
@@ -258,35 +281,35 @@ private class getUser implements AsyncCallback<Person>{
 			
 		}
 
-	private class getProjektmarktplatz implements AsyncCallback<Vector<Projektmarktplatz>>{
-
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Der Projektmarktplatz der Person konnte nicht geladen werden");		
-		}
-		
-		@Override
-		public void onSuccess(Vector<Projektmarktplatz> result) {
-			
-			if (result != null){
-				if (result.isEmpty()){
-					orgEinheit.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
-					menubar.getProjektmarktplaetzeButton().click();
-					RootPanel.get("Navigator").clear();
-				}else{
-					marktplatz = true;
-					for(Projektmarktplatz p : result){
-					orgEinheit.addItem(p.getBez());
-					}
-					projektmarktplaetze = result;
-					RootPanel.get("Navigator").add(menubar);
-				}
-				
-			}
-			
-		}
-		
-	}
+//	private class getProjektmarktplatz implements AsyncCallback<Vector<Projektmarktplatz>>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Der Projektmarktplatz der Person konnte nicht geladen werden");		
+//		}
+//		
+//		@Override
+//		public void onSuccess(Vector<Projektmarktplatz> result) {
+//			
+//			if (result != null){
+//				if (result.isEmpty()){
+//					orgEinheit.addItem("Bitte einen Projektmarktplatz wählen oder anlegen");
+//					menubar.getProjektmarktplaetzeButton().click();
+//					RootPanel.get("Navigator").clear();
+//				}else{
+//					marktplatz = true;
+//					for(Projektmarktplatz p : result){
+//					orgEinheit.addItem(p.getBez());
+//					}
+//					projektmarktplaetze = result;
+//					RootPanel.get("Navigator").add(menubar);
+//				}
+//				
+//			}
+//			
+//		}
+//		
+//	}
 	
 }
 
