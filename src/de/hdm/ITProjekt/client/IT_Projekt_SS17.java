@@ -101,9 +101,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	
 			  adminService.getPersonbyID(1, new getPersonFurMenubar());
 		
-			  
 		 }
-	  	  
+
 //		 
 		 private class getPersonFurMenubar implements AsyncCallback<Person>{
 
