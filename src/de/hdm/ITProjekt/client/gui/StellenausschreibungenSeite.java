@@ -39,7 +39,7 @@ public class StellenausschreibungenSeite extends Showcase {
 	CellTable<Ausschreibung> ct_alleAusschreibungen = new CellTable<Ausschreibung> ();
 	CellTable<Ausschreibung> ct_eigeneAusschreibungen = new CellTable<Ausschreibung>();
 
-	private TextBox ausschreibungbox = new TextBox();
+	
 	HorizontalPanel hpanel_ausschreibung = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	
@@ -83,7 +83,6 @@ public class StellenausschreibungenSeite extends Showcase {
 		// Hinzufügen der Buttons und Textbox zum Panel
 		hpanel_ausschreibung.add(createausschreibung);
 		hpanel_ausschreibung.add(deleteausschreibung);
-		hpanel_ausschreibung.add(ausschreibungbox);
 		hpanel_ausschreibung.add(showausschreibung);
 
 				
