@@ -34,11 +34,11 @@ import de.hdm.ITProjekt.shared.bo.*;
 
 public class IdentitySelection extends FlexTable{
 
-	private static int loginID = 1;
+	private static int loginID = 2;
 	private static IdentitySelection navigation=null;
 	
 	private ListBox orgEinheit = new ListBox();
-	private static ListBox Listbox2 = new ListBox();
+//	private static ListBox Listbox2 = new ListBox();
 	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
 	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -48,6 +48,7 @@ public class IdentitySelection extends FlexTable{
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
+	private Person user = new Person();
 	
 	
 	public IdentitySelection (int id, final Menubar menubar){
@@ -57,7 +58,7 @@ public class IdentitySelection extends FlexTable{
 		this.setWidget(1, 1, orgEinheit);
 
 		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
-		this.setWidget(2, 1, Listbox2);
+//		this.setWidget(2, 1, Listbox2);
 		
 		
 		this.setStylePrimaryName("IdentityPanel");
@@ -65,7 +66,9 @@ public class IdentitySelection extends FlexTable{
 		cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 	    cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 		orgEinheit.setWidth("250px");
-		Listbox2.setWidth("250px");
+//		Listbox2.setWidth("250px");
+		
+	
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
@@ -217,7 +220,7 @@ private class getUser implements AsyncCallback<Person>{
 	@Override
 	public void onSuccess(Person result) {
 			orgEinheit.clear();
-			Listbox2.clear();
+//			Listbox2.clear();
 			person = result;
 			Integer personID = result.getID();
 			orgEinheit.addItem("Person: " + result.getVorname() + " " +

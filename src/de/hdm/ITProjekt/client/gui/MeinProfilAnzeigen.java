@@ -3,10 +3,13 @@ package de.hdm.ITProjekt.client.gui;
 
 
 import java.util.Vector;
+
+import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -104,9 +107,10 @@ public class MeinProfilAnzeigen extends Showcase{
 //	 }
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-
+	
 	private Person user = new Person();
 
+	
 		@Override
 		protected String getHeadlineText() {
 			return "<h2>Mein Profil</2>";
@@ -114,7 +118,27 @@ public class MeinProfilAnzeigen extends Showcase{
 		@Override
 		protected void run() {
 			
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+			AsyncCallback<Person> callback = new AsyncCallback<Person>(){
+
+				@Override
+				public void onFailure(Throwable caught) {
+					Window.alert("Personendaten wurden nicht geladen");
+					
+				}
+
+				@Override
+				public void onSuccess(Person result) {
+					user.setName(result.getName());
+					
+				}
+				
+			};
 			
+			adminService.getPersonbyID(2, callback);
 			this.add(partnerprofil);
 			
 			vnameBox.setText(user.getVorname());
@@ -186,10 +210,29 @@ public class MeinProfilAnzeigen extends Showcase{
 			this.add(vpanel);
 			this.setSpacing(8);
 			
-		}}
-//
-//	private class getPersonausDB implements AsyncCallback 
-//	}
+		}
+
+	private class getPersonausDB implements AsyncCallback<Person> {
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Daten der Person konnten nicht ausgelesen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			Window.alert("Vor User");
+			user.setName(result.getName());
+			Window.alert("Nach User");
+			
+		}
+
+
+		
+	}
+}
+	
 
 	
 	
