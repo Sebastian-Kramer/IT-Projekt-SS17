@@ -23,16 +23,16 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 public class DialogBoxAusschreibung extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-	VerticalPanel vp = new VerticalPanel();
-	VerticalPanel vp1 = new VerticalPanel();
+	private VerticalPanel vp = new VerticalPanel();
+	private VerticalPanel vp1 = new VerticalPanel();
 	Button schliessen = new Button("schliessen");
 	Button bewerben = new Button("Auf Stelle bewerben");
 	
-	TextArea ausschreibungstext = new TextArea();
-	FlexTable ausschreibungstextft = new FlexTable();
+	private TextArea ausschreibungstext = new TextArea();
+	private FlexTable ausschreibungstextft = new FlexTable();
 	
 	
-	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung){
+	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung, final Person person){
 		setText(selectedAusschreibung.getBezeichnung());
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -44,7 +44,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 		ausschreibungstextft.setWidget(0, 0, ausschreibungstext);
 		ausschreibungstextft.setWidget(1, 0, schliessen);
 		ausschreibungstextft.setWidget(1, 0, bewerben);
-		vp.add(ausschreibungstext);
+		
 		vp.add(ausschreibungstextft);
 		vp.add(schliessen);
 		vp.add(bewerben);
@@ -65,8 +65,8 @@ public class DialogBoxAusschreibung extends DialogBox {
 			@Override
 			public void onClick(ClickEvent event) {
 				DialogBoxAusschreibung.this.hide();
-				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung);
-				DialogBoxBewerbungAnlegen.show();
+				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, person);
+				DialogBoxBewerbungAnlegen.center();
 				
 			}
 			

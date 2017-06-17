@@ -50,6 +50,7 @@ public class DialogBoxBewerbung extends DialogBox {
 		bewerbungstext.setVisibleLines(30);
 		bewerbungstextft.setWidget(0, 0, bewerbungstext);
 		bewerbungstextft.setWidget(1, 0, schliessen);
+		vp.add(bewerbungstextft);
 		vp.add(bewerbungstext);
 		vp.add(schliessen);
 		

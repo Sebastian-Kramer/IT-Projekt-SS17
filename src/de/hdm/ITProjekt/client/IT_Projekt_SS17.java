@@ -97,13 +97,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			 if (adminService == null) {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
-			 
-			
-			  adminService.getPersonbyID(2, new getPersonFurMenubar());
+	
+			  adminService.getPersonbyID(1, new getPersonFurMenubar());
 		
-			  
-		 }
-	  	  
+	 }
+
 //		 
 		 private class getPersonFurMenubar implements AsyncCallback<Person>{
 

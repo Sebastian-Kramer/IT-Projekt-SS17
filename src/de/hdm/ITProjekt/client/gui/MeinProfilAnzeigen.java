@@ -17,6 +17,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
+import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -35,7 +36,6 @@ public class MeinProfilAnzeigen extends Showcase{
 	
 	
 
-	
 	
 	private IdentitySelection identitySelection = null;
 	private Menubar mb = null;
@@ -60,8 +60,8 @@ public class MeinProfilAnzeigen extends Showcase{
 //	private FlexTable ftable_team = new FlexTable();
 //	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
-//	private static DialogBox db_team = new DialogBox();
-//	private static DialogBox db_unternehmen = new DialogBox();
+	private static DialogBox db_team = new DialogBox();
+	private static DialogBox db_unternehmen = new DialogBox();
 //	private Button closeTeam = new Button("Schließen");
 //	private Button closeUnternehmen = new Button("Schließen");
 
@@ -159,7 +159,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			form.setWidget(0, 1, emailBox);
 			form.setWidget(0, 0, email);
 			
-			form.setWidget(1,  1, anredeListBox);
+			form.setWidget(1,  1, anredeBox);
 			form.setWidget(1, 0, anrede);
 			
 			form.setWidget(2,  1, vnameBox);
@@ -188,6 +188,10 @@ public class MeinProfilAnzeigen extends Showcase{
 			ft_buttonPanel.setWidget(0, 3, newTeam);
 			ft_buttonPanel.setWidget(0, 4, newUN);
 			
+			speichern.setVisible(false);
+			abbrechen.setVisible(false);
+			newTeam.setVisible(false);
+			newUN.setVisible(false);
 
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);
@@ -195,9 +199,96 @@ public class MeinProfilAnzeigen extends Showcase{
 			this.add(vpanel);
 			this.setSpacing(8);
 			
+		
+		
+		bearbeiten.addClickHandler(new ClickHandler(){
+			
+			public void onClick(ClickEvent event) {
+				//Listbox anstelle von Textbox setzten
+				form.setWidget(1, 1, anredeListBox);
+				//ReadOnly auf false setzten
+				emailBox.setReadOnly(false);
+				vnameBox.setReadOnly(false);
+				nnameBox.setReadOnly(false);
+				anredeBox.setReadOnly(false);
+				strasseBox.setReadOnly(false);
+				hausnrBox.setReadOnly(false);
+				plzBox.setReadOnly(false);
+				ortBox.setReadOnly(false);
+				
+				bearbeiten.setVisible(false);
+				speichern.setVisible(true);
+				abbrechen.setVisible(true);
+				
+			}
+		
+		});
+		
+		abbrechen.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		
+		speichern.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 ClientsideSettings.getpmpVerwaltung().
+					getPersonbyID(identitySelection.getSelectedIdentityID(), new ProfilBearbeitenCallback());
+				
+			}
+		});
+		
 		}
+		
+		private class ProfilBearbeitenCallback implements AsyncCallback<Person>{
 
-	private class getPersonausDB implements AsyncCallback<Person> {
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Das Bearbeiten des Profils ist fehlgeschlagen. Bitte versuche es erneut.");
+				
+			}
+
+			@Override
+			public void onSuccess(Person result) {
+				result.setAnrede(anredeListBox.getItemText(anredeListBox.getSelectedIndex()));
+				result.setHausnummer(Integer.parseInt(hausnrBox.getText()));
+				result.setName(nnameBox.getText());
+				result.setOrt(ortBox.getText());
+				result.setPlz(Integer.parseInt(plzBox.getText()));
+				result.setStraße(strasseBox.getText());
+				result.setVorname(vnameBox.getText());
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				ClientsideSettings.getpmpVerwaltung().savePerson(result, new PersonSpeichernCallback());
+				
+			}}
+		
+		private class PersonSpeichernCallback implements AsyncCallback<Void>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Beim Speichern der Person ist etwas schief gegangen");
+				
+			}
+
+			@Override
+			public void onSuccess(Void result) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+			
+		}
+		
+		private class getPersonausDB implements AsyncCallback<Person> {
 
 		@Override
 		public void onFailure(Throwable caught) {
