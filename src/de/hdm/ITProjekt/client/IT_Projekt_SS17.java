@@ -1,7 +1,6 @@
 package de.hdm.ITProjekt.client;
 
 import java.util.Vector;
-
 //import de.hdm.ITProjekt.server.LoginServiceImpl;
 //import de.hdm.ITProjekt.shared.LoginService;
 //import de.hdm.ITProjekt.shared.LoginServiceAsync;
@@ -43,10 +42,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private VerticalPanel mainPanel = new VerticalPanel();
 	  private Person p1 = new Person();
 	  
-	  private Person personobject = new Person();
-
+	 
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-
+	  
+	  
 //	  private Button projektmarktplatz = new Button("Projektmarktplatz");
 
 	  
@@ -90,7 +89,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			 signInLink.setHref(loginInfo.getLoginUrl());
 			  loginPanel.add(loginLabel);
 			  loginPanel.add(signInLink);  
-			  RootPanel.get("login").add(loginPanel);
+			  RootPanel.get("login").add(loginPanel);  
 			 
 		 }
 		 private void bereitsEingeloggt(){
@@ -98,8 +97,9 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			 if (adminService == null) {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
-	
-			  adminService.getPersonbyID(1, new getPersonFurMenubar());
+			 
+			
+			  adminService.getPersonbyID(2, new getPersonFurMenubar());
 		
 			  
 		 }
