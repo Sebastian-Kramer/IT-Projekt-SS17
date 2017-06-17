@@ -231,6 +231,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Vector<Person> getAllPerson() {
 		return this.personMapper.getAll();
 	}
+	@Override
+	public void savePerson(Person p) throws IllegalArgumentException {
+		this.personMapper.updatePerson(p);
+		
+	}
 	
 	
 	/*
@@ -329,6 +334,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewerbung insert(Bewerbung a) {
 		return this.bewMapper.insert(a);
 	}
+
 	
 	
 	/*

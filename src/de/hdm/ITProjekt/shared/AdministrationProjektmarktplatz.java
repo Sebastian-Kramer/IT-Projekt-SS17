@@ -46,6 +46,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Person getPersonbyID(int id);
 	
+	public void savePerson(Person p) throws IllegalArgumentException;
+	
 	Vector<Projekt> getAllProjekte();
 
 	
