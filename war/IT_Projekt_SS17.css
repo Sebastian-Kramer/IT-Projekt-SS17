@@ -46,6 +46,8 @@ div#idendity{
 }
 div#AGB{
 	float: right;
+	width: 20%;
+	height: 10px;
 }
 div#body-body{
 	background: aliceblue;

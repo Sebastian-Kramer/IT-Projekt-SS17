@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 
+import de.hdm.ITProjekt.client.gui.AGB;
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
@@ -45,6 +46,8 @@ public class Menubar extends StackPanel {
 	Button meineProjekteButton = new Button("Meine Projekte");
 	Button meinProfilButton = new Button("Mein Profil");
 	Button registrierung = new Button("Registrierung");
+	Button agbButton = new Button("AGB");
+	
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
@@ -55,6 +58,8 @@ public class Menubar extends StackPanel {
 	
 	public Menubar(){
 		// Zusammensetzen des startseitePanels
+		
+	
 		
 		homePanel.add(zurstartseiteButton);
 		zurstartseiteButton.setWidth("200px");

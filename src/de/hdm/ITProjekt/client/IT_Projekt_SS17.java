@@ -86,6 +86,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  RootPanel.get("Details").add(mainPanel);
 			  RootPanel.get("Navigator").add(new Menubar());
 			  RootPanel.get("Header").add(mb.getIdSelection());
+			  RootPanel.get("AGB").add(new Menuleiste());
+			  
 			  
 		  }	  
 //		 
