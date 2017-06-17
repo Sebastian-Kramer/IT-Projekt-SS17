@@ -25,12 +25,13 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
 public class DialogBoxBewerbungAnlegen extends DialogBox {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-	VerticalPanel vp = new VerticalPanel();
-	HorizontalPanel hp = new HorizontalPanel();
+	private VerticalPanel vp = new VerticalPanel();
+	private HorizontalPanel hp = new HorizontalPanel();
 	
 	Button sendBewerbung = new Button("Bewerbung abschicken");
 	Button cancelBewerbung = new Button("Bewerbung abbrechen");
@@ -39,32 +40,29 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
 	private Ausschreibung selectedAusschreibung = new Ausschreibung();
 	
+
+	
 	
 	Label bewerbungstext_label = new Label();
 	
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
 	
-	public DialogBoxBewerbungAnlegen(final Ausschreibung ausschreibung1){
+	public DialogBoxBewerbungAnlegen(final Ausschreibung ausschreibung1, final Person p1){
 		this.selectedAusschreibung = ausschreibung1;
 		setText("Bewerbung verfassen");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
 		bewerbungstext.setCharacterWidth(80);
 		bewerbungstext.setVisibleLines(30);
-		bewerbungstextft.setWidget(0, 0, bewerbungstext_label);
-		bewerbungstextft.setWidget(0, 1, bewerbungstext);
-		bewerbungstextft.setWidget(1, 1, sendBewerbung);
-		bewerbungstextft.setWidget(1, 1, cancelBewerbung);
+		bewerbungstextft.setWidget(1, 0, bewerbungstext_label);
+		bewerbungstextft.setWidget(1, 1, bewerbungstext);
+		
+		vp.add(bewerbungstextft);
 		hp.add(sendBewerbung);
 		hp.add(cancelBewerbung);
-		vp.add(bewerbungstext_label);
-		vp.add(bewerbungstext);
-		vp.add(bewerbungstextft);
-		
-		
-		setWidget(vp);
-		setWidget(hp);
+		vp.add(hp);
+		this.add(vp);
 		
 		cancelBewerbung.addClickHandler(new ClickHandler(){
 
@@ -82,6 +80,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 			public void onClick(ClickEvent event) {
 				bewerbung_dialog.setBewerbungstext(bewerbungstext.getText());
 				bewerbung_dialog.setAusschreibungs_ID(ausschreibung1.getID());
+				bewerbung_dialog.setOrga_ID(p1.getID());;
 				bewerbung_dialog.setErstelldatum(new Date());
 				
 				if(bewerbungstext.getText().isEmpty()){

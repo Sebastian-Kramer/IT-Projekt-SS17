@@ -46,7 +46,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
 	
 	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
-	Button bewerbungLoeschen_button	= new Button ("Bewerbung zurückziehen");
+	Button bewerbungLoeschen_button	= new Button ("Bewerbung zurï¿½ckziehen");
 	
 
 	@Override
@@ -91,11 +91,11 @@ public class MeineBewerbungenSeite extends Showcase {
 					int left = Window.getClientWidth() / 3;
 					int top = Window.getClientHeight() / 3;
 					dialogBox.setPopupPosition(left, top);
-					dialogBox.show();
+					dialogBox.center();
 				}
 			else{
 //				if (ssm.getSelectedObject() == null){
-					Window.alert("Bitte Bewerbung auswählen");
+					Window.alert("Bitte Bewerbung auswï¿½hlen");
 //				}
 				
 			}
@@ -114,12 +114,12 @@ public class MeineBewerbungenSeite extends Showcase {
 							@Override
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
-								Window.alert("Löschen fehlgeschlagen");
+								Window.alert("Lï¿½schen fehlgeschlagen");
 							}
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Bewerbung erfolgreich gelöscht");
+								Window.alert("Bewerbung erfolgreich gelï¿½scht");
 								refreshList();
 								
 							}
@@ -137,20 +137,20 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		
 			
-//		private void bewerbungLöschen(){
-//		bewerbungLöschen_button.addClickHandler(new ClickHandler(){
+//		private void bewerbungLï¿½schen(){
+//		bewerbungLï¿½schen_button.addClickHandler(new ClickHandler(){
 //
 //			@Override
 //		public void onClick(ClickEvent event) {
 //				if(ssm != null){
-//					Bewerbung ausgewählteBew = new Bewerbung();
-//					ausgewählteBew.setID(ssm.getSelectedObject().getID());
-//					adminService.deleteBewerbung(ausgewählteBew, new AsyncCallback<Void>(){
+//					Bewerbung ausgewï¿½hlteBew = new Bewerbung();
+//					ausgewï¿½hlteBew.setID(ssm.getSelectedObject().getID());
+//					adminService.deleteBewerbung(ausgewï¿½hlteBew, new AsyncCallback<Void>(){
 //
 //						@Override
 //						public void onFailure(Throwable caught) {
 //							// TODO Auto-generated method stub
-//							Window.alert("Löschen fehlgeschlagen");
+//							Window.alert("Lï¿½schen fehlgeschlagen");
 //						}
 //
 //						@Override
@@ -298,7 +298,7 @@ public class MeineBewerbungenSeite extends Showcase {
 //						@Override
 //						public void onFailure(Throwable caught) {
 //							// TODO Auto-generated method stub
-//							Window.alert("Löschen fehlgeschlagen");
+//							Window.alert("Lï¿½schen fehlgeschlagen");
 //						}
 //
 //						@Override

@@ -25,6 +25,7 @@ import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAu
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
@@ -53,6 +54,7 @@ public class StellenausschreibungenSeite extends Showcase {
 	final SingleSelectionModel <Ausschreibung> ssm_fremde = new SingleSelectionModel<Ausschreibung>();
 	
 	private Ausschreibung a1 = new Ausschreibung();
+	private Person p1 = new Person();
 
 	
 	public StellenausschreibungenSeite(){
@@ -139,15 +141,20 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			if(ssm !=null){
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 adminService.getPersonbyID(1, new getPersonByID());
 				a1 = ssm.getSelectedObject();
-				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1);
+				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, p1);
 				int left = Window.getClientHeight() / 3;
 				int top = Window.getClientWidth() / 3;
 				dialogBox.setPopupPosition(left, top);
-				dialogBox.show();
+				dialogBox.center();
 			}
 			else{
-				Window.alert("Bitte Ausschreibung auswählen");
+				Window.alert("Bitte Ausschreibung auswï¿½hlen");
 			}
 		}
 		
@@ -330,6 +337,23 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	}
 
 }
+	
+	private class getPersonByID implements AsyncCallback<Person>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Fehler Person laden");
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			result = p1;
+			
+			
+		}
+		
+	}
 	
 
 }	
