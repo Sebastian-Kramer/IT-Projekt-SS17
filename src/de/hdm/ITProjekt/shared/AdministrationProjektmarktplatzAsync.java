@@ -92,6 +92,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllPerson(AsyncCallback<Vector<Person>> callback);
 
+
 	void savePerson(Person p, AsyncCallback<Void> callback);
 
 	
