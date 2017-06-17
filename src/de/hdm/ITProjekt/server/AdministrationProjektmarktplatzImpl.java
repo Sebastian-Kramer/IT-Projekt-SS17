@@ -227,6 +227,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.personMapper.createPerson(p);
 	}
 	
+	@Override
+	public Vector<Person> getAllPerson() {
+		return this.personMapper.getAll();
+	}
+	
+	
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Person-Objekte
