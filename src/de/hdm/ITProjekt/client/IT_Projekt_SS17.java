@@ -70,6 +70,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
+		  RootPanel.get("header-top").add(new Menuleiste());
+		  
 		  
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  

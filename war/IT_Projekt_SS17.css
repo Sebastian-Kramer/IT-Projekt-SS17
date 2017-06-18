@@ -44,11 +44,7 @@ div#test{
 div#idendity{
 	float: right;
 }
-div#AGB{
-	float: right;
-	width: 20%;
-	height: 10px;
-}
+
 div#body-body{
 	background: aliceblue;
 }
@@ -220,9 +216,10 @@ header a#navlink {
 ul#header-top { 
 	position:absolute; 
 	top:0px; 
-	right:50px;
+	right:0px;
 	list-style-type: none;  
 	color: blue;
+	
 }
 
 #box1{
