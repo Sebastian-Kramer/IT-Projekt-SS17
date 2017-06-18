@@ -10,6 +10,7 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -39,14 +40,21 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		
 	 private LogInInfo loginInfo = null;
 	 private VerticalPanel loginPanel = new VerticalPanel();
+	 private HorizontalPanel horvorpanel = new HorizontalPanel();
+	 private VerticalPanel verpanel = new VerticalPanel();
+	 private VerticalPanel vorpanel = new VerticalPanel();
+	 private Label gotogooglelabel = new Label("Sie haben noch kein Google Account?");
 	 private Label loginLabel = new Label("Bitte melden Sie sich mit Ihrem Google-Account an.");
 	 private Anchor signInLink = new Anchor ("Sign In");
 	 private Anchor signOutLink = new Anchor ("Sign Out");
+	 private Anchor goToGoogle = new Anchor ("Go to Google Sign In");
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
 	  private Person p1 = new Person();
-	  
+	  ;
+	  private Button loginButton = new Button("Login");
+	  private Button seiteVerlassen = new Button("Seite verlassen");
 	 
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	  
@@ -128,56 +136,63 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		Showcase showcase = new Homeseite();
 		  		Menubar mb = new Menubar(person);
-				  signOutLink.setHref(loginInfo.getLogoutUrl());//
-				  mainPanel.add(addPanel);
-				  mainPanel.add(showcase);
-				  RootPanel.get("idendity").add(new IdentitySelection(person, mb));
-				  RootPanel.get("login").add(signOutLink);
-				  RootPanel.get("Details").add(mainPanel);
-				  RootPanel.get("Navigator").add(new Menubar(person));
-				  RootPanel.get("Header").add(mb.getIdSelection());
+				signOutLink.setHref(loginInfo.getLogoutUrl());//
+				mainPanel.add(addPanel);
+				mainPanel.add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+				RootPanel.get("login").add(signOutLink);
+				RootPanel.get("Details").add(mainPanel);
+				RootPanel.get("Navigator").add(new Menubar(person));
+				RootPanel.get("Header").add(mb.getIdSelection());
 	  			
 	  		}
 		 private void nichtEingeloggt(){
-			 signInLink.setHref(loginInfo.getLoginUrl());
-			  loginPanel.add(loginLabel);
-			  loginPanel.add(signInLink);  
-			  RootPanel.get("login").add(loginPanel);  
-			 
+//			 signInLink.setHref(loginInfo.getLoginUrl());
+//			  loginPanel.add(loginLabel);
+//			  loginPanel.add(signInLink);  
+//			  RootPanel.get("login").add(loginPanel);  
+				loginPanel.add(loginLabel);
+				loginPanel.add(loginButton);
+				loginPanel.add(goToGoogle);
+				goToGoogle.setHref("https://accounts.google.com/SignUp?hl=de");
+				signInLink.setHref(loginInfo.getLoginUrl());
+				goToGoogle.setStylePrimaryName("googlesignin");
+				
+				verpanel.add(gotogooglelabel);
+				verpanel.add(goToGoogle);
+				verpanel.setSpacing(10);
+				
+				vorpanel.add(loginPanel);
+				vorpanel.add(loginButton);
+				vorpanel.setSpacing(10);
+				horvorpanel.add(vorpanel);
+				horvorpanel.add(verpanel);
+				
+				RootPanel.get("Details").add(horvorpanel);
+				
+				loginButton.setWidth("150px");
+				loginButton.setStylePrimaryName("login-btn");
+				
+			
+//				google.addClickHandler(new ClickHandler() {
+//					
+//					@Override
+//					public void onClick(ClickEvent event) {
+//						goToGoogle.getHref();
+//					}
+//				});
+				loginButton.addClickHandler(new ClickHandler() {
+					
+					
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						Window.open(signInLink.getHref(), "_self",
+								"");	
+					}
+				});
 		 }
-//		 private void bereitsEingeloggt(){
-//			 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//			 if (adminService == null) {
-//		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//		    }
-//	
-//			  adminService.getPersonbyID(1, new getPersonFurMenubar());
-		
-	 
 
-//		 
-//		 private class getPersonFurMenubar implements AsyncCallback<Person>{
-//
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				Window.alert("Fehler beim Laden der Daten");
-//			}
-//
-//			@Override
-//			public void onSuccess(Person result) {
-//				  Showcase showcase = new Homeseite();
-//				  Menubar mb = new Menubar(result);
-//				  signOutLink.setHref(loginInfo.getLogoutUrl());//
-//				  mainPanel.add(addPanel);
-//				  mainPanel.add(showcase);
-//				  RootPanel.get("idendity").add(new IdentitySelection(result, mb));
-//				  RootPanel.get("login").add(signOutLink);
-//				  RootPanel.get("Details").add(mainPanel);
-//				  RootPanel.get("Navigator").add(new Menubar(result));
-//				  RootPanel.get("Header").add(mb.getIdSelection());
-//			}
-//			 
-//		 }
 
 		  private class RegistrierungsForm extends Showcase{
 
@@ -190,7 +205,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				private FlexTable form = new FlexTable();
 				
 				private Button abbrechen = new Button("Abbrechen");
-				private Button bestaetigen = new Button("Bestätigen");
+				private Button bestaetigen = new Button("Konto Erstellen");
 				
 				private ListBox anredeListbox = new ListBox();
 				private ListBox unternehmenListbox = new ListBox();
@@ -229,6 +244,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				protected void run() {
 					emailBox.setText(loginInfo.getEmailAddress());
 					emailBox.setReadOnly(true);
+					plzBox.setMaxLength(5);
+					
 					anredeListbox.addItem("Herr");
 					anredeListbox.addItem("Frau");
 					
@@ -256,13 +273,20 @@ public class IT_Projekt_SS17 implements EntryPoint {
 					form.setWidget(7,  1, ortBox);
 					form.setWidget(7, 0, ort);
 					
-					form.setWidget(8, 0, abbrechen);
+//					form.setWidget(8, 0, abbrechen);
 					form.setWidget(8, 1, bestaetigen);
 					
 					vpanel_registrierung.add(form);
 					this.add(vpanel_registrierung);
 					
 				
+//					abbrechen.addClickHandler(new ClickHandler() {
+//						
+//						@Override
+//						public void onClick(ClickEvent event) {
+//							}
+//					});
+					
 					bestaetigen.addClickHandler(new ClickHandler() {
 
 						@Override
@@ -273,6 +297,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 						
 					
 					});
+				
 				}
 		  }
 }
