@@ -27,21 +27,6 @@ import com.ibm.icu.text.SimpleDateFormat;
 public class TestStart {
 	
 	public static void main(String[] args) throws ParseException {
-	
-		PersonMapper  p = PersonMapper.perMapper();
-		Person pe = new Person();
-		
-		pe.setAnrede("Herr");
-		pe.setName("test");
-		pe.setVorname("test");
-		pe.setOrt("hauiad");
-		pe.setHausnummer(12);
-		pe.setPartnerprofil_ID(1);
-		
-		p.createPerson(pe);
-		
-	
-
 
 	
 
