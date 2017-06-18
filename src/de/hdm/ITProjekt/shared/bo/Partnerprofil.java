@@ -6,8 +6,8 @@ import java.util.Vector;
 
 public class Partnerprofil extends BusinessObject{
 	
-	private Date erstellungsdatum;
-	private Date aenderungsdatum;
+	private Date erstellungsdatum = new Date();
+	private Date aenderungsdatum = null;
 	private static final long serialVersionUID = 1L;
 	
 	

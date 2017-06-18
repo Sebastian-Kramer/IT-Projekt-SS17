@@ -134,7 +134,6 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  }
 		  
 	  		public void load(Person person){
-	  			
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		Showcase showcase = new Homeseite();
 		  		Menubar mb = new Menubar(person);
@@ -144,8 +143,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);
-				RootPanel.get("Navigator").add(new Menubar(person));
-				RootPanel.get("Header").add(mb.getIdSelection());
+				RootPanel.get("Navigator").add(mb);
+//				RootPanel.get("Header").add(mb.getIdSelection());
 	  			
 	  		}
 		 private void nichtEingeloggt(){
@@ -293,7 +292,16 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 						@Override
 						public void onClick(ClickEvent event) {
-							// TODO Auto-generated method stub
+							try {
+								Integer.parseInt(plzBox.getText());
+								((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+								 if (adminService == null) {
+								      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+								    }
+								adminService.createPartnerprofil(new PersonInDB());
+							} catch (Exception e) {
+								Window.alert("PLZ muss eine Zahl sein!");
+							}
 							
 						}
 						
@@ -301,9 +309,48 @@ public class IT_Projekt_SS17 implements EntryPoint {
 					});
 				
 				}
-		  }
-}
+				private class PersonInDB implements AsyncCallback <Partnerprofil>{
 
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Partnerprofil result) {
+						int plzint = 0;
+						int hausnrint = 0;
+						hausnrint = Integer.parseInt(hausnrBox.getText());
+						if(plzBox.getText().isEmpty()==false){
+							plzint=Integer.parseInt(plzBox.getText());
+						}
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+						      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+						    }
+						adminService.createPerson(emailBox.getText(), vnameBox.getText(), nnameBox.getText(), 
+								anredeListbox.getSelectedItemText(), strasseBox.getText(), hausnrint, plzint, 
+								ortBox.getText(), result.getID(), new Integer(0), new Integer(0), new AsyncCallback<Person>() {
+
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Fehler beim Erstellen eines neuen Users");
+									}
+
+									@Override
+									public void onSuccess(Person result) {
+										RootPanel.get("Details").clear();
+										load(result);
+									}
+								});
+					}
+				}
+				
+			}
+		
+		
+	}
 			
 			
 		

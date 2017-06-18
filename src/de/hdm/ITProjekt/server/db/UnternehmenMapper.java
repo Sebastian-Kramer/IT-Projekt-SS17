@@ -41,7 +41,7 @@ public Unternehmen findByKey(int id){
 			Unternehmen un = new Unternehmen();
 			un.setID(rs.getInt("ID"));
 			un.setName(rs.getString("name"));
-			un.setStraße(super.findByKey(id).getStraße());
+			un.setStrasse(super.findByKey(id).getStrasse());
 			un.setHausnummer(super.findByKey(id).getHausnummer());
 			un.setOrt(super.findByKey(id).getOrt());
 			un.setPlz(super.findByKey(id).getPlz());
@@ -77,7 +77,7 @@ public Unternehmen findByKey(int id){
 			  Unternehmen u = new Unternehmen();
 				u.setID(rs.getInt("Unternehmen_Id"));
 				u.setName(rs.getString("Name"));
-				u.setStraße(super.findByObject(u).getStraße());
+				u.setStrasse(super.findByObject(u).getStrasse());
 				u.setHausnummer(super.findByObject(u).getHausnummer());
 				u.setPlz(super.findByObject(u).getPlz());
 				u.setOrt(super.findByObject(u).getOrt());

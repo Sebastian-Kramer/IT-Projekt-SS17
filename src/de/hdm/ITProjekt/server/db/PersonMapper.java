@@ -42,7 +42,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 //				p.setName(rs.getString("name"));
 //				p.setTeam_ID(rs.getInt("Team_ID"));
 //				p.setUN_ID(rs.getInt("UN_ID"));
-//				p.setStraße(super.findByKey(p1.getID()).getStraße());
+//				p.setStrasse(super.findByKey(p1.getID()).getStrasse());
 //				p.setHausnummer(super.findByKey(p1.getID()).getHausnummer());
 //				p.setPlz(super.findByKey(p1.getID()).getPlz());
 //				p.setOrt(super.findByKey(p1.getID()).getOrt());
@@ -76,7 +76,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
-				p.setStraße(super.findByKey(id).getStraße());
+				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
 				p.setOrt(super.findByKey(id).getOrt());
@@ -121,7 +121,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
-				p.setStraße(super.findByKey(id).getStraße());
+				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
 				p.setOrt(super.findByKey(id).getOrt());
@@ -159,7 +159,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
-				p.setStraße(super.findByKey(id).getStraße());
+				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
 				p.setOrt(super.findByKey(id).getOrt());
@@ -194,7 +194,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
-				p.setStraße(super.findByObject(p).getStraße());
+				p.setStrasse(super.findByObject(p).getStrasse());
 				p.setHausnummer(super.findByObject(p).getHausnummer());
 				p.setPlz(super.findByObject(p).getPlz());
 				p.setOrt(super.findByObject(p).getOrt());

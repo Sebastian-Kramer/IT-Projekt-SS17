@@ -44,7 +44,6 @@ public class Menubar extends StackPanel {
 	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
 	Button meineProjekteButton = new Button("Meine Projekte");
 	Button meinProfilButton = new Button("Mein Profil");
-	Button registrierung = new Button("Registrierung");
 	Button agbButton = new Button("AGB");
 	
 		
@@ -52,9 +51,7 @@ public class Menubar extends StackPanel {
 	
 	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
 	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
-	
-	private Person person = new Person();
-	
+		
 	
 	IdentitySelection is = null;
 			
@@ -78,14 +75,7 @@ public class Menubar extends StackPanel {
 		
 		homePanel.add(meinProfilButton);
 		meinProfilButton.setWidth("200px");
-		meinProfilButton.setStylePrimaryName("navi-button");
-				
-		// Wird später gelöscht, sobald registrierung steht!!!
-		homePanel.add(registrierung);
-		registrierung.setWidth("200px");
-		registrierung.setStylePrimaryName("navi-button");
-		
-		
+		meinProfilButton.setStylePrimaryName("navi-button");		
 		
 		homePanel.setSpacing(5);
 		homePanel.setWidth("100%");

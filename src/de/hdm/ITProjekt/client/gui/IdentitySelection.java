@@ -61,7 +61,7 @@ public class IdentitySelection extends FlexTable{
 		this.setWidget(1, 0, new Label("Organisationseinheiten: "));		
 		this.setWidget(1, 1, orgEinheit);
 
-		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
+//		this.setWidget(2, 0, new Label("Projektmarktplatz: "));		
 //		this.setWidget(2, 1, Listbox2);
 		
 		

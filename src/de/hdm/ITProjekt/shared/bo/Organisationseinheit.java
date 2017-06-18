@@ -6,7 +6,7 @@ public class Organisationseinheit extends BusinessObject{
 	
 	private static final long serialVersionUID = 1L;
 
-	private String straße;
+	private String strasse;
 	private int hausnummer;
 	private int plz;
 	private String ort;
@@ -14,11 +14,11 @@ public class Organisationseinheit extends BusinessObject{
 	private Integer Partnerprofil_ID = 0;
 	
 	
-	public String getStraße() {
-		return straße;
+	public String getStrasse() {
+		return strasse;
 	}
-	public void setStraße(String straße) {
-		this.straße = straße;
+	public void setStrasse(String strasse) {
+		this.strasse = strasse;
 	}
 	public int getHausnummer() {
 		return hausnummer;
@@ -50,7 +50,7 @@ public class Organisationseinheit extends BusinessObject{
 	}
 	
 //	public String toString(){
-//		return "\n" + "ID: " + ID + "\n" + "Straße: " + straße + "\n" + "Hausnummer: " + hausnummer
+//		return "\n" + "ID: " + ID + "\n" + "strasse: " + strasse + "\n" + "Hausnummer: " + hausnummer
 //				+ "\n" + "Postleitzahl: " + plz + "\n" + "Wohnort: " + ort + "\n" 
 //				+ "Diese Organisationseinheit gehört zu diesem Partnerprofil: " + Partnerprofil_ID;
 //	}

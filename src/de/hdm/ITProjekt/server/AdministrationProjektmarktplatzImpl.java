@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Vector;
 
 //import org.mortbay.log.Log;
@@ -27,6 +28,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
 	private OrganisationseinheitMapper orgMapper = null;
+	private PartnerprofilMapper partnerprofilMapper = null;
 	
 
 	
@@ -37,9 +39,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
 		this.tnMapper = TeilnahmeMapper.tnMapper();
-		this.orgMapper = OrganisationseinheitMapper.orgMapper();
+//		this.orgMapper = OrganisationseinheitMapper.orgMapper();
 		this.tMapper = TeamMapper.tMapper();
 		this.unMapper = UnternehmenMapper.unMapper();
+		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
 		
 	}
 	/*
@@ -209,8 +212,22 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.personMapper.findByKey(id);
 	}
 	@Override
-	public Person createPerson(Person p) {
-		// TODO Auto-generated method stub
+	public Person createPerson(String email, String vorname, String nachname, String anrede, String strasse,
+			int hausnr, int plz, String ort, int partnerprofilID, Integer teamID, Integer unternehmenID)
+			throws IllegalArgumentException {
+		Person p = new Person();
+		p.setID(0);
+		p.setEmail(email);
+		p.setVorname(vorname);
+		p.setName(nachname);
+		p.setAnrede(anrede);
+		p.setStrasse(strasse);
+		p.setHausnummer(hausnr);
+		p.setOrt(ort);
+		p.setPlz(plz);
+		p.setPartnerprofil_ID(partnerprofilID);
+		p.setTeam_ID(teamID);
+		p.setUN_ID(unternehmenID);
 		return this.personMapper.createPerson(p);
 	}
 //	@Override
@@ -232,10 +249,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return this.personMapper.createPerson(p);
 //	}
 	
+
 	@Override
 	public Vector<Person> getAllPerson() {
+
 		return this.personMapper.getAll();
-	}
+		}
 	@Override
 	public void savePerson(Person p) throws IllegalArgumentException {
 		this.personMapper.updatePerson(p);
@@ -341,11 +360,28 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	
 	
-	
-	
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
+	   * ***************************************************************************
+	   */
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Anfang: Methoden für Partnerprofil
+	   * ***************************************************************************
+	   */
+	@Override
+	public Partnerprofil createPartnerprofil() throws IllegalArgumentException {
+		Partnerprofil p = new Partnerprofil();
+		p.setID(1);
+		
+		return partnerprofilMapper.insert(p);
+	}
+	
+
+	/*
+	 * ***************************************************************************
+	   * ABSCHNITT, Ende: Methoden für Partnerprofil
 	   * ***************************************************************************
 	   */
 	

@@ -93,8 +93,7 @@ public Partnerprofil insert(Partnerprofil pp1){
 	    	  	
 	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre)" 
 	    				+ "VALUES (" + pp1.getID() 
-	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" 
-	    				+ ", " + "'" + format.format(pp1.getAenderungsdatum()) + "'" + ")"); 
+	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" + ")"); 
 	    	  
 	      }
 	}

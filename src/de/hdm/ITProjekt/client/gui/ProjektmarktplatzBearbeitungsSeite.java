@@ -42,9 +42,9 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
 	
 	Button bearbeitungsmodus_aktiv = new Button("Bearbeitungsansicht");
-	Button projektmarktplatz_anlegen = new Button("Hinzufügen");
-	Button projektmarktplatz_loeschen = new Button("Löschen");
-	Button projektmarktplatz_aendern = new Button("Ändern");
+	Button projektmarktplatz_anlegen = new Button("HinzufÃ¼gen");
+	Button projektmarktplatz_loeschen = new Button("LÃ¶schen");
+	Button projektmarktplatz_aendern = new Button("Ã„ndern");
 	
 	@Override
 	protected String getHeadlineText() {
@@ -78,7 +78,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 				// "selectionmodel" aussuchen single oder multi
 				ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
 				
-				// "Columns" befüllen
+				// "Columns" befï¿½llen
 				Column<Projektmarktplatz, String> linkColumn = 
 						    new Column<Projektmarktplatz, String>(new ClickableTextCell())  {
 						    

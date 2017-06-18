@@ -34,13 +34,13 @@ public class OrganisationseinheitMapper {
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, straße, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
+			ResultSet rs = stmt.executeQuery("SELECT ID, strasse, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
 				Organisationseinheit o = new Organisationseinheit();
 				o.setID(rs.getInt("ID"));
-				o.setStraße(rs.getString("straße"));
+				o.setStrasse(rs.getString("strasse"));
 				o.setHausnummer(rs.getInt("hausnummer"));
 				o.setPlz(rs.getInt("plz"));
 				o.setOrt(rs.getString("ort"));
@@ -65,14 +65,14 @@ public class OrganisationseinheitMapper {
 			
 			try{
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT ID, straße, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
+				ResultSet rs = stmt.executeQuery("SELECT ID, strasse, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
 						+ "WHERE Partnerprofil_ID=" + partnerprofilId);
 				
 				
 				if(rs.next()){
 					Organisationseinheit o = new Organisationseinheit();
 					o.setID(rs.getInt("ID"));
-					o.setStraße(rs.getString("straße"));
+					o.setStrasse(rs.getString("strasse"));
 					o.setHausnummer(rs.getInt("hausnummer"));
 					o.setPlz(rs.getInt("plz"));
 					o.setOrt(rs.getString("ort"));
@@ -113,7 +113,7 @@ public class OrganisationseinheitMapper {
 	        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 
 	        stmt.executeUpdate("INSERT INTO Organisationseinheit (ID, strasse, hausnummer, plz, ort, Partnerprofil_ID) "
-	            + "VALUES ('" + o.getID() + "','" + o.getStraße() + "','"
+	            + "VALUES ('" + o.getID() + "','" + o.getStrasse() + "','"
 	            + o.getHausnummer() + "','" + o.getPlz() + "','" + o.getOrt() + "', " + o.getPartnerprofil_ID() + ")");
 	      }
 
@@ -138,8 +138,8 @@ public class OrganisationseinheitMapper {
 		      Statement stmt = con.createStatement();
 
 
-		      stmt.executeUpdate("UPDATE Organisationseinheit SET straße='"
-			          + o.getStraße() + "'," + "hausnummer='" + o.getHausnummer() + "'," + "plz=" + o.getPlz() + ","
+		      stmt.executeUpdate("UPDATE Organisationseinheit SET strasse='"
+			          + o.getStrasse() + "'," + "hausnummer='" + o.getHausnummer() + "'," + "plz=" + o.getPlz() + ","
 			          + "ort='" + o.getOrt() + "' WHERE ID="+o.getID());
 
 		      

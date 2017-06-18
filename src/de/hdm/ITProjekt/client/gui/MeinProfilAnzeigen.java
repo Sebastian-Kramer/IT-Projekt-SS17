@@ -1,7 +1,5 @@
 package de.hdm.ITProjekt.client.gui;
 
-
-
 import java.util.Vector;
 
 import com.google.gwt.core.shared.GWT;
@@ -34,20 +32,10 @@ import de.hdm.ITProjekt.shared.bo.Person;
 
 public class MeinProfilAnzeigen extends Showcase{
 	
-	
 
-	
 	private IdentitySelection identitySelection = null;
 	private Menubar mb = null;
 
-	
-	public MeinProfilAnzeigen(){
-		
-	}
-	public MeinProfilAnzeigen(IdentitySelection identitySelection){
-		this.identitySelection = identitySelection;
-		user = (Person) identitySelection.getSelectedIdentityAsObject();
-	}
 	public MeinProfilAnzeigen(Person person){
 		this.user = person;
 	}
@@ -239,7 +227,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
 				 ClientsideSettings.getpmpVerwaltung().
-					getPersonbyID(identitySelection.getSelectedIdentityID(), new ProfilBearbeitenCallback());
+					getPersonbyID(user.getID(), new ProfilBearbeitenCallback());
 				
 			}
 		});
@@ -261,7 +249,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				result.setName(nnameBox.getText());
 				result.setOrt(ortBox.getText());
 				result.setPlz(Integer.parseInt(plzBox.getText()));
-				result.setStraße(strasseBox.getText());
+				result.setStrasse(strasseBox.getText());
 				result.setVorname(vnameBox.getText());
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 if (adminService == null) {
@@ -302,7 +290,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			vnameBox.setText(result.getVorname());
 			nnameBox.setText(result.getName());
 			anredeBox.setText(result.getAnrede());
-			strasseBox.setText(result.getStraße());
+			strasseBox.setText(result.getStrasse());
 			hausnrBox.setText(Integer.toString(result.getHausnummer()));
 			plzBox.setText(Integer.toString(result.getPlz()));
 			ortBox.setText(result.getOrt());

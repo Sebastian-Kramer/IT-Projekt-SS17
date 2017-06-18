@@ -7,6 +7,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
@@ -94,7 +95,13 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void savePerson(Person p, AsyncCallback<Void> callback);
 
-	void createPerson(Person p, AsyncCallback<Person> callback);
+	void createPerson(String email, String vorname, String nachname, String anrede, String strasse, int hausnr,
+			int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId,
+			AsyncCallback<Person> callback);
+
+	//Methoden für Partnerprofil
+	
+	void createPartnerprofil(AsyncCallback<Partnerprofil> callback);
 
 	
 

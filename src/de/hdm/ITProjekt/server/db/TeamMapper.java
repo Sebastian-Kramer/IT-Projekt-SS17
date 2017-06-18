@@ -34,7 +34,7 @@ public Team findByKey(int id){
 					t.setID(rs.getInt("ID"));
 					t.setName(rs.getString("name"));
 					t.setUN_ID(rs.getInt("UN_ID"));
-					t.setStraße(super.findByKey(id).getStraße());
+					t.setStrasse(super.findByKey(id).getStrasse());
 					t.setHausnummer(super.findByKey(id).getHausnummer());
 					t.setOrt(super.findByKey(id).getOrt());
 					t.setPlz(super.findByKey(id).getPlz());
