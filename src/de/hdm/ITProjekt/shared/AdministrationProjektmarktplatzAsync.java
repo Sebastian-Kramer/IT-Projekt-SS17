@@ -86,14 +86,15 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	// Methoden für Person
 	
-	void createPerson(String vorname, String nachname, String anrede, String strasse, int hausnr,
-			int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId,
-			AsyncCallback<Person> callback);
+//	void createPerson(String email, String vorname, String nachname, String anrede, String strasse, int hausnr, int plz,
+//			String ort, int partnerprofilId, Integer teamId, Integer unternehmenId, AsyncCallback<Person> callback);
 
 	void getAllPerson(AsyncCallback<Vector<Person>> callback);
 
 
 	void savePerson(Person p, AsyncCallback<Void> callback);
+
+	void createPerson(Person p, AsyncCallback<Person> callback);
 
 	
 

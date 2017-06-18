@@ -208,24 +208,29 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.personMapper.findByKey(id);
 	}
-	
 	@Override
-	public Person createPerson(String vorname, String nachname, String anrede, String strasse,
-			int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) {
-		Person p = new Person();
-		p.setID(0);
-		p.setVorname(vorname);
-		p.setName(nachname);
-		p.setAnrede(anrede);
-		p.setStraße(strasse);
-		p.setHausnummer(hausnr);
-		p.setPlz(plz);
-		p.setOrt(ort);
-		p.setPartnerprofil_ID(partnerprofilId);
-		p.setTeam_ID(teamId);
-		p.setUN_ID(unternehmenId);		
+	public Person createPerson(Person p) {
+		// TODO Auto-generated method stub
 		return this.personMapper.createPerson(p);
 	}
+//	@Override
+//	public Person createPerson(String email, String vorname, String nachname, String anrede, String strasse,
+//			int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) {
+//		Person p = new Person();
+//		p.setID(0);
+//		p.setEmail(email);
+//		p.setVorname(vorname);
+//		p.setName(nachname);
+//		p.setAnrede(anrede);
+//		p.setStraße(strasse);
+//		p.setHausnummer(hausnr);
+//		p.setPlz(plz);
+//		p.setOrt(ort);
+//		p.setPartnerprofil_ID(1);
+//		p.setTeam_ID(1);
+//		p.setUN_ID(1);		
+//		return this.personMapper.createPerson(p);
+//	}
 	
 	@Override
 	public Vector<Person> getAllPerson() {
@@ -334,7 +339,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewerbung insert(Bewerbung a) {
 		return this.bewMapper.insert(a);
 	}
-
+	
+	
 	
 	
 	/*

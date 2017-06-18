@@ -320,7 +320,8 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	 }
 });
 }
-	public class getAusschreibungAusDB implements AsyncCallback<Vector<Ausschreibung>>{@Override
+	public class getAusschreibungAusDB implements AsyncCallback<Vector<Ausschreibung>>{
+	@Override
 	public void onFailure(Throwable caught) {
 
 		Window.alert("Fehler");

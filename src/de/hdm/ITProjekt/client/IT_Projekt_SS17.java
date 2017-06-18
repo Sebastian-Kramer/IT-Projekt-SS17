@@ -10,25 +10,30 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
-import de.hdm.ITProjekt.client.gui.RegistrierungsForm;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.LoginService;
 import de.hdm.ITProjekt.shared.LoginServiceAsync;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
@@ -62,29 +67,77 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		  
 		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
 			  public void onFailure(Throwable Error) {
-				  Window.alert("Fehler Login");
+				  Window.alert("Fehler Login" + Error.toString());
 				  
 			  }
-			  public void onSuccess(LogInInfo result){
-				  loginInfo = result;
-				  
-				  if(loginInfo.isLoggedIn()){
-					
-					  bereitsEingeloggt();
-					  
-				  } else {
-					  nichtEingeloggt();
-					  
+			  @Override
+				public void onSuccess(LogInInfo result) {
+					loginInfo = result;
+					if(loginInfo.isLoggedIn()){
+						
+						/**
+						 * @return Vector mit allen Personen
+						 */ 
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+						      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+						    }
+						adminService.getAllPerson(new AsyncCallback<Vector<Person>>() {
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Login fehlgeschlagen!");
+							}
+
+							@Override
+							public void onSuccess(Vector<Person> result) {
+								boolean isUserRegistered = false;
+								for (Person person : result) {
+									/**
+									 * Überprüfung ob User bereits registriert ist
+									 */
+									if(person.getEmail()==loginInfo.getEmailAddress()){
+										isUserRegistered = true;
+										/**
+										 * Falls User registriert ist wird der Projektmarktplatz geladen
+										 * @param id des jeweiligen Person-Objekts
+										 */
+										load(person);
+										break;
+									}
+								}
+								if(isUserRegistered==false){
+									RootPanel.get("Details").clear();
+									/**
+									 * Falls User noch nicht registriert ist wird der User zu RegistrierenForm weitergeleitetj
+									 */
+									RootPanel.get("Details").add(new RegistrierungsForm());							
+								}
+							}
+						});
+						
+					} else{ 
+						nichtEingeloggt();
 				  }
 			  }
 			  });
 	  }
 		  
-		  
-		 private void loadLogin(){
-			  
-		  }
-		 
+	  		public void load(Person person){
+	  			
+	  			signOutLink.setHref(loginInfo.getLogoutUrl());
+		  		Showcase showcase = new Homeseite();
+		  		Menubar mb = new Menubar(person);
+				  signOutLink.setHref(loginInfo.getLogoutUrl());//
+				  mainPanel.add(addPanel);
+				  mainPanel.add(showcase);
+				  RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+				  RootPanel.get("login").add(signOutLink);
+				  RootPanel.get("Details").add(mainPanel);
+				  RootPanel.get("Navigator").add(new Menubar(person));
+				  RootPanel.get("Header").add(mb.getIdSelection());
+	  			
+	  		}
 		 private void nichtEingeloggt(){
 			 signInLink.setHref(loginInfo.getLoginUrl());
 			  loginPanel.add(loginLabel);
@@ -92,136 +145,146 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			  RootPanel.get("login").add(loginPanel);  
 			 
 		 }
-		 private void bereitsEingeloggt(){
-			 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-			 if (adminService == null) {
-		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-		    }
-	
-			  adminService.getPersonbyID(1, new getPersonFurMenubar());
+//		 private void bereitsEingeloggt(){
+//			 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//			 if (adminService == null) {
+//		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//		    }
+//	
+//			  adminService.getPersonbyID(1, new getPersonFurMenubar());
 		
-	 }
+	 
 
 //		 
-		 private class getPersonFurMenubar implements AsyncCallback<Person>{
+//		 private class getPersonFurMenubar implements AsyncCallback<Person>{
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Fehler beim Laden der Daten");
+//			}
+//
+//			@Override
+//			public void onSuccess(Person result) {
+//				  Showcase showcase = new Homeseite();
+//				  Menubar mb = new Menubar(result);
+//				  signOutLink.setHref(loginInfo.getLogoutUrl());//
+//				  mainPanel.add(addPanel);
+//				  mainPanel.add(showcase);
+//				  RootPanel.get("idendity").add(new IdentitySelection(result, mb));
+//				  RootPanel.get("login").add(signOutLink);
+//				  RootPanel.get("Details").add(mainPanel);
+//				  RootPanel.get("Navigator").add(new Menubar(result));
+//				  RootPanel.get("Header").add(mb.getIdSelection());
+//			}
+//			 
+//		 }
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Fehler beim Laden der Daten");
-			}
+		  private class RegistrierungsForm extends Showcase{
 
-			@Override
-			public void onSuccess(Person result) {
-				  Showcase showcase = new Homeseite();
-				  Menubar mb = new Menubar(result);
-				  signOutLink.setHref(loginInfo.getLogoutUrl());//
-				  mainPanel.add(addPanel);
-				  mainPanel.add(showcase);
-				  RootPanel.get("idendity").add(new IdentitySelection(result, mb));
-				  RootPanel.get("login").add(signOutLink);
-				  RootPanel.get("Details").add(mainPanel);
-				  RootPanel.get("Navigator").add(new Menubar(result));
-				  RootPanel.get("Header").add(mb.getIdSelection());
-			}
-			 
-		 }
+			
+				private AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+				
+				private VerticalPanel vpanel_registrierung = new VerticalPanel();
+				private HorizontalPanel hpanel_registrierung = new HorizontalPanel();
+				
+				private FlexTable form = new FlexTable();
+				
+				private Button abbrechen = new Button("Abbrechen");
+				private Button bestaetigen = new Button("Bestätigen");
+				
+				private ListBox anredeListbox = new ListBox();
+				private ListBox unternehmenListbox = new ListBox();
+				private ListBox teamListbox = new ListBox();
+				
+				private Label anrede = new Label("Anrede");
+				private Label vorname = new Label("Vorname");
+				private Label nachname = new Label("Nachname");
+				private Label strasse = new Label("Straße");
+				private Label hausnr = new Label("Hausnummer");
+				private Label plz = new Label("Postleitzahl");
+				private Label ort = new Label("Ort");
+				private Label emailLabel = new Label("Google-Mail");
+				
+				private TextBox vnameBox = new TextBox();
+				private TextBox nnameBox = new TextBox();
+				private TextBox strasseBox = new TextBox();
+				private TextBox hausnrBox = new TextBox();
+				private TextBox plzBox = new TextBox();
+				private TextBox ortBox = new TextBox();
+				private TextBox emailBox = new TextBox();
 
-		  private class getAllPerson implements AsyncCallback <Vector<Person>>{
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Fehler beim Laden der Person aus der Datenbank");
-			}
-
-			@Override
-			public void onSuccess(Vector<Person> result) {
-				for (int i = 0 ; i<= result.size(); i++){
-				if(loginInfo.getEmailAddress() == result.elementAt(i).getEmail()){
-					Window.alert("AHSDHASDHUAD");
-//					bereitsEingeloggt();
-						}
-				else{
-					Showcase showcase = new RegistrierungsForm();
-					RootPanel.get("Details").add(showcase);
-					
+				
+				private Partnerprofil partnerprofil = new Partnerprofil();
+				private Team team = new Team();
+				private Unternehmen unternehmen = new Unternehmen();
+				private Person person = new Person();
+				
+				@Override
+				protected String getHeadlineText() {
+					// TODO Auto-generated method stub
+					return "<h1> Registrierung</h1>";
 				}
-					}
-				}  
-		  	}
 
+				@Override
+				protected void run() {
+					emailBox.setText(loginInfo.getEmailAddress());
+					emailBox.setReadOnly(true);
+					anredeListbox.addItem("Herr");
+					anredeListbox.addItem("Frau");
+					
+					form.setWidget(0, 1, emailBox);
+					form.setWidget(0, 0, emailLabel);
+					
+					form.setWidget(1,  1, anredeListbox);
+					form.setWidget(1, 0, anrede);
+					
+					form.setWidget(2,  1, vnameBox);
+					form.setWidget(2, 0, vorname);
+					
+					form.setWidget(3,  1, nnameBox);
+					form.setWidget(3, 0, nachname);
+					
+					form.setWidget(4,  1, strasseBox);
+					form.setWidget(4, 0, strasse);
+					
+					form.setWidget(5,  1, hausnrBox);
+					form.setWidget(5, 0, hausnr);
+					
+					form.setWidget(6,  1, plzBox);
+					form.setWidget(6, 0, plz);
+					
+					form.setWidget(7,  1, ortBox);
+					form.setWidget(7, 0, ort);
+					
+					form.setWidget(8, 0, abbrechen);
+					form.setWidget(8, 1, bestaetigen);
+					
+					vpanel_registrierung.add(form);
+					this.add(vpanel_registrierung);
+					
+				
+					bestaetigen.addClickHandler(new ClickHandler() {
 
-		  
-//		    /*
-//		     * Wir bereiten nun die Erstellung eines bescheidenen Navigators vor, der
-//		     * einige Schaltfl�chen (Buttons) f�r die Ausf�hrung von Unterprogrammen
-//		     * enthalten soll.
-//		     * 
-//		     * Die jeweils ausgef�hrten Unterprogramme sind Demonstratoren
-//		     * exemplarischer Anwendungsf�lle des Systems. Auf eine professionelle
-//		     * Gestaltung der Benutzungsschnittstelle wurde bewusst verzichtet, um den
-//		     * Blick nicht von den wesentlichen Funktionen abzulenken. Eine
-//		     * exemplarische GUI-Realisierung findet sich separat.
-//		     * 
-//		     * Die Demonstratoren werden nachfolgend als Showcase bezeichnet. Aus diesem
-//		     * Grund existiert auch eine Basisklasse f�r s�mtliche Showcase-Klassen
-//		     * namens Showcase.
-//		     */
-//
-//		    /*
-//		     * Der Navigator ist als einspaltige Aneinanderreihung von Buttons
-//		     * realisiert. Daher bietet sich ein VerticalPanel als Container an.
-//		     */
-//		    VerticalPanel navPanel = new VerticalPanel();
-//
-//		    /*
-//		     * Das VerticalPanel wird einem DIV-Element namens "Navigator" in der
-//		     * zugeh�rigen HTML-Datei zugewiesen und erh�lt so seinen Darstellungsort.
-//		     */
-//		    RootPanel.get("Navigator").add(navPanel);
-//
-//		    /*
-//		     * Ab hier bauen wir sukzessive den Navigator mit seinen Buttons aus.
-//		     */
-//
-//		    /*
-//		     * Neues Button Widget erzeugen und eine Beschriftung festlegen.
-//		     */
-//		    final Button goToProjektmarktplatz = new Button("Projektmarktplatz");
-//
-//		    /*
-//		     * Unter welchem Namen k�nnen wir den Button durch die CSS-Datei des
-//		     * Projekts formatieren?
-//		     */
-//		     goToProjektmarktplatz.setStylePrimaryName("gotoprojektmarktplatz-menubutton");
-//
-//		    /*
-//		     * Hinzuf�gen des Buttons zum VerticalPanel.
-//		     */
-//		    navPanel.add(goToProjektmarktplatz);
-//		    
-//		    goToProjektmarktplatz.addClickHandler(new ClickHandler() {
-//
-//				@Override
-//				public void onClick(ClickEvent event) {
-//					/*
-//			         * Showcase instantiieren.
-//			         */
-//			        Showcase showcase = new ProjektmarktplatzSeite();
-//
-//			        /*
-//			         * F�r die Ausgaben haben wir ein separates DIV-Element namens "Details"
-//			         * in die zugeh�rige HTML-Datei eingef�gt. Bevor wir den neuen Showcase
-//			         * dort einbetten, l�schen wir vorsichtshalber s�mtliche bisherigen
-//			         * Elemente dieses DIV.
-//			         */
-//			        
-//			        RootPanel.get("Details").clear();
-//			        RootPanel.get("Details").add(showcase);
-//				}
-//			      
-//		    });
-//		    
-//}
-	  }
+						@Override
+						public void onClick(ClickEvent event) {
+							// TODO Auto-generated method stub
+							
+						}
+						
+					
+					});
+				}
+		  }
+}
+
+			
+			
+		
+		
+					
+					
+				
+				
+					
 
 
