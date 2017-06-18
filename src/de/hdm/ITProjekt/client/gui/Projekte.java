@@ -19,6 +19,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.ClientsideSettings;
@@ -44,7 +46,7 @@ public class Projekte extends Showcase {
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 	
-	
+	private Projekt projekt;
 
 	 
 	public Projekte(){
@@ -87,6 +89,19 @@ public class Projekte extends Showcase {
 				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz);
 				dialogbox.center();
 			}
+		});
+		
+		ssm_projekt.addSelectionChangeHandler(new Handler(){
+
+			@Override
+			public void onSelectionChange(SelectionChangeEvent event) {
+				projekt = ssm_projekt.getSelectedObject();
+				Showcase showcase = new Projektseite(projekt);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				
+			}
+			
 		});
 		
 		Column<Projekt, String> projektname = 

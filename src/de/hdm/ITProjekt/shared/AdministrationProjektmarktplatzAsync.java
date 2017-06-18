@@ -103,6 +103,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	
 	void createPartnerprofil(AsyncCallback<Partnerprofil> callback);
 
+	void findByProjekt(Projekt projekt, AsyncCallback<Vector<Ausschreibung>> callback);
+
+	
+
 	
 
 	

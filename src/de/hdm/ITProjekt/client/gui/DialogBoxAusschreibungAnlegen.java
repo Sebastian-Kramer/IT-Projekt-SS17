@@ -108,6 +108,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
+					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
 					
 				}
 			}

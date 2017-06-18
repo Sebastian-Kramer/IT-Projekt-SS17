@@ -20,6 +20,8 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
@@ -29,6 +31,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class Projektseite extends Showcase{
@@ -44,7 +47,11 @@ public class Projektseite extends Showcase{
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	
+	private Projekt selectedProjekt;
 	
+	public Projektseite(Projekt selectedObject){
+		this.selectedProjekt = selectedObject;
+	}
 	
 	
 	@Override
@@ -59,9 +66,26 @@ public class Projektseite extends Showcase{
 		ct_projektausschreibungen.setWidth("100%");
 		
 		vp_projekt.add(ct_projektausschreibungen);
-		
 		this.add(hp_projekt);
+		this.add(vp_projekt);
 		hp_projekt.add(createStelle);
+		
+		
+			createStelle.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen();
+					int left = Window.getClientWidth() / 3;
+					int top = Window.getClientHeight() / 3;
+					dialogBox.center();
+					
+					
+				}
+				
+			});
+			
+		
 		
 		Column<Ausschreibung, String> bezeichnung =
 					new Column<Ausschreibung, String>(new ClickableTextCell()){
@@ -88,7 +112,10 @@ public class Projektseite extends Showcase{
 	ct_projektausschreibungen.addColumn(bezeichnung, "Stellenbezeichnung");
 	ct_projektausschreibungen.addColumn(ablauffrist, "Ablauffrist");
 	
+	filltableauschreibungen();
+	
 	}
+
 	
 	private void filltableauschreibungen(){
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -105,6 +132,7 @@ public class Projektseite extends Showcase{
 
 			@Override
 			public void onSuccess(Vector<Ausschreibung> result) {
+				
 				if(result != null){
 					ct_projektausschreibungen.setRowData(0, result);
 					ct_projektausschreibungen.setRowCount(result.size(), true);
@@ -116,6 +144,7 @@ public class Projektseite extends Showcase{
 			}
 			
 		};
+		adminService.findByProjekt(selectedProjekt, callback);
 	}
 
 }

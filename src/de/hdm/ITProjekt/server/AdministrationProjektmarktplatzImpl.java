@@ -304,6 +304,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.aMapper.update(c);
 	}
 	
+	@Override
+	public Vector<Ausschreibung> findByProjekt(Projekt projekt) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.aMapper.findByProjekt(projekt);
+	}
+	
+	
 	
 	/*
 	   * ***************************************************************************
@@ -377,6 +384,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return partnerprofilMapper.insert(p);
 	}
+	
 	
 
 	/*

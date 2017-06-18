@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Person;
 
 public class BewerbungMapper {
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -144,5 +145,39 @@ public class BewerbungMapper {
 
 	    return c;
 	  }
+	
+	public Vector<Bewerbung> findByPerson (int Orga_ID){
+		Connection con = DBConnection.connection();
+		Vector<Bewerbung> result = new Vector<Bewerbung>();
+		
+		try {
+		      Statement stmt = con.createStatement();
+		      
+		      ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, Ausschreibungs_ID, Orga_ID FROM bewerbung WHERE Orga_ID = " + Orga_ID);
+		      
+		      while(rs.next()){
+		    	  Bewerbung b = new Bewerbung();
+		    	  b.setID(rs.getInt("ID"));
+		    	  b.setBewerbungstext(rs.getString("bewerbungstext"));
+		    	  b.setErstelldatum(rs.getDate("erstelldatum"));
+		    	  b.setAusschreibungs_ID(rs.getInt("Ausschreibungs_ID"));
+		    	  b.setOrga_ID(rs.getInt("Orga_ID"));
+		    	  
+		    	  result.addElement(b);
+		    	  
+		      }
+		}
+		catch (SQLException e2) {
+		      e2.printStackTrace();
+		}
+		return result;
+	}
+	
+	public Vector<Bewerbung> findByPerson(Person person){
+		
+		return findByPerson(person.getID());
+		
+		
+	}
 	
 }

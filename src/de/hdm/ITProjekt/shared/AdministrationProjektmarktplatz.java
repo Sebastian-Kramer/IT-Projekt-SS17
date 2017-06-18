@@ -71,6 +71,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void deleteAusschreibung(Ausschreibung a)throws IllegalArgumentException;
 	
 	public Ausschreibung update(Ausschreibung c) throws IllegalArgumentException;
+	
+	public Vector<Ausschreibung> findByProjekt(Projekt projekt) throws IllegalArgumentException;
 
 	
 /*
