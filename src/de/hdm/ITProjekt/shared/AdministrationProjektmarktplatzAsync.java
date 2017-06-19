@@ -1,5 +1,6 @@
 package de.hdm.ITProjekt.shared;
 
+import java.sql.Date;
 import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -46,7 +47,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
 
-	
+	void createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID,
+				 AsyncCallback<Projekt> callback);
 
 	void getTeamByID(int id, AsyncCallback<Team> callback);
 

@@ -1,4 +1,5 @@
 package de.hdm.ITProjekt.shared;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -84,6 +85,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
+	Projekt createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID);
 	
 	/*
 	 * Methoden von Bewerbung
@@ -111,6 +113,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	
 	public Partnerprofil createPartnerprofil() throws IllegalArgumentException;
+
+	
 	
 	
 

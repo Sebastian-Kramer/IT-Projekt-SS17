@@ -121,34 +121,33 @@ public class ProjektMapper {
 		  return result;
 	}
 	
-	public Projekt addProjekt(Projekt pmp){
+	public Projekt addProjekt(Projekt p){
 		
 		Connection con = DBConnection.connection();
 		
 		try {
 		      Statement stmt = con.createStatement();
 		      
-		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM Projekt ");
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid FROM Projekt");
 		     	
 		      if(rs.next()){
 		    	  
-		    	  	pmp.setID(rs.getInt("maxid") + 1);
+		    	  	p.setID(rs.getInt("maxid") + 1);
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
 		    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID, Projektleiter_ID)" 
-		    		+ "VALUES (" + pmp.getID() + "," + "'" + pmp.getName() + "'" + "," + "'" + pmp.getBeschreibung() 
-		    		+ "'" + "," + "'" + format.format(pmp.getStartdatum()) + "'" 
-    				+ "," + "'" + format.format(pmp.getEnddatum()) + "'" 
-    				+ ", " + pmp.getProjektmarktplatz_ID() + pmp.getProjektleiter_ID() + ")"); 
+		    		+ "VALUES (" + p.getID() + "," + "'" + p.getName() + "'" + "," + "'" + p.getBeschreibung() 
+		    		+ "'" + "," + "'" + format.format(p.getStartdatum()) + "'" 
+    				+ "," + "'" + format.format(p.getEnddatum()) + "'" 
+    				+ ", " + p.getProjektmarktplatz_ID() + ", " + p.getProjektleiter_ID() + ")"); 
 		    	  
 		      }
 		}
 		catch(SQLException e2){
 			e2.printStackTrace();
 		}
-		return pmp;
+		return p;
 		
 	}
 	

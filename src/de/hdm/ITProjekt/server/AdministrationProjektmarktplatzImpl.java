@@ -194,6 +194,22 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pMapper.addProjekt(pmp);
 		
 	}
+	@Override
+	public Projekt createProjekt(Date date, Date date2, String name, String beschreibung, int person_ID) {
+
+
+		Projekt p = new Projekt();
+		p.setStartdatum(date);
+		p.setEnddatum(date2);
+		p.setBeschreibung(beschreibung);
+		p.setName(name);
+		p.setProjektleiter_ID(person_ID);
+		p.setProjektmarktplatz_ID(1);
+
+
+		
+		return this.pMapper.addProjekt(p);
+	}
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Projekt-Objekte
@@ -383,7 +399,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		p.setID(1);
 		
 		return partnerprofilMapper.insert(p);
-	}
+
+		}
+
+	
 	
 	
 
@@ -412,4 +431,5 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	
 	
-}
+	
+	}

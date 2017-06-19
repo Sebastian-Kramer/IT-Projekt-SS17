@@ -13,7 +13,7 @@ public class Projekt extends BusinessObject {
 	private Date startdatum;
 	private Date enddatum;
 	private int Projektmarktplatz_ID = 0;
-	private int Projektleiter_ID = 0;
+	private int Projektleiter_ID = 1;
 	
 	
 	public int getID() {

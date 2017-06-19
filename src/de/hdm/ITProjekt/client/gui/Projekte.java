@@ -115,6 +115,16 @@ public class Projekte extends Showcase {
 						}
 				    };
 				    
+		Column<Projekt, String> beschreibung = 
+					new Column<Projekt, String>(new ClickableTextCell())  {
+											    
+						  	@Override
+							public String getValue(Projekt object) {					
+							
+						  		return object.getBeschreibung();
+							}
+					};	
+				    
 				    
 		 Column<Projekt, String> startdatum = 
 				    new Column<Projekt, String>(new ClickableTextCell())  {
@@ -137,14 +147,7 @@ public class Projekte extends Showcase {
 			  			return object.getEnddatum().toString();
 			  			}
 		  			};			 
-		  Column<Projekt, String> beschreibung = 
-				  new Column<Projekt, String>(new ClickableTextCell())  {
-								    
-			  			@Override
-						public String getValue(Projekt object) {					
-						return object.getBeschreibung();
-						}
-				    };	
+
 		ct_alleProjekte.addColumn(projektname, "Projektname");		    
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	

@@ -24,6 +24,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 import com.google.gwt.view.client.SelectionChangeEvent;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -32,6 +33,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
@@ -39,6 +41,7 @@ public class DialogBoxProjekte extends DialogBox {
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
+	private IdentitySelection identitySelection = null;
 	
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
@@ -59,6 +62,10 @@ public class DialogBoxProjekte extends DialogBox {
 	
 	Label label_enddatum = new Label("Enddatum");
 	
+	DateBox startdatum = new DateBox();
+	
+	DateBox enddatum = new DateBox();
+	
 	
 	private Projekt projekt_dialogbox = new Projekt();
 	FlexTable projektseite = new FlexTable();
@@ -70,6 +77,7 @@ public class DialogBoxProjekte extends DialogBox {
 		this.p1 = selectedobjectinprojekt;
 		
 		Label label_objekt = new Label(selectedobjectinprojekt.getBez());
+		
 		
 		this.setText("Projekt anlegen");
 		this.setAnimationEnabled(false);
@@ -83,10 +91,10 @@ public class DialogBoxProjekte extends DialogBox {
 		hpanel.add(abbrechen);
 		
 		// Create a date picker
-		final DatePicker datepicker_startdatum = new DatePicker();
+		DatePicker datepicker_startdatum = new DatePicker();
 		
 		
-	    final DatePicker datepicker_enddatum = new DatePicker();
+	    DatePicker datepicker_enddatum = new DatePicker();
 	    //   final Label text = new Label();
 	 // Set the value in the text box when the user selects a date
 	    datepicker_startdatum.addValueChangeHandler(new ValueChangeHandler<Date>() {
@@ -121,17 +129,13 @@ public class DialogBoxProjekte extends DialogBox {
 			}
 		});
 	    
-	    
+	    // Anlegen der Funktion für den ClickHandel des Buttons "OK"
 	     
 	    ok.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				projekt_dialogbox.setName(bezeichnung.getText());
-			    projekt_dialogbox.setBeschreibung(beschreibung.getText());
-			    projekt_dialogbox.setStartdatum(datepicker_startdatum.getValue());
-			    projekt_dialogbox.setEnddatum(datepicker_enddatum.getValue());
-			    projekt_dialogbox.setProjektmarktplatz_ID(selectedobjectinprojekt.getID());
+				
 			   
 				if (bezeichnung.getText().isEmpty()){
 					Window.alert("Bitte geben Sie ein Projektenamen an");
@@ -143,7 +147,7 @@ public class DialogBoxProjekte extends DialogBox {
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
-				    adminService.addProjekt(projekt_dialogbox, new addProjekteinDB());
+					adminService.createProjekt(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), 1, new addProjekteinDB());
 				    
 					}
 				
@@ -154,19 +158,24 @@ public class DialogBoxProjekte extends DialogBox {
 	    
 //	    RootPanel.get().add(text);
 //	    RootPanel.get().add(datePicker);
-	projektseite.setWidget(1, 0, projektbezeichnung);
-	projektseite.setWidget(1, 1, bezeichnung);
-	projektseite.setWidget(2, 0, projektbeschreibung);
-	projektseite.setWidget(2, 1, beschreibung);
-	projektseite.setWidget(3, 0, label_startdatum);
-	projektseite.setWidget(3, 1, datepicker_startdatum);
-	projektseite.setWidget(4, 0, label_enddatum);
-	projektseite.setWidget(4, 1, datepicker_enddatum);
-	projektseite.setWidget(5, 0, pmp);
-	projektseite.setWidget(5, 1, label_objekt);
-	vpanel.add(projektseite);
-	vpanel.add(hpanel);
-	this.add(vpanel);
+	    
+	    DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");
+		startdatum.setFormat(new DateBox.DefaultFormat(dateformat));
+		enddatum.setFormat(new DateBox.DefaultFormat(dateformat));
+	
+		projektseite.setWidget(1, 0, projektbezeichnung);
+		projektseite.setWidget(1, 1, bezeichnung);
+		projektseite.setWidget(2, 0, projektbeschreibung);
+		projektseite.setWidget(2, 1, beschreibung);
+		projektseite.setWidget(3, 0, label_startdatum);
+		projektseite.setWidget(3, 1, startdatum);
+		projektseite.setWidget(4, 0, label_enddatum);
+		projektseite.setWidget(4, 1, enddatum);
+		projektseite.setWidget(5, 0, pmp);
+		projektseite.setWidget(5, 1, label_objekt);
+		vpanel.add(projektseite);
+		vpanel.add(hpanel);
+		this.add(vpanel);
 	
 	}	
 	
@@ -185,5 +194,29 @@ public class DialogBoxProjekte extends DialogBox {
         	RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 		}
-	}	
+	}
+	
+	private class GetPersonCallback implements AsyncCallback<Person>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Person wurde nicht gefunden");
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			if (result != null){
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 
+				if (adminService == null) {
+				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+				 }
+				 adminService.createProjekt(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
+				 //(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
+			}
+			
+		}
+		
+	} 
 }
