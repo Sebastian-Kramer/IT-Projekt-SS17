@@ -137,11 +137,11 @@ public class ProjektMapper {
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID)" 
+		    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID, Projektleiter_ID)" 
 		    		+ "VALUES (" + pmp.getID() + "," + "'" + pmp.getName() + "'" + "," + "'" + pmp.getBeschreibung() 
 		    		+ "'" + "," + "'" + format.format(pmp.getStartdatum()) + "'" 
     				+ "," + "'" + format.format(pmp.getEnddatum()) + "'" 
-    				+ ", " + pmp.getProjektmarktplatz_ID() + ")"); 
+    				+ ", " + pmp.getProjektmarktplatz_ID() + pmp.getProjektleiter_ID() + ")"); 
 		    	  
 		      }
 		}

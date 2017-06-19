@@ -13,6 +13,7 @@ public class Projekt extends BusinessObject {
 	private Date startdatum;
 	private Date enddatum;
 	private int Projektmarktplatz_ID = 0;
+	private int Projektleiter_ID = 0;
 	
 	
 	public int getID() {
@@ -63,16 +64,19 @@ public class Projekt extends BusinessObject {
 		Projektmarktplatz_ID = projektmarktplatz_ID;
 	}
 
+	public int getProjektleiter_ID() {
+		return Projektleiter_ID;
+	}
+
+	public void setProjektleiter_ID(int projektleiter_ID) {
+		Projektleiter_ID = projektleiter_ID;
+	}
+
 	public String toString(){
 		return "\n" + "ID: " + ID + "\n" + "Projektname: " + name + "\n" + "Beschreibung: " 
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
 
-	
-	      
-	    
-	    
-	  
 
 	public boolean equals(Object o) {
 
