@@ -44,6 +44,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllProjekte(AsyncCallback<Vector<Projekt>> callback);
 
+	void getAllProjekteByTeilnahme(Person p, AsyncCallback<Vector<Projekt>> callback);
+
 	void findByProjektmarktplatz(Projektmarktplatz projektmarktplatz, AsyncCallback<Vector<Projekt>> callback);
 
 	
@@ -105,6 +107,9 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findByProjekt(Projekt projekt, AsyncCallback<Vector<Ausschreibung>> callback);
 
+	void deleteTeilnahme(Person p, int projektmarktplatzid, AsyncCallback<Void> callback);
+
+	
 	
 
 	

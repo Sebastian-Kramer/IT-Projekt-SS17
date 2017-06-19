@@ -13,6 +13,7 @@ import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
 import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
+import de.hdm.ITProjekt.client.gui.MeineProjekteAnzeigen;
 import de.hdm.ITProjekt.client.gui.Projekte;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
@@ -141,11 +142,11 @@ public class Menubar extends StackPanel {
 		meineProjekteButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-//				Showcase showcase = new Projekte();
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(showcase);
-//				currentClickHandler=this;
-//				currentClickEvent=event;
+				Showcase showcase = new MeineProjekteAnzeigen(person);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
 				
 			}
 		});

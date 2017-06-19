@@ -45,7 +45,7 @@ public class TeilnahmeMapper {
 		return;
 	} 
 	
-	public void entfernenTeilnahme(Person p, Projektmarktplatz pm){
+	public void entfernenTeilnahme(Person p, int projektmarktplatzid){
 		
 		Connection con = DBConnection.connection();
 		
@@ -53,9 +53,7 @@ public class TeilnahmeMapper {
 			Statement stmt = con.createStatement();
 			
 			stmt = con.createStatement();
-    	  	
-    		stmt.executeUpdate("DELETE FROM 'Teilnahme' WHERE 'Teilname'.'Person_ID' = "+p.getID() 
-    							+ "AND 'Teilname'.'Porjektmarktplatz_ID' = " +p.getID());
+			stmt.executeUpdate("DELETE FROM `Teilnahme` WHERE `Person_ID` = " + p.getID() + " AND `Projektmarktplatz_ID` = " +projektmarktplatzid);
 		}
 	    catch (SQLException e) {
 	      e.printStackTrace();
@@ -124,7 +122,39 @@ public class TeilnahmeMapper {
 	        }
 	        return p;
 }
-	
+	  public Vector<Projekt> findTeilnahmeProjekte(Person pm){
+	        
+	         Connection con = DBConnection.connection();
+	        
+	         Vector <Projekt> p = new Vector<>();
+
+	        try {
+	        
+	          Statement stmt = con.createStatement();
+
+	          
+	          ResultSet rs = stmt.executeQuery("SELECT * FROM `Teilnahme` WHERE Person_ID="+pm.getID());
+	          
+	          Integer personID = 0;
+	          Integer projektID = 0;
+	          
+	          while(rs.next()){
+	        	  personID = rs.getInt("Person_ID");
+	        	  projektID = rs.getInt("Projekt_ID");
+	          }
+	          
+	          for (int i= 0; i<=p.size();i++) {
+				p.add(ProjektMapper.pMapper().findByKey(personID));
+			}
+	          
+	          
+	         
+	        }
+	        catch (SQLException e) {
+	          e.printStackTrace();
+	        }
+	        return p;
+}
 	
 
 }
