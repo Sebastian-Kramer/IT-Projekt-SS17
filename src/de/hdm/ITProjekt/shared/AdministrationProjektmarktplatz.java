@@ -67,7 +67,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Ausschreibung> getAll()throws IllegalArgumentException;
 	
 	
-	public Ausschreibung addAusschreibung(Ausschreibung a)throws IllegalArgumentException;
+	public Ausschreibung addAusschreibung(String text, String bezeichnung, java.util.Date date);
 	
 	public void deleteAusschreibung(Ausschreibung a)throws IllegalArgumentException;
 	

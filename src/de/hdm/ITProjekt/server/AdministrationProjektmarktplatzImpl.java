@@ -305,11 +305,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.aMapper.getAll();
 	}
+	
 	@Override
-	public Ausschreibung addAusschreibung(Ausschreibung a) {
-		// TODO Auto-generated method stub
-		return this.aMapper.addAusschreibung(a);
+	public Ausschreibung addAusschreibung(String text, String bezeichnung, Date date) {
+		Ausschreibung aus = new Ausschreibung();
+		aus.setAusschreibungstext(text);
+		aus.setBezeichnung(bezeichnung);
+		aus.setDatum(date);
+		aus.setProjekt_ID(1);
+		aus.setOrga_ID(1);
+		
+		return this.aMapper.addAusschreibung(aus);
 	}
+
+
 	@Override
 	public void deleteAusschreibung(Ausschreibung a) {
 
@@ -401,6 +410,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return partnerprofilMapper.insert(p);
 
 		}
+
+
 
 	
 	

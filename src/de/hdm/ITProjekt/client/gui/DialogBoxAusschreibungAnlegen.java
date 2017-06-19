@@ -18,6 +18,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
@@ -40,9 +41,15 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private TextArea ausschreibungstext = new TextArea();
 	private TextArea ausschreibungsbez = new TextArea();
 	
+	private Label ablauffristLabel = new Label("Abblauffrist");
+	
+	private DateBox ablaufDatum = new DateBox();
+	
 	private FlexTable ausschreibungstextft = new FlexTable();
 	
 	private Ausschreibung ausschreibung_dialog = new Ausschreibung();
+	
+
 	
 	public DialogBoxAusschreibungAnlegen (){
 		setText("Ausschreibung anlegen");
@@ -51,12 +58,14 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		
 		hp.add(createAusschreibung);
 		hp.add(cancel);
-		ausschreibungsbez.setCharacterWidth(80);
+		ausschreibungsbez.setCharacterWidth(40);
 		ausschreibungsbez.setVisibleLines(1);
-		ausschreibungstext.setCharacterWidth(80);
+		ausschreibungstext.setCharacterWidth(40);
 		ausschreibungstext.setVisibleLines(30);
 		ausschreibungstextft.setWidget(1, 0, ausschreibungsbez);
-		ausschreibungstextft.setWidget(2,0, ausschreibungstext);
+		ausschreibungstextft.setWidget(2, 0, ausschreibungstext);
+		ausschreibungstextft.setWidget(3, 0, ablauffristLabel);
+		ausschreibungstextft.setWidget(3, 1, ablaufDatum);
 		vp.add(ausschreibungstextft);
 		vp.add(hp);
 		this.add(vp);
@@ -91,9 +100,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
-				ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
-				ausschreibung_dialog.setDatum(datepicker_datum.getValue());
+//				ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
+//				ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
+//				ausschreibung_dialog.setDatum(datepicker_datum.getValue());
 				
 				if(ausschreibungsbez.getText().isEmpty()){
 					Window.alert("Bitte eine Stellenbezeichnung hinzufügen");
@@ -108,15 +117,20 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
-					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
+					adminService.addAusschreibung(ausschreibungstext.getText(), ausschreibungsbez.getText(), ablaufDatum.getValue(), new addAusschreibungInDB());
+//					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
 					
 				}
 			}
 			
 		});
-	}
 		
-		private class addAusschreibungInDB implements AsyncCallback<Ausschreibung>{
+		DateTimeFormat dateformat = DateTimeFormat.getFormat("yyyy-MM-dd");
+		ablaufDatum.setFormat(new DateBox.DefaultFormat(dateformat));
+	}
+	
+		
+	private class addAusschreibungInDB implements AsyncCallback<Ausschreibung>{
 
 			@Override
 			public void onFailure(Throwable caught) {

@@ -315,7 +315,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 			    };
 			    
 			     // Make the call to the stock price service.
-				   adminService.addAusschreibung(null, callback);
+				   //adminService.addAusschreibung(null, callback);
 			    
 	 }
 });
