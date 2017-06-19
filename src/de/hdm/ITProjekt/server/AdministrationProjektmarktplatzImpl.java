@@ -210,6 +210,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.pMapper.addProjekt(p);
 	}
+	
+	@Override
+	public Vector<Projekt> getAllProjekteByTeilnahme(Person p) throws IllegalArgumentException {
+		return this.tnMapper.findTeilnahmeProjekte(p);
+	}
+	
 	/*
 	   * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Projekt-Objekte
@@ -413,10 +419,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 
 
-	
-	
-	
-
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden für Partnerprofil
@@ -439,6 +441,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   * ***************************************************************************
 	   */
 	
+	@Override
+	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException {
+		this.tnMapper.entfernenTeilnahme(p, projektmarktplatzid);		
+	}
+
 	
 	
 	

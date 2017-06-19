@@ -116,22 +116,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	
 	
+	// Methoden von Teilnahme
 	
-
-
+	public Vector<Projekt> getAllProjekteByTeilnahme(Person p) throws IllegalArgumentException;
 	
-
-	
-	
-
-	
-	
-
-
-
-	
-
-	
-	
+	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException;
 
 }
