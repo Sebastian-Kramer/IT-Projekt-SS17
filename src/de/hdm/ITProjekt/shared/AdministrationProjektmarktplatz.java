@@ -126,4 +126,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	Eigenschaft getPartnerprofilfromPerson(int id);
 
+	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id);
+
+//	public Vector<Eigenschaft> getAllEigenschaftenByOrgaID(int id);
+
+
+
 }
