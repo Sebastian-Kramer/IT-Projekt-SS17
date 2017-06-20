@@ -31,6 +31,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
@@ -47,10 +48,16 @@ public class Projektseite extends Showcase{
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	
+	private Person person;
 	private Projekt selectedProjekt;
 	
-	public Projektseite(Projekt selectedObject){
+	public Projektseite(){
+		
+	}
+	
+	public Projektseite(Projekt selectedObject, Person person){
 		this.selectedProjekt = selectedObject;
+		this.person = person;
 	}
 	
 	
@@ -75,9 +82,7 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen();
-					int left = Window.getClientWidth() / 3;
-					int top = Window.getClientHeight() / 3;
+					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen(selectedProjekt, person);
 					dialogBox.center();
 					
 					

@@ -27,6 +27,7 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.client.ClientsideSettings;
@@ -43,6 +44,11 @@ public class ProjektmarktplatzSeite extends Showcase{
 	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	
 	private Projektmarktplatz p1;
+	private Person person;
+	
+	public ProjektmarktplatzSeite(Person person){
+		this.person = person;
+	}
 	
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
@@ -108,7 +114,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			public void onSelectionChange(SelectionChangeEvent event) {
 				// TODO Auto-generated method stub
 				p1 = ssm_alleProjektmarktplaetze.getSelectedObject();
-				Showcase showcase = new Projekte(p1);
+				Showcase showcase = new Projekte(p1, person);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -149,7 +155,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			    {
 			    	selectedObject_alleProjektmarktplaetze = ssm_alleProjektmarktplaetze.getSelectedObject();
 			        if (selectedObject_alleProjektmarktplaetze != null){
-			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze);
+			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze, person);
 			        	RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 			        }else{

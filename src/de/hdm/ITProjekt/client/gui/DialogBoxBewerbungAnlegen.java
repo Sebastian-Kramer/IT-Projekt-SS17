@@ -80,7 +80,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 			public void onClick(ClickEvent event) {
 				bewerbung_dialog.setBewerbungstext(bewerbungstext.getText());
 				bewerbung_dialog.setAusschreibungs_ID(ausschreibung1.getID());
-				bewerbung_dialog.setOrga_ID(p1.getID());;
+				bewerbung_dialog.setOrga_ID(p1.getID());
 				bewerbung_dialog.setErstelldatum(new Date());
 				
 				if(bewerbungstext.getText().isEmpty()){

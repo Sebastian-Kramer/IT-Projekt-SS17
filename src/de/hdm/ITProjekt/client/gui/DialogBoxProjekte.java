@@ -71,10 +71,12 @@ public class DialogBoxProjekte extends DialogBox {
 	FlexTable projektseite = new FlexTable();
 	
 	private Projektmarktplatz p1 = new Projektmarktplatz();
+	private Person person;
 	
 	
-	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt){
+	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt, final Person person){
 		this.p1 = selectedobjectinprojekt;
+		this.person = person;
 		
 		Label label_objekt = new Label(selectedobjectinprojekt.getBez());
 		
@@ -91,10 +93,10 @@ public class DialogBoxProjekte extends DialogBox {
 		hpanel.add(abbrechen);
 		
 		// Create a date picker
-		DatePicker datepicker_startdatum = new DatePicker();
+		final DatePicker datepicker_startdatum = new DatePicker();
 		
 		
-	    DatePicker datepicker_enddatum = new DatePicker();
+	    final DatePicker datepicker_enddatum = new DatePicker();
 	    //   final Label text = new Label();
 	 // Set the value in the text box when the user selects a date
 	    datepicker_startdatum.addValueChangeHandler(new ValueChangeHandler<Date>() {
@@ -135,7 +137,12 @@ public class DialogBoxProjekte extends DialogBox {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				
+				projekt_dialogbox.setBeschreibung(beschreibung.getText());
+				projekt_dialogbox.setName(bezeichnung.getText());
+				projekt_dialogbox.setStartdatum(datepicker_startdatum.getValue());
+				projekt_dialogbox.setEnddatum(datepicker_enddatum.getValue());
+				projekt_dialogbox.setProjektleiter_ID(person.getID());
+				projekt_dialogbox.setProjektmarktplatz_ID(selectedobjectinprojekt.getID());
 			   
 				if (bezeichnung.getText().isEmpty()){
 					Window.alert("Bitte geben Sie ein Projektenamen an");
@@ -147,7 +154,7 @@ public class DialogBoxProjekte extends DialogBox {
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
-					adminService.createProjekt(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), 1, new addProjekteinDB());
+					adminService.addProjekt(projekt_dialogbox, new addProjekteinDB());
 				    
 					}
 				
@@ -190,7 +197,7 @@ public class DialogBoxProjekte extends DialogBox {
 		public void onSuccess(Projekt result) {
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
 			hide();
-			Showcase showcase = new Projekte(p1);
+			Showcase showcase = new Projekte(p1, person);
         	RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 		}

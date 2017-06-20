@@ -25,6 +25,8 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 
 import com.google.gwt.user.client.ui.TextArea;
 
@@ -49,9 +51,17 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	private Ausschreibung ausschreibung_dialog = new Ausschreibung();
 	
+	private Person person;
+	private Projekt projekt;
+	
+//	public DialogBoxAusschreibungAnlegen(Projekt projekt, Person person){
+//		this.projekt = projekt;
+//		this.person = person;
+//	}
+	
 
 	
-	public DialogBoxAusschreibungAnlegen (){
+	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final Person person){
 		setText("Ausschreibung anlegen");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -100,9 +110,11 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-//				ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
-//				ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
-//				ausschreibung_dialog.setDatum(datepicker_datum.getValue());
+			ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
+			ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
+			ausschreibung_dialog.setDatum(datepicker_datum.getValue());
+			ausschreibung_dialog.setOrga_ID(projekt.getProjektleiter_ID());
+			ausschreibung_dialog.setProjekt_ID(projekt.getID());
 				
 				if(ausschreibungsbez.getText().isEmpty()){
 					Window.alert("Bitte eine Stellenbezeichnung hinzufügen");
@@ -117,11 +129,13 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
-					adminService.addAusschreibung(ausschreibungstext.getText(), ausschreibungsbez.getText(), ablaufDatum.getValue(), new addAusschreibungInDB());
-//					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
+					//adminService.addAusschreibung(ausschreibungstext.getText(), ausschreibungsbez.getText(), ablaufDatum.getValue(), new addAusschreibungInDB());
+					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
 					
 				}
+				
 			}
+			
 			
 		});
 		
@@ -142,7 +156,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
 				hide();
-				Showcase showcase = new StellenausschreibungenSeite();
+				Showcase showcase = new Projektseite();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				

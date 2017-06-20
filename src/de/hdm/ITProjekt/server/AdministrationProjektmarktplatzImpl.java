@@ -312,17 +312,19 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.aMapper.getAll();
 	}
 	
-	@Override
-	public Ausschreibung addAusschreibung(String text, String bezeichnung, Date date) {
-		Ausschreibung aus = new Ausschreibung();
-		aus.setAusschreibungstext(text);
-		aus.setBezeichnung(bezeichnung);
-		aus.setDatum(date);
-		aus.setProjekt_ID(1);
-		aus.setOrga_ID(1);
-		
-		return this.aMapper.addAusschreibung(aus);
-	}
+//	@Override
+//	public Ausschreibung addAusschreibung(String text, String bezeichnung, Date date) {
+//		Ausschreibung aus = new Ausschreibung();
+//		aus.setAusschreibungstext(text);
+//		aus.setBezeichnung(bezeichnung);
+//		aus.setDatum(date);
+//		aus.setProjekt_ID(1);
+//		aus.setOrga_ID(1);
+//		
+//		return this.aMapper.addAusschreibung(aus);
+//	}
+	
+	
 
 
 	@Override
@@ -445,8 +447,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException {
 		this.tnMapper.entfernenTeilnahme(p, projektmarktplatzid);		
 	}
+	@Override
+	public Ausschreibung addAusschreibung(Ausschreibung a) throws IllegalArgumentException {
+		
+		return this.aMapper.addAusschreibung(a);
+	}
 
-	
 	
 	
 	
