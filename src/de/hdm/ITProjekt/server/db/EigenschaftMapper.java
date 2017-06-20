@@ -58,7 +58,7 @@ public class EigenschaftMapper {
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT name, wert, partnerprofil_ID FROM Eigenschaft");
+			      ResultSet rs = stmt.executeQuery("SELECT name, wert, Partnerprofil_ID FROM Eigenschaft");
 			  
 			  while (rs.next()) {
 				  	Eigenschaft e = new Eigenschaft();
@@ -66,7 +66,7 @@ public class EigenschaftMapper {
 				  	e.setID(rs.getInt("ID"));
 					e.setName(rs.getString("name"));
 					e.setWert(rs.getString("wert"));
-					e.setPartnerprofil_ID(rs.getInt("partnerprofil_ID"));
+					e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 					
 				  
 				  result.addElement(e);
@@ -78,7 +78,7 @@ public class EigenschaftMapper {
 			  return result;
 		}
 		
-		public Eigenschaft insert(Eigenschaft pmp){
+		public Eigenschaft insert(Eigenschaft e){
 			
 			Connection con = DBConnection.connection();
 			
@@ -90,20 +90,20 @@ public class EigenschaftMapper {
 			     	
 			      if(rs.next()){
 			    	  
-			    	  	pmp.setID(rs.getInt("maxid") + 1);
+			    	  	e.setID(rs.getInt("maxid") + 1);
 			    	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Projekt (ID, name, wert, partnerprojekt_ID)" 
-			    		+ "VALUES (" + pmp.getName() + "'" + "," + "'" + pmp.getWert() 
-			    		+ ")"); 
+			    		stmt.executeUpdate("INSERT INTO Eigenschaft (ID, name, wert, Partnerprojekt_ID)" 
+			    		+ "VALUES (" + e.getID() + "," + "'" + e.getName() + "'" + "," + e.getWert() 
+			    		+ "," + e.getPartnerprofil_ID() + ")"); 
 			    	  
 			      }
 			}
 			catch(SQLException e2){
 				e2.printStackTrace();
 			}
-			return pmp;
+			return e;
 			
 		}
 		
@@ -139,6 +139,35 @@ public class EigenschaftMapper {
 
 		    return e;
 		  }
+		
+		public Vector<Eigenschaft> getEigenschaftbyID(int Partnerprofil_ID ){
+			
+			Vector<Eigenschaft> eObj = new Vector<Eigenschaft>();
+			
+			Connection con = DBConnection.connection();
+			
+			try{
+				Statement stmt = con.createStatement();
+				
+				 ResultSet rs = stmt.executeQuery("SELECT name, wert FROM Eigenschaft "
+						 + "WHERE Partnerprofil_ID =" + Partnerprofil_ID);
+				 
+				 while (rs.next()) {
+				        // Ergebnis-Tupel in Objekt umwandeln
+				    	  Eigenschaft e = new Eigenschaft();
+//					       e.setID(rs.getInt("ID"));
+					       e.setName(rs.getString("name"));
+					       e.setWert(rs.getString("wert"));
+					       e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+					       eObj.add(e);
+				      }
+				   
+				    }
+				    catch (SQLException e2) {
+				      e2.printStackTrace();
+				    }  
+				    return eObj;
+		}
 	
 
 	}

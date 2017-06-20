@@ -156,6 +156,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			    {
 			    	selectedObject_alleProjektmarktplaetze = ssm_alleProjektmarktplaetze.getSelectedObject();
 			        if (selectedObject_alleProjektmarktplaetze != null){
+			        	
 			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze, person);
 			        	RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
