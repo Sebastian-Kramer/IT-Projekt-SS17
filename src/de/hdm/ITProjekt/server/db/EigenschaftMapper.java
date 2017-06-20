@@ -130,7 +130,7 @@ public class EigenschaftMapper {
 		      Statement stmt = con.createStatement();
 
 		      stmt.executeUpdate("UPDATE Eigenschaft " + "SET name='"
-		          + e.getName() + "', wert='" + e.getWert() + "partnerprofil ID" + e.getPartnerprofil_ID() );
+		          + e.getName() + "', wert='" + e.getWert() +  "'," + "Partnerprofil_ID=" + e.getPartnerprofil_ID() );
 
 		    }
 		    catch (SQLException c) {
@@ -149,13 +149,13 @@ public class EigenschaftMapper {
 			try{
 				Statement stmt = con.createStatement();
 				
-				 ResultSet rs = stmt.executeQuery("SELECT name, wert FROM Eigenschaft "
+				 ResultSet rs = stmt.executeQuery("SELECT name, wert, Partnerprofil_ID FROM Eigenschaft "
 						 + "WHERE Partnerprofil_ID =" + Partnerprofil_ID);
 				 
 				 while (rs.next()) {
 				        // Ergebnis-Tupel in Objekt umwandeln
 				    	  Eigenschaft e = new Eigenschaft();
-//					       e.setID(rs.getInt("ID"));
+					       e.setID(rs.getInt("ID"));
 					       e.setName(rs.getString("name"));
 					       e.setWert(rs.getString("wert"));
 					       e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));

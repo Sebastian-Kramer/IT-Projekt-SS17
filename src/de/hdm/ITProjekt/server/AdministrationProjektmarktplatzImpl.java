@@ -466,7 +466,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) {
 	
-		return this.eigenschaftsMapper.getEigenschaftbyID(id);
+		Vector <Eigenschaft> result = new Vector<Eigenschaft>();
+		
+		if(this.eigenschaftsMapper != null ){
+			
+			Vector<Eigenschaft> eigenschaft = this.eigenschaftsMapper.getEigenschaftbyID(id);
+			
+			if(eigenschaft != null){
+				result.addAll(eigenschaft);
+			}
+		}
+		return result;
 	}
 
 	

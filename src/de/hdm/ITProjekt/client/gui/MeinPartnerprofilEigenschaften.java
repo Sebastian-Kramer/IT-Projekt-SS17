@@ -96,6 +96,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 		vpanel.add(pe_alleEigenschaften);
 		pe_alleEigenschaften.setSelectionModel(ssm_alleEigenschaften);
 		eigenschaften.setStylePrimaryName("myprofil-button");
+		bearbeiten.setStylePrimaryName("myprofil-button");
 		hpanel.add(eigenschaften);
 		hpanel.add(bearbeiten);
 		this.add(hpanel);
@@ -234,10 +235,13 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 
 		@Override
 		public void onSuccess(Vector<Eigenschaft> result) {
+			if(result != null){
 			pe_alleEigenschaften.setRowData(0, result);
 			pe_alleEigenschaften.setRowCount(result.size(), true);
-			Window.alert("Alles Eigenschaft wurden erfolgreich aus der Datenbank geladen");
-			
+			Window.alert("Alle Eigenschaft wurden erfolgreich aus der Datenbank geladen");
+			}else{
+				Window.alert("Es wurden keine Eigenschaften gefunden");
+			}
 		}
 
 	
