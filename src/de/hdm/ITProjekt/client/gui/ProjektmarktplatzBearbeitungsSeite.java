@@ -23,6 +23,7 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
@@ -40,6 +41,8 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 	final SingleSelectionModel<Projektmarktplatz> ssm_alleProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
 	
 	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
+	
+	private Person person;
 	
 	Button bearbeitungsmodus_aktiv = new Button("Bearbeitungsansicht");
 	Button projektmarktplatz_anlegen = new Button("Hinzufügen");
@@ -93,7 +96,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						Showcase showcase = new ProjektmarktplatzSeite();
+						Showcase showcase = new ProjektmarktplatzSeite(person);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 					}

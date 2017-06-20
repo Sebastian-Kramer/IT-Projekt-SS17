@@ -128,7 +128,7 @@ public class Menubar extends StackPanel {
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				Showcase showcase = new ProjektmarktplatzSeite();
+				Showcase showcase = new ProjektmarktplatzSeite(person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -163,7 +163,7 @@ public class Menubar extends StackPanel {
 		
 		stellenausschreibungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new StellenausschreibungenSeite();
+				Showcase showcase = new StellenausschreibungenSeite(person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;

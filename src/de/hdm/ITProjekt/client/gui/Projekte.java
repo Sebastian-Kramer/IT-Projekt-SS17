@@ -27,6 +27,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
@@ -53,11 +54,12 @@ public class Projekte extends Showcase {
 		
 	}
 	
-
+	private Person person;
 	private Projektmarktplatz selectedProjektmarktplatz;
 	
-	public Projekte(Projektmarktplatz selectedObject){
+	public Projekte(Projektmarktplatz selectedObject, Person person){
 		this.selectedProjektmarktplatz = selectedObject;
+		this.person = person;
 	}
 
 
@@ -86,7 +88,7 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz);
+				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz, person);
 				dialogbox.center();
 			}
 		});
@@ -96,7 +98,7 @@ public class Projekte extends Showcase {
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {
 				projekt = ssm_projekt.getSelectedObject();
-				Showcase showcase = new Projektseite(projekt);
+				Showcase showcase = new Projektseite(projekt, person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				

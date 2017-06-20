@@ -75,7 +75,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite();
+				Showcase showcase = new ProjektmarktplatzSeite(person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}

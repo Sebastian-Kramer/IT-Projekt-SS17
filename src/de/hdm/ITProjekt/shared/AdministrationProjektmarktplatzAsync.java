@@ -64,7 +64,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAll(AsyncCallback<Vector<Ausschreibung>> callback);
 
-	void addAusschreibung(String text, String bezeichnung, java.util.Date date, AsyncCallback<Ausschreibung> callback);
+//	void addAusschreibung(String text, String bezeichnung, java.util.Date date, AsyncCallback<Ausschreibung> callback);
 
 	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Void> callback);
 
@@ -110,6 +110,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByProjekt(Projekt projekt, AsyncCallback<Vector<Ausschreibung>> callback);
 
 	void deleteTeilnahme(Person p, int projektmarktplatzid, AsyncCallback<Void> callback);
+
+	void addAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
 
 	
 	

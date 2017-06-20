@@ -61,8 +61,8 @@ public class StellenausschreibungenSeite extends Showcase {
 		
 	}
 
-	public StellenausschreibungenSeite(int id) {
-		// TODO Auto-generated constructor stub
+	public StellenausschreibungenSeite(Person person) {
+		this.p1= person;
 	}
 
 	@Override

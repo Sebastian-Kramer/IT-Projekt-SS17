@@ -97,10 +97,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 							@Override
 							public void onFailure(Throwable caught) {
 								Window.alert("Login fehlgeschlagen!");
-							}
+						 	}
 
 							@Override
 							public void onSuccess(Vector<Person> result) {
+								Window.alert(" " + result.size());
 								boolean isUserRegistered = false;
 								for (Person person : result) {
 									/**
