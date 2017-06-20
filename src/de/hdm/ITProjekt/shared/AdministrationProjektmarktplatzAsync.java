@@ -7,6 +7,7 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
@@ -42,6 +43,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteProjekt(Projekt a, AsyncCallback<Projekt> callback);
 
 	void getPersonbyID(int id, AsyncCallback<Person> callback);
+	
+	void getPartnerprofilfromPerson(int id, AsyncCallback<Eigenschaft> callback);
 
 	void getAllProjekte(AsyncCallback<Vector<Projekt>> callback);
 

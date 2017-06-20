@@ -29,7 +29,9 @@ public Partnerprofil findByKey(int id){
 		
 		try{
 			Statement stmt = con.createStatement();
+
 			ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, aenderungsdatum FROM Partnerprofil "
+
           + "WHERE ID=" + id);
 			
 			if(rs.next()){

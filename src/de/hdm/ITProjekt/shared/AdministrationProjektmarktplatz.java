@@ -124,4 +124,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException;
 
+	Eigenschaft getPartnerprofilfromPerson(int id);
+
 }
