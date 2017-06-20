@@ -29,7 +29,7 @@ public Partnerprofil findByKey(int id){
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre FROM Partnerprofil "
+			ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, aenderungsdatum FROM Partnerprofil "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
@@ -56,7 +56,7 @@ public Vector<Partnerprofil> getAll(){
 	  try {
 	      Statement stmt = con.createStatement();
 
-	      ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre FROM Partnerprofil ");
+	      ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, aenderungsdatum FROM Partnerprofil ");
 	  
 	  while (rs.next()) {
 		  	Partnerprofil p = new Partnerprofil();
@@ -73,6 +73,36 @@ public Vector<Partnerprofil> getAll(){
 	      }
 	  return result;
 }
+
+//public Partnerprofil insert(Partnerprofil pp1){
+//	
+//	Connection con = DBConnection.connection();
+//	
+//	try {
+//	      Statement stmt = con.createStatement();
+//	      
+//	      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
+//	              + "FROM Partnerprofil ");
+//	      
+//	
+//	      if(rs.next()){
+//	    	  
+//	    	  	pp1.setID(rs.getInt("maxid") + 1);
+//	   	  
+//	    	  	stmt = con.createStatement();
+//	    	  	
+//	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, erstellungsdatum, aenderungsdatum)" 
+//	    				+ "VALUES (" + pp1.getID() 
+//	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" + ")"); 
+//	    	  
+//	      }
+//	}
+//	catch(SQLException e2){
+//		e2.printStackTrace();
+//	}
+//	return pp1;		
+//}
+
 
 public Partnerprofil insert(Partnerprofil pp1){
 	
@@ -91,9 +121,8 @@ public Partnerprofil insert(Partnerprofil pp1){
 	   	  
 	    	  	stmt = con.createStatement();
 	    	  	
-	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, erstellungsdatum, änderungsdatum, arbeitsgebiet, berufserfahrungsJahre)" 
-	    				+ "VALUES (" + pp1.getID() 
-	    				+ ", " + "'" + format.format(pp1.getErstellungsdatum()) + "'" + ")"); 
+	    		stmt.executeUpdate("INSERT INTO Partnerprofil (ID, `erstellungsdatum`) VALUES "
+	    				+ "(" + pp1.getID() + ",'"+format.format(pp1.getErstellungsdatum()) + "')");
 	    	  
 	      }
 	}
@@ -102,7 +131,6 @@ public Partnerprofil insert(Partnerprofil pp1){
 	}
 	return pp1;		
 }
-
 public void delete(Partnerprofil a){
 	
 	Connection con = DBConnection.connection();
@@ -126,7 +154,7 @@ public Partnerprofil update(Partnerprofil c) {
     try {
       Statement stmt = con.createStatement();
 
-      stmt.executeUpdate("UPDATE Partnerprofil " + "SET änderungsdatum='"
+      stmt.executeUpdate("UPDATE Partnerprofil " + "SET aenderungsdatum='"
           + format.format(c.getAenderungsdatum()) + "', arbeitsgebiet= '" + "' WHERE Partnerprofil.ID = " + c.getID());
 
     }

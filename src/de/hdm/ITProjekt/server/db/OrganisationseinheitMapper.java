@@ -127,7 +127,6 @@ public class OrganisationseinheitMapper {
   }
 	
 	
-	
 	public int update(Organisationseinheit o){
 		
 		Connection con = DBConnection.connection();
