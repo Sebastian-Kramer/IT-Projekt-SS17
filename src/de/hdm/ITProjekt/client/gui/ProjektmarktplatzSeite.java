@@ -40,7 +40,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projektmarktplatz> ct_alleProjektmarktplaetze = new CellTable<Projektmarktplatz>();
-	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
+//	CellTable<Projektmarktplatz> ct_eigeneProjektmarktplaetze = new CellTable<Projektmarktplatz>();
 	
 	private Projektmarktplatz p1;
 	
@@ -74,7 +74,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_alleProjektmarktplaetze.setWidth("100%", true);
 		// Größe der Tablle im div Container, sprich der Seite
-		ct_eigeneProjektmarktplaetze.setWidth("100%", true);
+//		ct_eigeneProjektmarktplaetze.setWidth("100%", true);
 
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
@@ -85,7 +85,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 		// Hinzufügen der Tabelle ins VerticalPanel
 		vpanel.add(ct_alleProjektmarktplaetze);
 //		hpanel_projektmarktplatz.add(ct_alleProjektmarktplaetze);
-		vpanel.add(ct_eigeneProjektmarktplaetze);
+//		vpanel.add(ct_eigeneProjektmarktplaetze);
 				
 		// In die seite laden
 		this.add(hpanel_projektmarktplatz);
@@ -99,9 +99,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 		
 
 		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);	
-		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_eigeneProjektmarktplaetze);
+//		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_eigeneProjektmarktplaetze);
 
 		ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+		
 		ssm_alleProjektmarktplaetze.addSelectionChangeHandler(new Handler() {
 			
 			@Override
@@ -113,7 +114,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 				RootPanel.get("Details").add(showcase);
 			}
 		});
-		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
+//		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
 
 		
 		

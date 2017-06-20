@@ -29,6 +29,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeilnahmeMapper tnMapper = null;
 	private OrganisationseinheitMapper orgMapper = null;
 	private PartnerprofilMapper partnerprofilMapper = null;
+	private EigenschaftMapper eigenschaftsMapper = null;
 	
 
 	
@@ -444,6 +445,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException {
 		this.tnMapper.entfernenTeilnahme(p, projektmarktplatzid);		
+	}
+	
+	@Override
+	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException {
+		
+		return this.eigenschaftsMapper.findByKey(id);
 	}
 
 	

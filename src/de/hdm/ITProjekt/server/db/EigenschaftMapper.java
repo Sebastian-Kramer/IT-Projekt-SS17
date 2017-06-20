@@ -30,14 +30,14 @@ public class EigenschaftMapper {
 			try{
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
-	          + "WHERE ID=" + id + " ORDER BY ID");
+	          + "WHERE Partnerprofil_ID=" + id);
 				
 				if(rs.next()){
 					Eigenschaft e = new Eigenschaft();
 					e.setID(rs.getInt("ID"));
 					e.setName(rs.getString("name"));
 					e.setWert(rs.getString("wert"));
-					e.setPartnerprofil_ID(rs.getInt("partnerprofil_ID"));
+					e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 					
 					return e;
 				}

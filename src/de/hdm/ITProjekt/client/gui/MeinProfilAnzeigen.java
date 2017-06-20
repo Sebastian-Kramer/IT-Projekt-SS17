@@ -232,7 +232,17 @@ public class MeinProfilAnzeigen extends Showcase{
 			}
 		});
 		
+		partnerprofil.addClickHandler(new ClickHandler(){
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinPartnerprofilEigenschaften(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				
+			}
+		});
 		}
+		
+	
 		
 		private class ProfilBearbeitenCallback implements AsyncCallback<Person>{
 

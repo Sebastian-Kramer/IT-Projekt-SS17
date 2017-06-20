@@ -54,7 +54,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "<h2> Meine Projekte </h3>";
+		return "<h2> Meine Projekte </h2>";
 	}
 
 	@Override
