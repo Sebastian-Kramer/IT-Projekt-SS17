@@ -45,7 +45,6 @@ public class DialogBoxProjekte extends DialogBox {
 	
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
-//	HorizontalPanel h_panel = new HorizontalPanel();
 	Button ok = new Button("Ok");
 	Button abbrechen = new Button("Abbrechen");
 	
@@ -68,7 +67,7 @@ public class DialogBoxProjekte extends DialogBox {
 	
 	
 	private Projekt projekt_dialogbox = new Projekt();
-	FlexTable projektseite = new FlexTable();
+	private FlexTable projektseite = new FlexTable();
 	
 	private Projektmarktplatz p1 = new Projektmarktplatz();
 	private Person person;

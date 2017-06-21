@@ -19,6 +19,8 @@ public class Person extends Organisationseinheit{
 	private Integer UN_ID = null;
 	
 	
+	
+	
 	public String getEmail() {
 		return email;
 	}

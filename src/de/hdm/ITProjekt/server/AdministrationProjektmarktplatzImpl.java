@@ -235,6 +235,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.personMapper.findByKey(id);
 	}
+	
+	@Override
+	public Person updatePerson(Person p) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.personMapper.updatePerson(p);
+	}
+	
 	@Override
 	public Person createPerson(String email, String vorname, String nachname, String anrede, String strasse,
 			int hausnr, int plz, String ort, int partnerprofilID, Integer teamID, Integer unternehmenID)
@@ -365,7 +372,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Team getTeamByID(int id) {
 		return this.tMapper.findByKey(id);
 	}
-	
+	@Override
+	public Team createTeam(Team team) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.tMapper.insert(team);
+	}
 	
 	/*
 	 * ***************************************************************************
@@ -378,6 +389,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Unternehmen getUnByID(int id) {
 		return this.unMapper.findByKey(id);
 	}
+	
 	
 	
 	/*
@@ -479,6 +491,25 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		}
 		return result;
 	}
+//	@Override
+//	public Team findByKeyOfPerson(int id) throws IllegalArgumentException {
+//		return this.tMapper.findByKey(id);
+//	}
+	@Override
+	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse,
+			int partnerprofilID) throws IllegalArgumentException {
+		Unternehmen u = new Unternehmen();
+		u.setID(0);
+		u.setHausnummer(hausnr);
+		u.setName(text);
+		u.setOrt(ort);
+		u.setPartnerprofil_ID(partnerprofilID);
+		u.setPlz(plz);
+		u.setStrasse(strasse);
+		
+		return this.unMapper.createUnternehmen(u);
+	}
+	
 
 	
 	

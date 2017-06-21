@@ -56,7 +56,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	void createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID,
 				 AsyncCallback<Projekt> callback);
 
-	void getTeamByID(int id, AsyncCallback<Team> callback);
 
 	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
 	
@@ -101,14 +100,15 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllPerson(AsyncCallback<Vector<Person>> callback);
 
-
 	void savePerson(Person p, AsyncCallback<Void> callback);
+	
+	void updatePerson(Person p, AsyncCallback<Person> callback);
 
 	void createPerson(String email, String vorname, String nachname, String anrede, String strasse, int hausnr,
 			int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId,
 			AsyncCallback<Person> callback);
 
-	//Methoden für Partnerprofil
+	// Methoden für Partnerprofil
 	
 	void createPartnerprofil(AsyncCallback<Partnerprofil> callback);
 
@@ -118,9 +118,19 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void addAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
 
+
 //	void getAllEigenschaftenByOrgaID(int id, AsyncCallback<Vector<Eigenschaft>> callback);
 
-	
+	// Methoden für Team
+
+
+	void getTeamByID(int id, AsyncCallback<Team> callback);
+
+	void createTeam(Team team, AsyncCallback<Team> callback);
+
+	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
+			AsyncCallback<Unternehmen> callback);
+
 	
 
 	

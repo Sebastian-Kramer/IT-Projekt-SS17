@@ -38,7 +38,6 @@ public Team findByKey(int id){
 					t.setHausnummer(super.findByKey(id).getHausnummer());
 					t.setOrt(super.findByKey(id).getOrt());
 					t.setPlz(super.findByKey(id).getPlz());
-					t.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
 					
 					return t;
 			}
@@ -119,21 +118,32 @@ public Team insert(Team p1){
 	try {
 	      Statement stmt = con.createStatement();
 	      
-	      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-	              + "FROM Team ");
+	      p1.setID(super.insert(p1));
 	      
-	
-	      if(rs.next()){
-	    	  
-	    	  	p1.setID(rs.getInt("maxid") + 1);
-	   	  
-	    	  	stmt = con.createStatement();
-	    	  	
-	    		stmt.executeUpdate("INSERT INTO Team (ID, name, UN_ID)" 
-	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" + ", " + p1.getUN_ID() 
-	    				+")"); 
-	    	  
-	      }
+	      if (p1.getUN_ID() == null) {
+        	  stmt.executeUpdate("INSERT INTO `Team`(`ID`, `name`) "
+	        		  + "VALUES ('" + p1.getID() + "','" + p1.getName()+"')");
+		}
+          else {
+			
+        	  stmt.executeUpdate("INSERT INTO `Team`(`ID`, `name`,`UN_ID`) "
+        			  + "VALUES ('" + p1.getID() + "','" + p1.getName() +"','" + p1.getUN_ID()+"')");
+		}
+//	      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
+//	              + "FROM Team ");
+//	      
+//	
+//	      if(rs.next()){
+//	    	  
+//	    	  	p1.setID(rs.getInt("maxid") + 1);
+//	   	  
+//	    	  	stmt = con.createStatement();
+//	    	  	
+//	    		stmt.executeUpdate("INSERT INTO Team (ID, name, UN_ID)" 
+//	    				+ "VALUES (" + p1.getID() + ", " + "'" + p1.getName() + "'" + ", " + p1.getUN_ID() 
+//	    				+")"); 
+//	    	  
+//	      }
 	}
 	catch(SQLException e2){
 		e2.printStackTrace();
