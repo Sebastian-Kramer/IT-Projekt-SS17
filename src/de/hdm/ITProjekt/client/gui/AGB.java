@@ -22,7 +22,7 @@ public class AGB extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		
-		return 	"Unsere AGB's";
+		return 	"<b>Unsere AGB's</b>";
 	}
 
 	@Override
@@ -30,109 +30,23 @@ public class AGB extends Showcase {
 		
 		RootPanel.get("Details").setWidth("100%");
 		
-		this.append("<div class='Unsere AGB's'>"
-				+ "<b>" +"Angaben gem&auml&szlig §5 Telemediengesetz</b></br></br>"
-				+ "Hochschule der Medien"+ "</br>"
-				+ "<b>Wirtschaftsinformatik und Digitale Medien</b></br>"
-				+ "Nobelstra&szlige 10</br>"
-				+ "70569 Stuttgart</br></br>"
-				+ "Kontakt</br>Telefon: +49 711 8923 10</br>"
-				+ "<br><br>Der Studiengang Wirtschaftsinformatik und digitale "
-				+ "Medien<br>wird rechtlich vertreten durch die Hochschule der Med"
-				+ "ien Stuttgart. <br> <br><A HREF=\"https://www.hdm-stuttgart.de/"
-				+ "impressum\"TARGET=\"_blank\">Impressum der Hochschule</A>"
+		this.append("<div class="
+				+ "<b>" +"Hinweise zum Datenschutz</b></br></br>"
+				+ "<b>" +"1. Allgemeines</b></br></br>"
+				+ " Wir erheben und verwenden Ihre personenbezogenen Daten ausschließlich im Rahmen der Bestimmungen des Datenschutzrechts "
+				+ "der Bundesrepublik Deutschland. Maßgeblich sind Bestimmungen des Bundesdatenschutzgesetzes (BDSG) sowie zum Teil speziellere Rechtsvorschriften, "
+				+ "insb. diejenigen des Telekommunikations- (TKG) und des Telemediengesetzes (TMG)."
+				+ "Die genannten Vorschriften betreffen personenbezogene Daten. Personenbezogene Daten sind Einzelangaben über persönliche und sachliche Verhältnisse einer bestimmten oder bestimmbaren natürlichen Person. Dies können bei einer Kontaktaufnahme per Post, E-Mail, oder Web-Formular beispielsweise der Name, die Anschrift oder die E-Mail Adresse sein."
+				+ "Hiermit unterrichten wir Sie über Art, Umfang und Zwecke der Erhebung und Verwendung derjenigen Daten, die während Ihres Besuchs auf unserer Homepage erfasst und wie sie genutzt werden. Sie können diese Unterrichtung jederzeit auf unserer Webseite abrufen.</br>"
+				+"<br></br>"
+				+  "<b>" +"2. Zugriff auf die Homepage</b></br></br>"
+				+ " Jeder Zugriff auf unsere Homepage und jeder Abruf einer auf der Homepage hinterlegten Datei wird protokolliert. Die Speicherung dient internen systembezogenen und statistischen Zwecken. Protokolliert werden: Name der abgerufenen Datei, Datum und Uhrzeit des Abrufs, übertragene Datenmenge, Meldung über erfolgreichen Abruf, Browser Version des zugreifenden Hostsystems; Betriebssystem Version des zugreifenden Hostsystems."
+				+ "Zusätzlich werden die IP Adressen der anfragenden Rechner protokolliert."
 				+ "</div>");
-	
-
-		
-		
-			
 		}
 		
 		
 
 	}
-//		this.setHTML((
-//				"<div class='Impressum'>"
-//				+ "<b>" +"Angaben gem&auml&szlig §5 Telemediengesetz</b></br></br>"
-//				+ "Hochschule der Medien"+ "</br>"
-//				+ "<b>Wirtschaftsinformatik und Digitale Medien</b></br>"
-//				+ "Nobelstra&szlige 10</br>"
-//				+ "70569 Stuttgart</br></br>"
-//				+ "Kontakt</br>Telefon: +49 711 8923 10</br>"
-//				+ "<br><br>Der Studiengang Wirtschaftsinformatik und digitale "
-//				+ "Medien<br>wird rechtlich vertreten durch die Hochschule der Med"
-//				+ "ien Stuttgart. <br> <br><A HREF=\"https://www.hdm-stuttgart.de/"
-//				+ "impressum\"TARGET=\"_blank\">Impressum der Hochschule</A>"
-//				+ "</div>"));
-//		}
-//		
-//	}
-	
-	
 
-//	private static AGB navigation=null;
-//	private static ClickHandler currentClickHandler = null;
-//	private static ClickEvent currentClickEvent = null;
-//
-//
-//	
-//	
-//
-//	
-//	public AGB(){
-		
-//	
-//		
-//		this.setHTML((
-//				"<div class='Impressum'>"
-//				+ "<b>" +"Angaben gem&auml&szlig §5 Telemediengesetz</b></br></br>"
-//				+ "Hochschule der Medien"+ "</br>"
-//				+ "<b>Wirtschaftsinformatik und Digitale Medien</b></br>"
-//				+ "Nobelstra&szlige 10</br>"
-//				+ "70569 Stuttgart</br></br>"
-//				+ "Kontakt</br>Telefon: +49 711 8923 10</br>"
-//				+ "<br><br>Der Studiengang Wirtschaftsinformatik und digitale "
-//				+ "Medien<br>wird rechtlich vertreten durch die Hochschule der Med"
-//				+ "ien Stuttgart. <br> <br><A HREF=\"https://www.hdm-stuttgart.de/"
-//				+ "impressum\"TARGET=\"_blank\">Impressum der Hochschule</A>"
-//				+ "</div>"));
-//		}
-	
-	
-//	@Override
-//	protected String getHeadlineText() {
-//		
-//		return "Unsere AGB's";
-//	}
-//
-//	@Override
-//	protected void run() {
-//		// TODO Auto-generated method stub
-//		
-//		VerticalPanel aPanel  = new VerticalPanel();
-//		
-//		Label aLabel = new Label("Unsere AGB's");
-//	aLabel.setWidth("250px");
-//	aPanel.setHeight("250px");
-//		aPanel.add(aLabel);
-//		this.add(aLabel);
-//		
-//	//Button AGB = new Button ("AGB");
-//	RootPanel.get("AGB").add(aPanel);	
-//
-//	aLabel.addClickHandler(new ClickHandler() {
-//		
-//		@Override
-//	public void onClick(ClickEvent event) {
-//			
-//	
-//	}
-//			
-//			
-//		
-//	});
-//	
-//
-//	}}
 

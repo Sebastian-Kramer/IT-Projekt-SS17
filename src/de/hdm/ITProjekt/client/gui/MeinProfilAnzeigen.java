@@ -2,9 +2,12 @@ package de.hdm.ITProjekt.client.gui;
 
 import java.util.Vector;
 
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -19,6 +22,9 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.view.client.SelectionChangeEvent;
+import com.google.gwt.view.client.SingleSelectionModel;
+import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
@@ -27,12 +33,15 @@ import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 
 public class MeinProfilAnzeigen extends Showcase{
 	
-
+	private static ClickHandler currentClickHandler = null;
+	private static ClickEvent currentClickEvent = null;
+	
 	private IdentitySelection identitySelection = null;
 	private Menubar mb = null;
 
@@ -41,10 +50,18 @@ public class MeinProfilAnzeigen extends Showcase{
 	}
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
-	HorizontalPanel hpanel = new HorizontalPanel();
+	private VerticalPanel eigeneDaten = new VerticalPanel();
+	private VerticalPanel partnerprofilDaten = new VerticalPanel();
+	private HorizontalPanel hpanel = new HorizontalPanel();
+	private HorizontalPanel buttonPartnerprofilPanel = new HorizontalPanel();
 	
+	CellTable<Eigenschaft> pe_alleEigenschaften = new CellTable<Eigenschaft>();
+	
+	final SingleSelectionModel<Eigenschaft> ssm_alleEigenschaften = new SingleSelectionModel<Eigenschaft>();
 	
 	private FlexTable form = new FlexTable();
+	private FlexTable pe_form = new FlexTable();
+	private FlexTable pe_buttonPanel = new FlexTable();
 //	private FlexTable ftable_team = new FlexTable();
 //	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
@@ -59,6 +76,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button abbrechen = new Button("Abbrechen");
 	private Button newTeam = new Button("Team hinzufügen");
 	private Button newUN = new Button("Unternehmen hinzufügen");
+	private Button eigenschaften = new Button("Eigenschaften hinzufügen");
 	
 	private Button partnerprofil = new Button("Weiter zum Partnerprofil");
 	
@@ -101,11 +119,13 @@ public class MeinProfilAnzeigen extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Person user = new Person();
+	private Eigenschaft eigen = new Eigenschaft();
+	private Eigenschaft selectedObject_alleEigenschaften = new Eigenschaft();
 
 	
 		@Override
 		protected String getHeadlineText() {
-			return "<h2>Mein Profil</2>";
+			return "<h2>Mein Profil</h2>";
 		}
 		@Override
 		protected void run() {
@@ -116,8 +136,9 @@ public class MeinProfilAnzeigen extends Showcase{
 		    }
 			adminService.getPersonbyID(user.getID(), new getPersonausDB());
 			
-			this.add(partnerprofil);
+			vpanel.add(partnerprofil);
 			
+			pe_alleEigenschaften.setWidth("100%");
 			
 			emailBox.setReadOnly(true);
 			vnameBox.setReadOnly(true);
@@ -134,6 +155,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			abbrechen.setStylePrimaryName("myprofil-button");
 			newTeam.setStylePrimaryName("myprofil-button");
 			newUN.setStylePrimaryName("myprofil-button");
+			eigenschaften.setStylePrimaryName("myprofil-button");
 			
 			
 			anredeListBox.addItem("Herr");
@@ -183,11 +205,57 @@ public class MeinProfilAnzeigen extends Showcase{
 
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);
+			partnerprofilDaten.add(eigenschaften);
+			partnerprofilDaten.add(pe_alleEigenschaften);
+			buttonPartnerprofilPanel.add(partnerprofilDaten);
+			hpanel.add(vpanel);
+			hpanel.add(partnerprofilDaten);			
+			this.add(hpanel);
+
+
+//			hpanel.add(vpanel);
 			
-			this.add(vpanel);
+
 			this.setSpacing(8);
 			
 		
+		Column<Eigenschaft, String> name = 
+				    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+				    
+						@Override
+						public String getValue(Eigenschaft object) {
+							return object.getName();
+						}
+						    
+		 };
+		 Column<Eigenschaft, String> wert = 
+				    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+				    
+						@Override
+						public String getValue(Eigenschaft object) {
+							return object.getWert();
+						}
+						    
+		 };
+		 
+		 ssm_alleEigenschaften.addSelectionChangeHandler(new Handler(){
+				
+				public void onSelectionChange(final SelectionChangeEvent event) {
+					
+					selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
+					if(selectedObject_alleEigenschaften != null){
+						
+						Showcase showcase= new EigenschaftenHinzufuegen(user);
+						RootPanel.get("Details").clear();
+						RootPanel.get("Details").add(showcase);
+			}else{
+				Window.alert("Zum Bearbeiten muss eine Eigenschaft ausgewählt werden");
+				}
+			}
+		});
+		 
+		 pe_alleEigenschaften.addColumn(name, "Bereich");
+		 pe_alleEigenschaften.addColumn(wert, "Ausprägung der Eigenschaft");
 		
 		bearbeiten.addClickHandler(new ClickHandler(){
 			

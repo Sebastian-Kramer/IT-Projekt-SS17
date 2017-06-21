@@ -4,7 +4,6 @@ import java.sql.Date;
 import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
-
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
@@ -25,6 +24,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void save(Projektmarktplatz p, AsyncCallback<Projektmarktplatz>callback);
 	
 	void getProjektmarktplatzAll(AsyncCallback<Vector<Projektmarktplatz>> callback);
+	
+	void getAllEigenschaftenbyPartnerprofilID (int id, AsyncCallback<Vector<Eigenschaft>> callback);
 
 	void getProjektmarktplatzById(int ID, AsyncCallback<Projektmarktplatz> callback);
 
@@ -74,7 +75,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void update(Ausschreibung c, AsyncCallback<Ausschreibung> callback);
 
 	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
-
+	
+	
 
 	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
 
@@ -115,6 +117,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteTeilnahme(Person p, int projektmarktplatzid, AsyncCallback<Void> callback);
 
 	void addAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
+
+//	void getAllEigenschaftenByOrgaID(int id, AsyncCallback<Vector<Eigenschaft>> callback);
 
 	
 	

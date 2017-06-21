@@ -28,6 +28,7 @@ import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
@@ -47,15 +48,17 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 	
 	CellTable<Eigenschaft> pe_alleEigenschaften = new CellTable<Eigenschaft>();
 	
-	private Person user = new Person();
+	private Person user;
 	private Eigenschaft eigen;
+	private Eigenschaft selectedObject_alleEigenschaften;
 	
 	public MeinPartnerprofilEigenschaften(Person person){
-		this.user = person;
+		user = person;
 	}
 	
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
+
 	HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private FlexTable pe_form = new FlexTable();
@@ -64,7 +67,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 	private static DialogBox db_unternehmen = new DialogBox();
 	
 	private Button eigenschaften = new Button("Eigenschaften anzeigen");
-	private Button speichern = new Button("Speichern");
+	private Button bearbeiten = new Button("Eigenschaft bearbeiten");
 	private Button abbrechen = new Button("Abbrechen");
 	
 
@@ -88,44 +91,92 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 
 	@Override
 	protected void run() {
-		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		
+		RootPanel.get("Details").setWidth("100%");
+		pe_alleEigenschaften.setWidth("100%");
+		vpanel.add(pe_alleEigenschaften);
+		pe_alleEigenschaften.setSelectionModel(ssm_alleEigenschaften);
+		eigenschaften.setStylePrimaryName("myprofil-button");
+		bearbeiten.setStylePrimaryName("myprofil-button");
+		hpanel.add(eigenschaften);
+		hpanel.add(bearbeiten);
+		this.add(hpanel);
+		this.add(vpanel);
+
+	Column<Eigenschaft, String> name = 
+			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+			    
+					@Override
+					public String getValue(Eigenschaft object) {
+						return object.getName();
+					}
+					    
+	 };
+	 Column<Eigenschaft, String> wert = 
+			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+			    
+					@Override
+					public String getValue(Eigenschaft object) {
+						return object.getWert();
+					}
+					    
+	 };
+		
+		ssm_alleEigenschaften.addSelectionChangeHandler(new Handler(){
+			
+			public void onSelectionChange(final SelectionChangeEvent event) {
+				
+				selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
+				if(selectedObject_alleEigenschaften != null){
+					
+					Showcase showcase= new EigenschaftenHinzufuegen(user);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+		}else{
+			Window.alert("Zum Bearbeiten muss eine Eigenschaft ausgewählt werden");
+			}
+		}
+	});
+		
+		
+		
+		 
+		 pe_alleEigenschaften.addColumn(name, "Bereich");
+		 pe_alleEigenschaften.addColumn(wert, "Ausprägung der Eigenschaft");
+//		 filltableEigenschaften();
+	
+	
+
+//		 private void filltableEigenschaften(){
+//			 
+//		 }
+		 
+		 
+		 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		 adminService.getPartnerprofilfromPerson(user.getID(), new getEigenschaftByPartnerprofil());
-		 
-		 erstellungsDatum.setReadOnly(true);
-//		 aenderungsDatum.setReadOnly(true);
-//		 wert.setReadOnly(true);
-//		 eigenschaft.setReadOnly(true);
-		 
-		//Stylen der Buttons
-		eigenschaften.setStylePrimaryName("myprofil-button");
-//		speichern.setStylePrimaryName("myprofil-button");
-//		abbrechen.setStylePrimaryName("myprofil-button");
+		adminService.getAllEigenschaftenbyPartnerprofilID(user.getPartnerprofil_ID(), new getEigenschaftByPartnerprofil());
+
 		
-		pe_alleEigenschaften.setWidth("100%");
 		
-		hpanel.add(eigenschaften);
-		
-		vpanel.add(pe_alleEigenschaften);
-		
-		this.add(hpanel);
-		this.add(vpanel);
-		
-		pe_alleEigenschaften.setSelectionModel(ssm_alleEigenschaften);
-		
-		ssm_alleEigenschaften.addSelectionChangeHandler(new Handler() {
-			
-			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				// TODO Auto-generated method stub
+//		 AsyncCallback<Vector<Eigenschaft>> callback = new AsyncCallback<Vector<Eigenschaft>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Die Eigenschaften konnten nicht aus der Datenbank geladen werden");				
+//			}
+//
+//			@Override
+//			public void onSuccess(Vector<Eigenschaft> result) {
+//				
+//				pe_alleEigenschaften.setRowData(0, result);
+//				pe_alleEigenschaften.setRowCount(result.size(), true);
+//				
+//			}
+//			 
+//		 };
 				
-			}
-		});
-		
-		
-		
 		//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln				
 //		vpanel.setSpacing(4);
 //		
@@ -146,10 +197,10 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 //
 //		
 //		pe_buttonPanel.setWidget(0, 0, eigenschaften);
-//		pe_buttonPanel.setWidget(0, 1, speichern);
+//		pe_buttonPanel.setWidget(0, 1, bearbeiten);
 //		pe_buttonPanel.setWidget(0, 2, abbrechen);
 //		
-//		speichern.setVisible(false);
+//		bearbeiten.setVisible(false);
 //		abbrechen.setVisible(false);
 //		
 //		vpanel.add(pe_buttonPanel);
@@ -159,36 +210,38 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 //		this.setSpacing(4);
 		
 		
-		eigenschaften.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event) {
-				Showcase showcase = new EigenschaftenHinzufuegen(user);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-
-				
-		}
-		
-	});
+//		eigenschaften.addClickHandler(new ClickHandler(){
+//			public void onClick(ClickEvent event) {
+//				Showcase showcase = new EigenschaftenHinzufuegen(user);
+//				RootPanel.get("Details").clear();
+//				RootPanel.get("Details").add(showcase);
+//
+//				
+//		}
+//		
+//	});
 			
 	}
-	
-	
-	
-	
-	
-	
-	private class getEigenschaftByPartnerprofil implements AsyncCallback<Eigenschaft> {
+
+	private class getEigenschaftByPartnerprofil implements AsyncCallback<Vector<Eigenschaft>> {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			Window.alert("Die Eigenschaften konnten nicht aus der Datenbank geladen werden");
 			
 		}
 
+
+
 		@Override
-		public void onSuccess(Eigenschaft result) {
-			
-			
+		public void onSuccess(Vector<Eigenschaft> result) {
+			if(result != null){
+			pe_alleEigenschaften.setRowData(0, result);
+			pe_alleEigenschaften.setRowCount(result.size(), true);
+			Window.alert("Alle Eigenschaft wurden erfolgreich aus der Datenbank geladen");
+			}else{
+				Window.alert("Es wurden keine Eigenschaften gefunden");
+			}
 		}
 
 	

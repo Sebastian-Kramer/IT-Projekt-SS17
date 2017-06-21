@@ -44,6 +44,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.tMapper = TeamMapper.tMapper();
 		this.unMapper = UnternehmenMapper.unMapper();
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
+		this.eigenschaftsMapper = EigenschaftMapper.eMapper();
 		
 	}
 	/*
@@ -461,6 +462,22 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.eigenschaftsMapper.findByKey(id);
 
+	}
+
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) {
+	
+		Vector <Eigenschaft> result = new Vector<Eigenschaft>();
+		
+		if(this.eigenschaftsMapper != null ){
+			
+			Vector<Eigenschaft> eigenschaft = this.eigenschaftsMapper.getEigenschaftbyID(id);
+			
+			if(eigenschaft != null){
+				result.addAll(eigenschaft);
+			}
+		}
+		return result;
 	}
 
 	
