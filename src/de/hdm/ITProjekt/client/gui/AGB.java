@@ -13,8 +13,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
 public class AGB extends Showcase {
 
-	private static ClickHandler currentClickHandler = null;
-	private static ClickEvent currentClickEvent = null;
+	
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
