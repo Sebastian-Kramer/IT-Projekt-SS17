@@ -101,7 +101,6 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 							@Override
 							public void onSuccess(Vector<Person> result) {
-								Window.alert(" " + result.size());
 								boolean isUserRegistered = false;
 								for (Person person : result) {
 									/**

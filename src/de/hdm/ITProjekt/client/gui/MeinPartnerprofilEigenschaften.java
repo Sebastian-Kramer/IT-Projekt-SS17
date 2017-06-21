@@ -58,6 +58,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 	
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
+
 	HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private FlexTable pe_form = new FlexTable();
@@ -155,7 +156,6 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		Window.alert("vor dem laden aus der DB");
 		adminService.getAllEigenschaftenbyPartnerprofilID(user.getPartnerprofil_ID(), new getEigenschaftByPartnerprofil());
 
 		

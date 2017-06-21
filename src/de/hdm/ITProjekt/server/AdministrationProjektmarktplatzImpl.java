@@ -44,6 +44,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.tMapper = TeamMapper.tMapper();
 		this.unMapper = UnternehmenMapper.unMapper();
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
+		this.eigenschaftsMapper = EigenschaftMapper.eMapper();
 		
 	}
 	/*
