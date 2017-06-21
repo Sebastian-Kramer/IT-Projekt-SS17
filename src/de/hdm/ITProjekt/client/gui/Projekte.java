@@ -44,6 +44,7 @@ public class Projekte extends Showcase {
 	
 	Button add_projekt = new Button("Projekt Hinzufügen");
 	Button delete_projekt = new Button("Projekt Löschen");
+	Button show_projekt = new Button("Projekt anzeigen");
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 	
@@ -77,6 +78,7 @@ public class Projekte extends Showcase {
 		RootPanel.get("Details").setWidth("100%");
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
+		hpanel_projekte.add(show_projekt);
 		hpanel_projekte.add(add_projekt);
 		hpanel_projekte.add(delete_projekt);
 		
@@ -93,18 +95,70 @@ public class Projekte extends Showcase {
 			}
 		});
 		
-		ssm_projekt.addSelectionChangeHandler(new Handler(){
+		show_projekt.addClickHandler(new ClickHandler(){
 
 			@Override
-			public void onSelectionChange(SelectionChangeEvent event) {
-				projekt = ssm_projekt.getSelectedObject();
-				Showcase showcase = new Projektseite(projekt, person);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
+			public void onClick(ClickEvent event) {
+				if(ssm_projekt != null){
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				    }
+					 projekt = ssm_projekt.getSelectedObject();
+					 Showcase showcase = new Projektseite(projekt, person);
+					 RootPanel.get("Details").clear();
+					 RootPanel.get("Details").add(showcase);
+					 
+				}
 				
 			}
 			
 		});
+		
+		delete_projekt.addClickHandler(new ClickHandler(){
+			 
+			@Override
+			public void onClick(ClickEvent event) {
+				// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
+				Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				if (selectedProjektObject != null){
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				    }
+					 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							Window.alert("Fehler beim Löschen");
+							
+						}
+
+						@Override
+						public void onSuccess(Projekt result) {
+							Window.alert("Projekt wurde erfolgreich gelöscht");
+							filltableprojekte();
+							
+						}
+						};
+						adminService.deleteProjekt(selectedProjektObject, callback);
+				}
+}
+		});
+		
+//		ssm_projekt.addSelectionChangeHandler(new Handler(){
+//
+//			@Override
+//			public void onSelectionChange(SelectionChangeEvent event) {
+//				projekt = ssm_projekt.getSelectedObject();
+//				Showcase showcase = new Projektseite(projekt, person);
+//				RootPanel.get("Details").clear();
+//				RootPanel.get("Details").add(showcase);
+////				
+//			}
+//			
+//		});
 		
 		Column<Projekt, String> projektname = 
 				    new Column<Projekt, String>(new ClickableTextCell())  {
@@ -163,45 +217,45 @@ public class Projekte extends Showcase {
 //		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
 //		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
 		filltableprojekte();
-		deleteProjekt();
+//		deleteProjekt();
 	
 	
 }
 	
-	private void deleteProjekt(){
-
-		 delete_projekt.addClickHandler(new ClickHandler(){
-			 
-				@Override
-				public void onClick(ClickEvent event) {
-					// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
-					Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
-					if (selectedProjektObject != null){
-						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-						 if (adminService == null) {
-					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-					    }
-						 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
-	
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								Window.alert("Fehler beim Löschen");
-								
-							}
-	
-							@Override
-							public void onSuccess(Projekt result) {
-								Window.alert("Projekt wurde erfolgreich gelöscht");
-								filltableprojekte();
-								
-							}
-							};
-							adminService.deleteProjekt(selectedProjektObject, callback);
-					}
-	}
-			});
-		 }
+//	private void deleteProjekt(){
+//
+//		 delete_projekt.addClickHandler(new ClickHandler(){
+//			 
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
+//					Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+//					if (selectedProjektObject != null){
+//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//						 if (adminService == null) {
+//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//					    }
+//						 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
+//	
+//							@Override
+//							public void onFailure(Throwable caught) {
+//								// TODO Auto-generated method stub
+//								Window.alert("Fehler beim Löschen");
+//								
+//							}
+//	
+//							@Override
+//							public void onSuccess(Projekt result) {
+//								Window.alert("Projekt wurde erfolgreich gelöscht");
+//								filltableprojekte();
+//								
+//							}
+//							};
+//							adminService.deleteProjekt(selectedProjektObject, callback);
+//					}
+//	}
+//			});
+//		 }
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -266,7 +320,10 @@ public class Projekte extends Showcase {
 //			}
 //			
 //		}
-	}}
+	}
+	
+	
+}
 
 
 
