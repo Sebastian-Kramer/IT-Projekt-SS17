@@ -8,6 +8,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.gui.AGB;
+import de.hdm.ITProjekt.client.gui.Impressum;
 
 public class Menuleiste extends HorizontalPanel{
 	
@@ -36,7 +37,16 @@ public class Menuleiste extends HorizontalPanel{
 			}
 		});
 		
-		
+		impressumAnchor.addClickHandler(new ClickHandler() {@Override
+		public void onClick(ClickEvent event) {
+
+			Showcase showcase = new Impressum();
+			RootPanel.get("Details").clear();
+			RootPanel.get("Details").add(showcase);
+			currentClickHandler=this;
+			currentClickEvent=event;
+		}
+		});
 	}}
 	
 	
