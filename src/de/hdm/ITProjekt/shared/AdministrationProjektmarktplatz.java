@@ -83,9 +83,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
  */
 	public Projekt addProjekt(Projekt pmp) throws IllegalArgumentException;
 
-	public Team getTeamByID(int id) throws IllegalArgumentException;
-
-	Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
 	Projekt createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID);
 	
@@ -107,7 +104,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Person createPerson(String email, String vorname, String nachname, String anrede, 
 			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) throws IllegalArgumentException;
 	
-	
+	public Person updatePerson(Person p) throws IllegalArgumentException;
 	public Vector<Person> getAllPerson() ;
 
 	
@@ -130,6 +127,15 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 //	public Vector<Eigenschaft> getAllEigenschaftenByOrgaID(int id);
 
+ // Methoden von Team
+	
+	public Team createTeam(Team team) throws IllegalArgumentException;
 
-
-}
+	public Team getTeamByID(int id) throws IllegalArgumentException;
+	
+	// Methoden von Unternehmen
+	
+	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
+	
+	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
+	}

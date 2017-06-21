@@ -11,6 +11,7 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -36,6 +37,8 @@ import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class MeinProfilAnzeigen extends Showcase{
 	
@@ -52,6 +55,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private VerticalPanel vpanel = new VerticalPanel();
 	private VerticalPanel eigeneDaten = new VerticalPanel();
 	private VerticalPanel partnerprofilDaten = new VerticalPanel();
+	private VerticalPanel blabla = new VerticalPanel();
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	private HorizontalPanel buttonPartnerprofilPanel = new HorizontalPanel();
 	
@@ -78,7 +82,14 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button newUN = new Button("Unternehmen hinzufügen");
 	private Button eigenschaften = new Button("Eigenschaften hinzufügen");
 	
-	private Button partnerprofil = new Button("Weiter zum Partnerprofil");
+	private Button team_bearbeiten = new Button("Bearbeiten");
+	private Button team_speichern = new Button("Speichern");
+	private Button team_abbrechen = new Button("Abbrechen");
+	
+	private Button unternehmen_bearbeiten = new Button("Bearbeiten");
+	private Button unternehmen_speichern = new Button("Speichern");
+	private Button unternehmen_abbrechen = new Button("Abbrechen");
+	
 	
 //	private Button teamErstellenButton = new Button("Team Erstellen");
 //	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
@@ -102,6 +113,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private TextBox emailBox = new TextBox();
 	
 	//Erstellen der Labels
+	private Label daten = new Label("Meine Daten:");
 	private Label email = new Label("E-Mail");
 	private Label anrede = new Label("Anrede");
 	private Label vorname = new Label("Vorname");
@@ -111,6 +123,37 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Label plz = new Label("Postleitzahl");
 	private Label ort = new Label("Ort");
 	
+	private FlexTable un_flextable = new FlexTable();
+	
+	private TextBox unternehmenNameBox = new TextBox();
+	private TextBox unternehmenStrasseBox = new TextBox();
+	private TextBox unternehmenHausnummerBox = new TextBox();
+	private TextBox unternehmenPlzBox = new TextBox();
+	private TextBox unternehmenOrtBox = new TextBox();
+	
+	private Label unternehmen = new Label("Unternehmen:");
+	private Label unternehmenNameLabel = new Label("Firmenname");
+	private Label unternehmenStrasseLabel = new Label("Straße");
+	private Label unternehmenHausnummerLabel = new Label("Nummer");
+	private Label unternehmenPlzLabel = new Label("PLZ");
+	private Label unternehmenOrtLabel = new Label("Ort");
+	
+	private FlexTable team_flextable = new FlexTable();
+	
+	private TextBox teamstrasse = new TextBox();
+	private TextBox teamhausnummer = new TextBox();
+	private TextBox teamplz = new TextBox();
+	private TextBox teamort = new TextBox();
+	private TextBox teamname = new TextBox();
+	
+	private Label team = new Label("Team:");
+	private Label labelteamstrasse = new Label("Teamname");
+	private Label labelteamhausnummer = new Label("Straße");
+	private Label labelteamplz = new Label("Nummer");
+	private Label labelteamort = new Label("PLZ");
+	private Label labelteamname = new Label("Ort");
+	
+	private Anchor klickensiehier = new Anchor("Unternehmen/Team Löschen/Erstellen");
 //	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 //	 if (adminService == null) {
 //   adminService = GWT.create(AdministrationProjektmarktplatz.class);
@@ -121,7 +164,10 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Person user = new Person();
 	private Eigenschaft eigen = new Eigenschaft();
 	private Eigenschaft selectedObject_alleEigenschaften = new Eigenschaft();
-
+	private Unternehmen unternehmenobject = new Unternehmen();
+	private Team teamobject = new Team();
+	
+	private Button button = new Button();
 	
 		@Override
 		protected String getHeadlineText() {
@@ -129,14 +175,29 @@ public class MeinProfilAnzeigen extends Showcase{
 		}
 		@Override
 		protected void run() {
-
+			
+			klickensiehier.addClickHandler(new ClickHandler() {
+						
+						@Override
+						public void onClick(ClickEvent event) {
+							DialogBox dialogbox = new DialogBoxNavigationTeamUnternehmen(user);
+							dialogbox.center();
+						}
+					});
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			 if (adminService == null) {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
-			adminService.getPersonbyID(user.getID(), new getPersonausDB());
 			
-			vpanel.add(partnerprofil);
+			 adminService.getPersonbyID(user.getID(), new getPersonausDB());
+			
+			if(user.getTeam_ID() != null){
+			adminService.getTeamByID(user.getTeam_ID(), new getTeamAusDBbyPerson());
+			}
+			
+			if(user.getUN_ID() != null){
+			adminService.getUnByID(user.getUN_ID(), new getUnternahmenAusDBbyPerson());
+			}
 			
 			pe_alleEigenschaften.setWidth("100%");
 			
@@ -148,11 +209,31 @@ public class MeinProfilAnzeigen extends Showcase{
 			hausnrBox.setReadOnly(true);
 			plzBox.setReadOnly(true);
 			ortBox.setReadOnly(true);
+
+			teamstrasse.setReadOnly(true);
+			teamhausnummer.setReadOnly(true);
+			teamplz.setReadOnly(true);
+			teamort.setReadOnly(true);
+			teamname.setReadOnly(true);
+			
+			unternehmenNameBox.setReadOnly(true);
+			unternehmenStrasseBox.setReadOnly(true);
+			unternehmenHausnummerBox.setReadOnly(true);
+			unternehmenPlzBox.setReadOnly(true);
+			unternehmenOrtBox.setReadOnly(true);
 			
 			//Stylen der Buttons
 			bearbeiten.setStylePrimaryName("myprofil-button");
 			speichern.setStylePrimaryName("myprofil-button");
 			abbrechen.setStylePrimaryName("myprofil-button");
+			team_bearbeiten.setStylePrimaryName("myprofil-button");
+			team_speichern.setStylePrimaryName("myprofil-button");
+			team_abbrechen.setStylePrimaryName("myprofil-button");
+			unternehmen_bearbeiten.setStylePrimaryName("myprofil-button");
+			unternehmen_speichern.setStylePrimaryName("myprofil-button");
+			unternehmen_abbrechen.setStylePrimaryName("myprofil-button");
+			
+			
 			newTeam.setStylePrimaryName("myprofil-button");
 			newUN.setStylePrimaryName("myprofil-button");
 			eigenschaften.setStylePrimaryName("myprofil-button");
@@ -166,52 +247,115 @@ public class MeinProfilAnzeigen extends Showcase{
 			//Legt den Abstand zwischen diesen Zellen fest. Parameter:Beabstandet den Zwischenzellenabstand in Pixeln			
 			vpanel.setSpacing(8);
 			
-			form.setWidget(0, 1, emailBox);
-			form.setWidget(0, 0, email);
+			form.setWidget(0, 0, daten);
 			
-			form.setWidget(1,  1, anredeBox);
-			form.setWidget(1, 0, anrede);
+			form.setWidget(1, 1, emailBox);
+			form.setWidget(1, 0, email);
 			
-			form.setWidget(2,  1, vnameBox);
-			form.setWidget(2, 0, vorname);
+			form.setWidget(2,  1, anredeBox);
+			form.setWidget(2, 0, anrede);
 			
-			form.setWidget(3,  1, nnameBox);
-			form.setWidget(3, 0, nachname);
+			form.setWidget(3,  1, vnameBox);
+			form.setWidget(3, 0, vorname);
+			
+			form.setWidget(4,  1, nnameBox);
+			form.setWidget(4, 0, nachname);
 		
-			form.setWidget(4,  1, strasseBox);
-			form.setWidget(4, 0, straße);
+			form.setWidget(5,  1, strasseBox);
+			form.setWidget(5, 0, straße);
 			
-			form.setWidget(5,  1, hausnrBox);
-			form.setWidget(5, 0, hausnr);
+			form.setWidget(6,  1, hausnrBox);
+			form.setWidget(6, 0, hausnr);
 			
-			form.setWidget(6,  1, plzBox);
-			form.setWidget(6, 0, plz);
+			form.setWidget(7,  1, plzBox);
+			form.setWidget(7, 0, plz);
 			
-			form.setWidget(7,  1, ortBox);
-			form.setWidget(7, 0, ort);
-			
+			form.setWidget(8,  1, ortBox);
+			form.setWidget(8, 0, ort);
+			form.setCellSpacing(10);
+		
 			
 			
 			ft_buttonPanel.setWidget(0, 0, bearbeiten);
 			ft_buttonPanel.setWidget(0, 1, speichern);
 			ft_buttonPanel.setWidget(0, 2, abbrechen);
-			ft_buttonPanel.setWidget(0, 3, newTeam);
-			ft_buttonPanel.setWidget(0, 4, newUN);
+//			ft_buttonPanel.setWidget(0, 3, newTeam);
+//			ft_buttonPanel.setWidget(0, 4, newUN);
 			
+		
+			unternehmen_abbrechen.setVisible(false);
+			unternehmen_speichern.setVisible(false);
+			team_abbrechen.setVisible(false);
+			team_speichern.setVisible(false);
 			speichern.setVisible(false);
 			abbrechen.setVisible(false);
-			newTeam.setVisible(false);
-			newUN.setVisible(false);
-
+//			newTeam.setVisible(false);
+//			newUN.setVisible(false);
+			
+			un_flextable.setWidget(0, 0, unternehmen_bearbeiten);
+			un_flextable.setWidget(1, 0, unternehmen_speichern);
+			un_flextable.setWidget(1, 1, unternehmen_abbrechen);
+			
+			un_flextable.setWidget(2, 0, unternehmen);
+			
+			un_flextable.setWidget(3, 1, unternehmenNameBox);
+			un_flextable.setWidget(3, 0, unternehmenNameLabel);
+			
+			un_flextable.setWidget(4,  1, unternehmenStrasseBox);
+			un_flextable.setWidget(4, 0, unternehmenStrasseLabel);
+			
+			un_flextable.setWidget(5,  1, unternehmenHausnummerBox);
+			un_flextable.setWidget(5, 0, unternehmenHausnummerLabel);
+			
+			un_flextable.setWidget(6,  1, unternehmenPlzBox);
+			un_flextable.setWidget(6, 0, unternehmenPlzLabel);
+		
+			un_flextable.setWidget(7,  1, unternehmenOrtBox);
+			un_flextable.setWidget(7, 0, unternehmenOrtLabel);
+			
+			un_flextable.setCellSpacing(10);
+			
+			
+			team_flextable.setWidget(0, 0, team_bearbeiten);
+			team_flextable.setWidget(1, 0, team_speichern);
+			team_flextable.setWidget(1, 1, team_abbrechen);
+			
+			team_flextable.setWidget(2, 0, team);
+			
+			team_flextable.setWidget(3, 1, teamstrasse);
+			team_flextable.setWidget(3, 0, labelteamstrasse);
+			
+			team_flextable.setWidget(4,  1, teamhausnummer);
+			team_flextable.setWidget(4, 0, labelteamhausnummer);
+			
+			team_flextable.setWidget(5,  1, teamplz);
+			team_flextable.setWidget(5, 0, labelteamplz);
+			
+			team_flextable.setWidget(6,  1, teamort);
+			team_flextable.setWidget(6, 0, labelteamort);
+		
+			team_flextable.setWidget(7,  1, teamname);
+			team_flextable.setWidget(7, 0, labelteamname);
+		
+			team_flextable.setCellSpacing(10);
+			
+			vpanel.add(klickensiehier);
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);
-			partnerprofilDaten.add(eigenschaften);
-			partnerprofilDaten.add(pe_alleEigenschaften);
+			vpanel.add(un_flextable);
+			
+			blabla.add(eigenschaften);
+			blabla.add(pe_alleEigenschaften);
+//			partnerprofilDaten.add(eigenschaften);
+//			partnerprofilDaten.add(pe_alleEigenschaften);
+			partnerprofilDaten.add(team_flextable);
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
-			hpanel.add(partnerprofilDaten);			
+			hpanel.add(partnerprofilDaten);	
+			hpanel.add(blabla);
 			this.add(hpanel);
-
+			//-------------------- RootPanel wird vergrößert!
+//			RootPanel.get("Details").setWidth("1000px");
 
 //			hpanel.add(vpanel);
 			
@@ -256,12 +400,47 @@ public class MeinProfilAnzeigen extends Showcase{
 		 
 		 pe_alleEigenschaften.addColumn(name, "Bereich");
 		 pe_alleEigenschaften.addColumn(wert, "Ausprägung der Eigenschaft");
-		
+	
+		 
+		unternehmen_bearbeiten.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				unternehmenNameBox.setReadOnly(false);
+				unternehmenStrasseBox.setReadOnly(false);
+				unternehmenHausnummerBox.setReadOnly(false);
+				unternehmenPlzBox.setReadOnly(false);
+				unternehmenOrtBox.setReadOnly(false);
+				
+				unternehmen_bearbeiten.setVisible(false);
+				unternehmen_speichern.setVisible(true);
+				unternehmen_abbrechen.setVisible(true);
+				
+			}
+		});	
+			
+		team_bearbeiten.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				teamstrasse.setReadOnly(false);
+				teamhausnummer.setReadOnly(false);
+				teamplz.setReadOnly(false);
+				teamort.setReadOnly(false);
+				teamname.setReadOnly(false);
+				
+				team_bearbeiten.setVisible(false);
+				team_speichern.setVisible(true);
+				team_abbrechen.setVisible(true);
+			}
+		});
+		 
+		 
 		bearbeiten.addClickHandler(new ClickHandler(){
 			
 			public void onClick(ClickEvent event) {
 				//Listbox anstelle von Textbox setzten
-				form.setWidget(1, 1, anredeListBox);
+				form.setWidget(2, 1, anredeListBox);
 				//ReadOnly auf false setzten
 				emailBox.setReadOnly(false);
 				vnameBox.setReadOnly(false);
@@ -278,6 +457,25 @@ public class MeinProfilAnzeigen extends Showcase{
 				
 			}
 		
+		});
+		
+		team_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		unternehmen_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
 		});
 		
 		abbrechen.addClickHandler(new ClickHandler() {
@@ -300,15 +498,8 @@ public class MeinProfilAnzeigen extends Showcase{
 			}
 		});
 		
-		partnerprofil.addClickHandler(new ClickHandler(){
-			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinPartnerprofilEigenschaften(user);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-				
-			}
-		});
-		}
+	
+	}
 		
 	
 		
@@ -375,11 +566,78 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			
 			
-		}
-
-
-		
+		}	
 	}
+		private class getTeamAusDBbyPerson implements AsyncCallback<Team>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Team result) {
+				if (result != null){
+				
+				teamstrasse.setReadOnly(true);
+				teamhausnummer.setReadOnly(true);
+				teamplz.setReadOnly(true);
+				teamort.setReadOnly(true);
+				teamname.setReadOnly(true);
+				teamname.setText(result.getName());
+				teamplz.setText(Integer.toString(result.getPlz()));
+				teamort.setText(result.getOrt());
+				teamstrasse.setText(result.getStrasse());
+				teamhausnummer.setText(Integer.toString(result.getHausnummer()));
+				}
+				else{
+					teamstrasse.setReadOnly(false);
+					teamhausnummer.setReadOnly(false);
+					teamplz.setReadOnly(false);
+					teamort.setReadOnly(false);
+					teamname.setReadOnly(false);
+				}
+				
+				
+				
+			}
+			
+		}
+		private class getUnternahmenAusDBbyPerson implements AsyncCallback<Unternehmen>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Unternehmen result) {
+				if (result != null){
+					
+					unternehmenNameBox.setReadOnly(true);
+					unternehmenStrasseBox.setReadOnly(true);
+					unternehmenHausnummerBox.setReadOnly(true);
+					unternehmenPlzBox.setReadOnly(true);
+					unternehmenOrtBox.setReadOnly(true);
+					unternehmenNameBox.setText(result.getName());
+					unternehmenStrasseBox.setText(result.getStrasse());
+					unternehmenHausnummerBox.setText(Integer.toString(result.getHausnummer()));
+					unternehmenPlzBox.setText(Integer.toString(result.getPlz()));
+					unternehmenOrtBox.setText(result.getOrt());
+				}else {
+					unternehmenNameBox.setReadOnly(false);
+					unternehmenStrasseBox.setReadOnly(false);
+					unternehmenHausnummerBox.setReadOnly(false);
+					unternehmenPlzBox.setReadOnly(false);
+					unternehmenOrtBox.setReadOnly(false);
+				}
+			
+				
+			}
+			
+		}
 }
 	
 

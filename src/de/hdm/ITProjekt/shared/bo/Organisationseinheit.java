@@ -29,10 +29,10 @@ public class Organisationseinheit extends BusinessObject{
 	 */
 	
 	private String ort;
-	
 	/*
 	 * Realisierung einer Beziehung zu Partnerprofil mittels Fremdschlüssel
 	 */
+
 
 	private int Partnerprofil_ID = 0;
 
@@ -126,7 +126,6 @@ public class Organisationseinheit extends BusinessObject{
 	public int getPartnerprofil_ID() {
 		return Partnerprofil_ID;
 	}
-
 	public void setPartnerprofil_ID(int partnerprofil_ID) {
 		Partnerprofil_ID = partnerprofil_ID;
 	}

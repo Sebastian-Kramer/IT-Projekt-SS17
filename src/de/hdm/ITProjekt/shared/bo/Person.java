@@ -46,6 +46,8 @@ public class Person extends Organisationseinheit{
 	 */
 	
 	
+	
+	
 	public String getEmail() {
 		return email;
 	}

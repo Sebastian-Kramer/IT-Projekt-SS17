@@ -45,7 +45,6 @@ public Unternehmen findByKey(int id){
 			un.setHausnummer(super.findByKey(id).getHausnummer());
 			un.setOrt(super.findByKey(id).getOrt());
 			un.setPlz(super.findByKey(id).getPlz());
-			un.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
 			return un;
 		}
 	}
@@ -81,7 +80,6 @@ public Unternehmen findByKey(int id){
 				u.setHausnummer(super.findByObject(u).getHausnummer());
 				u.setPlz(super.findByObject(u).getPlz());
 				u.setOrt(super.findByObject(u).getOrt());
-				u.setPartnerprofil_ID(super.findByObject(u).getPartnerprofil_ID());
 			 
 				result.addElement(u);
 		  }
@@ -93,12 +91,14 @@ public Unternehmen findByKey(int id){
 		  return result;
 	}
 	
-public void createUnternehmen(Unternehmen u){
+public Unternehmen createUnternehmen(Unternehmen u){
 		
 		Connection con = DBConnection.connection();
 		
 		try {
 		      Statement stmt = con.createStatement();
+		      
+		      u.setID(super.insert(u));
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
 		              + "FROM Unternehmen ");
@@ -117,6 +117,7 @@ public void createUnternehmen(Unternehmen u){
 		catch(SQLException e2){
 			e2.printStackTrace();
 		}
+		return u;
 	}
 
 
