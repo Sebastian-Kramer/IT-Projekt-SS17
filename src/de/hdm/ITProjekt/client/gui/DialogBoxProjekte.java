@@ -75,8 +75,7 @@ public class DialogBoxProjekte extends DialogBox {
 	
 	
 	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt, final Person person){
-		this.p1 = selectedobjectinprojekt;
-		this.person = person;
+		
 		
 		Label label_objekt = new Label(selectedobjectinprojekt.getBez());
 		
@@ -141,9 +140,8 @@ public class DialogBoxProjekte extends DialogBox {
 				projekt_dialogbox.setName(bezeichnung.getText());
 				projekt_dialogbox.setStartdatum(datepicker_startdatum.getValue());
 				projekt_dialogbox.setEnddatum(datepicker_enddatum.getValue());
-				projekt_dialogbox.setProjektleiter_ID(person.getID());
+//				projekt_dialogbox.setProjektleiter_ID(person.getID());
 				projekt_dialogbox.setProjektmarktplatz_ID(selectedobjectinprojekt.getID());
-			   
 				if (bezeichnung.getText().isEmpty()){
 					Window.alert("Bitte geben Sie ein Projektenamen an");
 				}if (beschreibung.getText().isEmpty()){
