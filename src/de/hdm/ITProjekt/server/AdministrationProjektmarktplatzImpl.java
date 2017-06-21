@@ -183,6 +183,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //	}
 	
 	public Projekt deleteProjekt(Projekt pr){
+		
+		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
+		
+		if(ausschreibung != null){
+			for(Ausschreibung a : ausschreibung){
+				this.deleteAusschreibung(a);
+			}
+			
+		}
+		
 		return this.pMapper.deleteProjekt(pr);
 	}
 	

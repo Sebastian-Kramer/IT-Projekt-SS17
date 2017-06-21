@@ -140,7 +140,7 @@ public class DialogBoxProjekte extends DialogBox {
 				projekt_dialogbox.setName(bezeichnung.getText());
 				projekt_dialogbox.setStartdatum(datepicker_startdatum.getValue());
 				projekt_dialogbox.setEnddatum(datepicker_enddatum.getValue());
-//				projekt_dialogbox.setProjektleiter_ID(person.getID());
+				projekt_dialogbox.setProjektleiter_ID(person.getID());
 				projekt_dialogbox.setProjektmarktplatz_ID(selectedobjectinprojekt.getID());
 				if (bezeichnung.getText().isEmpty()){
 					Window.alert("Bitte geben Sie ein Projektenamen an");
@@ -195,7 +195,7 @@ public class DialogBoxProjekte extends DialogBox {
 		public void onSuccess(Projekt result) {
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
 			hide();
-			Showcase showcase = new Projekte(p1, person);
+			Showcase showcase = new Projektseite(projekt_dialogbox, person);
         	RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 		}
