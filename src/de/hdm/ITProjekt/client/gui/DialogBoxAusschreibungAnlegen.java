@@ -51,8 +51,8 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	private Ausschreibung ausschreibung_dialog = new Ausschreibung();
 	
-	private Person person;
-	private Projekt projekt;
+	private Person person1 = new Person();
+	private Projekt projekt1 = new Projekt();
 	
 //	public DialogBoxAusschreibungAnlegen(Projekt projekt, Person person){
 //		this.projekt = projekt;
@@ -65,6 +65,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		setText("Ausschreibung anlegen");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
+		
+		this.person1 = person;
+		this.projekt1 = projekt;
 		
 		hp.add(createAusschreibung);
 		hp.add(cancel);
@@ -112,7 +115,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			public void onClick(ClickEvent event) {
 			ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
 			ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
-			ausschreibung_dialog.setDatum(datepicker_datum.getValue());
+			ausschreibung_dialog.setDatum(ablaufDatum.getValue());
 			ausschreibung_dialog.setOrga_ID(projekt.getProjektleiter_ID());
 			ausschreibung_dialog.setProjekt_ID(projekt.getID());
 				
@@ -156,9 +159,10 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
 				hide();
-				Showcase showcase = new Projektseite();
+				Showcase showcase = new Projektseite(projekt1, person1);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+				
 				
 				
 			}

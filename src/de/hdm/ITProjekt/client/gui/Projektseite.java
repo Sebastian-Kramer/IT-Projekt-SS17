@@ -69,6 +69,7 @@ public class Projektseite extends Showcase{
 	@Override
 	protected void run() {
 		
+		
 		RootPanel.get("Details").setWidth("100%");
 		ct_projektausschreibungen.setWidth("100%");
 		
@@ -111,13 +112,18 @@ public class Projektseite extends Showcase{
 						return object.getDatum().toString();
 					}
 		
-	};
+		};
 	
+		
 	
 	ct_projektausschreibungen.addColumn(bezeichnung, "Stellenbezeichnung");
 	ct_projektausschreibungen.addColumn(ablauffrist, "Ablauffrist");
+
+	
+	
 	
 	filltableauschreibungen();
+//	refreshList();
 	
 	}
 
@@ -127,29 +133,74 @@ public class Projektseite extends Showcase{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
+//		 adminService.getAlLAuscchreibungenBy(selectedProjekt.getID(), new AllAuschreibungenByProjekt());
+		 adminService.findByProjekt(selectedProjekt, new AllAuschreibungenByProjekt());
+//		 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Das hat nicht geklappt");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Vector<Ausschreibung> result) {
+//				
+//				if(result != null){
+//					ct_projektausschreibungen.setRowData(0, result);
+//					ct_projektausschreibungen.setRowCount(result.size(), true);
+//				}else{
+//					Window.alert("Keine Ausschreibungen");
+//				}
+//				
+//				
+//			}
+//			
+//		};
+//		adminService.findByProjekt(selectedProjekt, callback);
+		 
+	}
+//	private void refreshList(){
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
+//
+//			@Override
+//			public void onFailure(Throwable caught) {
+//				Window.alert("Das erneute Laden der Ausschreibungen hat nicht funktioniert");
+//				
+//			}
+//
+//			@Override
+//			public void onSuccess(Vector<Ausschreibung> result) {
+//				ct_projektausschreibungen.setRowData(0, result);
+//				ct_projektausschreibungen.setRowCount(result.size(), true);
+//				
+//			}
+//			 
+//		 };
+//		 adminService.findByProjekt(selectedProjekt, callback);
+//	}
+	
+	
+	public class AllAuschreibungenByProjekt implements AsyncCallback<Vector<Ausschreibung>>{
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Das hat nicht geklappt");
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Ausschreibung> result) {
-				
-				if(result != null){
-					ct_projektausschreibungen.setRowData(0, result);
-					ct_projektausschreibungen.setRowCount(result.size(), true);
-				}else{
-					Window.alert("Keine Ausschreibungen");
-				}
-				
-				
-			}
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Das hat nicht geklappt");
 			
-		};
-		adminService.findByProjekt(selectedProjekt, callback);
+		}
+
+		@Override
+		public void onSuccess(Vector<Ausschreibung> result) {
+			ct_projektausschreibungen.setRowData(0, result);
+			ct_projektausschreibungen.setRowCount(result.size(), true);
+			Window.alert("Alle Auschreibungen für diese Projekt wurden geladen");
+			
+		}
+		
 	}
 
 }
