@@ -40,6 +40,8 @@ public class Projektseite extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Button createStelle = new Button("Stellenausschreibung anlegen");
+	private Button detailsButton = new Button("Stellendetails anzeigen");
+	
 	
 	VerticalPanel vp_projekt = new VerticalPanel();
 	HorizontalPanel hp_projekt = new HorizontalPanel();
@@ -77,6 +79,7 @@ public class Projektseite extends Showcase{
 		this.add(hp_projekt);
 		this.add(vp_projekt);
 		hp_projekt.add(createStelle);
+		hp_projekt.add(detailsButton);
 		
 		
 			createStelle.addClickHandler(new ClickHandler(){
@@ -89,6 +92,17 @@ public class Projektseite extends Showcase{
 					
 				}
 				
+			});
+			
+			detailsButton.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					DialogBoxDetails dialogBox = new DialogBoxDetails(selectedProjekt, person);
+					dialogBox.center();
+					
+				}
+							
 			});
 			
 		
@@ -113,6 +127,26 @@ public class Projektseite extends Showcase{
 					}
 		
 		};
+		Column<Ausschreibung, String> ansprechpartner =
+				new Column<Ausschreibung, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(Ausschreibung object) {
+						// TODO Auto-generated method stub
+						return Integer.toString(object.getID());
+					}
+		
+		};
+		
+//		TextColumn<Ausschreibung> projektverantwortlicher = new TextColumn<Ausschreibung>(){
+//
+//			@Override
+//			public String getValue(Ausschreibung object) {
+//				// TODO Auto-generated method stub
+//				return object.getAusschreibungstext();
+//			}
+//			
+//		};
 	
 		
 	

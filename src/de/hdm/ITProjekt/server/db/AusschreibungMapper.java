@@ -188,7 +188,7 @@ public class AusschreibungMapper {
 			try {
 			      Statement stmt = con.createStatement();
 			      
-			      ResultSet rs = stmt.executeQuery("SELECT A.ID, A.ausschreibungstext, A.bezeichnung, A.datum, A.Projekt_ID, A.Orga_ID, P.name FROM Ausschreibung As A, Person As P WHERE A.Projekt_ID = " + projektID );
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung WHERE Projekt_ID = " + projektID );
 			      
 			      while(rs.next()){
 			    	  Ausschreibung a = new Ausschreibung();
