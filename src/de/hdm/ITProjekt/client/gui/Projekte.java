@@ -67,8 +67,8 @@ public class Projekte extends Showcase {
 
 	@Override
 	protected String getHeadlineText() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return "<h3> Das sind alle Projekte <h/3>";
 	}
 
 	@Override

@@ -33,6 +33,7 @@ import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
+import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class Projektseite extends Showcase{
@@ -41,6 +42,7 @@ public class Projektseite extends Showcase{
 	
 	private Button createStelle = new Button("Stellenausschreibung anlegen");
 	private Button detailsButton = new Button("Stellendetails anzeigen");
+	private Button back = new Button("Zurück zum Projektmarktplatz");
 	
 	
 	VerticalPanel vp_projekt = new VerticalPanel();
@@ -65,7 +67,7 @@ public class Projektseite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		return "Projektverwaltung";
+		return "<h2> Projektverwaltung </h2> ";
 	}
 
 	@Override
@@ -80,6 +82,7 @@ public class Projektseite extends Showcase{
 		this.add(vp_projekt);
 		hp_projekt.add(createStelle);
 		hp_projekt.add(detailsButton);
+		hp_projekt.add(back);
 		
 		
 			createStelle.addClickHandler(new ClickHandler(){
@@ -103,6 +106,17 @@ public class Projektseite extends Showcase{
 					
 				}
 							
+			});
+			back.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					Showcase showcase = new ProjektmarktplatzSeite(person);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+					
+				}
+				
 			});
 			
 		
