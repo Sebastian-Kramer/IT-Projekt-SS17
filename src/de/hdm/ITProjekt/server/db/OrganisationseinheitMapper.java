@@ -136,12 +136,17 @@ public class OrganisationseinheitMapper {
 		    	id = o.getID();
 		      Statement stmt = con.createStatement();
 
-
+		      if (o.getPartnerprofil_ID() != null){
 		      stmt.executeUpdate("UPDATE Organisationseinheit SET strasse='"
-			          + o.getStrasse() + "'," + "hausnummer='" + o.getHausnummer() + "'," + "plz=" + o.getPlz() + ","
-			          + "ort='" + o.getOrt() + "' WHERE ID="+o.getID());
-
-		      
+			          + o.getStrasse() + "'," + "hausnummer='" + o.getHausnummer() + "'," + "ort='" 
+		    		  + o.getOrt() + "'," + "plz='" + o.getPlz() + "',"
+			          + "Partnerprofil_ID='" + o.getPartnerprofil_ID() + "' WHERE ID="+o.getID());
+		      }else {
+		    	  stmt.executeUpdate("UPDATE Organisationseinheit SET strasse='"
+				          + o.getStrasse() + "'," + "hausnummer='" + o.getHausnummer() + "'," + "ort='" 
+			    		  + o.getOrt() + "'," + "plz='" + o.getPlz() + "',"
+				          + "Partnerprofil_ID= NULL WHERE ID="+o.getID());
+		      }
 		    }
 		    catch (SQLException e) {
 		      e.printStackTrace();

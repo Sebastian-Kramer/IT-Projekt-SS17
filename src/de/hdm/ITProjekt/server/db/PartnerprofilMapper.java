@@ -37,8 +37,8 @@ public Partnerprofil findByKey(int id){
 			if(rs.next()){
 				Partnerprofil p = new Partnerprofil();
 				p.setID(rs.getInt("ID"));
-				p.setErstellungsdatum(rs.getDate("startdatum"));
-				p.setAenderungsdatum(rs.getDate("enddatum"));
+				p.setErstellungsdatum(rs.getDate("erstellungsdatum"));
+				p.setAenderungsdatum(rs.getDate("aenderungsdatum"));
 				return p;
 			}
 		}
@@ -63,8 +63,8 @@ public Vector<Partnerprofil> getAll(){
 	  while (rs.next()) {
 		  	Partnerprofil p = new Partnerprofil();
 		  	p.setID(rs.getInt("ID"));
-			p.setErstellungsdatum(rs.getDate("startdatum"));
-			p.setAenderungsdatum(rs.getDate("enddatum"));
+			p.setErstellungsdatum(rs.getDate("erstellungsdatum"));
+			p.setAenderungsdatum(rs.getDate("aenderungsdatum"));
 			result.addElement(p);
 		  
 		  result.addElement(p);

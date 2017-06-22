@@ -116,8 +116,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	
 	public Partnerprofil createPartnerprofil() throws IllegalArgumentException;
-
 	
+	public void deletePartnerprofil(Partnerprofil p) throws IllegalArgumentException;
+	
+	public Partnerprofil getPartnerprofilOfOrganisationseinheit (Organisationseinheit o) throws IllegalArgumentException;
 	
 	// Methoden von Teilnahme
 	
@@ -125,19 +127,24 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException;
 
-	Eigenschaft getPartnerprofilfromPerson(int id);
+	public Eigenschaft getPartnerprofilfromPerson(int id);
 
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id);
 
-//	public Vector<Eigenschaft> getAllEigenschaftenByOrgaID(int id);
-
  // Methoden von Team
+	
+	public Team updateTeam(Team team) throws IllegalArgumentException;
 	
 	public Team createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID) throws IllegalArgumentException;
 
-	public Team getTeamByID(int id) throws IllegalArgumentException;
+	public Team getTeamByID(Integer id) throws IllegalArgumentException;
 	
+	public void deleteTeam(Team team) throws IllegalArgumentException;
+		
 	// Methoden von Unternehmen
+	
+	public void deleteUnternehmen(Unternehmen u)  throws IllegalArgumentException;
+	
 	
 	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
