@@ -1,5 +1,6 @@
 package de.hdm.ITProjekt.client.gui;
 
+import java.util.Date;
 import java.util.Vector;
 
 import com.google.gwt.cell.client.ClickableTextCell;
@@ -27,6 +28,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
@@ -36,6 +38,8 @@ public class Projekte extends Showcase {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projekt> ct_alleProjekte = new CellTable<Projekt>();
+	CellTable<HybridProjektPerson> ct_projekte = new CellTable<HybridProjektPerson>();
+	Vector<HybridProjektPerson> projekte = new Vector<HybridProjektPerson>();
 
 	
 	private TextBox projektbox = new TextBox();
@@ -76,13 +80,13 @@ public class Projekte extends Showcase {
 		
 				
 		RootPanel.get("Details").setWidth("100%");
-		ct_alleProjekte.setWidth("100%", true);
+		ct_projekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(show_projekt);
 		hpanel_projekte.add(add_projekt);
 		hpanel_projekte.add(delete_projekt);
 		
-		vpanel_projekte.add(ct_alleProjekte);
+		vpanel_projekte.add(ct_projekte);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
 		
@@ -160,54 +164,112 @@ public class Projekte extends Showcase {
 //			
 //		});
 		
-		Column<Projekt, String> projektname = 
-				    new Column<Projekt, String>(new ClickableTextCell())  {
-				    
-						@Override
-						public String getValue(Projekt object) {
-							// TODO Auto-generated method stub
-							
-							return object.getName();
-						}
-				    };
-				    
-		Column<Projekt, String> beschreibung = 
-					new Column<Projekt, String>(new ClickableTextCell())  {
-											    
-						  	@Override
-							public String getValue(Projekt object) {					
-							
-						  		return object.getBeschreibung();
-							}
-					};	
-				    
-				    
-		 Column<Projekt, String> startdatum = 
-				    new Column<Projekt, String>(new ClickableTextCell())  {
-						    
-						@Override
-						public String getValue(Projekt object) {
-						// TODO Auto-generated method stub
-									
-						return object.getStartdatum().toString();
-						}
-				    };		
-				    
-		  Column<Projekt, String> enddatum = 
-				    new Column<Projekt, String>(new ClickableTextCell())  {
-								    
-			  			@Override
-			  			public String getValue(Projekt object) {
-			  			// TODO Auto-generated method stub
-											
-			  			return object.getEnddatum().toString();
-			  			}
-		  			};			 
+		Column<HybridProjektPerson, String> projektname =
+				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
 
-		ct_alleProjekte.addColumn(projektname, "Projektname");		    
-		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
-		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
-		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");	
+					@Override
+					public String getValue(HybridProjektPerson object) {
+						// TODO Auto-generated method stub
+						return object.getProjektname();
+					}
+		};
+					
+		Column<HybridProjektPerson, String>	startdatum =
+				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridProjektPerson object) {
+						// TODO Auto-generated method stub
+						return object.getStartdatum().toString();
+					}
+			
+		};
+		
+		Column<HybridProjektPerson, String> enddatum =
+				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridProjektPerson object) {
+						// TODO Auto-generated method stub
+						return object.getEnddatum().toString();
+					}
+			
+		};
+		
+		Column<HybridProjektPerson, String> projektleiter =
+				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridProjektPerson object) {
+						// TODO Auto-generated method stub
+						return object.getProjektleiter();
+					}
+			
+		};
+			
+		
+//		Column<Projekt, String> projektname = 
+//				    new Column<Projekt, String>(new ClickableTextCell())  {
+//				    
+//						@Override
+//						public String getValue(Projekt object) {
+//							// TODO Auto-generated method stub
+//							
+//							return object.getName();
+//						}
+//				    };
+//				    
+//		Column<Projekt, String> beschreibung = 
+//					new Column<Projekt, String>(new ClickableTextCell())  {
+//											    
+//						  	@Override
+//							public String getValue(Projekt object) {					
+//							
+//						  		return object.getBeschreibung();
+//							}
+//					};	
+//				    
+//				    
+//		 Column<Projekt, String> startdatum = 
+//				    new Column<Projekt, String>(new ClickableTextCell())  {
+//						    
+//						@Override
+//						public String getValue(Projekt object) {
+//						// TODO Auto-generated method stub
+//									
+//						return object.getStartdatum().toString();
+//						}
+//				    };		
+//				    
+//		  Column<Projekt, String> enddatum = 
+//				    new Column<Projekt, String>(new ClickableTextCell())  {
+//								    
+//			  			@Override
+//			  			public String getValue(Projekt object) {
+//			  			// TODO Auto-generated method stub
+//											
+//			  			return object.getEnddatum().toString();
+//			  			}
+//		  			};			 
+
+//		ct_alleProjekte.addColumn(projektname, "Projektname");		    
+//		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
+//		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
+//		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
+		ct_projekte.addColumn(projektname, "Projektname");
+		ct_projekte.addColumn(startdatum, "Startdatum");
+		ct_projekte.addColumn(enddatum, "Enddatum");
+		ct_projekte.addColumn(projektleiter, "Projektleiter");
+		
+		ct_projekte.setRowData(0, projekte);
+		ct_projekte.setRowCount(projekte.size(), true);
+		
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new ProjekteAnzeigenCallback());
+		
 		
 //		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 //		 if (adminService == null) {
@@ -216,7 +278,7 @@ public class Projekte extends Showcase {
 		
 //		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
 //		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
-		filltableprojekte();
+//		filltableprojekte();
 //		deleteProjekt();
 	
 	
@@ -322,8 +384,115 @@ public class Projekte extends Showcase {
 //		}
 	}
 	
+	private class HybridProjektPerson{
+		private int projekt_id;
+		private String projektname;
+		private Date startdatum;
+		private Date enddatum;
+		private String projektbezeichnung;
+		private String projektleiter;
+		private int projektmarktplatz_id;
+		
+		public int getProjekt_id() {
+			return projekt_id;
+		}
+		
+		public void setProjekt_id(int projekt_id) {
+			this.projekt_id = projekt_id;
+		}
+		
+		public String getProjektname() {
+			return projektname;
+		}
+		
+		public void setProjektname(String projektname) {
+			this.projektname = projektname;
+		}
+		
+		public Date getStartdatum() {
+			return startdatum;
+		}
+		
+		public void setStartdatum(Date startdatum) {
+			this.startdatum = startdatum;
+		}
+		
+		public Date getEnddatum() {
+			return enddatum;
+		}
+		
+		public void setEnddatum(Date enddatum) {
+			this.enddatum = enddatum;
+		}
+		
+		public String getProjektbezeichnung() {
+			return projektbezeichnung;
+		}
+		
+		public void setProjektbezeichnung(String projektbezeichnung) {
+			this.projektbezeichnung = projektbezeichnung;
+		}
+		
+		public String getProjektleiter() {
+			return projektleiter;
+		}
+		
+		public void setProjektleiter(String projektleiter) {
+			this.projektleiter = projektleiter;
+		}
+	}
+		
+		private class ProjekteAnzeigenCallback implements AsyncCallback<Vector<Projekt>>{
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Schritt 1 ist fehlgeschlagen");
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Projekt> result) {
+				
+				for (int i=0;i< result.size();i++ ){
+					final Projekt localProjekt = result.get(i);
+					final HybridProjektPerson localHybrid = new HybridProjektPerson();
+					
+					ClientsideSettings.getpmpVerwaltung().getPersonbyID(result.get(i).getProjektleiter_ID(), new AsyncCallback<Person>(){
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							Window.alert("Schritt 1 fehlgeschlagen");
+							
+						}
+
+						@Override
+						public void onSuccess(Person result) {
+							final Person p = result;
+							localHybrid.setProjektleiter(p.getName());
+							projekte.add(localHybrid);
+							
+							
+						}
+						
+					});
+						localHybrid.setProjekt_id(localProjekt.getID());
+						localHybrid.setProjektname(localProjekt.getName());
+						localHybrid.setEnddatum(localProjekt.getEnddatum());
+						localHybrid.setStartdatum(localProjekt.getStartdatum());
+						
+						
+				}
+				
+			}
+			
+		}
+
+		
+		
+		
+	}
 	
-}
+
 
 
 

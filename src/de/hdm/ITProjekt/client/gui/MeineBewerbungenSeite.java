@@ -64,7 +64,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Meine Bewerbungen";
+		return "<h1>Meine Bewerbungen</h1>";
 	}
 
 	@Override
@@ -75,11 +75,11 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 		vpanel.add(ct_meineBewerbungen);
 		
+		hpanel_bewerbung.add(bewerbungAnzeigen_button);
+		hpanel_bewerbung.add(bewerbungLoeschen_button);
 		
 		this.add(hpanel_bewerbung);
 		this.add(vpanel);
-		hpanel_bewerbung.add(bewerbungAnzeigen_button);
-		hpanel_bewerbung.add(bewerbungLoeschen_button);
 		
 		ct_meineBewerbungen.setSelectionModel(ssm);
 //		
@@ -139,6 +139,18 @@ public class MeineBewerbungenSeite extends Showcase {
 						return object.getAblauffrist().toString();
 								
 					}
+		};
+		
+		Column<HybridAusschreibungBewerbung, String> projektname =
+				new Column<HybridAusschreibungBewerbung, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridAusschreibungBewerbung object) {
+						
+						return object.getProjektname();
+					}
+			
+		
 			
 		};
 		
@@ -201,7 +213,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
 		ct_meineBewerbungen.addColumn(ausschreibender, "Ausschreibender");
 		ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
-		ct_meineBewerbungen.addColumn(ablauffrist, "Frist endet am");
+		ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
+		ct_meineBewerbungen.addColumn(projektname, "Projekt");
 		ct_meineBewerbungen.setRowCount(meineBewerbungen.size(), true);
 		ct_meineBewerbungen.setRowData(0, meineBewerbungen);
 		
@@ -294,6 +307,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		public String ausschreibender;
 		public Date ablauffrist;
 		public String bewerbungstext;
+		public String projektname;
 		
 		public int getBewerbungId() {
 			return bewerbungId;
@@ -342,6 +356,12 @@ public class MeineBewerbungenSeite extends Showcase {
 		}
 		public void setBewerbungstext(String bewerbungstext) {
 			this.bewerbungstext = bewerbungstext;
+		}
+		public String getProjektname() {
+			return projektname;
+		}
+		public void setProjektname(String projektname) {
+			this.projektname = projektname;
 		}
 		
 		
@@ -418,6 +438,7 @@ public class MeineBewerbungenSeite extends Showcase {
 								localHybrid.setAusschreibender(result.getName());
 								localHybrid.setAblauffrist(a.getDatum());
 								localHybrid.setBewerbungstext(localBewerbung.getBewerbungstext());
+								localHybrid.setProjektname(result.getName());
 								
 								
 								
