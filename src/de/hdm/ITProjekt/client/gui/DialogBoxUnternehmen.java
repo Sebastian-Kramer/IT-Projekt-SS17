@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -123,13 +124,7 @@ public class DialogBoxUnternehmen extends DialogBox{
 
 				@Override
 				public void onSuccess(Unternehmen result) {
-//					unternehmen.setName(unternehmennametext.getText());
-//					unternehmen.setPlz(Integer.parseInt(unternehmenplztext.getText()));
-//					unternehmen.setHausnummer(Integer.parseInt(unternehmenhausnummertext.getText()));
-//					unternehmen.setOrt(unternehmenorttext.getText());
-//					unternehmen.setStrasse(unternehmenstrassetext.getText());
-//					
-					
+			
 					person.setUN_ID(result.getID());
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
@@ -137,6 +132,13 @@ public class DialogBoxUnternehmen extends DialogBox{
 				   }
 					adminService.updatePerson(person, new updateperson());
 					hide();
+					Menubar menubar = new Menubar(person);
+					RootPanel.get("idendity").clear();
+					RootPanel.get("idendity").add(new IdentitySelection(person, menubar));
+					
+					RootPanel.get("Navigator").clear();
+					RootPanel.get("Navigator").add(menubar);
+					
 					Showcase showcase = new MeinProfilAnzeigen(person);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
@@ -144,34 +146,7 @@ public class DialogBoxUnternehmen extends DialogBox{
 				 
 			 });
 		}
-
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Unternehmen result) {
-//			
-//			unternehmen.setName(unternehmennametext.getText());
-//			unternehmen.setPlz(Integer.parseInt(unternehmenplztext.getText()));
-//			unternehmen.setHausnummer(Integer.parseInt(unternehmenhausnummertext.getText()));
-//			unternehmen.setOrt(unternehmenorttext.getText());
-//			unternehmen.setStrasse(unternehmenstrassetext.getText());
-//			person.setUN_ID(result.getID());
-//			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//			 if (adminService == null) {
-//		     adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//		   }
-//			adminService.updatePerson(person, new updateperson());
-//		
-//			hide();
-//			Showcase showcase = new MeinProfilAnzeigen(person);
-//			RootPanel.get("Details").clear();
-//			RootPanel.get("Details").add(showcase);
-//		}
-		
+	
 	}
 	private class updateperson implements AsyncCallback<Person>{
 

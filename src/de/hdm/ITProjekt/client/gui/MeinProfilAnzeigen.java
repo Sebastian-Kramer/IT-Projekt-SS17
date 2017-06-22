@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.SuggestBox;
+import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SelectionChangeEvent;
@@ -147,12 +148,13 @@ public class MeinProfilAnzeigen extends Showcase{
 	private TextBox teamname = new TextBox();
 	
 	private Label team = new Label("Team:");
-	private Label labelteamstrasse = new Label("Teamname");
-	private Label labelteamhausnummer = new Label("Straße");
-	private Label labelteamplz = new Label("Nummer");
-	private Label labelteamort = new Label("PLZ");
-	private Label labelteamname = new Label("Ort");
-	
+	private Label labelteamname = new Label ("Teamname");
+	private Label labelteamplz = new Label ("PLZ");
+	private Label labelteamort = new Label("Ort");
+	private Label labelteamstrasse = new Label("Straße");
+	private Label labelteamhausnummer = new Label("Hausnummer");
+
+	private Anchor profilloeschen = new Anchor ("Profil Löschen");
 	private Anchor klickensiehier = new Anchor("Unternehmen/Team Löschen/Erstellen");
 //	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 //	 if (adminService == null) {
@@ -175,6 +177,14 @@ public class MeinProfilAnzeigen extends Showcase{
 		}
 		@Override
 		protected void run() {
+			
+			profilloeschen.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					//---- Hier kommt eine abfrage, ob profil gelöscht werden soll rein!!!
+				}
+			});
 			
 			klickensiehier.addClickHandler(new ClickHandler() {
 						
@@ -339,6 +349,7 @@ public class MeinProfilAnzeigen extends Showcase{
 		
 			team_flextable.setCellSpacing(10);
 			
+			vpanel.add(profilloeschen);
 			vpanel.add(klickensiehier);
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);

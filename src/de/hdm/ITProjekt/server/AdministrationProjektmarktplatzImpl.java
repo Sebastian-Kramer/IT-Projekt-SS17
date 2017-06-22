@@ -383,9 +383,19 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.tMapper.findByKey(id);
 	}
 	@Override
-	public Team createTeam(Team team) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+	public Team createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID,
+			int Partnerprofil_ID) throws IllegalArgumentException {
+		Team team = new Team();
+		team.setID(0);
+		team.setUN_ID(UN_ID);
+		team.setHausnummer(hausnr);
+		team.setName(name);
+		team.setOrt(ort);
+		team.setPartnerprofil_ID(Partnerprofil_ID);
+		team.setPlz(plz);
+		team.setStrasse(strasse);
 		return this.tMapper.insert(team);
+		
 	}
 	
 	/*
@@ -519,6 +529,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.unMapper.createUnternehmen(u);
 	}
+	
 	
 
 	

@@ -126,7 +126,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getTeamByID(int id, AsyncCallback<Team> callback);
 
-	void createTeam(Team team, AsyncCallback<Team> callback);
+	void createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID,
+			AsyncCallback<Team> callback);
 
 	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
 			AsyncCallback<Unternehmen> callback);

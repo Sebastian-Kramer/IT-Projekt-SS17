@@ -15,9 +15,11 @@ import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Team;
@@ -79,10 +81,12 @@ public class DialogBoxTeam extends DialogBox{
 			 if (adminService == null) {
 		     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		   }
-			adminService.createTeam(team, new teamInDB());
+			adminService.createPartnerprofil(new teamindb());
 			
 		}
 	});
+	
+	
 	teamseite.setWidget(1, 0, teamnamelabel);
 	teamseite.setWidget(1, 1, teamnametext);
 	teamseite.setWidget(2, 0, teamplz);
@@ -97,7 +101,32 @@ public class DialogBoxTeam extends DialogBox{
 	vpanel.add(hpanel);
 	this.add(vpanel);
 	}
-	private class teamInDB implements AsyncCallback<Team>{
+//	private class teamInDB implements AsyncCallback<Team>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			// TODO Auto-generated method stub
+//			
+//		}
+//
+//		@Override
+//		public void onSuccess(Team result) {
+//			team.setName(teamnametext.getText());
+//			team.setPlz(Integer.parseInt(teamplztext.getText()));
+//			team.setHausnummer(Integer.parseInt(teamhausnummertext.getText()));
+//			team.setOrt(teamorttext.getText());
+//			team.setStrasse(teamstrassetext.getText());
+//			team.setUN_ID(person.getUN_ID());
+//			hide();
+//			Showcase showcase = new MeinProfilAnzeigen(person);
+//			RootPanel.get("Details").clear();
+//			RootPanel.get("Details").add(showcase);
+//			
+//		}
+//		
+//	}
+
+	private class teamindb implements AsyncCallback<Partnerprofil>{
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -106,20 +135,58 @@ public class DialogBoxTeam extends DialogBox{
 		}
 
 		@Override
-		public void onSuccess(Team result) {
-			team.setName(teamnametext.getText());
-			team.setPlz(Integer.parseInt(teamplztext.getText()));
-			team.setHausnummer(Integer.parseInt(teamhausnummertext.getText()));
-			team.setOrt(teamorttext.getText());
-			team.setStrasse(teamstrassetext.getText());
-			team.setUN_ID(person.getUN_ID());
-			hide();
-			Showcase showcase = new MeinProfilAnzeigen(person);
-			RootPanel.get("Details").clear();
-			RootPanel.get("Details").add(showcase);
+		public void onSuccess(Partnerprofil result) {
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+			adminService.createTeam(teamnametext.getText(), Integer.parseInt(teamplztext.getText()),  Integer.parseInt(teamhausnummertext.getText()), 
+					teamorttext.getText(), teamstrassetext.getText(), person.getUN_ID(), result.getID(), new AsyncCallback<Team>(){
+				
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(Team result) {
+					person.setTeam_ID(result.getID());
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				     }
+					 adminService.updatePerson(person, new updateperson());
+					 hide();
+					Menubar menubar = new Menubar(person);
+					RootPanel.get("idendity").clear();
+					RootPanel.get("idendity").add(new IdentitySelection(person, menubar));
+					
+					RootPanel.get("Navigator").clear();
+					RootPanel.get("Navigator").add(menubar);
+						
+					Showcase showcase = new MeinProfilAnzeigen(person);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+				}
+				
+			});
+		}
+		
+	}
+	private class updateperson implements AsyncCallback<Person>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			// TODO Auto-generated method stub
 			
 		}
 		
 	}
-
 }

@@ -41,16 +41,13 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if (person.getUN_ID() != null ){
-					Window.alert("erstellen sie ein unternehmen");
+				if (person.getUN_ID() != null ){					
+					DialogBox dialogbox = new DialogBoxTeam(person);
+					dialogbox.center();
+					hide();
 				}
-//				else if (person.getUN_ID() == null){
-//					Window.alert("Erstellen Sie bitte zuerst ein Unternehmen");
-//				} 
 				else{
-				DialogBox dialogbox = new DialogBoxTeam(person);
-				dialogbox.center();
-				hide();
+					Window.alert("Erstellen Sie bitte zu erst ein Unternehmen");
 				}
 				
 				}
@@ -98,10 +95,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				hide();
 			}
 		});
-		naviseite.setWidget(1, 0, teamerstellen);
-		naviseite.setWidget(1, 1, teamloeschen);
-		naviseite2.setWidget(1, 0, unternehmenerstellen);
-		naviseite2.setWidget(1, 1, unternehmenloeschen);
+		naviseite.setWidget(1, 0, unternehmenerstellen);
+		naviseite.setWidget(1, 1, unternehmenloeschen);
+		naviseite2.setWidget(1, 0, teamerstellen);
+		naviseite2.setWidget(1, 1, teamloeschen);
 		hpanel.add(naviseite);
 		hpanel.add(naviseite2);
 		vpanel.setPixelSize(150, 80);

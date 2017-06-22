@@ -129,7 +129,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
  // Methoden von Team
 	
-	public Team createTeam(Team team) throws IllegalArgumentException;
+	public Team createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID) throws IllegalArgumentException;
 
 	public Team getTeamByID(int id) throws IllegalArgumentException;
 	
