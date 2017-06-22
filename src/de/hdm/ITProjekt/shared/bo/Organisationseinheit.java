@@ -34,7 +34,7 @@ public class Organisationseinheit extends BusinessObject{
 	 */
 
 
-	private int Partnerprofil_ID = 0;
+	private Integer Partnerprofil_ID = 0;
 
 	
 //	private Integer Partnerprofil_ID = 0;
@@ -123,11 +123,16 @@ public class Organisationseinheit extends BusinessObject{
 	 * @return false wenn keine Gleichheit besteht
 	 */
 	
-	public int getPartnerprofil_ID() {
+	public Integer getPartnerprofil_ID() {
 		return Partnerprofil_ID;
 	}
-	public void setPartnerprofil_ID(int partnerprofil_ID) {
-		Partnerprofil_ID = partnerprofil_ID;
+	
+	public void setPartnerprofil_ID(Integer partnerprofil_ID) {
+		if (partnerprofil_ID == 0){
+			this.Partnerprofil_ID = null;
+		}else{
+			this.Partnerprofil_ID = partnerprofil_ID;
+		}
 	}
 
 	public boolean equals(Object o) {
