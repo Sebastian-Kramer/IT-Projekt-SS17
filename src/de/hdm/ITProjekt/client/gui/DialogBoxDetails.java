@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
+import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
 import com.google.gwt.user.datepicker.client.DatePicker;
@@ -39,7 +40,8 @@ import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxDetails extends DialogBox{
 	
-AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	
+	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private IdentitySelection identitySelection = null;
 	
@@ -50,8 +52,12 @@ AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVer
 	
 //	private Label text = new Label("<h2>Haben Sie zu dieser Ausschreibung können Sie sich an folgende Person wenden</h2>");
 	private Label zustaendigePerson = new Label("Projektleiter: ");
-	private Label kontaktPerson = new Label("Kontakt E-mail; ");
+	private Label kontaktPerson = new Label("E-mail Adresse: ");
+
+	private FlexTable form = new FlexTable();
 	
+	private TextBox kontaktNameBox = new TextBox();
+	private TextBox emailBox = new TextBox();
 	
 	private Person person;
 	private Projekt selectedProjekt;
@@ -61,15 +67,28 @@ AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVer
 		this.person = person;
 		this.selectedProjekt = selectedProjekt;
 		
-		setText("<h2>Haben Sie zu dieser Ausschreibung können Sie sich an folgende Person wenden</h2>");
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		adminService.getPersonbyID(selectedProjekt.getProjektleiter_ID(), new getDetailsfromPerson());
+		
+		setText("Haben Sie Fragen zu dieser Ausschreibung, können Sie sich an folgende Person wenden");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		
-		hp.add(close);
-		hp.add(zustaendigePerson);
-		hp.add(kontaktPerson);
-		vp.add(hp);
-		this.add(vp);
+		vp.setSpacing(4);
+		
+		form.setWidget(1, 0, zustaendigePerson);
+		form.setWidget(1, 1, kontaktNameBox);
+		
+		form.setWidget(3, 0, kontaktPerson);
+		form.setWidget(3, 1, emailBox);
+		
+		vp.add(form);
+		vp.add(close);
+		hp.add(vp);
+		this.add(hp);
 		
 		close.addClickHandler(new ClickHandler(){
 
@@ -82,6 +101,21 @@ AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVer
 		});
 	}
 	
-	
+	private class getDetailsfromPerson implements AsyncCallback<Person>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Daten des Projektleiters konnten nicht geladen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Person result) {
+			kontaktNameBox.setText(result.getVorname() + " " + result.getName());
+			emailBox.setText(result.getEmail());
+			
+		}
+		
+	}
 
 }

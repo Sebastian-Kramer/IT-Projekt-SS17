@@ -264,8 +264,9 @@ h2 span {
 }
 
 h3	{ 
-	font-size: 1.25em; 
-	font-weight: normal; 
+	font-size: 1.50em; 
+	font-weight: normal;
+	font-family: 'Tauri', serif;
 	padding: 0px; 
 	margin: 0px; 
 	color: #4E68AD; 
