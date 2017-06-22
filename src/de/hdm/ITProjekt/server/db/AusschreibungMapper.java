@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
@@ -214,6 +215,8 @@ public class AusschreibungMapper {
 			return findByProjekt(projekt.getID());
 			
 		}
+		
+		
 		
 }
 

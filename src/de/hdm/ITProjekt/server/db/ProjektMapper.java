@@ -24,7 +24,7 @@ public class ProjektMapper {
 		return pMapper;
 	}
 	
-	public Projekt findByKey(int id){
+	public Projekt getProjektByID(int id){
 		Connection con = DBConnection.connection();
 		
 		try{

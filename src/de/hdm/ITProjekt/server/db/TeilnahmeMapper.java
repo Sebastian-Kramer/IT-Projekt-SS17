@@ -144,7 +144,7 @@ public class TeilnahmeMapper {
 	          }
 	          
 	          for (int i= 0; i<=p.size();i++) {
-				p.add(ProjektMapper.pMapper().findByKey(personID));
+				p.add(ProjektMapper.pMapper().getProjektByID(personID));
 			}
 	          
 	          
