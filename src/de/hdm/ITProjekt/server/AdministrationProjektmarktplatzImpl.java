@@ -434,6 +434,8 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	
 	
+	
+	
 	/*
 	 * ***************************************************************************
 	   * ABSCHNITT, Ende: Methoden fürBewerbung-Objekte
@@ -529,6 +531,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.unMapper.createUnternehmen(u);
 	}
+	
+	public Vector<Bewerbung> findByPerson(Person person) throws IllegalArgumentException {
+		return this.bewMapper.findByPerson(person);
+	}
+	
+	public Projekt getProjektByID(int id) throws IllegalArgumentException {
+		
+		return this.pMapper.getProjektByID(id);
+	}
+
+	
 	
 	
 

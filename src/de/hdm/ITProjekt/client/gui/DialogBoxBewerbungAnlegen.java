@@ -38,6 +38,9 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
 	private Bewerbung bewerbung_dialog = new Bewerbung();
 	
+	private Person person;
+	
+	
 	private Ausschreibung selectedAusschreibung = new Ausschreibung();
 	
 
@@ -49,7 +52,9 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	FlexTable bewerbungstextft = new FlexTable();
 	
 	public DialogBoxBewerbungAnlegen(final Ausschreibung ausschreibung1, final Person p1){
+		this.person = p1;
 		this.selectedAusschreibung = ausschreibung1;
+		
 		setText("Bewerbung verfassen");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
@@ -116,7 +121,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Ihr Bewerbung wurde erfolgreich versendet");
 			hide();
-			Showcase showcase = new MeineBewerbungenSeite();
+			Showcase showcase = new MeineBewerbungenSeite(person);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 			

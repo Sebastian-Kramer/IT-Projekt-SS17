@@ -75,6 +75,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteBewerbung(Bewerbung a, AsyncCallback<Void> callback);
 	
+
+	
 	
 
 	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
@@ -131,6 +133,12 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
 			AsyncCallback<Unternehmen> callback);
+
+	void findByPerson(Person person, AsyncCallback<Vector<Bewerbung>> callback);
+
+	void getProjektByID(int id, AsyncCallback<Projekt> callback);
+
+	
 
 	
 
