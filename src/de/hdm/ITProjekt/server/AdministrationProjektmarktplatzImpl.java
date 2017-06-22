@@ -540,6 +540,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.pMapper.getProjektByID(id);
 	}
+	@Override
+	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException{
+
+		return this.bewMapper.findByAusschreibung(id);
+	}
 
 	
 	

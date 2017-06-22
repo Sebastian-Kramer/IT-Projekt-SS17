@@ -42,6 +42,7 @@ public class Projektseite extends Showcase{
 	
 	private Button createStelle = new Button("Stellenausschreibung anlegen");
 	private Button detailsButton = new Button("Stellendetails anzeigen");
+	private Button alleBewerbungen = new Button("Bewerbungen anzeigen");
 //	private Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	private Button back = new Button("Zurück zum Projektmarktplatz");
 	
@@ -55,7 +56,7 @@ public class Projektseite extends Showcase{
 	
 	private Person person = new Person();
 	private Projekt selectedProjekt;
-//	private Ausschreibung a1 = new Ausschreibung();
+	private Ausschreibung a1;
 	
 	public Projektseite(){
 		
@@ -79,13 +80,21 @@ public class Projektseite extends Showcase{
 		RootPanel.get("Details").setWidth("100%");
 		ct_projektausschreibungen.setWidth("100%");
 		
+		createStelle.setStylePrimaryName("myprofil-button");
+		detailsButton.setStylePrimaryName("myprofil-button");
+		alleBewerbungen.setStylePrimaryName("myprofil-button");
+		back.setStylePrimaryName("myprofil-button");
+		
 		vp_projekt.add(ct_projektausschreibungen);
 		this.add(hp_projekt);
 		this.add(vp_projekt);
 		hp_projekt.add(createStelle);
 		hp_projekt.add(detailsButton);
+		hp_projekt.add(alleBewerbungen);
 		hp_projekt.add(back);
 //		hp_projekt.add(showausschreibung);
+		
+		ct_projektausschreibungen.setSelectionModel(ssm);
 		
 		
 			createStelle.addClickHandler(new ClickHandler(){
@@ -121,6 +130,19 @@ public class Projektseite extends Showcase{
 				}
 				
 			});
+			alleBewerbungen.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					a1 = ssm.getSelectedObject();
+					Showcase showcase = new AlleBewerbungenFromAuschreibung(a1, person);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+			
+				}
+				
+			});
+			
 //			showausschreibung.addClickHandler(new ClickHandler(){
 //
 //				@Override

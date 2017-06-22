@@ -142,4 +142,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
 	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
+
+	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id);
+
 	}
