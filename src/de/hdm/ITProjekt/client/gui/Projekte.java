@@ -261,8 +261,8 @@ public class Projekte extends Showcase {
 		ct_projekte.addColumn(enddatum, "Enddatum");
 		ct_projekte.addColumn(projektleiter, "Projektleiter");
 		
-		ct_projekte.setRowData(0, projekte);
 		ct_projekte.setRowCount(projekte.size(), true);
+		ct_projekte.setRowData(0, projekte);
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
@@ -470,6 +470,8 @@ public class Projekte extends Showcase {
 							final Person p = result;
 							localHybrid.setProjektleiter(p.getName());
 							projekte.add(localHybrid);
+							ct_projekte.setRowCount(projekte.size(), true);
+							ct_projekte.setRowData(0, projekte);
 							
 							
 						}
