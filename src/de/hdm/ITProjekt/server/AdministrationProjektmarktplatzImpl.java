@@ -381,7 +381,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	//Rückgabe eines Team-Objects anhand der übergebenen ID
 	@Override
-	public Team getTeamByID(int id) {
+	public Team getTeamByID(Integer id) {
 		return this.tMapper.findByKey(id);
 	}
 	@Override
@@ -456,8 +456,24 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return partnerprofilMapper.insert(p);
 
 		}
-
-
+	
+	@Override
+	public void deletePartnerprofil(Partnerprofil p) throws IllegalArgumentException {
+		this.partnerprofilMapper.delete(p);
+	}
+	
+	@Override
+	public Partnerprofil getPartnerprofilOfOrganisationseinheit(Organisationseinheit o) throws IllegalArgumentException {
+		
+		if (o instanceof Person){
+			return this.partnerprofilMapper.findByKey(this.personMapper.findByKey(o.getID()).getPartnerprofil_ID());
+		} else if (o instanceof Unternehmen){
+			return this.partnerprofilMapper.findByKey(this.unMapper.findByKey(o.getID()).getPartnerprofil_ID());
+		} else if (o instanceof Team){
+			return this.partnerprofilMapper.findByKey(this.tMapper.findByKey(o.getID()).getPartnerprofil_ID());
+		} 		
+		return null;
+	}
 
 	/*
 	 * ***************************************************************************
@@ -533,6 +549,23 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.unMapper.createUnternehmen(u);
 	}
+	@Override
+	public void deleteUnternehmen(Unternehmen u) throws IllegalArgumentException {
+		this.unMapper.deleteUnternehmen(u);
+	}
+	@Override
+	public void deleteTeam(Team team) throws IllegalArgumentException {
+		this.tMapper.delete(team);
+		
+	}
+	@Override
+	public Team updateTeam(Team team) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.tMapper.update(team);
+	}
+
+
+	
 	
 	public Vector<Bewerbung> findByPerson(Person person) throws IllegalArgumentException {
 		return this.bewMapper.findByPerson(person);
