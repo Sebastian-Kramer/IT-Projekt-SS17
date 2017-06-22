@@ -77,13 +77,15 @@ public class DialogBoxDetails extends DialogBox{
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		
-		vp.setSpacing(4);
+		vp.setSpacing(15);
 		
 		form.setWidget(1, 0, zustaendigePerson);
 		form.setWidget(1, 1, kontaktNameBox);
 		
 		form.setWidget(3, 0, kontaktPerson);
 		form.setWidget(3, 1, emailBox);
+		
+		
 		
 		vp.add(form);
 		vp.add(close);

@@ -42,6 +42,7 @@ public class Projektseite extends Showcase{
 	
 	private Button createStelle = new Button("Stellenausschreibung anlegen");
 	private Button detailsButton = new Button("Stellendetails anzeigen");
+//	private Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	private Button back = new Button("Zurück zum Projektmarktplatz");
 	
 	
@@ -52,8 +53,9 @@ public class Projektseite extends Showcase{
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	
-	private Person person;
+	private Person person = new Person();
 	private Projekt selectedProjekt;
+//	private Ausschreibung a1 = new Ausschreibung();
 	
 	public Projektseite(){
 		
@@ -83,6 +85,7 @@ public class Projektseite extends Showcase{
 		hp_projekt.add(createStelle);
 		hp_projekt.add(detailsButton);
 		hp_projekt.add(back);
+//		hp_projekt.add(showausschreibung);
 		
 		
 			createStelle.addClickHandler(new ClickHandler(){
@@ -118,6 +121,32 @@ public class Projektseite extends Showcase{
 				}
 				
 			});
+//			showausschreibung.addClickHandler(new ClickHandler(){
+//
+//				@Override
+//				public void onClick(ClickEvent event) {
+//					// TODO Auto-generated method stub
+//					if(ssm !=null){
+//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//						 if (adminService == null) {
+//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//					    }
+//						 adminService.getPersonbyID(person.getID(), new getPersonByID());
+//						a1 = ssm.getSelectedObject();
+//						Window.alert("Bis hier geht es");
+//						DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, person);
+//						Window.alert("Bis hier geht es");
+//						int left = Window.getClientHeight() / 3;
+//						int top = Window.getClientWidth() / 3;
+//						dialogBox.setPopupPosition(left, top);
+//						dialogBox.center();
+//					}
+//					else{
+//						Window.alert("Bitte Ausschreibung ausw�hlen");
+//					}
+//				}
+//				
+//			});
 			
 		
 		
@@ -138,16 +167,6 @@ public class Projektseite extends Showcase{
 					public String getValue(Ausschreibung object) {
 						// TODO Auto-generated method stub
 						return object.getDatum().toString();
-					}
-		
-		};
-		Column<Ausschreibung, String> ansprechpartner =
-				new Column<Ausschreibung, String>(new ClickableTextCell()){
-
-					@Override
-					public String getValue(Ausschreibung object) {
-						// TODO Auto-generated method stub
-						return Integer.toString(object.getID());
 					}
 		
 		};
@@ -250,5 +269,21 @@ public class Projektseite extends Showcase{
 		}
 		
 	}
+//	private class getPersonByID implements AsyncCallback<Person>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Fehler Person laden");
+//			
+//		}
+//
+//		@Override
+//		public void onSuccess(Person result) {
+//			result = person;
+//			Window.alert("Person wurde gefunden");
+//			
+//		}
+//		
+//	}
 
 }
