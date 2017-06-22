@@ -123,18 +123,30 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	// Methoden für Team
 
-
-	void getTeamByID(int id, AsyncCallback<Team> callback);
+	void deleteTeam(Team team, AsyncCallback<Void> callback);
+	
+	void getTeamByID(Integer id, AsyncCallback<Team> callback);
 
 	void createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID,
 			AsyncCallback<Team> callback);
 
+	void updateTeam(Team team, AsyncCallback<Team> callback);
+	
+	void deletePartnerprofil(Partnerprofil p, AsyncCallback<Void> callback);
+
+	void getPartnerprofilOfOrganisationseinheit(Organisationseinheit o, AsyncCallback<Partnerprofil> callback);
+
+
+	// Unternehmen Methoden
+	
 	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
 			AsyncCallback<Unternehmen> callback);
 
-	
 
-	
+	void deleteUnternehmen(Unternehmen u, AsyncCallback<Void> callback);
+
+
+
 
 	
 

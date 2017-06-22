@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.client.gui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
@@ -145,8 +146,7 @@ public class DialogBoxTeam extends DialogBox{
 				
 				@Override
 				public void onFailure(Throwable caught) {
-					// TODO Auto-generated method stub
-					
+					Window.alert("FEHLER");				
 				}
 
 				@Override
