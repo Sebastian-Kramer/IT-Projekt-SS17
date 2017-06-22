@@ -94,7 +94,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	 * Methoden von Bewerbung
 	 */
 	
-	public Bewerbung insert(Bewerbung a) throws IllegalArgumentException;
+	Bewertung insert(Bewertung a);
 
 	
 	// Methoden von Organisationseinheit
@@ -144,5 +144,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
 
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id);
+
+	Bewerbung insert(Bewerbung a);
 
 	}

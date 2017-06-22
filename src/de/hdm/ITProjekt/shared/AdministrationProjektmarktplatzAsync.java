@@ -6,6 +6,7 @@ import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
@@ -87,6 +88,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getUnByID(int id, AsyncCallback<Unternehmen> callback);
 
 	void insert(Bewerbung a, AsyncCallback<Bewerbung> callback);
+	
+	void insert(Bewertung a, AsyncCallback<Bewertung> callback);
 
 	
 

@@ -43,9 +43,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Button anzeigen = new Button("Bewerbung anzeigen");
+	private Button bewerten = new Button("Bewertung abgeben");
 	private Button zurueck = new Button("Zurück zu den Ausschreibungen");
-	
-	private ListBox bewertung = new ListBox();
 
 	private VerticalPanel vp_bew = new VerticalPanel();
 	private HorizontalPanel hp_bew = new HorizontalPanel();
@@ -59,6 +58,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	
 	private Ausschreibung selectedAusschreibung;
 	private Person angemeldetePerson;
+	private Bewerbung b;
 	
 	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p){
 		this.selectedAusschreibung = a;
@@ -76,21 +76,13 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		RootPanel.get("Details").setWidth("100%");
 		ct_bewerbungen.setWidth("100%");
+		ct_bewerbungen.setSelectionModel(ssm);
 		
+		bewerten.setStylePrimaryName("myprofil-button");
 		anzeigen.setStylePrimaryName("myprofil-button");
 		zurueck.setStylePrimaryName("myprofil-button");
 		
-		bewertung.addItem("0.0");
-		bewertung.addItem("0.1");
-		bewertung.addItem("0.2");
-		bewertung.addItem("0.3");
-		bewertung.addItem("0.4");
-		bewertung.addItem("0.5");
-		bewertung.addItem("0.6");
-		bewertung.addItem("0.7");
-		bewertung.addItem("0.8");
-		bewertung.addItem("0.9");
-		bewertung.addItem("1.0");
+		ct_bewerbungen.setSelectionModel(ssm);
 		
 		vp_bew.setSpacing(10);
 		
@@ -103,76 +95,94 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 //		this.add(hp_bew);
 //		this.add(hp_bew1);
 		
+		
+		
 		if (selectedAusschreibung.getOrga_ID() == angemeldetePerson.getID()){
-			Window.alert("Diese Person hat die Ausschreibung angelegt und darf eine Bewertung abgeben");
-			form.setWidget(0, 1, bewertung);
+			Window.alert("Sie haben die Ausschreibung angelegt und können eine Bewertung abgeben");
+//			form.setWidget(0, 1, bewertung);
+			
 			form.setWidget(0, 0, ct_bewerbungen);
+			hp_bew.add(bewerten);
 			hp_bew.add(anzeigen);
 			hp_bew.add(zurueck);
 			hp_bew1.add(form);
 			this.add(hp_bew);
 			this.add(hp_bew1);	
-			Column<Bewerbung, String> text = 
-					new Column<Bewerbung, String>(new ClickableTextCell()){
-
-				@Override
-				public String getValue(Bewerbung object) {
-					// TODO Auto-generated method stub
-					return object.getBewerbungstext();
-				}
-			
-			};
-			Column<Bewerbung, String> erstelldatum = 
-					new Column<Bewerbung, String>(new ClickableTextCell()){
-
-				@Override
-				public String getValue(Bewerbung object) {
-					// TODO Auto-generated method stub
-					return object.getErstelldatum().toString();
-				}
-		
-			};
-			ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
-			ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
-			
-			
-			filltablebewerbung();
 			
 		}else{
-			Window.alert("Sie haben diese Ausschreibung nicht angelegt und sehen lediglich die Bewerbungen");
-			form.setWidget(0, 0, ct_bewerbungen);
-			hp_bew.add(zurueck);
-			hp_bew1.add(form);
-			this.add(hp_bew);
-			this.add(hp_bew1);
-			
-			Column<Bewerbung, String> text = 
-					new Column<Bewerbung, String>(new ClickableTextCell()){
-
-				@Override
-				public String getValue(Bewerbung object) {
-					// TODO Auto-generated method stub
-					return object.getBewerbungstext();
-				}
-			
-			};
-			Column<Bewerbung, String> erstelldatum = 
-					new Column<Bewerbung, String>(new ClickableTextCell()){
-
-				@Override
-				public String getValue(Bewerbung object) {
-					// TODO Auto-generated method stub
-					return object.getErstelldatum().toString();
-				}
-		
-			};
-			ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
-			ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
-			
-			
-			filltablebewerbung();
+			Window.alert("Leider kann nur der Stellenausschreibende die Bewerbungen sehen");
+//			form.setWidget(0, 0, ct_bewerbungen);
+//			hp_bew.add(zurueck);
+//			hp_bew1.add(form);
+//			this.add(hp_bew);
+//			this.add(hp_bew1);
+//			
+//			Column<Bewerbung, String> text = 
+//					new Column<Bewerbung, String>(new ClickableTextCell()){
+//
+//				@Override
+//				public String getValue(Bewerbung object) {
+//					// TODO Auto-generated method stub
+//					return object.getBewerbungstext();
+//				}
+//			
+//			};
+//			Column<Bewerbung, String> erstelldatum = 
+//					new Column<Bewerbung, String>(new ClickableTextCell()){
+//
+//				@Override
+//				public String getValue(Bewerbung object) {
+//					// TODO Auto-generated method stub
+//					return object.getErstelldatum().toString();
+//				}
+//		
+//			};
+//			
+//			ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
+//			ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
+//			
+//			
+//			
+//			filltablebewerbung();
 		}
 		
+		bewerten.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				b = ssm.getSelectedObject();
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b);
+				dialogBox.center();
+
+				
+			}
+			
+		});
+		Column<Bewerbung, String> text = 
+				new Column<Bewerbung, String>(new ClickableTextCell()){
+
+			@Override
+			public String getValue(Bewerbung object) {
+				// TODO Auto-generated method stub
+				return object.getBewerbungstext();
+			}
+		
+		};
+		Column<Bewerbung, String> erstelldatum = 
+				new Column<Bewerbung, String>(new ClickableTextCell()){
+
+			@Override
+			public String getValue(Bewerbung object) {
+				// TODO Auto-generated method stub
+				return object.getErstelldatum().toString();
+			}
+	
+		};
+		
+		ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
+		ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
+		
+		filltablebewerbung();
 		
 		
 		
@@ -200,6 +210,7 @@ public class allBewByAus implements AsyncCallback<Vector<Bewerbung>>{
 	public void onSuccess(Vector<Bewerbung> result) {
 		ct_bewerbungen.setRowData(0, result);
 		ct_bewerbungen.setRowCount(result.size(), true);
+
 		Window.alert("Alle Bewerbung auf diese Ausschreibung wurden geladen");
 		
 	}

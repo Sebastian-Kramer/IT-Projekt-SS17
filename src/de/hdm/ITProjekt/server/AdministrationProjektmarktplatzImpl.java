@@ -25,6 +25,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private TeamMapper tMapper = null;
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
+	private BewertungMapper bewertMapper = null;
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
 	private OrganisationseinheitMapper orgMapper = null;
@@ -45,6 +46,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.unMapper = UnternehmenMapper.unMapper();
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
 		this.eigenschaftsMapper = EigenschaftMapper.eMapper();
+		this.bewertMapper = BewertungMapper.beweMapper();
 		
 	}
 	/*
@@ -544,6 +546,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException{
 
 		return this.bewMapper.findByAusschreibung(id);
+	}
+	@Override
+	public Bewertung insert(Bewertung a) {
+		
+		return this.bewertMapper.insert(a);
 	}
 
 	
