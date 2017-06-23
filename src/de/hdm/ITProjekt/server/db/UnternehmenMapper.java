@@ -45,6 +45,7 @@ public Unternehmen findByKey(int id){
 			un.setHausnummer(super.findByKey(id).getHausnummer());
 			un.setOrt(super.findByKey(id).getOrt());
 			un.setPlz(super.findByKey(id).getPlz());
+			un.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
 			return un;
 		}
 	}
@@ -135,6 +136,7 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
     }
     catch (SQLException e2) {
       e2.printStackTrace();
+      super.update(u);
     }
 
     return u;
@@ -148,7 +150,7 @@ public void deleteUnternehmen(Unternehmen u) {
     try {
       Statement stmt = con.createStatement();
       stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u.getID());
-
+      super.delete(u);
     }
     catch (SQLException e2) {
       e2.printStackTrace();

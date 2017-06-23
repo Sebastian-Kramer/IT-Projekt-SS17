@@ -38,6 +38,7 @@ public Team findByKey(int id){
 					t.setHausnummer(super.findByKey(id).getHausnummer());
 					t.setOrt(super.findByKey(id).getOrt());
 					t.setPlz(super.findByKey(id).getPlz());
+					t.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
 					
 					return t;
 			}
@@ -160,6 +161,7 @@ public void delete(Team p1){
 
 	      stmt.executeUpdate("DELETE FROM Team " 
 	    		  			+ "WHERE ID = " + p1.getID());
+	      super.delete(p1);
 
 		}
 	
@@ -181,10 +183,12 @@ public Team update(Team t) {
       if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
+    	  super.update(t);
     	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" + ", UN_ID = " + t.getUN_ID() + " WHERE ID = " + t.getID());
+    	  super.update(t);
       }
       
     }
