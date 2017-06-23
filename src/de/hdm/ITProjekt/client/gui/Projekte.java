@@ -13,9 +13,12 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -54,13 +57,19 @@ public class Projekte extends Showcase {
 	
 	private Projekt projekt;
 
-	 
+	private Anchor zurstartseite = new Anchor("Startseite");
+	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
+	private Label projektelabel = new Label("/Projekte");
+	private HorizontalPanel hpanelnavigator = new HorizontalPanel();  
+	private FlexTable ft_navi = new FlexTable();
+	
+	
 	public Projekte(){
 		
 	}
 	
-	private Person person;
-	private Projektmarktplatz selectedProjektmarktplatz;
+	private Person person = new Person();
+	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
 	
 	public Projekte(Projektmarktplatz selectedObject, Person person){
 		this.selectedProjektmarktplatz = selectedObject;
@@ -78,7 +87,15 @@ public class Projekte extends Showcase {
 	@Override
 	protected void run() {
 		
-				
+		zurstartseite.setStylePrimaryName("navigationanchor");
+		zuprojektmarktplaetze.setStylePrimaryName("navigationanchor");
+		projektelabel.setStylePrimaryName("navigationanchor");
+		ft_navi.setWidget(0, 0, zurstartseite);
+		ft_navi.setWidget(0, 1, zuprojektmarktplaetze);
+		ft_navi.setWidget(0, 2, projektelabel);
+		ft_navi.setCellPadding(10);
+		hpanelnavigator.add(ft_navi);
+		
 		RootPanel.get("Details").setWidth("100%");
 		ct_projekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
@@ -87,8 +104,30 @@ public class Projekte extends Showcase {
 		hpanel_projekte.add(delete_projekt);
 		
 		vpanel_projekte.add(ct_projekte);
+		this.add(ft_navi);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
+		
+		zurstartseite.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new Homeseite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				
+			}
+		});
+		
+		zuprojektmarktplaetze.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new ProjektmarktplatzSeite(person);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
 		
 		add_projekt.addClickHandler(new ClickHandler() {
 			
@@ -109,7 +148,7 @@ public class Projekte extends Showcase {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				    }
 					 projekt = ssm_projekt.getSelectedObject();
-					 Showcase showcase = new Projektseite(projekt, person);
+					 Showcase showcase = new Projektseite(projekt, person, selectedProjektmarktplatz);
 					 RootPanel.get("Details").clear();
 					 RootPanel.get("Details").add(showcase);
 					 

@@ -14,9 +14,12 @@ import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -46,6 +49,12 @@ public class Projektseite extends Showcase{
 //	private Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	private Button back = new Button("Zurück zum Projektmarktplatz");
 	
+	private Anchor zurstartseite = new Anchor("Startseite");
+	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
+	private Anchor zuprojekte = new Anchor("/Projekte");
+	private Label projektverwaltung = new Label("/Projektverwaltung");
+	private HorizontalPanel hpanelnavigator = new HorizontalPanel();  
+	private FlexTable ft_navi = new FlexTable();
 	
 	VerticalPanel vp_projekt = new VerticalPanel();
 	HorizontalPanel hp_projekt = new HorizontalPanel();
@@ -55,8 +64,9 @@ public class Projektseite extends Showcase{
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	
 	private Person person = new Person();
-	private Projekt selectedProjekt;
-	private Ausschreibung a1;
+	private Projekt selectedProjekt = new Projekt();
+	private Ausschreibung a1 = new Ausschreibung();
+	private Projektmarktplatz projektmarktplatz = new Projektmarktplatz();
 	
 	public Projektseite(){
 		
@@ -65,8 +75,13 @@ public class Projektseite extends Showcase{
 	public Projektseite(Projekt selectedObject, Person person){
 		this.selectedProjekt = selectedObject;
 		this.person = person;
+		
 	}
-	
+	public Projektseite(Projekt selectedObject, Person person, Projektmarktplatz projektmarktplatz){
+		this.selectedProjekt = selectedObject;
+		this.person = person;
+		this.projektmarktplatz = projektmarktplatz;
+	}
 	
 	@Override
 	protected String getHeadlineText() {
@@ -77,6 +92,44 @@ public class Projektseite extends Showcase{
 	protected void run() {
 		
 		
+		zurstartseite.setStylePrimaryName("navigationanchor");
+		zuprojektmarktplaetze.setStylePrimaryName("navigationanchor");
+		zuprojekte.setStylePrimaryName("navigationanchor");
+		projektverwaltung.setStylePrimaryName("navigationanchor");
+		ft_navi.setWidget(0, 0, zurstartseite);
+		ft_navi.setWidget(0, 1, zuprojektmarktplaetze);
+		ft_navi.setWidget(0, 2, zuprojekte);
+		ft_navi.setWidget(0, 3, projektverwaltung);
+		ft_navi.setCellPadding(10);
+		hpanelnavigator.add(ft_navi);
+		zurstartseite.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new Homeseite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		zuprojektmarktplaetze.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new ProjektmarktplatzSeite(person);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		zuprojekte.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new Projekte(projektmarktplatz, person);
+	        	RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		
 		RootPanel.get("Details").setWidth("100%");
 		ct_projektausschreibungen.setWidth("100%");
 		
@@ -86,6 +139,7 @@ public class Projektseite extends Showcase{
 		back.setStylePrimaryName("myprofil-button");
 		
 		vp_projekt.add(ct_projektausschreibungen);
+		this.add(hpanelnavigator);
 		this.add(hp_projekt);
 		this.add(vp_projekt);
 		hp_projekt.add(createStelle);

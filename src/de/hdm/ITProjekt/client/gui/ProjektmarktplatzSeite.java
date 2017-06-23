@@ -12,9 +12,12 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MultiWordSuggestOracle;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextBox;
@@ -56,6 +59,12 @@ public class ProjektmarktplatzSeite extends Showcase{
 	// Buttons NUR erstellen
 	Button bearbeitungsmodus_deaktiv = new Button("Bearbeitungsansicht");
 
+	private Label labelprojektmarktplatz = new Label("/Projektmarktplatz");
+	private Anchor zurstartseite = new Anchor("Startseite");
+	
+	private HorizontalPanel hpanel_navigation = new HorizontalPanel();
+	
+	private FlexTable ft_anchor = new FlexTable();
 	// Erlaubt, dass in der Tabelle nur eins ausgewählt werden darf
 	
 
@@ -74,7 +83,13 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 	@Override
 	protected void run() {
-				
+		
+		zurstartseite.setStylePrimaryName("navigationanchor");
+		labelprojektmarktplatz.setStylePrimaryName("navigationanchor");
+		ft_anchor.setWidget(0, 0, zurstartseite);
+		ft_anchor.setWidget(0, 1, labelprojektmarktplatz);
+		ft_anchor.setCellPadding(10);
+		hpanel_navigation.add(ft_anchor);
 		//Größe des "div" Containers, sprich der Seite
 		RootPanel.get("Details").setWidth("100%");
 		// Größe der Tablle im div Container, sprich der Seite
@@ -94,6 +109,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 //		vpanel.add(ct_eigeneProjektmarktplaetze);
 				
 		// In die seite laden
+		this.add(hpanel_navigation);
 		this.add(hpanel_projektmarktplatz);
 		this.add(vpanel);
 		
@@ -140,7 +156,17 @@ public class ProjektmarktplatzSeite extends Showcase{
 						}
 						    
 		 };
-
+		 zurstartseite.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new Homeseite();
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
+			}
+		});
 		 bearbeitungsmodus_deaktiv.addClickHandler(new ClickHandler() {
 			
 			@Override

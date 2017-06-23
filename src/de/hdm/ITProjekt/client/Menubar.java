@@ -61,9 +61,9 @@ public class Menubar extends StackPanel {
 		
 	
 		
-		homePanel.add(zurstartseiteButton);
-		zurstartseiteButton.setWidth("200px");
-		zurstartseiteButton.setStylePrimaryName("navi-button");
+//		homePanel.add(zurstartseiteButton);
+//		zurstartseiteButton.setWidth("200px");
+//		zurstartseiteButton.setStylePrimaryName("navi-button");
 		
 		
 		homePanel.add(meineBewerbungenButton);
@@ -112,18 +112,18 @@ public class Menubar extends StackPanel {
 //		this.add(projektPanel, "Projekte");
 	
 	
-		zurstartseiteButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				Showcase showcase = new Homeseite();
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-				currentClickHandler=this;
-				currentClickEvent=event;
-				
-			}
-		});
+//		zurstartseiteButton.addClickHandler(new ClickHandler() {
+//			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				Showcase showcase = new Homeseite();
+//				RootPanel.get("Details").clear();
+//				RootPanel.get("Details").add(showcase);
+//				currentClickHandler=this;
+//				currentClickEvent=event;
+//				
+//			}
+//		});
 		
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
