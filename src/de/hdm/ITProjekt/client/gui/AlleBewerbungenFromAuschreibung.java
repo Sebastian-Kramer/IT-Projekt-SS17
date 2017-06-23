@@ -151,7 +151,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			@Override
 			public void onClick(ClickEvent event) {
 				b = ssm.getSelectedObject();
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b);
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung);
 				dialogBox.center();
 
 				

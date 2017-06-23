@@ -23,8 +23,10 @@ import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 
@@ -36,10 +38,11 @@ public class DialogBoxBewertung extends DialogBox{
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private Button bewertungAbgaben = new Button("Abgeben");
-	private Button beteiligungErstellen = new Button("Projektbeteiligung erstellen");
+//	private Button beteiligungErstellen = new Button("Projektbeteiligung erstellen");
 	private Button close = new Button("Zurück zu Ausschreibungen");
 	
 	private ListBox bewertung = new ListBox();
+	private ListBox janein = new ListBox();
 	
 	private TextArea db = new TextArea();
 	
@@ -47,17 +50,26 @@ public class DialogBoxBewertung extends DialogBox{
 	
 	private Label meineBewertung = new Label("Bewertung");
 	private Label stellungname = new Label("Stellungname");
+	private Label beteiligung = new Label("Projektbeteiligung erstellen?");
 	
 	private Bewerbung bew;
 	private Bewertung bewert = new Bewertung();
+	private Ausschreibung aus;
 	
-	public DialogBoxBewertung(final Bewerbung b){
+	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a){
 		this.bew = b;
+		this.aus = a;
 		
 		this.setText("Hier können Sie ein Bewertung abgeben");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
-		
+
+
+//		bewertung.addItem(Double.toString(0.1));
+//		bewertung.addItem(Double.toString(0.2));
+//		bewertung.addItem(Double.toString(0.3));
+//		bewertung.addItem(Double.toString(0.4));
+//		bewertung.addItem(Double.toString(0.5));
 		bewertung.addItem("0.0");
 		bewertung.addItem("0.1");
 		bewertung.addItem("0.2");
@@ -70,6 +82,9 @@ public class DialogBoxBewertung extends DialogBox{
 		bewertung.addItem("0.9");
 		bewertung.addItem("1.0");
 		
+		janein.addItem("Ja");
+		janein.addItem("nein");
+		
 		vpanel.setSpacing(10);
 		
 		form.setWidget(0, 0, meineBewertung);
@@ -78,9 +93,13 @@ public class DialogBoxBewertung extends DialogBox{
 		form.setWidget(2, 0, stellungname);
 		form.setWidget(2, 1, db);
 		
+		form.setWidget(4, 0, beteiligung);
+		form.setWidget(4, 1, janein);
+		
 		vpanel.add(form);
+		
 		vpanel.add(bewertungAbgaben);
-		vpanel.add(beteiligungErstellen);
+//		vpanel.add(beteiligungErstellen);
 		vpanel.add(close);
 		hpanel.add(vpanel);
 		this.add(hpanel);
@@ -98,10 +117,15 @@ public class DialogBoxBewertung extends DialogBox{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				bewert.setBewertung(1.0);
+				if(janein.getSelectedItemText() == "Ja"){
+				DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(aus);
+				dialogBox.center();
+								
+				bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 				bewert.setStellungnahme(db.getText());
+				bewert.setBeteiligungs_ID(1);
 				bewert.setBewerbungs_ID(b.getID());
-
+				
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -109,12 +133,14 @@ public class DialogBoxBewertung extends DialogBox{
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				adminService.insert(bewert, new BewertungAnlegen());
+				
+				
+				}
 			}
 			
 		});
-		
-	
 	}
+	
 	
 	public class BewertungAnlegen implements AsyncCallback<Bewertung>{
 

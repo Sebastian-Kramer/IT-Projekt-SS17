@@ -86,8 +86,6 @@ public Vector<Bewertung> getAll(){
 
 public Bewertung insert(Bewertung bew){
 	
-	if (bew.getBewertung() == 1.0)
-  	{
 		Connection con = DBConnection.connection();
 		
 		try {
@@ -124,7 +122,7 @@ public Bewertung insert(Bewertung bew){
 		e2.printStackTrace();
 	}
 	
-  	}
+
 	return bew;	
 }
 	
