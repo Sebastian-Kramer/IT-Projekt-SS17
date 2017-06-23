@@ -292,7 +292,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return this.personMapper.createPerson(p);
 //	}
 	
-
+	@Override
+	public void deletePerson(Person p) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		this.personMapper.deletePerson(p);;
+	}
+	
 	@Override
 	public Vector<Person> getAllPerson() {
 
@@ -585,6 +590,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.bewertMapper.insert(a);
 	}
+	
 
 	
 	
