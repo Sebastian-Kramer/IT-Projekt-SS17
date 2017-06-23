@@ -38,7 +38,7 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
-	 private LogInInfo loginInfo = null;
+	 private static LogInInfo loginInfo = null;
 	 private VerticalPanel loginPanel = new VerticalPanel();
 	 private HorizontalPanel horvorpanel = new HorizontalPanel();
 	 private VerticalPanel verpanel = new VerticalPanel();
@@ -131,9 +131,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				  }
 			  }
 			  });
-	  }
 		  
-	  		public void load(Person person){
+	  }
+	 
+			public void load(Person person){
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		Showcase showcase = new Homeseite();
 		  		Menubar mb = new Menubar(person);

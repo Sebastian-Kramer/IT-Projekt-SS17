@@ -182,7 +182,13 @@ public class MeinProfilAnzeigen extends Showcase{
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					//---- Hier kommt eine abfrage, ob profil gelöscht werden soll rein!!!
+				if (user.getUN_ID() == null && user.getTeam_ID() == null){
+					DialogBox dbox = new DialogBoxProfilLoeschen(user);
+					dbox.center();
+					
+				}else{
+					Window.alert("Team und Unternehmen zu erst löschen");
+				}
 				}
 			});
 			

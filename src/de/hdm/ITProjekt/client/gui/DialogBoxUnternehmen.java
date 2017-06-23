@@ -37,7 +37,7 @@ public class DialogBoxUnternehmen extends DialogBox{
 	private Label unternehmennamelabel = new Label ("Unternehmenname");
 	private TextArea unternehmennametext = new TextArea();
 	
-	private Label unternehmenplz = new Label ("PLZ");
+	private Label unternehmenplz = new Label("PLZ");
 	private TextArea unternehmenplztext = new TextArea();
 	
 	private Label unternehmenort = new Label("Ort");
@@ -61,9 +61,9 @@ public class DialogBoxUnternehmen extends DialogBox{
 		ok.setStylePrimaryName("button");
 		abbrechen.setStylePrimaryName("button");
 		
-		hpanel.add(ok);
-		hpanel.add(abbrechen);
-		
+			hpanel.add(ok);
+			hpanel.add(abbrechen);
+			
 	abbrechen.addClickHandler(new ClickHandler() {
 				
 				@Override

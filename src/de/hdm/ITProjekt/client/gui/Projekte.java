@@ -294,6 +294,8 @@ public class Projekte extends Showcase {
 			  			return object.getEnddatum().toString();
 		  			}
 		  };
+		  
+		  //Erstellen der Buttonspalte um Details öffnen zu können
 		  Column<Projekt,String> buttonCell =
 				  new Column<Projekt,String>(detailsButton){
 
@@ -304,17 +306,23 @@ public class Projekte extends Showcase {
 					}
 			  
 		  };
-		  
+		  // implementieren des FieldUpdater um die Zeile anklicken zu können
 		  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
 
 			@Override
 			public void update(int index, Projekt object, String value) {
+				DialogBoxProjektdetails dialogbox = new DialogBoxProjektdetails(object, person);
+				dialogbox.center();
 				
 					
 				
 			}
 			  
 		  });
+		  
+		 
+			  
+		  
 		  
 	
 

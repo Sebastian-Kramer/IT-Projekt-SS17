@@ -153,6 +153,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteUnternehmen(Unternehmen u, AsyncCallback<Void> callback);
 
+	void deletePerson(Person p, AsyncCallback<Void> callback);
+
 
 
 

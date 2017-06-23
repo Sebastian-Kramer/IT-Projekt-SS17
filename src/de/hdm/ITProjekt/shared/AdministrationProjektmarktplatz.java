@@ -109,8 +109,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) throws IllegalArgumentException;
 	
 	public Person updatePerson(Person p) throws IllegalArgumentException;
-	public Vector<Person> getAllPerson() ;
+	public Vector<Person> getAllPerson() throws IllegalArgumentException;
 
+	public void deletePerson(Person p) throws IllegalArgumentException;
 	
 	//Methoden von Partnerprofil
 
