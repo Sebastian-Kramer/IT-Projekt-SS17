@@ -10,13 +10,31 @@ import java.text.SimpleDateFormat;
 
 public class AusschreibungMapper {
 	
+	/*
+	 * Definieren des Datumsformats
+	 */
+	
 		SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
 		
+		/*
+		 * Speicherung der einzigen Instanz dieser Mapperklasse
+		 */
+		
 		private static AusschreibungMapper aMapper = null;
+		
+		/*
+		 * Konstruktor wird geschützt, damit Objekte der Klasse Ausschreibungsmapper
+		 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+		 */
 		
 		protected AusschreibungMapper(){
 			
 		}
+		
+		/*
+		 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+		 * @return aMapper
+		 */
 		
 		public static AusschreibungMapper aMapper(){
 			if(aMapper == null){
@@ -25,7 +43,12 @@ public class AusschreibungMapper {
 			return aMapper;
 		}
 		
-		//Ausschreibung anhand der übergebenen ID wird zurückgegeben
+		/*
+		 * Ausschreibung wird anhand der übergebenen, eindeutigen ID zurückgegeben
+		 * @return Ausschreibung entsprechend der übergebenen ID
+		 * @param ID Primärschlüssel ID der Tabelle Ausschreibung
+		 */
+		
 		public Ausschreibung findByKey(int id){
 			
 			Connection con = DBConnection.connection();
@@ -53,7 +76,11 @@ public class AusschreibungMapper {
 			return null;	
 		}
 		
-		//Alle Auschreibungen eines Projekts sollen ausgegeben werden
+		/*
+		 * Auslesen aller Ausschreibungen eines Projekts mittels Projekt ID
+		 * @return result
+		 * @param projektId
+		 */
 		 public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId){
 				
 			  Connection con = DBConnection.connection();
@@ -84,7 +111,11 @@ public class AusschreibungMapper {
 		  }
 		
 		
-		//Alle Auschreibungen aus der Datenbank werden ausgegeben
+		/*
+		 * Alle Auschreibungen aus der Datenbank werden ausgegeben
+		 * @return result
+		 */
+		 
 		public Vector<Ausschreibung> getAll(){
 			
 			 Connection con = DBConnection.connection();
@@ -115,6 +146,12 @@ public class AusschreibungMapper {
 			  return result;
 		}
 		
+		/*
+		 *  Hinzufügen eines Ausschreibungsobejkts in die Datenbank
+		 *  Primärschlüssel des übergebenen Projekts wird geprüft
+		 *  @param a das Ausschreibungsobjekt das gespeichert werden soll
+		 *  @return a
+		 */
 		
 		public Ausschreibung addAusschreibung(Ausschreibung a){
 			
@@ -145,6 +182,10 @@ public class AusschreibungMapper {
 			return a;		
 		}
 		
+		/*
+		 * Löschen der Übergebenen Ausschreibung
+		 * @param a Ausschreibungsobjekt, das gelöscht werden soll
+		 */
 		
 		public void deleteAusschreibung(Ausschreibung a){
 			
@@ -163,6 +204,12 @@ public class AusschreibungMapper {
 				}
 			}
 		
+		/*
+		 * Erneutes schreiben eines Ausschreibungsobjekts in die Datenbank
+		 * @param a
+		 * @return das als PArameter übergebene und aktualisierte Ausschreibungsobjekt
+		 */
+		
 		public Ausschreibung update(Ausschreibung c) {
 		    Connection con = DBConnection.connection();
 
@@ -180,6 +227,12 @@ public class AusschreibungMapper {
 
 		    return c;
 		  }
+		
+		/*
+		 * Suchen der einer Ausschreibung durch das übergebene Ausschreibungsobjekt
+		 * @param a
+		 * @return projekt.getID
+		 */
 		
 		
 		public Vector<Ausschreibung> findByProjekt(int projektID){

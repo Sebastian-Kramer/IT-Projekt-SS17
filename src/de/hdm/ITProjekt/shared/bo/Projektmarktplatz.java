@@ -69,6 +69,7 @@ public class Projektmarktplatz extends BusinessObject {
 	 * Zum Testen der Klasse in der Konsole
 	 * @return ID + " " + bez
 	 */
+	
 	public String toString(){
 		return ID + " " + bez;
 	}

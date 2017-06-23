@@ -5,24 +5,48 @@ public class Team extends Organisationseinheit{
 	
 	private static final long serialVersionUID = 1L;
 	
+	/*
+	 * Name des Teams
+	 */
+	
 	private String name;
 	
-	//Fermdschlüssel Beziehung zu Unternehmen, da jedes Team zu einem UN gehört
+	/*
+	 * Realisierung der Beziehung zu einem Unternehmen mittels Fremdschlüssel
+	 */
 	
 	private Integer UN_ID = null;
 	
+	/*
+	 * Auslesen des Namens
+	 * @return name
+	 */
 	
 	public String getName() {
 		return name;
 	}
+	
+	/*
+	 * Setzen des Namens
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	/*
+	 * Auslesen der Unternehmens ID
+	 * @return UN_ID
+	 */
 	
 	public Integer getUN_ID() {
 		return UN_ID;
 	}
 	
+	/*
+	 * Setzen der UnternehmensID
+	 * @param uN_ID
+	 */
 	
 	public void setUN_ID(Integer uN_ID) {
 		if (uN_ID == 0){
