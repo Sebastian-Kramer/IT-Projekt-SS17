@@ -44,6 +44,8 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private TextArea ausschreibungsbez = new TextArea();
 	
 	private Label ablauffristLabel = new Label("Abblauffrist");
+	private Label bez = new Label("Name der Stellenausschreibung: ");
+	private Label text = new Label("Informationen zur Ausschreibung: ");
 	
 	private DateBox ablaufDatum = new DateBox();
 	
@@ -75,8 +77,10 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		ausschreibungsbez.setVisibleLines(1);
 		ausschreibungstext.setCharacterWidth(40);
 		ausschreibungstext.setVisibleLines(30);
-		ausschreibungstextft.setWidget(1, 0, ausschreibungsbez);
-		ausschreibungstextft.setWidget(2, 0, ausschreibungstext);
+		ausschreibungstextft.setWidget(1, 0, bez);
+		ausschreibungstextft.setWidget(1, 1, ausschreibungsbez);
+		ausschreibungstextft.setWidget(2, 0, text);
+		ausschreibungstextft.setWidget(2, 1, ausschreibungstext);
 		ausschreibungstextft.setWidget(3, 0, ablauffristLabel);
 		ausschreibungstextft.setWidget(3, 1, ablaufDatum);
 		vp.add(ausschreibungstextft);

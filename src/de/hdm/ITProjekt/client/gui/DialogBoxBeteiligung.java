@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -23,14 +24,18 @@ import com.google.gwt.user.datepicker.client.DateBox;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.client.gui.DialogBoxBewertung.BewertungAnlegen;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxBeteiligung extends DialogBox{
+	
+	 DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
@@ -52,7 +57,9 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private DateBox startBox = new DateBox();
 	private DateBox endBox = new DateBox();
 	
+	
 	private Ausschreibung aus;
+	private Beteiligung be = new Beteiligung();
 	
 	public DialogBoxBeteiligung(Ausschreibung a){
 		this.aus = a;
@@ -60,6 +67,11 @@ public class DialogBoxBeteiligung extends DialogBox{
 		this.setText("Projektbeteiligung erstellen");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
+		
+		startBox.setFormat(new DateBox.DefaultFormat(dateformat));
+		endBox.setFormat(new DateBox.DefaultFormat(dateformat));
+		
+		
 		
 		vpanel.setSpacing(10);
 		
@@ -72,17 +84,53 @@ public class DialogBoxBeteiligung extends DialogBox{
 		form.setWidget(4, 0, enddatum);
 		form.setWidget(4, 1, endBox);
 		
-		form.setWidget(6, 0, zuprojekt);
-		form.setWidget(6, 1, zuprojektBox);
 		
 		vpanel.add(form);
 		vpanel.add(beteiligunganlegen);
 		hpanel.add(vpanel);
 		this.add(hpanel);
 		
+		beteiligunganlegen.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				
+				be.setUmfang(umfangBox.getText());
+				be.setStartdatum(startBox.getValue());
+				be.setEnddatum(endBox.getValue());
+				be.setOrga_ID(aus.getOrga_ID());
+				be.setProjekt_ID(aus.getProjekt_ID());
+				
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 
+				if (adminService == null) {
+				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+				 }
+				adminService.insert(be, new BeteiligungAnlegen());
+				
+				DialogBoxBeteiligung.this.hide();
+			}
+			
+		});
+		
+
 		
 	}
-	
+	public class BeteiligungAnlegen implements AsyncCallback<Beteiligung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Es konnte keine Beteiligung angelegt werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Beteiligung result) {
+			Window.alert("Die Beteiligung wurde erfolgreich angelegt");
+			
+		}
+		
+	}
 	
 	
 	

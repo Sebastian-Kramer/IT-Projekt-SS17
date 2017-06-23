@@ -104,28 +104,45 @@ public Bewertung insert(Bewertung bew){
 		    	  			+ ", " + bew.getBewertung() + ", " + bew.getBeteiligungs_ID() + ", " + bew.getBewerbungs_ID()
 		    	  			+")"); 
 			
-  	}
-		    	  	
-	    	 else{
-	    	  		
-	    	  		stmt.executeUpdate("INSERT INTO Bewertung (ID, stellungnahme, bewertung, Bewerbungs_ID, Beteiligungs_ID)" 
-		    				+ "VALUES (" + bew.getID() + ", " + "'" + bew.getStellungnahme() + "'" 
-		    				+ ", " + bew.getBewertung() + ", " + bew.getBewerbungs_ID() + ", " + bew.getBeteiligungs_ID()
-		    				+")"); 
-	    	  	} 
-	    	  	
-
-	    	  
+		      	}		    	  
 	      }
 	
 	catch(SQLException e2){
 		e2.printStackTrace();
 	}
 	
-
 	return bew;	
 }
 	
+public Bewertung insertWithoutBeteil(Bewertung bew) {
+	
+	Connection con = DBConnection.connection();
+	
+	try {
+	      Statement stmt = con.createStatement();
+	      
+	      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
+	              + "FROM Bewertung ");
+	      
+	
+	      if(rs.next()){
+	    	  		    	  			    	  	
+	    	  	bew.setID(rs.getInt("maxid") + 1);   	  	
+	    	  	stmt = con.createStatement();
+	    	  	stmt.executeUpdate("INSERT INTO Bewertung (ID, stellungnahme, bewertung, Bewerbungs_ID)" 
+	    	  			+ "VALUES (" + bew.getID() + ", " + "'" + bew.getStellungnahme() + "'" 
+	    	  			+ ", " + bew.getBewertung() + ", " + bew.getBewerbungs_ID()
+	    	  			+")"); 
+		
+	      	}		    	  
+      }
+
+catch(SQLException e2){
+	e2.printStackTrace();
+}
+
+return bew;	
+}
 
 public void delete(Bewertung bew){
 	
@@ -159,5 +176,6 @@ public void delete(Bewertung bew){
 
 	    return bewe;
 	  }
+
 	}
 

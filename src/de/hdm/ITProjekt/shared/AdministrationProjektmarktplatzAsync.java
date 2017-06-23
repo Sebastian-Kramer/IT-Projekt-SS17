@@ -5,6 +5,7 @@ import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
@@ -90,6 +91,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	void insert(Bewerbung a, AsyncCallback<Bewerbung> callback);
 	
 	void insert(Bewertung a, AsyncCallback<Bewertung> callback);
+	
+	void insertWithoutBeteil(Bewertung a, AsyncCallback<Bewertung> callback);
+	
+	void insert(Beteiligung b, AsyncCallback<Beteiligung> callback);
 
 	
 

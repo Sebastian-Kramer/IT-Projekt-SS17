@@ -153,6 +153,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id);
 
-	Bewerbung insert(Bewerbung a);
+	public Bewerbung insert(Bewerbung a);
+
+	public Beteiligung insert(Beteiligung b);
+
+	public Bewertung insertWithoutBeteil(Bewertung a);
 
 	}
