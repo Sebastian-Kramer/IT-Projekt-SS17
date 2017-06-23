@@ -3,7 +3,9 @@ package de.hdm.ITProjekt.client.gui;
 import java.util.Date;
 import java.util.Vector;
 
+import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.ClickableTextCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -44,6 +46,7 @@ public class Projekte extends Showcase {
 	CellTable<HybridProjektPerson> ct_projekte = new CellTable<HybridProjektPerson>();
 	Vector<HybridProjektPerson> projekte = new Vector<HybridProjektPerson>();
 
+	ButtonCell detailsButton = new ButtonCell();
 	
 	private TextBox projektbox = new TextBox();
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
@@ -67,6 +70,8 @@ public class Projekte extends Showcase {
 	public Projekte(){
 		
 	}
+	
+	
 	
 	private Person person = new Person();
 	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
@@ -97,13 +102,13 @@ public class Projekte extends Showcase {
 		hpanelnavigator.add(ft_navi);
 		
 		RootPanel.get("Details").setWidth("100%");
-		ct_projekte.setWidth("100%", true);
+		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(show_projekt);
 		hpanel_projekte.add(add_projekt);
 		hpanel_projekte.add(delete_projekt);
 		
-		vpanel_projekte.add(ct_projekte);
+		vpanel_projekte.add(ct_alleProjekte);
 		this.add(ft_navi);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
@@ -203,111 +208,134 @@ public class Projekte extends Showcase {
 //			
 //		});
 		
-		Column<HybridProjektPerson, String> projektname =
-				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-
-					@Override
-					public String getValue(HybridProjektPerson object) {
-						// TODO Auto-generated method stub
-						return object.getProjektname();
-					}
-		};
-					
-		Column<HybridProjektPerson, String>	startdatum =
-				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-
-					@Override
-					public String getValue(HybridProjektPerson object) {
-						// TODO Auto-generated method stub
-						return object.getStartdatum().toString();
-					}
-			
-		};
-		
-		Column<HybridProjektPerson, String> enddatum =
-				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-
-					@Override
-					public String getValue(HybridProjektPerson object) {
-						// TODO Auto-generated method stub
-						return object.getEnddatum().toString();
-					}
-			
-		};
-		
-		Column<HybridProjektPerson, String> projektleiter =
-				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-
-					@Override
-					public String getValue(HybridProjektPerson object) {
-						// TODO Auto-generated method stub
-						return object.getProjektleiter();
-					}
-			
-		};
-			
-		
-//		Column<Projekt, String> projektname = 
-//				    new Column<Projekt, String>(new ClickableTextCell())  {
-//				    
-//						@Override
-//						public String getValue(Projekt object) {
-//							// TODO Auto-generated method stub
-//							
-//							return object.getName();
-//						}
-//				    };
-//				    
-//		Column<Projekt, String> beschreibung = 
-//					new Column<Projekt, String>(new ClickableTextCell())  {
-//											    
-//						  	@Override
-//							public String getValue(Projekt object) {					
-//							
-//						  		return object.getBeschreibung();
-//							}
-//					};	
-//				    
-//				    
-//		 Column<Projekt, String> startdatum = 
-//				    new Column<Projekt, String>(new ClickableTextCell())  {
-//						    
-//						@Override
-//						public String getValue(Projekt object) {
+//		Column<HybridProjektPerson, String> projektname =
+//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+//
+//					@Override
+//					public String getValue(HybridProjektPerson object) {
 //						// TODO Auto-generated method stub
-//									
+//						return object.getProjektname();
+//					}
+//		};
+//					
+//		Column<HybridProjektPerson, String>	startdatum =
+//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+//
+//					@Override
+//					public String getValue(HybridProjektPerson object) {
+//						// TODO Auto-generated method stub
 //						return object.getStartdatum().toString();
-//						}
-//				    };		
-//				    
-//		  Column<Projekt, String> enddatum = 
-//				    new Column<Projekt, String>(new ClickableTextCell())  {
-//								    
-//			  			@Override
-//			  			public String getValue(Projekt object) {
-//			  			// TODO Auto-generated method stub
-//											
-//			  			return object.getEnddatum().toString();
-//			  			}
-//		  			};			 
+//				}
+//			
+//		};
+//		
+//		Column<HybridProjektPerson, String> enddatum =
+//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+//
+//					@Override
+//					public String getValue(HybridProjektPerson object) {
+//						// TODO Auto-generated method stub
+//						return object.getEnddatum().toString();
+//					}
+//			
+//		};
+//		
+//		Column<HybridProjektPerson, String> projektleiter =
+//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
+//
+//					@Override
+//					public String getValue(HybridProjektPerson object) {
+//						// TODO Auto-generated method stub
+//						return object.getProjektleiter();
+//					}
+//			
+//		};
+			
+		
+		Column<Projekt, String> projektname = 
+				    new Column<Projekt, String>(new ClickableTextCell())  {
+				    
+						@Override
+						public String getValue(Projekt object) {
+							// TODO Auto-generated method stub
+							
+							return object.getName();
+						}
+				    };
+				    
+		Column<Projekt, String> beschreibung = 
+					new Column<Projekt, String>(new ClickableTextCell())  {
+											    
+						  	@Override
+						public String getValue(Projekt object) {										
+						  		return object.getBeschreibung();
+		}
+					};	
+				    
+				    
+		 Column<Projekt, String> startdatum = 
+				    new Column<Projekt, String>(new ClickableTextCell())  {
+						    
+						@Override
+						public String getValue(Projekt object) {
+						// TODO Auto-generated method stub
+								
+						return object.getStartdatum().toString();
+						}
+				    };		
+				    
+		  Column<Projekt, String> enddatum = 
+				    new Column<Projekt, String>(new ClickableTextCell())  {
+								    
+			  			@Override
+			  			public String getValue(Projekt object) {
+			  			// TODO Auto-generated method stub
+											
+			  			return object.getEnddatum().toString();
+		  			}
+		  };
+		  Column<Projekt,String> buttonCell =
+				  new Column<Projekt,String>(detailsButton){
 
-//		ct_alleProjekte.addColumn(projektname, "Projektname");		    
-//		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
-//		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
-//		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
-		ct_projekte.addColumn(projektname, "Projektname");
-		ct_projekte.addColumn(startdatum, "Startdatum");
-		ct_projekte.addColumn(enddatum, "Enddatum");
-		ct_projekte.addColumn(projektleiter, "Projektleiter");
+					@Override
+					public String getValue(Projekt object) {
+						
+						return "Details";
+					}
+			  
+		  };
+		  
+		  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
+
+			@Override
+			public void update(int index, Projekt object, String value) {
+				
+					
+				
+			}
+			  
+		  });
+		  
+	
+
+		ct_alleProjekte.addColumn(projektname, "Projektname");		    
+		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
+		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
+		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
+		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");
+//		ct_projekte.addColumn(projektname, "Projektname");
+//		ct_projekte.addColumn(startdatum, "Startdatum");
+//		ct_projekte.addColumn(enddatum, "Enddatum");
+//		ct_projekte.addColumn(projektleiter, "Projektleiter");
 		
-		ct_projekte.setRowCount(projekte.size(), true);
-		ct_projekte.setRowData(0, projekte);
+//		ct_projekte.setRowCount(projekte.size(), true);
+//		ct_projekte.setRowData(0, projekte);
 		
-		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-		 if (adminService == null) {
-	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }
-		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new ProjekteAnzeigenCallback());
+//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new ProjekteAnzeigenCallback());
 		
 		
 //		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -317,7 +345,7 @@ public class Projekte extends Showcase {
 		
 //		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
 //		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
-//		filltableprojekte();
+		filltableprojekte();
 //		deleteProjekt();
 	
 	
