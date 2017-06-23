@@ -29,7 +29,9 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
 public class DialogBoxBewerbungAnlegen extends DialogBox {
+	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	
 	private VerticalPanel vp = new VerticalPanel();
 	private HorizontalPanel hp = new HorizontalPanel();
 	
@@ -42,8 +44,6 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
 	
 	private Ausschreibung selectedAusschreibung = new Ausschreibung();
-	
-
 	
 	
 	Label bewerbungstext_label = new Label();

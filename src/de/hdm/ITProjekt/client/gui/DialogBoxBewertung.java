@@ -133,9 +133,23 @@ public class DialogBoxBewertung extends DialogBox{
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				adminService.insert(bewert, new BewertungAnlegen());
-				
-				
+				DialogBoxBewertung.this.hide();
 				}
+				else{
+					
+					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
+					bewert.setStellungnahme(db.getText());
+					bewert.setBewerbungs_ID(b.getID());
+					
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 
+					if (adminService == null) {
+					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+					 }
+					adminService.insertWithoutBeteil(bewert, new BewertungAnlegen());
+					DialogBoxBewertung.this.hide();
+				}
+				
 			}
 			
 		});

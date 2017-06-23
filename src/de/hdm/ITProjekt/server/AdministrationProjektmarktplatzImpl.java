@@ -26,6 +26,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
 	private BewertungMapper bewertMapper = null;
+	private BeteiligungMapper beteilMapper = null;
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
 	private OrganisationseinheitMapper orgMapper = null;
@@ -47,6 +48,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
 		this.eigenschaftsMapper = EigenschaftMapper.eMapper();
 		this.bewertMapper = BewertungMapper.beweMapper();
+		this.beteilMapper = BeteiligungMapper.bMapper();
 		
 	}
 	/*
@@ -584,6 +586,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewertung insert(Bewertung a) {
 		
 		return this.bewertMapper.insert(a);
+	}
+	@Override
+	public Beteiligung insert(Beteiligung b) {
+		
+		return this.beteilMapper.insert(b);
+	}
+	@Override
+	public Bewertung insertWithoutBeteil(Bewertung a) {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.insertWithoutBeteil(a);
 	}
 
 	
