@@ -29,9 +29,13 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 
 	private Person person = new Person();
 	
+	private Unternehmen unternehmen = new Unternehmen();
+	
 	private Person person_neu = new Person();
 
-	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	Partnerprofil p1 = new Partnerprofil();
+	
+	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();	
 	
 	private VerticalPanel vpanel = new VerticalPanel();
 	private HorizontalPanel hpanel = new HorizontalPanel();	
@@ -171,7 +175,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				public void onClick(ClickEvent event) {
 					
 					 team.setID(person.getTeam_ID());
-					 if (team.getID() != 0 ){
+					 if (team.getID() != 0){
 					 person.setTeam_ID(0);
 					 }
 					 
@@ -191,7 +195,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 						@Override
 						public void onSuccess(Partnerprofil result) {
 							result = partnerprofil; 
-							
+							team.setPartnerprofil_ID(partnerprofil.getID());
 							adminService.updatePerson(person, new AsyncCallback<Person>(){
 
 								@Override
@@ -278,7 +282,6 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		}
 	}
 	private class DialogBoxUnternehmenLoeschen extends DialogBox {
-		private Person person = new Person();
 		
 		private VerticalPanel vpanel = new VerticalPanel();
 		private HorizontalPanel hpanel = new HorizontalPanel();	
@@ -289,6 +292,8 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		private Button ja = new Button("Ja");
 		private Button nein = new Button("Nein");
 		
+		private Partnerprofil partnerprofil = null;
+		Partnerprofil p1 = new Partnerprofil();
 		AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 		
 		private FlexTable unternehmenloschenseite = new FlexTable();
@@ -296,11 +301,107 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			ja.addClickHandler(new ClickHandler() {
 				
+				
 				@Override
 				public void onClick(ClickEvent event) {
+					unternehmen.setID(person.getUN_ID());
+					if (person.getTeam_ID() == null){
+						person.setUN_ID(0);
+					 
+					 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				   }
+					 adminService.getPartnerprofilOfOrganisationseinheit(unternehmen, new AsyncCallback<Partnerprofil>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Partnerprofil result) {
+							unternehmen.setPartnerprofil_ID(result.getID());
+							((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+							 if (adminService == null) {
+						     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+						   }
+							adminService.updatePerson(person, new AsyncCallback<Person>(){
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Person result) {
+									final Partnerprofil p = new Partnerprofil();
+									p.setID(unternehmen.getPartnerprofil_ID());
+									((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+									 if (adminService == null) {
+								     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+									 }
+									 adminService.deleteUnternehmen(unternehmen, new AsyncCallback<Void>(){
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Void result) {
+											((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+											 if (adminService == null) {
+										     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+										   }
+											 
+											 adminService.deletePartnerprofil(p, new AsyncCallback<Void>(){
+
+												@Override
+												public void onFailure(Throwable caught) {
+													// TODO Auto-generated method stub
+													
+												}
+
+												@Override
+												public void onSuccess(Void result) {
+													hide();
+												 	RootPanel.get("idendity").clear();
+													RootPanel.get("Navigator").clear();
+													RootPanel.get("Details").clear();
+													Showcase showcase = new MeinProfilAnzeigen(person);
+													Menubar mb = new Menubar(person);
+													RootPanel.get("Details").add(showcase);
+													RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+													RootPanel.get("Navigator").add(mb);
+												}
+												 
+											 });
+											
+										}
+										 
+									 });
+									
+								}
+								
+							});
+							
+						}
+						 
+					 });
 					
+					
+					 
+					 
+				}else{
+					Window.alert("Löschen Sie erst Ihr Team");
+					hide();
 				}
-			});
+			}
+		});
 			nein.addClickHandler(new ClickHandler() {
 				
 				@Override
@@ -321,124 +422,119 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 		}
 	}
-//	private class getpartnerprofilbyorga implements AsyncCallback<Partnerprofil>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Partnerprofil result) {	
-//			
-//			
-//			 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//			 if (adminService == null) {
-//		     adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//		   } 	
-//			 	person_neu.setTeam_ID(person.getTeam_ID());
-//			 	person_neu.setPartnerprofil_ID(person.getPartnerprofil_ID());
-//				person.setTeam_ID(0);
-//							
-//				adminService.updatePerson(person, new teamvonpersonnull());
-//			
-//			
-//		}
-//
-//	
-//		
-//	}
-//	private class getteambyID implements AsyncCallback <Team>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Team result) {
-//			Partnerprofil partnerprofil = new Partnerprofil();
-//			partnerprofil.setID(result.getPartnerprofil_ID());
-//			
-//			Team team_neu = new Team();
-//			result = team_neu;
-//			team_neu.setID(result.getID());
-//			
-//			team_neu.setPartnerprofil_ID(0);
-//			
-//			adminService.updateTeam(team_neu, new updateteam());
-//		}
-//		
-//	}
-//	
-//	private class deleteteam implements AsyncCallback <Void>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Void result) {
-//
-//			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//			 if (adminService == null) {
-//		     adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//			adminService.deletePartnerprofil(partnerprofil, new AsyncCallback<Void>(){
-//
-//				@Override
-//				public void onFailure(Throwable caught) {
-//					// TODO Auto-generated method stub
-//					
-//				}
-//
-//				@Override
-//				public void onSuccess(Void result) {
-//					
-//					
-//				     
-//				   } 
-//					 
-//				});
-//		
-//			
-//		}
-//		}
-//	}
-//	
-//	private class teamvonpersonnull implements AsyncCallback<Person>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//		
-//		@Override
-//		public void onSuccess(Person result) {
-//			
-//			
-//		}
-//
-//	}
-//	private class updateteam implements AsyncCallback<Team>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Team result) {
-//			Window.alert("Team wurde geupdatet");
-//			adminService.deleteTeam(result, new deleteteam());
-//		}
-//		
-//	}
+	private class DialogBoxAbfrageTeamLoschen extends DialogBox{
+private Person person = new Person();
+		
+		private VerticalPanel vpanel = new VerticalPanel();
+		private HorizontalPanel hpanel = new HorizontalPanel();	
+
+		private Button fertig = new Button("Fertig");
+		
+		private Label frage = new Label ("Mit der Löschung Ihres Unternehmens, wird auch Ihr Team gelöscht. Dies kann nicht rückgängig gemacht werden. Trotzdem löschen?");
+		private Button ja = new Button("Ja");
+		private Button nein = new Button("Nein");
+		
+		private Partnerprofil partnerprofil = null;
+		Partnerprofil p1 = new Partnerprofil();
+		AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+		
+		private FlexTable unternehmenloschenseite = new FlexTable();
+		
+		public DialogBoxAbfrageTeamLoschen(final Person person){
+			ja.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					
+					 team.setID(person.getTeam_ID());
+					 if (team.getID() != 0){
+					 person.setTeam_ID(0);
+					 }
+					 
+					 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				   }
+					 
+					 adminService.getPartnerprofilOfOrganisationseinheit(team, new AsyncCallback<Partnerprofil>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Partnerprofil result) {
+							result = partnerprofil; 
+							team.setPartnerprofil_ID(partnerprofil.getID());
+							adminService.updatePerson(person, new AsyncCallback<Person>(){
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+
+								@Override
+								public void onSuccess(Person result) {
+									((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+									 if (adminService == null) {
+								     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+								   }
+									 adminService.deleteTeam(team, new AsyncCallback<Void>(){
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Void result) {
+											adminService.deletePartnerprofil(partnerprofil, new AsyncCallback<Void>(){
+
+												@Override
+												public void onFailure(Throwable caught) {
+													// TODO Auto-generated method stub
+													
+												}
+
+												@Override
+												public void onSuccess(Void result) {
+													hide();
+												 	
+												}
+												
+											});
+										}
+										 
+									 });
+								}
+								 
+							 });
+							 
+							
+						}
+						 
+					 });
+					 
+					
+					 
+					
+					
+
+				}
+				});
+		
+		unternehmenloschenseite.setWidget(0, 0, frage);
+		unternehmenloschenseite.setWidget(1, 0, ja);
+		unternehmenloschenseite.setWidget(1, 1, nein);
+		vpanel.add(unternehmenloschenseite);
+		this.add(vpanel);
+		}
+	}
+
 	
 
 }
