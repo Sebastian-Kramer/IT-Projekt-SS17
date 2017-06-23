@@ -120,10 +120,10 @@ public class DialogBoxBewertung extends DialogBox{
 				if(janein.getSelectedItemText() == "Ja"){
 				DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(aus);
 				dialogBox.center();
-								
+							
 				bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 				bewert.setStellungnahme(db.getText());
-				bewert.setBeteiligungs_ID(1);
+				bewert.setBeteiligungs_ID(2);
 				bewert.setBewerbungs_ID(b.getID());
 				
 				

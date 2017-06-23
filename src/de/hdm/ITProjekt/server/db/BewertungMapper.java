@@ -104,19 +104,17 @@ public Bewertung insert(Bewertung bew){
 		    	  			+ ", " + bew.getBewertung() + ", " + bew.getBeteiligungs_ID() + ", " + bew.getBewerbungs_ID()
 		    	  			+")"); 
 			
-		      }		    	  
-	    	  
+		      	}		    	  
 	      }
 	
 	catch(SQLException e2){
 		e2.printStackTrace();
 	}
 	
-
 	return bew;	
 }
 	
-public Bewertung insertWithoutBeteil(Bewertung bew){
+public Bewertung insertWithoutBeteil(Bewertung bew) {
 	
 	Connection con = DBConnection.connection();
 	
@@ -136,18 +134,15 @@ public Bewertung insertWithoutBeteil(Bewertung bew){
 	    	  			+ ", " + bew.getBewertung() + ", " + bew.getBewerbungs_ID()
 	    	  			+")"); 
 		
-	      }		    	  
-    	  
+	      	}		    	  
       }
 
 catch(SQLException e2){
 	e2.printStackTrace();
 }
 
-
 return bew;	
 }
-
 
 public void delete(Bewertung bew){
 	
@@ -181,5 +176,6 @@ public void delete(Bewertung bew){
 
 	    return bewe;
 	  }
+
 	}
 
