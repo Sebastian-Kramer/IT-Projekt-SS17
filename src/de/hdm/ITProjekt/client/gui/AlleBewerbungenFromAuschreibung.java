@@ -32,6 +32,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
@@ -59,6 +60,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	private Ausschreibung selectedAusschreibung;
 	private Person angemeldetePerson;
 	private Bewerbung b;
+	private Vector<Bewertung> bewe;
 	
 	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p){
 		this.selectedAusschreibung = a;
@@ -84,6 +86,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		ct_bewerbungen.setSelectionModel(ssm);
 		
+		b = ssm.getSelectedObject();
+		
 		vp_bew.setSpacing(10);
 		
 //		form.setWidget(0, 1, bewertung);
@@ -98,7 +102,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		
 		if (selectedAusschreibung.getOrga_ID() == angemeldetePerson.getID()){
-			Window.alert("Sie haben die Ausschreibung angelegt und können eine Bewertung abgeben");
+			Window.alert("Sie haben die Ausschreibung angelegt, können alle Bewerbungen einsehen "
+					+ "und entsprechende Bewertungen abgeben");
 //			form.setWidget(0, 1, bewertung);
 			
 			form.setWidget(0, 0, ct_bewerbungen);
@@ -150,12 +155,38 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				b = ssm.getSelectedObject();
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung);
-				dialogBox.center();
+				
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 
+				if (adminService == null) {
+				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+				 }
+				adminService.getAllBewertungen(new getAllBewertungen());
+					
+					b = ssm.getSelectedObject();
+					
+					Boolean vorhanden = false;
+					for (Bewertung bewertung : bewe){
+								
+					
+					if(bewertung.getBewerbungs_ID() == b.getID()){
+						Window.alert("Es wurde bereits eine Bewertung abgegeben");
+						Window.alert(bewertung.toString());
+						vorhanden = false;
+						break;
+					}
+					else if(bewertung.getBewerbungs_ID() != b.getID()){
+						vorhanden = true;
+
+					}
+					}
+					if(vorhanden == true){					
+					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
+					dialogBox.center();}
 
 				
 			}
+			
 			
 		});
 		Column<Bewerbung, String> text = 
@@ -198,24 +229,40 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	}
 	
 	
-public class allBewByAus implements AsyncCallback<Vector<Bewerbung>>{
-
-	@Override
-	public void onFailure(Throwable caught) {
-		Window.alert("Da ist etwas schief gegangen");
-		
-	}
-
-	@Override
-	public void onSuccess(Vector<Bewerbung> result) {
-		ct_bewerbungen.setRowData(0, result);
-		ct_bewerbungen.setRowCount(result.size(), true);
-
-		Window.alert("Alle Bewerbung auf diese Ausschreibung wurden geladen");
+	public class allBewByAus implements AsyncCallback<Vector<Bewerbung>>{
+	
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Da ist etwas schief gegangen");
+			
+		}
+	
+		@Override
+		public void onSuccess(Vector<Bewerbung> result) {
+			ct_bewerbungen.setRowData(0, result);
+			ct_bewerbungen.setRowCount(result.size(), true);
+	
+			Window.alert("Alle Bewerbung auf diese Ausschreibung wurden geladen");
+			
+		}
 		
 	}
 	
-}
+	public class getAllBewertungen implements AsyncCallback<Vector<Bewertung>>{
+	
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Da ist etwas schief gegangen");
+			
+		}
+	
+		@Override
+		public void onSuccess(Vector<Bewertung> result) {
+			bewe = result;	
+			
+		}
+		
+	}
 
 
 

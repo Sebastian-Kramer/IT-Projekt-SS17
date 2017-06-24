@@ -139,9 +139,8 @@ public class Bewertung extends BusinessObject {
 	 */
 
 	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Stellungnahme: " + stellungnahme + "\n"
-				+ "Beurteilung: " + bewertung + "\n" + "Diese Beteiligung gehört zu folgender Bewerbung: " + Bewerbungs_ID
-				 + "\n";
+		return "\n" + "\n" + "Stellungnahme: " + stellungnahme + "\n"
+				+ "Höhe der Bewertung: " + bewertung + "\n";
 	}
 	
 }

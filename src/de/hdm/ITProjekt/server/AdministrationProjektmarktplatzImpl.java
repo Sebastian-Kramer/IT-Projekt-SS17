@@ -603,6 +603,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewertMapper.insertWithoutBeteil(a);
 	}
+	@Override
+	public Vector<Bewertung> getAllBewertungen() {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.getAll();
+	}
 
 
 	

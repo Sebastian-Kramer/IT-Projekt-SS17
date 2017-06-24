@@ -159,4 +159,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Bewertung insertWithoutBeteil(Bewertung a);
 
+	public Vector<Bewertung> getAllBewertungen();
+
 	}
