@@ -605,6 +605,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.bewertMapper.insertWithoutBeteil(a);
 	}
 	@Override
+
 	public Projekt updateProjekt(Projekt c) throws IllegalArgumentException {
 		return this.pMapper.update(c);
 	}
@@ -630,9 +631,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public void deleteBewertung(Bewertung bew) throws IllegalArgumentException {
+		this.bewertMapper.delete(bew);
+	}
 		
 		
 		
+
+	public Vector<Bewertung> getAllBewertungen() {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.getAll();
+
 	}
 
 

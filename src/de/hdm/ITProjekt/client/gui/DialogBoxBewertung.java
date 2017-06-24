@@ -24,8 +24,10 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
@@ -55,10 +57,13 @@ public class DialogBoxBewertung extends DialogBox{
 	private Bewerbung bew;
 	private Bewertung bewert = new Bewertung();
 	private Ausschreibung aus;
+	private Beteiligung bet;
+	private Person person;
 	
-	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a){
+	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, Person p){
 		this.bew = b;
 		this.aus = a;
+		this.person = p;
 		
 		this.setText("Hier können Sie ein Bewertung abgeben");
 		this.setAnimationEnabled(true);
@@ -117,23 +122,16 @@ public class DialogBoxBewertung extends DialogBox{
 
 			@Override
 			public void onClick(ClickEvent event) {
+
 				if(janein.getSelectedItemText() == "Ja"){
-				DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(aus);
-				dialogBox.center();
-							
-				bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
-				bewert.setStellungnahme(db.getText());
-				bewert.setBeteiligungs_ID(2);
-				bewert.setBewerbungs_ID(b.getID());
+					
+					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
+					bewert.setStellungnahme(db.getText());
+					bewert.setBewerbungs_ID(b.getID());
 				
-				
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 
-				if (adminService == null) {
-				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-				 }
-				adminService.insert(bewert, new BewertungAnlegen());
-				DialogBoxBewertung.this.hide();
+					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, person);		
+					dialogBox.center();
+					DialogBoxBewertung.this.hide();		
 				}
 				else{
 					

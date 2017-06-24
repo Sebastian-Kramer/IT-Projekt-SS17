@@ -31,6 +31,7 @@ import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxBeteiligung extends DialogBox{
@@ -59,10 +60,15 @@ public class DialogBoxBeteiligung extends DialogBox{
 	
 	
 	private Ausschreibung aus;
+	private Bewertung bewe;
 	private Beteiligung be = new Beteiligung();
+	private Beteiligung newBeteiligung;
+	private Person person;
 	
-	public DialogBoxBeteiligung(Ausschreibung a){
+	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, Person p){
 		this.aus = a;
+		this.bewe = b;
+		this.person = p;
 		
 		this.setText("Projektbeteiligung erstellen");
 		this.setAnimationEnabled(true);
@@ -100,6 +106,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				be.setEnddatum(endBox.getValue());
 				be.setOrga_ID(aus.getOrga_ID());
 				be.setProjekt_ID(aus.getProjekt_ID());
+
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -126,7 +133,35 @@ public class DialogBoxBeteiligung extends DialogBox{
 
 		@Override
 		public void onSuccess(Beteiligung result) {
+			newBeteiligung = result;
+			bewe.setBeteiligungs_ID(newBeteiligung.getID());				
+			
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 
+			if (adminService == null) {
+			 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+			 }
+			adminService.insert(bewe, new BewertungAnlegen());
+			
 			Window.alert("Die Beteiligung wurde erfolgreich angelegt");
+			
+		}
+		
+	}
+	public class BewertungAnlegen implements AsyncCallback<Bewertung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Bewertung konnte nicht abgegeben werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Bewertung result) {
+			Window.alert("Die Bewertung wurde erfolgreich abgegeben");
+			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, person);
+			RootPanel.get("Details").clear();
+			RootPanel.get("Details").add(showcase);
 			
 		}
 		

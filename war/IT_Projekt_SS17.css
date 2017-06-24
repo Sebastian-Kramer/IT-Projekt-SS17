@@ -53,6 +53,14 @@ div#idendity{
 
 div#body-body{
 	background: aliceblue;
+	width: 1150px;
+}
+div#footer{
+	background: #209ede;
+	width: 1150px;
+	height: 100px;
+	
+	
 }
 .bearbungsmodusdeaktiv-button{
 	
@@ -147,7 +155,7 @@ a {
 }
 
 header {
-	width: 100%;
+	width: 1150px;
 	height: 240px;
 	margin:20px auto 0px;
 	background: #35bbc0;
@@ -221,8 +229,9 @@ header a#navlink {
 
 ul#header-top { 
 	position:absolute; 
-	top:0px; 
-	right:0px;
+	top: 0px;
+	left: -15px;
+
 	list-style-type: none;  
 	color: blue;
 	
@@ -301,7 +310,8 @@ a 	{
 
 
 footer p {
-	float: right;
+		float: right;
+
 }
 @media only screen and (max-width: 960px) {
 body{width:100%}	

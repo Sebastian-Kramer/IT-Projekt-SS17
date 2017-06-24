@@ -43,7 +43,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private TextArea ausschreibungstext = new TextArea();
 	private TextArea ausschreibungsbez = new TextArea();
 	
-	private Label ablauffristLabel = new Label("Abblauffrist");
+	private Label ablauffristLabel = new Label("Bewerbungfrist: ");
 	private Label bez = new Label("Name der Stellenausschreibung: ");
 	private Label text = new Label("Informationen zur Ausschreibung: ");
 	

@@ -50,6 +50,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getPartnerprofilfromPerson(int id, AsyncCallback<Eigenschaft> callback);
 
 	void getAllProjekte(AsyncCallback<Vector<Projekt>> callback);
+	
+	void getAllBewertungen(AsyncCallback<Vector<Bewertung>> callback);
 
 	void getAllProjekteByTeilnahme(Person p, AsyncCallback<Vector<Projekt>> callback);
 
