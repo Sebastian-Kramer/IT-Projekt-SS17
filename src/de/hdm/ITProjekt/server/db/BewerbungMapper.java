@@ -135,11 +135,16 @@ public class BewerbungMapper {
 
 	    try {
 	      Statement stmt = con.createStatement();
+	      if(c.getAusschreibungs_ID()==null && c.getOrga_ID()==null){
+	    	  stmt.executeUpdate("UPDATE Bewerbung " + "SET bewerbungstext='" + c.getBewerbungstext() 
+	    	  + "',Ausschreibungs_ID=NULL, Orga_ID=NULL'" + " WHERE Bewerbung.ID = " + c.getID());
+	      
+	      }else{
 
 	      stmt.executeUpdate("UPDATE Bewerbung " + "SET bewerbungstext='"
 	          + c.getBewerbungstext() 
 	    		  + "' WHERE Bewerbung.ID = " + c.getID());
-
+	      }
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();

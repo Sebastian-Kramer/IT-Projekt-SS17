@@ -173,13 +173,30 @@ public class ProjektMapper {
 
 	    try {
 	      Statement stmt = con.createStatement();
-
+	      
+	      if(c.getProjektleiter_ID()==null && c.getProjektmarktplatz_ID()==null){
+	    	  stmt.executeUpdate("UPDATE Projekt " + "SET name='"
+	    	          + c.getName() + "', beschreibung='" + c.getBeschreibung() +   "', Projektmarktplatz_ID = NULL, Projektleiter_ID = NULL "
+	    	          + "WHERE Projekt.ID=" + c.getID());
+	      }else if(c.getProjektleiter_ID()!= null && c.getProjektmarktplatz_ID()==null){
+	    	  stmt.executeUpdate("UPDATE Projekt " + "SET name='"
+	    	          + c.getName() + "', beschreibung='" + c.getBeschreibung() + "', startdatum='" 
+	    	          + format.format(c.getStartdatum()) + "', enddatum= '" 
+	    	          + format.format(c.getEnddatum()) +  "',Projektmarktplatz_ID=NULL"  + "', Projektleiter_ID='" + + c.getProjektleiter_ID()
+	    	          + "WHERE Projekt.ID=" + c.getID());
+	      }else if(c.getProjektleiter_ID()== null && c.getProjektmarktplatz_ID()!=null){
+	    	  stmt.executeUpdate("UPDATE Projekt " + "SET name='"
+	    	          + c.getName() + "', beschreibung='" + c.getBeschreibung() + "', enddatum='" 
+	    	          + format.format(c.getEnddatum()) + "', Projektmarktplatz_ID='" + c.getProjektmarktplatz_ID() + "', Projektleiter_ID = NULL "
+	    	          + "WHERE Projekt.ID=" + c.getID());
+	      }else if(c.getProjektleiter_ID()!=null && c.getProjektmarktplatz_ID()!=null){
 	      stmt.executeUpdate("UPDATE Projekt " + "SET name='"
 	          + c.getName() + "', beschreibung='" + c.getBeschreibung() + "', startdatum='" 
 	          + format.format(c.getStartdatum()) + "', enddatum= '" 
-	          + format.format(c.getEnddatum()) 
-	          + "'WHERE Projekt.ID=" + c.getID());
-
+	          + format.format(c.getEnddatum()) + c.getProjektmarktplatz_ID() + "', Projektmarktplatz_ID='" 
+	          + c.getProjektleiter_ID() + "', Projektleiter_ID='" 
+	          + "WHERE Projekt.ID=" + c.getID());
+	      }
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();

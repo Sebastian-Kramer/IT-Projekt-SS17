@@ -2,6 +2,7 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.server.db.BeteiligungMapper;
 
 import java.sql.Connection;
@@ -84,6 +85,39 @@ public Vector<Bewertung> getAll(){
 	  return result;
 }
 
+public Vector<Bewertung> getBewertungByBewerbung(int bewerbungID){
+	 Connection con = DBConnection.connection();
+	 Vector<Bewertung> result = new Vector<Bewertung>();
+	 
+	 try{
+		 Statement stmt = con.createStatement();
+		 ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM Bewertung FROM bewertung " 
+				 						+ "WHERE Bewerbungs_ID=" + bewerbungID);
+		 while(rs.next()){
+			 Bewertung b = new Bewertung();
+			 
+			 b.setID(rs.getInt("ID"));
+			 b.setStellungnahme(rs.getString("stellungnahme"));
+			 b.setBewertung(rs.getDouble("bewertung"));
+			 b.setBeteiligungs_ID(rs.getInt("Beteiligungs_ID"));
+			 b.setBewerbungs_ID(rs.getInt("Bewerbungs_ID"));
+			 
+			 result.add(b);
+			 
+		 }
+	 }
+		 catch (SQLException e) {
+				e.printStackTrace();
+			}
+	 
+	 return result;
+}
+
+public Vector<Bewertung> getBewertungByBewerbung(Bewerbung bewerbung){
+	return getBewertungByBewerbung(bewerbung.getID());
+}
+
+
 public Bewertung insert(Bewertung bew){
 	
 		Connection con = DBConnection.connection();
@@ -165,10 +199,15 @@ public void delete(Bewertung bew){
 
 	    try {
 	      Statement stmt = con.createStatement();
-
+	      
+	      if(bewe.getBewerbungs_ID()==null){
+	    	  stmt.executeUpdate("UPDATE Bewertung " + "SET stellungnahme='"
+	    	          + bewe.getStellungnahme() + "'" +   "SET bewertung=" + bewe.getBewertung()
+	    	          + "'" + "SET Bewerbungs_ID=NULL" + "WHERE Bewertung.ID=" + bewe.getID()); 
+	      }else{
 	      stmt.executeUpdate("UPDATE Bewertung " + "SET stellungnahme='"
 	          + bewe.getStellungnahme() + "'" +   "SET bewertung=" + bewe.getBewertung());
-
+	      }
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();

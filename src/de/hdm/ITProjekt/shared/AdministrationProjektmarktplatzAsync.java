@@ -160,6 +160,18 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deletePerson(Person p, AsyncCallback<Void> callback);
 
+	void updateProjekt(Projekt c, AsyncCallback<Projekt> callback);
+
+	void updateBewerbung(Bewerbung c, AsyncCallback<Bewerbung> callback);
+
+	void getBewertungByBewerbung(Bewerbung bewerbung, AsyncCallback<Vector<Bewertung>> callback);
+
+	void getBewertungByBewerbung(int bewerbungId, AsyncCallback<Vector<Bewertung>> callback);
+
+	void updateBewertung(Bewertung bewe, AsyncCallback<Bewertung> callback);
+
+	void deleteBewertung(Bewertung bew, AsyncCallback<Void> callback);
+
 
 
 

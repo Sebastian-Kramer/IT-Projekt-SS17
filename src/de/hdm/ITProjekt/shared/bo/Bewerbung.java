@@ -29,13 +29,13 @@ public class Bewerbung extends BusinessObject {
 	 * Realisierung der Beziehung einer Ausschriebung mittels Fremdschlüssel
 	 */
 	
-	private int Ausschreibungs_ID = 0;
+	private Integer Ausschreibungs_ID = 0;
 	
 	/*
 	 *  Realisierung der Beziehung einer Organisationseinheit mittels Fremdschlüssel
 	 */
 	
-	private int Orga_ID = 0;
+	private Integer Orga_ID = 0;
 	
 	/*
 	 * Auslesen der ID
@@ -96,7 +96,7 @@ public class Bewerbung extends BusinessObject {
 	 * @return Ausschreibungs_ID
 	 */
 	
-	public int getAusschreibungs_ID() {
+	public Integer getAusschreibungs_ID() {
 		return Ausschreibungs_ID;
 	}
 	
@@ -105,8 +105,12 @@ public class Bewerbung extends BusinessObject {
 	 * @param Ausschreibungs_ID
 	 */
 	
-	public void setAusschreibungs_ID(int ausschreibungs_ID) {
-		Ausschreibungs_ID = ausschreibungs_ID;
+	public void setAusschreibungs_ID(Integer ausschreibungs_ID) {
+		if(ausschreibungs_ID==0){
+			this.Ausschreibungs_ID = null;
+		}else{
+			this.Ausschreibungs_ID = ausschreibungs_ID;
+		}
 	}
 	
 	/*
@@ -114,7 +118,7 @@ public class Bewerbung extends BusinessObject {
 	 * @return Orga_ID
 	 */
 	
-	public int getOrga_ID() {
+	public Integer getOrga_ID() {
 		return Orga_ID;
 	}
 	
@@ -123,8 +127,12 @@ public class Bewerbung extends BusinessObject {
 	 * @param orga_ID
 	 */
 	
-	public void setOrga_ID(int orga_ID) {
-		Orga_ID = orga_ID;
+	public void setOrga_ID(Integer orga_ID) {
+		if(orga_ID==0){
+			this.Orga_ID = null;
+		}else{
+			this.Orga_ID = orga_ID;
+		}
 	}
 	
 	/*

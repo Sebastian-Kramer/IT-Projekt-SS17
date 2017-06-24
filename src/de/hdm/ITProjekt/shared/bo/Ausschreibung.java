@@ -15,19 +15,19 @@ public class Ausschreibung extends BusinessObject {
 	 * Realisierung der Beziehungen zu Projekt mittels Fremdschlüssel
 	 */
 	
-	private int Projekt_ID = 0;
+	private Integer Projekt_ID = 0;
 	
 	/*
 	 * Realisierung der Beziehung zu einem Partnerprofil mittels Fremdschlüssel
 	 */
 	
-	private int Partnerprofil_ID = 0;
+	private Integer Partnerprofil_ID = 0;
 	
 	/*
 	 * Realisierung der Beziehung zu Organisationseinheit mittels Fremdschlüssel
 	 */
 	
-	private int Orga_ID = 0;
+	private Integer Orga_ID = 0;
 	
 	/*
 	 * 
@@ -121,7 +121,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getProjekt_ID() {
+	public Integer getProjekt_ID() {
 		return Projekt_ID;
 	}
 	
@@ -130,8 +130,14 @@ public class Ausschreibung extends BusinessObject {
 	 * @param projekt_ID
 	 */
 	
-	public void setProjekt_ID(int projekt_ID) {
-		Projekt_ID = projekt_ID;
+	public void setProjekt_ID(Integer projekt_ID) {
+		if(projekt_ID == 0){
+			this.Projekt_ID = null;
+		}else{
+			this.Projekt_ID = projekt_ID;
+				
+			}
+		
 	}
 	
 	/*
@@ -139,7 +145,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getPartnerprofil_ID() {
+	public Integer getPartnerprofil_ID() {
 		return Partnerprofil_ID;
 	}
 	
@@ -148,8 +154,12 @@ public class Ausschreibung extends BusinessObject {
 	 * @param partnerprofil_ID
 	 */
 	
-	public void setPartnerprofil_ID(int partnerprofil_ID) {
-		Partnerprofil_ID = partnerprofil_ID;
+	public void setPartnerprofil_ID(Integer partnerprofil_ID) {
+		if(partnerprofil_ID == 0){
+			this.Partnerprofil_ID = null;
+		}else{
+			this.Partnerprofil_ID = partnerprofil_ID;
+		}
 	}
 	
 	/*
@@ -157,7 +167,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getOrga_ID() {
+	public Integer getOrga_ID() {
 		return Orga_ID;
 	}
 	
@@ -166,8 +176,12 @@ public class Ausschreibung extends BusinessObject {
 	 * @param orga_ID
 	 */
 	
-	public void setOrga_ID(int orga_ID) {
-		Orga_ID = orga_ID;
+	public void setOrga_ID(Integer orga_ID) {
+		if(orga_ID == 0){
+			this.Orga_ID = null;
+		}else{
+			this.Orga_ID = orga_ID;
+		}
 	}
 	
 	/*

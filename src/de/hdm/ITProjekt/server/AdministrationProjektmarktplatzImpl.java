@@ -190,6 +190,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
 		
+		
 		if(ausschreibung != null){
 			for(Ausschreibung a : ausschreibung){
 				this.deleteAusschreibung(a);
@@ -602,6 +603,36 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Bewertung insertWithoutBeteil(Bewertung a) {
 		// TODO Auto-generated method stub
 		return this.bewertMapper.insertWithoutBeteil(a);
+	}
+	@Override
+	public Projekt updateProjekt(Projekt c) throws IllegalArgumentException {
+		return this.pMapper.update(c);
+	}
+	@Override
+	public Bewerbung updateBewerbung(Bewerbung c) throws IllegalArgumentException {
+		
+		return this.bewMapper.update(c);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBewerbung(Bewerbung bewerbung) throws IllegalArgumentException {
+		
+		return this.bewertMapper.getBewertungByBewerbung(bewerbung);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBewerbung(int bewerbungId) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.getBewertungByBewerbung(bewerbungId);
+	}
+	@Override
+	public Bewertung updateBewertung(Bewertung bewe) throws IllegalArgumentException {
+		
+		return this.bewertMapper.update(bewe);
+	}
+	@Override
+	public void deleteBewertung(Bewertung bew) throws IllegalArgumentException {
+		
+		
+		
 	}
 
 

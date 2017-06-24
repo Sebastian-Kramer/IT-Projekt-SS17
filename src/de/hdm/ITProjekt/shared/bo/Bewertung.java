@@ -39,7 +39,7 @@ public class Bewertung extends BusinessObject {
 	 * Realisieren der Beziehung zu einer Bewerbung mittels Fremdschlüssel
 	 */
 	
-	private int Bewerbungs_ID = 0;
+	private Integer Bewerbungs_ID = 0;
 	
 	/*
 	 * Auslesen der ID
@@ -118,7 +118,7 @@ public class Bewertung extends BusinessObject {
 	 * @return Bewerbungs_ID
 	 */
 	
-	public int getBewerbungs_ID() {
+	public Integer getBewerbungs_ID() {
 		return Bewerbungs_ID;
 	}
 	
@@ -127,8 +127,12 @@ public class Bewertung extends BusinessObject {
 	 * @param Bewerbungs_ID
 	 */
 
-	public void setBewerbungs_ID(int bewerbungs_ID) {
-		Bewerbungs_ID = bewerbungs_ID;
+	public void setBewerbungs_ID(Integer bewerbungs_ID) {
+		if(bewerbungs_ID==0){
+			this.Bewerbungs_ID=null;
+		}else{
+			this.Bewerbungs_ID=bewerbungs_ID;
+		}
 	}
 	
 	/*
