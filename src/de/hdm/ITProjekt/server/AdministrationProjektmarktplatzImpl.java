@@ -15,9 +15,6 @@ import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 			implements AdministrationProjektmarktplatz{
 	
-
-	
-	private ArrayList<String> projektmarktplaetze = new ArrayList<String>(); 
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
@@ -465,6 +462,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 		}
 	
+	
 	@Override
 	public void deletePartnerprofil(Partnerprofil p) throws IllegalArgumentException {
 		this.partnerprofilMapper.delete(p);
@@ -516,7 +514,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.aMapper.addAusschreibung(a);
 }
 
-	
+	@Override
+	public Eigenschaft createEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		return this.eigenschaftsMapper.insert(e);
+	}
 	@Override
 	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException {
 		
@@ -524,6 +525,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	}
 
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftofPerson(Partnerprofil p) throws IllegalArgumentException {
+		return this.eigenschaftsMapper.findByPartnerprofil(p);
+	}
+	
 	@Override
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) {
 	
@@ -605,7 +611,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.bewertMapper.insertWithoutBeteil(a);
 	}
 	@Override
-
 	public Projekt updateProjekt(Projekt c) throws IllegalArgumentException {
 		return this.pMapper.update(c);
 	}
@@ -621,7 +626,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Vector<Bewertung> getBewertungByBewerbung(int bewerbungId) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		return this.bewertMapper.getBewertungByBewerbung(bewerbungId);
 	}
 	@Override
@@ -643,12 +647,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	}
 
-
-	
-	
-	
-
-	
-	
-	
+	public void deleteEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		this.eigenschaftsMapper.deleteEigenschaft(e);
 	}
+	@Override
+	public Eigenschaft updateEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.eigenschaftsMapper.update(e);
+	}
+}

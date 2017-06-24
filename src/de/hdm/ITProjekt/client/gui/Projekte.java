@@ -504,7 +504,7 @@ public class Projekte extends Showcase {
 
 			@Override
 			public void update(int index, Projekt object, String value) {
-				DialogBoxProjektdetails dialogbox = new DialogBoxProjektdetails(object, person);
+				DialogBox dialogbox = new DialogBoxProjektdetails(object, person);
 				dialogbox.center();
 				
 					

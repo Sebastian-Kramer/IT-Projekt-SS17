@@ -130,13 +130,13 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
 
     try {
       Statement stmt = con.createStatement();
-
+      u.setID(super.update(u));
+      super.orgMapper().update(u);
       stmt.executeUpdate("UPDATE Unternehmen SET " + "name=\""
           + u.getName() + "\"" + "WHERE ID=" + u.getID());
     }
     catch (SQLException e2) {
       e2.printStackTrace();
-      super.update(u);
     }
 
     return u;

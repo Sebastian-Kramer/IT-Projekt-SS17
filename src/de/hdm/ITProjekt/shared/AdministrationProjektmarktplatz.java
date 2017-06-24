@@ -99,7 +99,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	 * Methoden von Bewerbung
 	 */
 	
-	Bewertung insert(Bewertung a);
+	Bewertung insert(Bewertung a) throws IllegalArgumentException;
 
 	
 	// Methoden von Organisationseinheit
@@ -133,9 +133,19 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException;
 
-	public Eigenschaft getPartnerprofilfromPerson(int id);
+	// Methoden von Eigenschaft
+	
+	public Vector<Eigenschaft> getAllEigenschaftofPerson(Partnerprofil p) throws IllegalArgumentException;
+	
+	public Eigenschaft createEigenschaft(Eigenschaft e) throws IllegalArgumentException;
+	
+	public Eigenschaft updateEigenschaft(Eigenschaft e) throws IllegalArgumentException;
+	
+	public void deleteEigenschaft(Eigenschaft e) throws IllegalArgumentException;
+	
+	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException;
 
-	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id);
+	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) throws IllegalArgumentException;
 
  // Methoden von Team
 	
@@ -156,13 +166,11 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
 
-	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id);
+	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException;
 
-	public Bewerbung insert(Bewerbung a);
+	public Bewerbung insert(Bewerbung a) throws IllegalArgumentException;
 
-	public Beteiligung insert(Beteiligung b);
-
-	public Bewertung insertWithoutBeteil(Bewertung a);
+	public Beteiligung insert(Beteiligung b) throws IllegalArgumentException;
 	
 	public Vector<Bewertung> getBewertungByBewerbung(Bewerbung bewerbung) throws IllegalArgumentException;
 	
@@ -173,5 +181,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void deleteBewertung(Bewertung bew) throws IllegalArgumentException;
 
 	public Vector<Bewertung> getAllBewertungen();
+
+	public Bewertung insertWithoutBeteil(Bewertung a) throws IllegalArgumentException;
 
 	}
