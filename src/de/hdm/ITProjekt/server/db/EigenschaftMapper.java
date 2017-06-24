@@ -1,5 +1,8 @@
 package de.hdm.ITProjekt.server.db;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
@@ -15,7 +18,7 @@ public class EigenschaftMapper {
 		
 		protected EigenschaftMapper(){
 			
-		}
+		};
 		
 		public static EigenschaftMapper eMapper(){
 			if(eMapper == null){
@@ -24,13 +27,38 @@ public class EigenschaftMapper {
 			return eMapper;
 		}
 		
+		public Vector<Eigenschaft> findByPartnerprofil(Partnerprofil p){
+			Connection con = DBConnection.connection();
+			
+			Vector<Eigenschaft> result = new Vector<Eigenschaft>();
+			
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
+	          + "WHERE Partnerprofil_ID=" + p.getID());
+				
+				while(rs.next()){
+					Eigenschaft e = new Eigenschaft();
+					e.setID(rs.getInt("ID"));
+					e.setName(rs.getString("name"));
+					e.setWert(rs.getString("wert"));
+					e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+					
+					result.addElement(e);
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+			}
+			return result;	
+		}
 		public Eigenschaft findByKey(int id){
 			Connection con = DBConnection.connection();
 			
 			try{
 				Statement stmt = con.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
-	          + "WHERE Partnerprofil_ID=" + id);
+	          + "WHERE ID" + id);
 				
 				if(rs.next()){
 					Eigenschaft e = new Eigenschaft();
@@ -86,7 +114,7 @@ public class EigenschaftMapper {
 			      Statement stmt = con.createStatement();
 			      
 			      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-			              + "FROM Eigenscahft ");
+			              + "FROM Eigenschaft ");
 			     	
 			      if(rs.next()){
 			    	  
@@ -94,9 +122,9 @@ public class EigenschaftMapper {
 			    	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Eigenschaft (ID, name, wert, Partnerprojekt_ID)" 
-			    		+ "VALUES (" + e.getID() + "," + "'" + e.getName() + "'" + "," + e.getWert() 
-			    		+ "," + e.getPartnerprofil_ID() + ")"); 
+			    		stmt.executeUpdate("INSERT INTO Eigenschaft (ID, name, wert, Partnerprofil_ID)" 
+			    		+ "VALUES (" + e.getID() + "," + "'" + e.getName() + "'" + ",'" + e.getWert() 
+			    		+ "','" + e.getPartnerprofil_ID() + "'" + ")"); 
 			    	  
 			      }
 			}
@@ -107,7 +135,7 @@ public class EigenschaftMapper {
 			
 		}
 		
-	public void delete(Eigenschaft e){
+	public void deleteEigenschaft(Eigenschaft e){
 			
 			Connection con = DBConnection.connection();
 			
@@ -115,7 +143,7 @@ public class EigenschaftMapper {
 			      Statement stmt = con.createStatement();
 
 			      stmt.executeUpdate("DELETE FROM Eigenschaft " 
-			    		  			+ "WHERE Eigenschaft.ID = " + e.getID());
+			    		  			+ "WHERE ID = " + e.getID());
 				}
 			
 			catch (SQLException e2) {
@@ -130,7 +158,7 @@ public class EigenschaftMapper {
 		      Statement stmt = con.createStatement();
 
 		      stmt.executeUpdate("UPDATE Eigenschaft " + "SET name='"
-		          + e.getName() + "', wert='" + e.getWert() +  "'," + "Partnerprofil_ID=" + e.getPartnerprofil_ID() );
+		          + e.getName() + "', wert='" + e.getWert() +  "'," + "ID=" + e.getID());
 
 		    }
 		    catch (SQLException c) {

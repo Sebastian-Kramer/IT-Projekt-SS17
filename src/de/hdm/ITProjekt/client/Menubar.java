@@ -137,8 +137,6 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
-		// Dieser ClickHandler geh�rt nicht hierher!! Wurde von Mert als Test angelegt!!!
-		
 		meineProjekteButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				

@@ -229,18 +229,18 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, Team_ID) "
 				            + "VALUES (" + p.getID() + ",'"  + p.getEmail() + "','" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getTeam_ID() +")");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getTeam_ID() +"')");
 			        
 		        }else if(p.getTeam_ID()==null && p.getUN_ID()!=null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, UN_ID) "
 				            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() +")");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() +"')");
 			        
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()!=null){
 			        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, UN_ID, Team_ID) "
 			            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
-			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +")");
+			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +"')");
 		        } 
 		      
 		}

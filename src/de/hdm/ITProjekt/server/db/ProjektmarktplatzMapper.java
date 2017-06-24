@@ -14,7 +14,7 @@ public class ProjektmarktplatzMapper {
 	
 	protected ProjektmarktplatzMapper(){
 		
-	}
+	};
 	
 	public static ProjektmarktplatzMapper pmpMapper(){
 		if(pmpMapper == null){

@@ -160,6 +160,14 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deletePerson(Person p, AsyncCallback<Void> callback);
 
+	void createEigenschaft(Eigenschaft e, AsyncCallback<Eigenschaft> callback);
+
+	void getAllEigenschaftofPerson(Partnerprofil p, AsyncCallback<Vector<Eigenschaft>> callback);
+
+	void deleteEigenschaft(Eigenschaft e, AsyncCallback<Void> callback);
+
+	void updateEigenschaft(Eigenschaft e, AsyncCallback<Eigenschaft> callback);
+
 
 
 
