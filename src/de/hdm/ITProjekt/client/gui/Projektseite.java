@@ -189,7 +189,7 @@ public class Projektseite extends Showcase{
 				@Override
 				public void onClick(ClickEvent event) {
 					a1 = ssm.getSelectedObject();
-					Showcase showcase = new AlleBewerbungenFromAuschreibung(a1, person);
+					Showcase showcase = new AlleBewerbungenFromAuschreibung(a1, person, selectedProjekt, projektmarktplatz);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 			
