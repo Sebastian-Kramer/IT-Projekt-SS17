@@ -132,6 +132,7 @@ public class EigenschaftenHinzufuegen extends Showcase{
 			pe_form.setWidget(1, 0, wertLabel);
 			pe_form.setWidget(1, 1, wertEigenschaften);
 			pe_form.setWidget(2, 0, speichern);
+			pe_form.setWidget(2, 1, abbrechen);
 			
 			vpanel.add(pe_form);
 			

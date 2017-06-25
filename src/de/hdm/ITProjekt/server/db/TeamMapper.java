@@ -12,7 +12,7 @@ private static TeamMapper tMapper = null;
 	
 	protected TeamMapper(){
 		
-	}
+	};
 	
 	public static TeamMapper tMapper(){
 		if(tMapper == null){
@@ -183,12 +183,11 @@ public Team update(Team t) {
       if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
-    	  super.update(t);
     	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" + ", UN_ID = " + t.getUN_ID() + " WHERE ID = " + t.getID());
-    	  super.update(t);
+    	  
       }
       
     }

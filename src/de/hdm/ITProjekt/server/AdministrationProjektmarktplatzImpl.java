@@ -386,7 +386,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	//Rückgabe eines Team-Objects anhand der übergebenen ID
 	@Override
-	public Team getTeamByID(Integer id) {
+	public Team getTeamByID(int id) {
 		return this.tMapper.findByKey(id);
 	}
 	@Override
@@ -568,6 +568,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.unMapper.deleteUnternehmen(u);
 	}
 	@Override
+	public Unternehmen updateUnternehmen(Unternehmen u) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.unMapper.updateUnternehmen(u);
+	}	
+	@Override
 	public void deleteTeam(Team team) throws IllegalArgumentException {
 		this.tMapper.delete(team);
 		
@@ -656,4 +661,5 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.eigenschaftsMapper.update(e);
 	}
+	
 }

@@ -153,14 +153,15 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Team createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID) throws IllegalArgumentException;
 
-	public Team getTeamByID(Integer id) throws IllegalArgumentException;
+	public Team getTeamByID(int id) throws IllegalArgumentException;
 	
 	public void deleteTeam(Team team) throws IllegalArgumentException;
 		
 	// Methoden von Unternehmen
 	
-	public void deleteUnternehmen(Unternehmen u)  throws IllegalArgumentException;
+	public void deleteUnternehmen(Unternehmen u) throws IllegalArgumentException;
 	
+	public Unternehmen updateUnternehmen(Unternehmen u) throws IllegalArgumentException;
 	
 	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	

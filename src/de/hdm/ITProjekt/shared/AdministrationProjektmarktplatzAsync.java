@@ -136,7 +136,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteTeam(Team team, AsyncCallback<Void> callback);
 	
-	void getTeamByID(Integer id, AsyncCallback<Team> callback);
+	void getTeamByID(int id, AsyncCallback<Team> callback);
 
 	void createTeam(String name, int plz, int hausnr, String ort, String strasse, int UN_ID, int Partnerprofil_ID,
 			AsyncCallback<Team> callback);
@@ -181,5 +181,7 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteEigenschaft(Eigenschaft e, AsyncCallback<Void> callback);
 
 	void updateEigenschaft(Eigenschaft e, AsyncCallback<Eigenschaft> callback);
+
+	void updateUnternehmen(Unternehmen u, AsyncCallback<Unternehmen> callback);
 
 }

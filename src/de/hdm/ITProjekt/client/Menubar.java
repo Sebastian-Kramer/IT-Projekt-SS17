@@ -101,8 +101,8 @@ public class Menubar extends StackPanel {
 //		blablaButton.setStylePrimaryName("navi-button");
 //		
 //		projektseitePanel.setSpacing(5);
-//		
-		this.setWidth("250px");
+		
+		this.setWidth("220px");
 		this.addStyleName("gwt-StackPanel");
 		this.add(homePanel, "Startseite");
 		this.add(projektmarktplatzPanel, "Projekte");
@@ -222,6 +222,12 @@ public class Menubar extends StackPanel {
 	}
 	
 	
+	private void add(VerticalPanel homePanel2, String string, VerticalPanel projektmarktplatzPanel2, String string2) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	public Button getProjektmarktplaetzeButton() {
 		return projektmarktplaetzeButton;
 	}

@@ -18,7 +18,7 @@ public class UnternehmenMapper extends OrganisationseinheitMapper{
 	
 	protected UnternehmenMapper(){
 		
-	}
+	};
 
 	public static UnternehmenMapper unMapper(){
 		if(unMapper == null){

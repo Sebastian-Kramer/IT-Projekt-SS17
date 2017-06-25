@@ -174,7 +174,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Eigenschaft selectedObject_alleEigenschaften = new Eigenschaft();
 	private Unternehmen unternehmenobject = new Unternehmen();
 	private Team teamobject = new Team();
-	
+	private Team teamupdate = new Team();
 	
 		@Override
 		protected String getHeadlineText() {
@@ -244,7 +244,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			}
 			
 			if(user.getUN_ID() != null){
-			adminService.getUnByID(user.getUN_ID(), new getUnternahmenAusDBbyPerson());
+			adminService.getUnByID(user.getUN_ID(), new getUnternehmenAusDBbyPerson());
 			}
 			
 			pe_alleEigenschaften.setWidth("100%");
@@ -405,8 +405,9 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
-			hpanel.add(partnerprofilDaten);	
 			hpanel.add(blabla);
+			hpanel.add(partnerprofilDaten);	
+			
 			this.add(hpanel);
 			//-------------------- RootPanel wird vergrößert!
 //			RootPanel.get("Details").setWidth("1000px");
@@ -462,8 +463,8 @@ public class MeinProfilAnzeigen extends Showcase{
 				@Override
 				public void update(int index, Eigenschaft object, String value) {
 					
-					
-						
+				DialogBox dbeigenschaftaendern = new DialogBoxEigenschaftenAendern(user, object);
+				dbeigenschaftaendern.center();
 					
 				}
 				  
@@ -522,7 +523,131 @@ public class MeinProfilAnzeigen extends Showcase{
 				
 			}
 		});	
+		unternehmen_speichern.addClickHandler(new ClickHandler() {
 			
+			@Override
+			public void onClick(ClickEvent event) {
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 ClientsideSettings.getpmpVerwaltung().getUnByID(user.getUN_ID(), new AsyncCallback<Unternehmen>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Unternehmen result) {
+						result.setHausnummer(Integer.parseInt(unternehmenHausnummerBox.getText()));
+						result.setName(unternehmenNameBox.getText());
+						result.setOrt(unternehmenOrtBox.getText());
+						result.setPlz(Integer.parseInt(unternehmenPlzBox.getText()));
+						result.setStrasse(unternehmenStrasseBox.getText());
+						
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+					    }
+						ClientsideSettings.getpmpVerwaltung().updateUnternehmen(result, new AsyncCallback<Unternehmen>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Unternehmen result) {
+								Showcase showcase = new MeinProfilAnzeigen(user);
+								RootPanel.get("Details").clear();
+								RootPanel.get("Details").add(showcase);
+							}
+							
+						});
+						
+					}
+					});
+			}
+		});
+		unternehmen_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		team_speichern.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("Nach clickhandler");
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 ClientsideSettings.getpmpVerwaltung().getTeamByID(user.getTeam_ID(), new AsyncCallback<Team>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Team result) {
+						Window.alert("Success get team by id" + result.getID());
+						result.setHausnummer(Integer.parseInt(teamstrasse.getText()));
+						Window.alert("hausnummer");
+						result.setName(teamname.getText());
+						Window.alert("name");
+						result.setOrt(teamort.getText());
+						Window.alert("ort");
+						result.setPlz(Integer.parseInt(teamplz.getText()));
+						Window.alert("plz");
+						result.setStrasse(teamstrasse.getText());
+						Window.alert("straße");
+						Window.alert("Nach variablen");
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+					    }
+						 Window.alert("nach adminservice");
+						ClientsideSettings.getpmpVerwaltung().updateTeam(result, new AsyncCallback<Team>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Failure");
+							}
+
+							@Override
+							public void onSuccess(Team result) {
+
+								Window.alert("Success get team update");
+								Showcase showcase = new MeinProfilAnzeigen(user);
+								RootPanel.get("Details").clear();
+								RootPanel.get("Details").add(showcase);
+							}
+							
+						});
+					}
+					 
+				 });
+			}
+		});
+		team_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(user);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
 		team_bearbeiten.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -785,7 +910,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 		}
 		
-		private class getUnternahmenAusDBbyPerson implements AsyncCallback<Unternehmen>{
+		private class getUnternehmenAusDBbyPerson implements AsyncCallback<Unternehmen>{
 
 			@Override
 			public void onFailure(Throwable caught) {
