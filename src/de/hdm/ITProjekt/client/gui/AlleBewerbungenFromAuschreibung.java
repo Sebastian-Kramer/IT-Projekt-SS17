@@ -3,7 +3,9 @@ package de.hdm.ITProjekt.client.gui;
 import java.util.Date;
 import java.util.Vector;
 
+import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.ClickableTextCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -62,6 +64,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	private HorizontalPanel hpanelnavigator = new HorizontalPanel();  
 	
 	private CellTable<Bewerbung> ct_bewerbungen = new CellTable<Bewerbung>();
+	ButtonCell bewertung_abgeben = new ButtonCell();
 	
 	private FlexTable form = new FlexTable();
 	
@@ -103,6 +106,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		ct_bewerbungen.setWidth("100%");
 		ct_bewerbungen.setSelectionModel(ssm);
 		
+		
 		zurstartseite.setStylePrimaryName("navigationanchor");
 		zuprojektmarktplaetze.setStylePrimaryName("navigationanchor");
 		zuprojekte.setStylePrimaryName("navigationanchor");
@@ -120,6 +124,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		ft_navi.setWidget(0, 4, zuausschreibung);
 		ft_navi.setCellPadding(10);
 		hpanelnavigator.add(ft_navi);
+		vp_bew.add(ct_bewerbungen);
+		this.add(vp_bew);
 		this.add(hpanelnavigator);
 		
 		ct_bewerbungen.setSelectionModel(ssm);
@@ -151,6 +157,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			hp_bew1.add(form);
 			this.add(hp_bew);
 			this.add(hp_bew1);	
+			vp_bew.add(ct_bewerbungen);
+			this.add(vp_bew);
 			
 		}else{
 			Window.alert("Leider kann nur der Stellenausschreibende die Bewerbungen sehen");
@@ -248,6 +256,30 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	
 		};
 		
+		Column<Bewerbung, String> buttoncell =
+				new Column<Bewerbung, String>(bewertung_abgeben){
+
+					@Override
+					public String getValue(Bewerbung object) {
+						// TODO Auto-generated method stub
+						return "Bewerbung bewerten";
+					}
+			
+		};
+		
+		buttoncell.setFieldUpdater(new FieldUpdater<Bewerbung,String>(){
+
+			@Override
+			public void update(int index, Bewerbung object, String value) {			
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
+				dialogBox.center();
+				}
+				
+				
+			}
+			
+		);
+		
 zurstartseite.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -287,6 +319,7 @@ zurstartseite.addClickHandler(new ClickHandler() {
 		
 		ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
 		ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
+		ct_bewerbungen.addColumn(buttoncell, "");
 		
 		filltablebewerbung();
 		

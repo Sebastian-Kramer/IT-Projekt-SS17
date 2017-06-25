@@ -45,12 +45,11 @@ public class Projekte extends Showcase {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projekt> ct_alleProjekte = new CellTable<Projekt>();
-	CellTable<HybridProjektPerson> ct_projekte = new CellTable<HybridProjektPerson>();
-	Vector<HybridProjektPerson> projekte = new Vector<HybridProjektPerson>();
+	
 
 	ButtonCell detailsButton = new ButtonCell();
 	
-	private TextBox projektbox = new TextBox();
+	
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
 	VerticalPanel vpanel_projekte = new VerticalPanel();
 	
@@ -75,7 +74,7 @@ public class Projekte extends Showcase {
 	
 	
 	
-	private Person person = new Person();
+	private Person person;
 	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
 	
 	public Projekte(Projektmarktplatz selectedObject, Person person){
@@ -114,6 +113,8 @@ public class Projekte extends Showcase {
 		this.add(ft_navi);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
+		
+		
 		
 		zurstartseite.addClickHandler(new ClickHandler() {
 			
@@ -501,22 +502,28 @@ public class Projekte extends Showcase {
 
 					@Override
 					public String getValue(Projekt object) {
+						object = ssm_projekt.getSelectedObject();
 						
 						return "Details";
 					}
 			  
 		  };
+		  
+		  
 		  // implementieren des FieldUpdater um die Zeile anklicken zu können
 		  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
 
 			@Override
-			public void update(int index, Projekt object, String value) {
-				DialogBox dialogbox = new DialogBoxProjektdetails(object, person);
+			public void update(int index, Projekt object , String value) {
+				DialogBoxProjektdetails dialogbox  = new DialogBoxProjektdetails(object, person);
 				dialogbox.center();
 				
 					
 				
 			}
+		  
+			
+			
 			  
 		  });
 		  
@@ -659,110 +666,9 @@ public class Projekte extends Showcase {
 //		}
 	}
 	
-	private class HybridProjektPerson{
-		private int projekt_id;
-		private String projektname;
-		private Date startdatum;
-		private Date enddatum;
-		private String projektbezeichnung;
-		private String projektleiter;
-		private int projektmarktplatz_id;
+	
 		
-		public int getProjekt_id() {
-			return projekt_id;
-		}
 		
-		public void setProjekt_id(int projekt_id) {
-			this.projekt_id = projekt_id;
-		}
-		
-		public String getProjektname() {
-			return projektname;
-		}
-		
-		public void setProjektname(String projektname) {
-			this.projektname = projektname;
-		}
-		
-		public Date getStartdatum() {
-			return startdatum;
-		}
-		
-		public void setStartdatum(Date startdatum) {
-			this.startdatum = startdatum;
-		}
-		
-		public Date getEnddatum() {
-			return enddatum;
-		}
-		
-		public void setEnddatum(Date enddatum) {
-			this.enddatum = enddatum;
-		}
-		
-		public String getProjektbezeichnung() {
-			return projektbezeichnung;
-		}
-		
-		public void setProjektbezeichnung(String projektbezeichnung) {
-			this.projektbezeichnung = projektbezeichnung;
-		}
-		
-		public String getProjektleiter() {
-			return projektleiter;
-		}
-		
-		public void setProjektleiter(String projektleiter) {
-			this.projektleiter = projektleiter;
-		}
-	}
-		
-		private class ProjekteAnzeigenCallback implements AsyncCallback<Vector<Projekt>>{
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Schritt 1 ist fehlgeschlagen");
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Projekt> result) {
-				
-				for (int i=0;i< result.size();i++ ){
-					final Projekt localProjekt = result.get(i);
-					final HybridProjektPerson localHybrid = new HybridProjektPerson();
-					
-					ClientsideSettings.getpmpVerwaltung().getPersonbyID(result.get(i).getProjektleiter_ID(), new AsyncCallback<Person>(){
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Schritt 1 fehlgeschlagen");
-							
-						}
-
-						@Override
-						public void onSuccess(Person result) {
-							final Person p = result;
-							localHybrid.setProjektleiter(p.getName());
-							projekte.add(localHybrid);
-							ct_projekte.setRowCount(projekte.size(), true);
-							ct_projekte.setRowData(0, projekte);
-							
-							
-						}
-						
-					});
-						localHybrid.setProjekt_id(localProjekt.getID());
-						localHybrid.setProjektname(localProjekt.getName());
-						localHybrid.setEnddatum(localProjekt.getEnddatum());
-						localHybrid.setStartdatum(localProjekt.getStartdatum());
-						
-						
-				}
-				
-			}
-			
-		}
 
 		
 		

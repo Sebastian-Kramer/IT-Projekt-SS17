@@ -92,6 +92,37 @@ public class ProjektMapper {
 	    return findByProjektmarktplatz(projektmarktplatz.getID());
 	  }
 	
+	public Vector<Projekt>getAllProjekteByProjektleiter(int personId){
+		Connection con = DBConnection.connection();
+		Vector <Projekt> result = new Vector<Projekt>();
+		
+
+		 try {
+		      Statement stmt = con.createStatement();
+
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID, Projektleiter_ID FROM projekt WHERE Projektleiter_ID= " + personId);
+		      
+		      while(rs.next()){
+		    	  Projekt p = new Projekt();
+				  	p.setID(rs.getInt("ID"));
+					p.setName(rs.getString("name"));
+					p.setBeschreibung(rs.getString("beschreibung"));
+					p.setStartdatum(rs.getDate("startdatum"));
+					p.setEnddatum(rs.getDate("enddatum"));
+					p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+					p.setProjektleiter_ID(rs.getInt("Projektleiter_ID"));
+					
+					result.addElement(p);
+		      }
+		 }
+		 catch (SQLException e2) {
+		      e2.printStackTrace();
+		 }
+		 return result;
+		
+	}
+	
 	public Vector<Projekt> getAllProjekte(){
 		
 		 Connection con = DBConnection.connection();

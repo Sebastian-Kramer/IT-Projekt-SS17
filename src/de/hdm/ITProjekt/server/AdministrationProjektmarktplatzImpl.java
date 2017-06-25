@@ -672,5 +672,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.pmpMapper.deleteMarktplatz(p);
 		
 	}
+	@Override
+	public Vector<Projekt> getAllProjekteByProjektleiter(int personId) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.pMapper.getAllProjekteByProjektleiter(personId);
+	}
 	
 }

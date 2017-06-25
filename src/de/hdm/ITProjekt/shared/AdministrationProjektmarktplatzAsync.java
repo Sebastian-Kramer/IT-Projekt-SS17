@@ -184,4 +184,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void updateUnternehmen(Unternehmen u, AsyncCallback<Unternehmen> callback);
 
+	void getAllProjekteByProjektleiter(int personId, AsyncCallback<Vector<Projekt>> callback);
+
 }

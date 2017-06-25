@@ -192,7 +192,9 @@ public class DialogBoxProjekte extends DialogBox {
 
 		@Override
 		public void onSuccess(Projekt result) {
+			Window.alert(" " + result.getProjektleiter_ID());
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
+			
 			hide();
 			Showcase showcase = new Projektseite(projekt_dialogbox, person);
         	RootPanel.get("Details").clear();

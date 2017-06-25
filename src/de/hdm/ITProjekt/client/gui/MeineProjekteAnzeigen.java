@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.cellview.client.TextColumn;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -34,6 +35,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projekt> ct_meineProjekte = new CellTable<Projekt>();
+	CellTable<Projekt> ct_verwProjekte = new CellTable<Projekt>();
 
 	
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
@@ -41,6 +43,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	
 	Button projektmarktplatz = new Button("Projekte Suchen");
 	Button delete_projekt = new Button("Projekt Löschen");
+	Button show_projekt = new Button("Projekt anzeigen");
 	
 	private final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 	
@@ -64,10 +67,14 @@ public class MeineProjekteAnzeigen extends Showcase{
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineProjekte.setWidth("100%", true);
 		ct_meineProjekte.setSelectionModel(ssm_projekt);
+		ct_verwProjekte.setWidth("100%", true);
+		ct_verwProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(delete_projekt);
 		hpanel_projekte.add(projektmarktplatz);
+		hpanel_projekte.add(show_projekt);
 		
 		vpanel_projekte.add(ct_meineProjekte);
+		vpanel_projekte.add(ct_verwProjekte);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
 		
@@ -91,6 +98,18 @@ public class MeineProjekteAnzeigen extends Showcase{
 			    }
 				 adminService.deleteTeilnahme(person, ssm_projekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
 			}
+		});
+		
+		show_projekt.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new Projektseite(ssm_projekt.getSelectedObject(), person);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+				
+			}
+			
 		});
 		
 		ssm_projekt.addSelectionChangeHandler(new Handler(){
@@ -142,14 +161,56 @@ public class MeineProjekteAnzeigen extends Showcase{
 						public String getValue(Projekt object) {					
 						return object.getBeschreibung();
 						}
-				    };	
+				    };
+				    
+				   TextColumn<Projekt> meineProjekte =
+						   new TextColumn<Projekt>(){
+
+							@Override
+							public String getValue(Projekt object) {
+								// TODO Auto-generated method stub
+								return "Meine Projekte als Teilnehmer";
+							}
+					   
+				   };
+		ct_meineProjekte.addColumn(meineProjekte);
 		ct_meineProjekte.addColumn(projektname, "Projektname");		    
 		ct_meineProjekte.addColumn(startdatum, "Startdatum");	
 		ct_meineProjekte.addColumn(enddatum, "Enddatum");	
-		ct_meineProjekte.addColumn(beschreibung, "Beschreibung");	
-		
+		ct_meineProjekte.addColumn(beschreibung, "Beschreibung");
 		filltableMeineProjekte();
+		ct_verwProjekte.addColumn(projektname, "Projektname");
+		ct_verwProjekte.addColumn(startdatum, "Startdatum");
+		ct_verwProjekte.addColumn(enddatum, "Enddatum");
+		ct_verwProjekte.addColumn(beschreibung, "Beschreibung");
+		filltableVerwProjekte();
 		
+		
+		
+	}
+	
+	private void filltableVerwProjekte(){
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		 adminService.getAllProjekteByProjektleiter(person.getID(), new AsyncCallback<Vector<Projekt>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert("Anzeigen fehlgeschlagen");
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Projekt> result) {
+				ct_verwProjekte.setRowData(0, result);
+				ct_verwProjekte.setRowCount(result.size(), true);
+				
+			}
+			 
+		 });
+		 
 	}
 	private void filltableMeineProjekte(){	
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
