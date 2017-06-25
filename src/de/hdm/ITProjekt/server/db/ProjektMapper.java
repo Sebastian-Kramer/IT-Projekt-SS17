@@ -151,7 +151,7 @@ public class ProjektMapper {
 		
 	}
 	
-	public Projekt deleteProjekt(Projekt a){
+	public void deleteProjekt(Projekt a){
 		
 		Connection con = DBConnection.connection();
 		
@@ -165,7 +165,7 @@ public class ProjektMapper {
 		catch (SQLException e2) {
 				e2.printStackTrace();
 			}
-		return a;
+		
 		}
 	
 	public Projekt update(Projekt c) {

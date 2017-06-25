@@ -31,7 +31,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Projektmarktplatz findByBez(String bez)throws IllegalArgumentException;
 
-	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)throws IllegalArgumentException; // L�schen eines Projektmarktplatzes
+	public void deleteProjektmarktplatz(Projektmarktplatz p)throws IllegalArgumentException; // L�schen eines Projektmarktplatzes
 
 	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p)throws IllegalArgumentException;
 	
@@ -43,7 +43,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz)throws IllegalArgumentException;
 	
-	public Projekt deleteProjekt(Projekt a)throws IllegalArgumentException;
+	public void deleteProjekt(Projekt a)throws IllegalArgumentException;
 	
 	public Projekt getProjektByID(int id) throws IllegalArgumentException;
 	

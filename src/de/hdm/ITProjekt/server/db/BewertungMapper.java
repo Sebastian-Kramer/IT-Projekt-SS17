@@ -91,7 +91,7 @@ public Vector<Bewertung> getBewertungByBewerbung(int bewerbungID){
 	 
 	 try{
 		 Statement stmt = con.createStatement();
-		 ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM Bewertung FROM bewertung " 
+		 ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM bewertung " 
 				 						+ "WHERE Bewerbungs_ID=" + bewerbungID);
 		 while(rs.next()){
 			 Bewertung b = new Bewertung();

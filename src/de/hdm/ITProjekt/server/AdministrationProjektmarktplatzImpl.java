@@ -103,21 +103,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pmpMapper.findByBez(bez);
 	}
 
-	@Override
-	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
-		// TODO Auto-generated method stub
-		// Wenn nicht alle Fremdschl�ssel gel�scht sind kann Proejktmarktplatz nicht gel�scht werden. Hier muss deleteprojekt auch aufgerufen werden.
-		
-		Vector<Projekt> projekt = this.getProjekteOf(p);
-		
-		if(projekt != null){
-			for(Projekt pr : projekt){
-				this.deleteProjekt(pr);
-			}
-		}
-		
-		return this.pmpMapper.deleteMarktplatz(p);
-	}
+//	@Override
+//	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
+//		// TODO Auto-generated method stub
+//		// Wenn nicht alle Fremdschl�ssel gel�scht sind kann Proejktmarktplatz nicht gel�scht werden. Hier muss deleteprojekt auch aufgerufen werden.
+//		
+//		Vector<Projekt> projekt = this.getProjekteOf(p);
+//		
+//		if(projekt != null){
+//			for(Projekt pr : projekt){
+//				this.deleteProjekt(pr);
+//			}
+//		}
+//		
+//		return this.pmpMapper.deleteMarktplatz(p);
+//	}
 
 	@Override
 	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p) {
@@ -183,20 +183,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
 //	}
 	
-	public Projekt deleteProjekt(Projekt pr){
-		
-		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
-		
-		
-		if(ausschreibung != null){
-			for(Ausschreibung a : ausschreibung){
-				this.deleteAusschreibung(a);
-			}
-			
-		}
-		
-		return this.pMapper.deleteProjekt(pr);
-	}
+//	public void deleteProjekt(Projekt pr){
+//		
+//		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
+//		
+//		
+//		if(ausschreibung != null){
+//			for(Ausschreibung a : ausschreibung){
+//				this.deleteAusschreibung(a);
+//			}
+//			
+//		}
+//		
+//		return this.pMapper.deleteProjekt(pr);
+//	}
 	
 	@Override
 	public Vector<Projekt> getAllProjekte() {
@@ -355,6 +355,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	@Override
 	public void deleteAusschreibung(Ausschreibung a) {
+		this.aMapper.deleteAusschreibung(a);
 
 	}
 	@Override
@@ -660,6 +661,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Eigenschaft updateEigenschaft(Eigenschaft e) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return this.eigenschaftsMapper.update(e);
+	}
+	@Override
+	public void deleteProjekt(Projekt a) throws IllegalArgumentException {
+		this.pMapper.deleteProjekt(a);
+		
+	}
+	@Override
+	public void deleteProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException {
+		this.pmpMapper.deleteMarktplatz(p);
+		
 	}
 	
 }

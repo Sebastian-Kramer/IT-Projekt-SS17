@@ -171,6 +171,7 @@ public class Projekte extends Showcase {
 			public void onClick(ClickEvent event) {
 				// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
 				final Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				if(person.getID() == selectedProjektObject.getProjektleiter_ID()){
 				selectedProjektObject.setProjektmarktplatz_ID(0);
 				selectedProjektObject.setProjektleiter_ID(0);
 				if (selectedProjektObject != null){
@@ -302,26 +303,30 @@ public class Projekte extends Showcase {
 																											@Override
 																											public void onSuccess(
 																													Void result) {
-																												adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Projekt>(){
+																												adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
 
 																													@Override
 																													public void onFailure(
 																															Throwable caught) {
-																														// TODO Auto-generated method stub
+																														Window.alert("Löschen hat nicht funktioniert 8");
 																														
 																													}
 
 																													@Override
 																													public void onSuccess(
-																															Projekt result) {
-																													Window.alert("Das Projekt wurde erfolgreich gelöscht");
-																													Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
-																													RootPanel.get("Details").clear();
-																													RootPanel.get("Details").add(showcase);
+																															Void result) {
+																														Window.alert("Das Projekt wurde erfolgreich gelöscht");
+																														Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+																														RootPanel.get("Details").clear();
+																														RootPanel.get("Details").add(showcase);
+																														
+																													}
+
+																									
 																													
 																													
 																														
-																													}
+																													
 																													
 																												});
 																												
@@ -385,8 +390,10 @@ public class Projekte extends Showcase {
 //						};
 //						adminService.deleteProjekt(selectedProjektObject, callback);
 				}
+}else{
+	Window.alert("Löschen nicht möglich! Nur der Projektleiter kann ein Projekt löschen.");
 }
-		});
+			}	});
 		
 //		ssm_projekt.addSelectionChangeHandler(new Handler(){
 //

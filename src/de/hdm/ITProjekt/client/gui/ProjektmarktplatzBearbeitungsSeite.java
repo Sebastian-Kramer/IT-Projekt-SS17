@@ -23,7 +23,11 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
@@ -146,29 +150,260 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 				@Override
 				public void onClick(ClickEvent event) {
 					// "selectedobject" sprich die angewählte Zeile in der Tabelle wird instanziiert
-					Projektmarktplatz selectedObject = ssm_alleProjektmarktplaetze.getSelectedObject();
+					final Projektmarktplatz selectedObject = ssm_alleProjektmarktplaetze.getSelectedObject();
 					if (selectedObject != null){
 						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 						 if (adminService == null) {
 					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 					    }
-						 AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>(){
-	
+						 adminService.findByProjektmarktplatz(selectedObject, new AsyncCallback<Vector<Projekt>>(){
+
 							@Override
 							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								Window.alert("Fehler beim Löschen");
+								Window.alert("Löschen hat nicht funktioniert 1");
+								
 								
 							}
-	
+
 							@Override
-							public void onSuccess(Projektmarktplatz result) {
-								// TODO Auto-generated method stub
-								Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-								refreshlist();
+							public void onSuccess(Vector<Projekt> result) {
+								for(final Projekt p : result){
+									p.setProjektleiter_ID(0);
+									p.setProjektmarktplatz_ID(0);
+									adminService.updateProjekt(p, new AsyncCallback<Projekt>(){
+
+										@Override
+										public void onFailure(Throwable caught) {
+											Window.alert("Löschen hat nicht funktioniert 2");
+											
+										}
+
+										@Override
+										public void onSuccess(Projekt result) {
+											adminService.getAlLAuscchreibungenBy(result.getID(), new AsyncCallback<Vector<Ausschreibung>>(){
+
+												@Override
+												public void onFailure(Throwable caught) {
+													Window.alert("Löschen hat nicht funktioniert 3");
+													
+												}
+
+												@Override
+												public void onSuccess(Vector<Ausschreibung> result) {
+													for(final Ausschreibung a: result){
+														a.setOrga_ID(0);
+														a.setPartnerprofil_ID(0);
+														a.setProjekt_ID(0);
+														adminService.update(a, new AsyncCallback<Ausschreibung>(){
+
+															@Override
+															public void onFailure(Throwable caught) {
+																Window.alert("Löschen hat nicht funktioniert 4");
+																
+															}
+
+															@Override
+															public void onSuccess(Ausschreibung result) {
+																adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
+
+																	@Override
+																	public void onFailure(Throwable caught) {
+																		Window.alert("Löschen hat nicht funktioniert 3");
+																		
+																	}
+
+																	@Override
+																	public void onSuccess(Vector<Bewerbung> result) {
+																		for(final Bewerbung b : result){
+																			b.setAusschreibungs_ID(0);
+																			b.setOrga_ID(0);
+																			adminService.updateBewerbung(b, new AsyncCallback<Bewerbung>(){
+
+																				@Override
+																				public void onFailure(
+																						Throwable caught) {
+																					Window.alert("Löschen hat nicht funktioniert 4");
+																					
+																				}
+
+																				@Override
+																				public void onSuccess(
+																						Bewerbung result) {
+																					adminService.getBewertungByBewerbung(result.getID(), new AsyncCallback<Vector<Bewertung>>(){
+
+																						@Override
+																						public void onFailure(
+																								Throwable caught) {
+																							Window.alert("Löschen hat nich funktioniert 5");
+																							
+																						}
+
+																						@Override
+																						public void onSuccess(
+																								Vector<Bewertung> result) {
+																							for(final Bewertung bewe : result){
+																								bewe.setBewerbungs_ID(0);
+																								bewe.setBeteiligungs_ID(0);
+																								adminService.updateBewertung(bewe, new AsyncCallback<Bewertung>(){
+
+																									@Override
+																									public void onFailure(
+																											Throwable caught) {
+																										Window.alert("Löschen hat nicht funktioniert 6");
+																										
+																									}
+
+																									@Override
+																									public void onSuccess(
+																											Bewertung result) {
+																										adminService.deleteBewertung(result, new AsyncCallback<Void>(){
+
+																											@Override
+																											public void onFailure(
+																													Throwable caught) {
+																												Window.alert("Löschen hat nicht funktioniert 7");
+																												
+																											}
+
+																											@Override
+																											public void onSuccess(
+																													Void result) {
+																												adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																													@Override
+																													public void onFailure(
+																															Throwable caught) {
+																														Window.alert("Löschen hat nicht funktioniert 8");
+																														
+																													}
+
+																													@Override
+																													public void onSuccess(
+																															Void result) {
+																														adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																															@Override
+																															public void onFailure(
+																																	Throwable caught) {
+																																Window.alert("Löschen hat icht funktioniert 9");
+																																
+																															}
+
+																															@Override
+																															public void onSuccess(
+																																	Void result) {
+																																adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+
+																																	@Override
+																																	public void onFailure(
+																																			Throwable caught) {
+																																		Window.alert("Löschen hat nicht funktioniert 10");
+																																		
+																																	}
+
+																																	@Override
+																																	public void onSuccess(
+																																			Void result) {
+																																		adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																																			@Override
+																																			public void onFailure(
+																																					Throwable caught) {
+																																				// TODO Auto-generated method stub
+																																				
+																																			}
+
+																																			@Override
+																																			public void onSuccess(
+																																					Void result) {
+																																				Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																																				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																				RootPanel.get("Details").clear();
+																																				RootPanel.get("Details").add(showcase);
+																																				
+																																			}
+
+																																			
+																																		});
+																																		
+																																	}
+																																	
+																																});
+																																
+																															}
+																															
+																														});
+																														
+																													}
+																													
+																												});
+																												
+																											}
+																											
+																										});
+																										
+																									}
+																									
+																								});
+																							}
+																							
+																						}
+																						
+																					});
+																					
+																				}
+																				
+																			});
+																			
+																		}
+																		
+																	}
+																	
+																});
+																
+															}
+															
+														});
+													}
+													
+												}
+												
+											});
+											
+										}
+										
+									});
+								}
+								
 							}
-							};
-							adminService.deleteProjektmarktplatz(selectedObject, callback);
+							 
+						 });
+						 
+						 
+						 
+						 
+						 
+						 
+						 
+						 
+						 
+//						 AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>(){
+//	
+//							@Override
+//							public void onFailure(Throwable caught) {
+//								// TODO Auto-generated method stub
+//								Window.alert("Fehler beim Löschen");
+//								
+//							}
+//	
+//							@Override
+//							public void onSuccess(Projektmarktplatz result) {
+//								// TODO Auto-generated method stub
+//								Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+//								refreshlist();
+//							}
+//							};
+//							adminService.deleteProjektmarktplatz(selectedObject, callback);
 					}
 	}
 			});

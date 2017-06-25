@@ -122,7 +122,7 @@ public class ProjektmarktplatzMapper {
 			
 		return p;
 	}
-	public Projektmarktplatz deleteMarktplatz(Projektmarktplatz p){
+	public void deleteMarktplatz(Projektmarktplatz p){
 		
 		Connection con = DBConnection.connection();
 	
@@ -137,7 +137,7 @@ public class ProjektmarktplatzMapper {
 			e2.printStackTrace();
 		}
 			
-		return p;
+		
 	}
 
 	public Projektmarktplatz findByBez(String bez){
