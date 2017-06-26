@@ -58,4 +58,13 @@ public class Row implements Serializable {
 	  public Column getColumnAt(int i) {
 	    return this.columns.elementAt(i);
 	  }
+
+	public int getColumnsSize() {
+		// TODO Auto-generated method stub
+		return this.columns.size();
+	}
+	
+	public Column getColumnByIndex(int i){
+		return this.columns.elementAt(i);
+	}
 	}
