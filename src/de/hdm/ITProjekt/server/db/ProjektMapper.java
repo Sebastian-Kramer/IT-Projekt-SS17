@@ -58,7 +58,7 @@ public class ProjektMapper {
 		      Statement stmt = con.createStatement();
 
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM projekt WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID, Projektleiter_ID FROM projekt WHERE Projektmarktplatz_ID= " + projektmarktplatzID);
 		  
 		  
 		      
@@ -71,6 +71,7 @@ public class ProjektMapper {
 				p.setStartdatum(rs.getDate("startdatum"));
 				p.setEnddatum(rs.getDate("enddatum"));
 				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+				p.setProjektleiter_ID(rs.getInt("Projektleiter_ID"));
 
 			  result.addElement(p);
 		  
@@ -132,7 +133,7 @@ public class ProjektMapper {
 		  try {
 		      Statement stmt = con.createStatement();
 
-		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID FROM Projekt");
+		      ResultSet rs = stmt.executeQuery("SELECT ID, name, beschreibung, startdatum, enddatum, Projektmarktplatz_ID, Projektleiter_ID FROM Projekt");
 		  
 		  while (rs.next()) {
 			  	Projekt p = new Projekt();
@@ -142,6 +143,7 @@ public class ProjektMapper {
 				p.setStartdatum(rs.getDate("startdatum"));
 				p.setEnddatum(rs.getDate("enddatum"));
 				p.setProjektmarktplatz_ID(rs.getInt("Projektmarktplatz_ID"));
+				p.setProjektleiter_ID(rs.getInt("Projektleiter_ID"));
 			  
 			  result.addElement(p);
 		  }

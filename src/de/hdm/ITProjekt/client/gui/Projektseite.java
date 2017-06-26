@@ -155,10 +155,13 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
+					if(person.getID() == selectedProjekt.getProjektleiter_ID()){
 					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen(selectedProjekt, person);
 					dialogBox.center();
 					
-					
+					}else{
+						Window.alert("Nur der Projektleiter kann Stellenausschreibungen für dieses Projekt anlegen!");
+					}
 				}
 				
 			});

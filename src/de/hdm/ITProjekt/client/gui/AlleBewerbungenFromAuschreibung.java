@@ -68,7 +68,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	
 	private FlexTable form = new FlexTable();
 	
-	final SingleSelectionModel<Bewerbung> ssm = new SingleSelectionModel<>();
+	final SingleSelectionModel<Bewerbung> ssm_bew = new SingleSelectionModel<>();
 	
 	private Projektmarktplatz pmp = new Projektmarktplatz();
 	private Projekt pro = new Projekt();
@@ -104,7 +104,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		RootPanel.get("Details").setWidth("100%");
 		ct_bewerbungen.setWidth("100%");
-		ct_bewerbungen.setSelectionModel(ssm);
+		ct_bewerbungen.setSelectionModel(ssm_bew);
 		
 		
 		zurstartseite.setStylePrimaryName("navigationanchor");
@@ -128,9 +128,9 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		this.add(vp_bew);
 		this.add(hpanelnavigator);
 		
-		ct_bewerbungen.setSelectionModel(ssm);
+		ct_bewerbungen.setSelectionModel(ssm_bew);
 		
-		b = ssm.getSelectedObject();
+		b = ssm_bew.getSelectedObject();
 		
 		vp_bew.setSpacing(10);
 		
@@ -209,7 +209,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 				 }
 				adminService.getAllBewertungen(new getAllBewertungen());
 					
-					b = ssm.getSelectedObject();
+					b = ssm_bew.getSelectedObject();
 					
 					Boolean vorhanden = false;
 					for (Bewertung bewertung : bewe){
@@ -270,8 +270,9 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		buttoncell.setFieldUpdater(new FieldUpdater<Bewerbung,String>(){
 
 			@Override
-			public void update(int index, Bewerbung object, String value) {			
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
+			public void update(int index, Bewerbung object, String value) {
+				object = ssm_bew.getSelectedObject();
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, angemeldetePerson);
 				dialogBox.center();
 				}
 				

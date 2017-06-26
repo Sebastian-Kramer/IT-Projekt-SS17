@@ -134,6 +134,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 				Showcase showcase = new Projekte(p1, person);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+				Window.alert(person.getName());
 			}
 		});
 //		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);

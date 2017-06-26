@@ -412,7 +412,7 @@ public class MeineBewerbungenSeite extends Showcase {
 							public void onSuccess(Projekt result) {
 								ClientsideSettings.getpmpVerwaltung().getPersonbyID(a.getOrga_ID(), new AsyncCallback<Person>(){
 									
-									public Person ausschreibender;
+									
 									
 									@Override
 									public void onFailure(Throwable caught) {
@@ -423,7 +423,8 @@ public class MeineBewerbungenSeite extends Showcase {
 
 									@Override
 									public void onSuccess(Person result) {
-										ausschreibender = result;
+										final Person p = result;
+										localHybrid.setAusschreibender(p.getAnrede() + " " + p.getName() + " " + p.getVorname() );
 										meineBewerbungen.add(localHybrid);
 										ct_meineBewerbungen.setRowCount(meineBewerbungen.size(), true);
 										ct_meineBewerbungen.setRowData(0, meineBewerbungen);
@@ -435,7 +436,6 @@ public class MeineBewerbungenSeite extends Showcase {
 								localHybrid.setBewerbungId(localBewerbung.getID());
 								localHybrid.setErstellungsdatum(localBewerbung.getErstelldatum());
 								localHybrid.setAusschreibungsbezeichung(a.getBezeichnung());
-								localHybrid.setAusschreibender(result.getName());
 								localHybrid.setAblauffrist(a.getDatum());
 								localHybrid.setBewerbungstext(localBewerbung.getBewerbungstext());
 								localHybrid.setProjektname(result.getName());

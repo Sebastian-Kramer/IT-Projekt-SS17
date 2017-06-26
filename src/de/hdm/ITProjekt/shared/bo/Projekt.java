@@ -47,7 +47,7 @@ public class Projekt extends BusinessObject {
 	 * Realisierung einer Beziehung zu einem Projektleiter mittels Fremdschlüssel
 	 */
 	
-	private Integer Projektleiter_ID;
+	private Integer Projektleiter_ID = 0;
 
 	
 	/*

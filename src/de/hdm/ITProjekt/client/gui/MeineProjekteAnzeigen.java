@@ -45,7 +45,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	Button delete_projekt = new Button("Projekt Löschen");
 	Button show_projekt = new Button("Projekt anzeigen");
 	
-	private final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
+	private final SingleSelectionModel<Projekt> ssm_meineprojekt = new SingleSelectionModel<Projekt>();
 	
 	private Projekt projekt;
 	private Person person;
@@ -66,9 +66,9 @@ public class MeineProjekteAnzeigen extends Showcase{
 		
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineProjekte.setWidth("100%", true);
-		ct_meineProjekte.setSelectionModel(ssm_projekt);
+		ct_meineProjekte.setSelectionModel(ssm_meineprojekt);
 		ct_verwProjekte.setWidth("100%", true);
-		ct_verwProjekte.setSelectionModel(ssm_projekt);
+		ct_verwProjekte.setSelectionModel(ssm_meineprojekt);
 		hpanel_projekte.add(delete_projekt);
 		hpanel_projekte.add(projektmarktplatz);
 		hpanel_projekte.add(show_projekt);
@@ -96,7 +96,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 adminService.deleteTeilnahme(person, ssm_projekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
+				 adminService.deleteTeilnahme(person, ssm_meineprojekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
 			}
 		});
 		
@@ -104,15 +104,16 @@ public class MeineProjekteAnzeigen extends Showcase{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projektseite(ssm_projekt.getSelectedObject(), person);
+				Showcase showcase = new Projektseite(ssm_meineprojekt.getSelectedObject(), person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+				Window.alert(" " +ssm_meineprojekt.getSelectedObject().getProjektleiter_ID());
 				
 			}
 			
 		});
 		
-		ssm_projekt.addSelectionChangeHandler(new Handler(){
+		ssm_meineprojekt.addSelectionChangeHandler(new Handler(){
 
 			@Override
 			public void onSelectionChange(SelectionChangeEvent event) {

@@ -59,7 +59,7 @@ public class Projekte extends Showcase {
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 	
-	private Projekt projekt;
+	private Projekt projekt = new Projekt();
 	private Vector<Ausschreibung> aus;
 	private Anchor zurstartseite = new Anchor("Startseite");
 	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
@@ -74,7 +74,7 @@ public class Projekte extends Showcase {
 	
 	
 	
-	private Person person;
+	private Person person = new Person();
 	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
 	
 	public Projekte(Projektmarktplatz selectedObject, Person person){
@@ -159,6 +159,9 @@ public class Projekte extends Showcase {
 					 Showcase showcase = new Projektseite(projekt, person, selectedProjektmarktplatz);
 					 RootPanel.get("Details").clear();
 					 RootPanel.get("Details").add(showcase);
+					 Window.alert(" " + projekt.getProjektleiter_ID());
+					 Window.alert(person.getName());
+					 Window.alert(projekt.getName());
 					 
 				}
 				
@@ -170,8 +173,10 @@ public class Projekte extends Showcase {
 			 
 			@Override
 			public void onClick(ClickEvent event) {
+				
 				// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
 				final Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				
 				if(person.getID() == selectedProjektObject.getProjektleiter_ID()){
 				selectedProjektObject.setProjektmarktplatz_ID(0);
 				selectedProjektObject.setProjektleiter_ID(0);
@@ -200,7 +205,28 @@ public class Projekte extends Showcase {
 								}
 
 								@Override
+								
 								public void onSuccess(Vector<Ausschreibung> result) {
+									if(result == null){
+										adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+											@Override
+											public void onFailure(Throwable caught) {
+												// TODO Auto-generated method stub
+												
+											}
+
+											@Override
+											public void onSuccess(Void result) {
+												Window.alert("Projekt erfolgreich gelöscht");
+												Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+												RootPanel.get("Details").clear();
+												RootPanel.get("Details").add(showcase);
+												
+											}
+											
+										});
+									}else{
 									Window.alert("Schritt 2");
 									for (final Ausschreibung a : result) {
 										a.setOrga_ID(0);
@@ -367,6 +393,7 @@ public class Projekte extends Showcase {
 									
 									
 								}
+								}
 								
 							});
 							
@@ -495,15 +522,34 @@ public class Projekte extends Showcase {
 			  			return object.getEnddatum().toString();
 		  			}
 		  };
+		  Column<Projekt, String> projektleiter = 
+				    new Column<Projekt, String>(new ClickableTextCell())  {
+								    
+			  			@Override
+			  			public String getValue(Projekt object) {
+			  			// TODO Auto-generated method stub
+											
+			  			return object.getProjektleiter_ID().toString();
+		  			}
+		  };
+		  Column<Projekt, String> markt = 
+				    new Column<Projekt, String>(new ClickableTextCell())  {
+								    
+			  			@Override
+			  			public String getValue(Projekt object) {
+			  			// TODO Auto-generated method stub
+											
+			  			return object.getProjektmarktplatz_ID().toString();
+		  			}
+		  };
 		  
 		  //Erstellen der Buttonspalte um Details öffnen zu können
 		  Column<Projekt,String> buttonCell =
 				  new Column<Projekt,String>(detailsButton){
 
-					@Override
+				@Override
 					public String getValue(Projekt object) {
-						object = ssm_projekt.getSelectedObject();
-						
+					object = ssm_projekt.getSelectedObject();						
 						return "Details";
 					}
 			  
@@ -511,20 +557,21 @@ public class Projekte extends Showcase {
 		  
 		  
 		  // implementieren des FieldUpdater um die Zeile anklicken zu können
-		  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
+	  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
 
 			@Override
 			public void update(int index, Projekt object , String value) {
-				DialogBoxProjektdetails dialogbox  = new DialogBoxProjektdetails(object, person);
-				dialogbox.center();
+				object = ssm_projekt.getSelectedObject();
+				DialogBoxProjektdetails dialogbox_details  = new DialogBoxProjektdetails(object, person);
+				dialogbox_details.center();
 				
 					
 				
 			}
 		  
+	
 			
-			
-			  
+		  
 		  });
 		  
 		 
@@ -537,94 +584,47 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
+		ct_alleProjekte.addColumn(projektleiter, "projektleiter");
+		ct_alleProjekte.addColumn(markt);
 		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");
-//		ct_projekte.addColumn(projektname, "Projektname");
-//		ct_projekte.addColumn(startdatum, "Startdatum");
-//		ct_projekte.addColumn(enddatum, "Enddatum");
-//		ct_projekte.addColumn(projektleiter, "Projektleiter");
+
 		
 //		ct_projekte.setRowCount(projekte.size(), true);
 //		ct_projekte.setRowData(0, projekte);
 		
-//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//		 if (adminService == null) {
-//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//	    }
-//		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new ProjekteAnzeigenCallback());
-		
-		
-//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//		 if (adminService == null) {
-//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//	    }
-		
-//		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
-//		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
+
 		filltableprojekte();
-//		deleteProjekt();
+
 	
 	
 }
-	
-//	private void deleteProjekt(){
-//
-//		 delete_projekt.addClickHandler(new ClickHandler(){
-//			 
-//				@Override
-//				public void onClick(ClickEvent event) {
-//					// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
-//					Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
-//					if (selectedProjektObject != null){
-//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//						 if (adminService == null) {
-//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//					    }
-//						 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
-//	
-//							@Override
-//							public void onFailure(Throwable caught) {
-//								// TODO Auto-generated method stub
-//								Window.alert("Fehler beim Löschen");
-//								
-//							}
-//	
-//							@Override
-//							public void onSuccess(Projekt result) {
-//								Window.alert("Projekt wurde erfolgreich gelöscht");
-//								filltableprojekte();
-//								
-//							}
-//							};
-//							adminService.deleteProjekt(selectedProjektObject, callback);
-//					}
-//	}
-//			});
-//		 }
+
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		
-		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
-			 
+		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new AsyncCallback<Vector<Projekt>>(){
+
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+		
 			}
 
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
-				if (result != null){
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
-				} else{
-					Window.alert("Keine Projekte");
-				}
+				
+				
 			}
-		 };
-		adminService.findByProjektmarktplatz(selectedProjektmarktplatz, callback);
+			 
+		 });
+		 
+	}
+		
+		
 
 		 
 //		 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
@@ -664,7 +664,7 @@ public class Projekte extends Showcase {
 //			}
 //			
 //		}
-	}
+	
 	
 	
 		
