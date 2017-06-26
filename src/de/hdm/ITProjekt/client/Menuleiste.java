@@ -37,7 +37,8 @@ public class Menuleiste extends HorizontalPanel{
 			}
 		});
 		
-		impressumAnchor.addClickHandler(new ClickHandler() {@Override
+		impressumAnchor.addClickHandler(new ClickHandler() {
+			@Override
 		public void onClick(ClickEvent event) {
 
 			Showcase showcase = new Impressum();
@@ -49,10 +50,4 @@ public class Menuleiste extends HorizontalPanel{
 		});
 	}}
 	
-	
-//	
-//   
-//
-//    RootPanel.get("Header").add(menuleistePanel);
-// }	
-//
+
