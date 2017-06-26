@@ -86,7 +86,10 @@ div#footer{
 }
 
 .gwt-StackPanel{
-	
+        border: 1px solid #AAAAAA;
+        background-color: #CCCCCC;
+        cursor: pointer;
+        cursor: hand;
 }
 
 .dialogVPanel {

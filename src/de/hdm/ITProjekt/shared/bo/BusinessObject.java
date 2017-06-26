@@ -1,5 +1,7 @@
 package de.hdm.ITProjekt.shared.bo;
 
+import java.io.Serializable;
+
 //import java.io.Serializable; //Serialisierung wandelt Objekte in Bytes um und umgekehrt, wir ben�tigen 
 							//dies um Objekte in einer Datenbank zu speichern
 

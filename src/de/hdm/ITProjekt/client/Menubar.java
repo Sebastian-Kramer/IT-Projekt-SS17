@@ -102,9 +102,9 @@ public class Menubar extends StackPanel {
 //		
 //		projektseitePanel.setSpacing(5);
 		
-		this.setWidth("220px");
+		this.setWidth("230px");
 		this.addStyleName("gwt-StackPanel");
-		this.add(homePanel, "Startseite");
+		this.add(homePanel, "Eigene Seite");
 		this.add(projektmarktplatzPanel, "Projekte");
 		
 		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird

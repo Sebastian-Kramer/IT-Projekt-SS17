@@ -24,10 +24,28 @@
     <servlet-name>LoginService</servlet-name>
     <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    
+     <servlet-mapping>
+      <servlet-name>LoginService</servlet-name>
+      <url-pattern>/reportgenerator/login</url-pattern>
+  </servlet-mapping>
+  
+   <!-- Servlet des Reports-->
    
-  <!-- Default page to serve -->
-  <welcome-file-list>
-    <welcome-file>IT_Projekt_SS17.html</welcome-file>
-  </welcome-file-list>
+    <welcome-file-list> 
+     <welcome-file>IT_Projekt_SS17.html</welcome-file>
+     <welcome-file>ProjektmarktplatzReports.html</welcome-file>
+ </welcome-file-list>
+ 
+  <servlet>
+      <servlet-name>ReportGenerator</servlet-name>
+      <servlet-class>de.hdm.ITProjekt.server.report.ReportGeneratorImpl</servlet-class>
+  </servlet>
+
+  <servlet-mapping>
+      <servlet-name>ReportGenerator</servlet-name>
+      <url-pattern>/reportgenerator/reportgenerator</url-pattern>
+  </servlet-mapping>
+
 
 </web-app>

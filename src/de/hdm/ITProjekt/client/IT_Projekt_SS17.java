@@ -38,7 +38,7 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
-	 private static LogInInfo loginInfo = null;
+	 private LogInInfo loginInfo = null;
 	 private VerticalPanel loginPanel = new VerticalPanel();
 	 private HorizontalPanel horvorpanel = new HorizontalPanel();
 	 private VerticalPanel verpanel = new VerticalPanel();
@@ -52,7 +52,6 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
 	  private Person p1 = new Person();
-	  ;
 	  private Button loginButton = new Button("Login");
 	  private Button seiteVerlassen = new Button("Seite verlassen");
 	 

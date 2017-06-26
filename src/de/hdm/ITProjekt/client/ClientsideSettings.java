@@ -19,6 +19,18 @@ public class ClientsideSettings extends CommonSettings{
 	  private static AdministrationProjektmarktplatzAsync pmpVerwaltung = null;
 	  
 	  /**
+		 * Remote Service Proxy zur Verbindungsaufnahme mit dem serverseitigen
+		 * Dienst <code>RemoteGenerator</code>
+		 */	
+		private static ReportGeneratorAsync reportGenerator = null;
+		
+		/**
+		 * Remote Service Proxy zur Verbindungsaufnahme mit dem serverseitigen
+		 * Dienst <code>LoginService</code>
+		 */
+		private static LoginServiceAsync loginService = null;
+	  
+	   /**
 	   * Name des Client-seitigen Loggers.
 	   */
 	  private static final String LOGGER_NAME = "Projektmarktplatz Web Client";
@@ -89,6 +101,33 @@ public class ClientsideSettings extends CommonSettings{
 		    }
 			return pmpVerwaltung;
 	  }	
+	  public static LoginServiceAsync getLoginService(){
+			if(loginService == null){
+				loginService = GWT.create(LoginService.class);
+			}
+			return loginService;
+		}
+	  public static ReportGeneratorAsync getReportGenerator(){
+			
+			//Falls bis jetzt noch keine ReportGenerator Instanz bestand
+			if(reportGenerator == null){
+				reportGenerator = GWT.create(ReportGenerator.class);
+				
+				
+				reportGenerator.init(new AsyncCallback<Void>() {
+
+					@Override
+					public void onFailure(Throwable caught) {
+					
+					}
+
+					@Override
+					public void onSuccess(Void result) {				
+					}
+				});
+			}
+			return reportGenerator;
+	  }
 }
 
 
