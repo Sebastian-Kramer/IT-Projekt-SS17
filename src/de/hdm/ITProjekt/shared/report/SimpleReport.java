@@ -2,8 +2,6 @@ package de.hdm.ITProjekt.shared.report;
 
 import java.util.Vector;
 
-import com.ibm.icu.impl.Row;
-
 public class SimpleReport extends Report {
 
 		private static final long serialVersionUID = 1L;
