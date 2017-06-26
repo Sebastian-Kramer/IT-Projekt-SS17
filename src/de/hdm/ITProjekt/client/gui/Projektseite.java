@@ -85,7 +85,7 @@ public class Projektseite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		return "<h2> Projektverwaltung </h2> ";
+		return selectedProjekt.getName();
 	}
 
 	@Override
@@ -142,9 +142,12 @@ public class Projektseite extends Showcase{
 		this.add(hpanelnavigator);
 		this.add(hp_projekt);
 		this.add(vp_projekt);
-		hp_projekt.add(createStelle);
+		
 		hp_projekt.add(detailsButton);
+		if(person.getID()== selectedProjekt.getProjektleiter_ID()){
 		hp_projekt.add(alleBewerbungen);
+		hp_projekt.add(createStelle);
+		}
 		hp_projekt.add(back);
 //		hp_projekt.add(showausschreibung);
 		
