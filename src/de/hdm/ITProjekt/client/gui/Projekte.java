@@ -207,7 +207,7 @@ public class Projekte extends Showcase {
 								@Override
 								
 								public void onSuccess(Vector<Ausschreibung> result) {
-									if(result == null){
+									if(result.isEmpty()){
 										adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
 
 											@Override
@@ -242,6 +242,7 @@ public class Projekte extends Showcase {
 
 											@Override
 											public void onSuccess(Ausschreibung result) {
+												
 												Window.alert("Schritt 3");
 												adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
 
@@ -253,6 +254,40 @@ public class Projekte extends Showcase {
 
 													@Override
 													public void onSuccess(Vector<Bewerbung> result) {
+														if(result.isEmpty()){
+															adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																@Override
+																public void onFailure(Throwable caught) {
+																	// TODO Auto-generated method stub
+																	
+																}
+
+																@Override
+																public void onSuccess(Void result) {
+																	adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																		@Override
+																		public void onFailure(Throwable caught) {
+																			// TODO Auto-generated method stub
+																			
+																		}
+
+																		@Override
+																		public void onSuccess(Void result) {
+																			Window.alert("Projekt erfolgreich gelöscht");
+																			Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+																			RootPanel.get("Details").clear();
+																			RootPanel.get("Details").add(showcase);
+																			
+																		}
+																		
+																	});
+																	
+																}
+																
+															});
+														}else{
 														Window.alert("schritt 4");
 														for (final Bewerbung b : result){
 															b.setOrga_ID(0);
@@ -279,6 +314,59 @@ public class Projekte extends Showcase {
 																		@Override
 																		public void onSuccess(
 																				Vector<Bewertung> result) {
+																			if(result.isEmpty()){
+																				adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																					@Override
+																					public void onFailure(
+																							Throwable caught) {
+																						// TODO Auto-generated method stub
+																						
+																					}
+
+																					@Override
+																					public void onSuccess(Void result) {
+																						adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																							@Override
+																							public void onFailure(
+																									Throwable caught) {
+																								// TODO Auto-generated method stub
+																								
+																							}
+
+																							@Override
+																							public void onSuccess(
+																									Void result) {
+																								adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																									@Override
+																									public void onFailure(
+																											Throwable caught) {
+																										// TODO Auto-generated method stub
+																										
+																									}
+
+																									@Override
+																									public void onSuccess(
+																											Void result) {
+																										Window.alert("Projekt erfolgreich gelöscht");
+																										Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+																										RootPanel.get("Details").clear();
+																										RootPanel.get("Details").add(showcase);
+																										
+																									}
+																									
+																								});
+																								
+																							}
+																							
+																						});
+																						
+																					}
+																					
+																				});
+																			}else{
 																			Window.alert("Schritt 6");
 																			for (Bewertung bew : result){
 																				bew.setBewerbungs_ID(0);
@@ -375,6 +463,7 @@ public class Projekte extends Showcase {
 																			}
 																			
 																		}
+																		}
 																		
 																	});
 																}
@@ -382,6 +471,7 @@ public class Projekte extends Showcase {
 															});
 														}
 														
+													}
 													}
 													
 												});
