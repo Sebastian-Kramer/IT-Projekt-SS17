@@ -33,13 +33,13 @@ public class Beteiligung extends BusinessObject {
 	 * Fremdschlüsselbeteiligung zu jeweiligem Projekt
 	 */
 	
-	private int Projekt_ID = 0;
+	private Integer Projekt_ID = 0;
 	
 	/*
 	 * Fremdschlüsselbeteiligung zu jeweiliger Organisationseinheit
 	 */
 	
-	private int Orga_ID = 0;
+	private Integer Orga_ID = 0;
 	
 	/*Auslesen des Umfangs
 	 * @return umfang
@@ -99,7 +99,7 @@ public class Beteiligung extends BusinessObject {
 	 * @return des Fremdschlüssels
 	 */
 	
-	public int getProjekt_ID() {
+	public Integer getProjekt_ID() {
 		return Projekt_ID;
 	}
 	
@@ -108,8 +108,11 @@ public class Beteiligung extends BusinessObject {
 	 * @param der Fremdschlüssel
 	 */
 	
-	public void setProjekt_ID(int projekt_ID) {
-		Projekt_ID = projekt_ID;
+	public void setProjekt_ID(Integer projekt_ID) {
+		if(projekt_ID==0){
+			this.Projekt_ID = null;
+		}
+		this.Projekt_ID = projekt_ID;
 	}
 	
 	/*
@@ -117,7 +120,7 @@ public class Beteiligung extends BusinessObject {
 	 *  @return Orga_ID
 	 */
 	
-	public int getOrga_ID() {
+	public Integer getOrga_ID() {
 		return Orga_ID;
 	}
 	
@@ -126,8 +129,11 @@ public class Beteiligung extends BusinessObject {
 	 * @param orga_ID
 	 */
 	
-	public void setOrga_ID(int orga_ID) {
-		Orga_ID = orga_ID;
+	public void setOrga_ID(Integer orga_ID) {
+		if(orga_ID == 0){
+			this.Orga_ID = null;
+		}
+		this.Orga_ID = orga_ID;
 	}
 	
 //	public String toString(){

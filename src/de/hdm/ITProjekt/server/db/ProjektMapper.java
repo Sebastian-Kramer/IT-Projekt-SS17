@@ -124,6 +124,9 @@ public class ProjektMapper {
 		
 	}
 	
+	
+	
+	
 	public Vector<Projekt> getAllProjekte(){
 		
 		 Connection con = DBConnection.connection();

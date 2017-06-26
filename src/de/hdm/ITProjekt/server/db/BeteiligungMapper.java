@@ -49,6 +49,22 @@ public class BeteiligungMapper {
 		return null;	
 	}
 	
+//	public Vector<Beteiligung> getAllProjektbeteiligungen(int beteiligungid){
+//		Connection con = DBConnection.connection();	 
+//		
+//		 Vector<Beteiligung> result = new Vector<Beteiligung>();
+//		 
+//		  try {
+//		      Statement stmt = con.createStatement();
+//
+//		      ResultSet rs = stmt.executeQuery("SELECT Beteiligung.ID, Beteiligung.umfang, Beteiligung.startdatum, Beteiligung.enddatum, Beteiligung.Projekt_ID, "
+//		      										+ "Beteiligung.Orga_ID, projekt.name FROM Beteiligung INNER JOIN projekt On beteiligung.Projekt_ID=projekt.ID");
+//		      while(rs.next()){
+//		    	  Beteiligung b = new Beteiligung();
+//		    	  
+//		      }
+//	}
+	
 	public Vector<Beteiligung> getAll(){
 		
 		 Connection con = DBConnection.connection();	 
@@ -76,6 +92,34 @@ public class BeteiligungMapper {
 		        e2.printStackTrace();
 		      }
 		  return result;
+	}
+	
+	public Vector <Beteiligung> getBeteiligungByProjekt(int projektid){
+		 Connection con = DBConnection.connection();	 
+			
+		 Vector<Beteiligung> result = new Vector<Beteiligung>();
+		 
+		 try{
+			 Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID FROM Beteiligung WHERE Projekt_ID=" + projektid); 
+		      
+		      while(rs.next()){
+		    	  Beteiligung p = new Beteiligung();
+					p.setID(rs.getInt("ID"));
+					p.setUmfang(rs.getString("umfang"));
+					p.setStartdatum(rs.getDate("startdatum"));
+					p.setEnddatum(rs.getDate("enddatum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+				  
+				  result.addElement(p);
+		      }
+		 }
+		 catch (SQLException e2) {
+		        e2.printStackTrace();
+		 }
+		 return result;
 	}
 	
 	
@@ -133,11 +177,15 @@ public class BeteiligungMapper {
 
 	    try {
 	      Statement stmt = con.createStatement();
-
+	      if(c.getProjekt_ID()==null && c.getOrga_ID()== null){
+	    	  stmt.executeUpdate("UPDATE Beteiligung " + "SET umfang='"
+	    	          + c.getUmfang() + "', enddatum= '" + format.format(c.getEnddatum())
+	    	    		  + "', Projektmarktplatz_ID = NULL, Projektleiter_ID = NULL " + "' WHERE Beteiligung.ID = " + c.getID());
+	      }else{
 	      stmt.executeUpdate("UPDATE Beteiligung " + "SET umfang='"
 	          + c.getUmfang() + "', enddatum= '" + format.format(c.getEnddatum())
 	    		  + "' WHERE Beteiligung.ID = " + c.getID());
-
+	      }
 	    }
 	    catch (SQLException e) {
 	      e.printStackTrace();

@@ -678,4 +678,19 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pMapper.getAllProjekteByProjektleiter(personId);
 	}
 	
+	public Vector<Beteiligung> getBeteiligungByProjekt(int projektid) throws IllegalArgumentException {
+		
+		return this.beteilMapper.getBeteiligungByProjekt(projektid);
+	}
+	@Override
+	public void delete(Beteiligung a) throws IllegalArgumentException {
+		this.beteilMapper.delete(a);
+		
+	}
+	@Override
+	public Beteiligung updateBeteiligung(Beteiligung c) throws IllegalArgumentException {
+		
+		return this.beteilMapper.update(c);
+	}
+	
 }

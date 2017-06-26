@@ -186,4 +186,10 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllProjekteByProjektleiter(int personId, AsyncCallback<Vector<Projekt>> callback);
 
+	void getBeteiligungByProjekt(int projektid, AsyncCallback<Vector<Beteiligung>> callback);
+
+	void delete(Beteiligung a, AsyncCallback<Void> callback);
+
+	void updateBeteiligung(Beteiligung c, AsyncCallback<Beteiligung> callback);
+
 }
