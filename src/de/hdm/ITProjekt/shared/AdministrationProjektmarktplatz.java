@@ -185,5 +185,11 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Bewertung> getAllBewertungen();
 
 	public Bewertung insertWithoutBeteil(Bewertung a) throws IllegalArgumentException;
+	
+	public Vector <Beteiligung> getBeteiligungByProjekt(int projektid) throws IllegalArgumentException;
+	
+	public void delete(Beteiligung a) throws IllegalArgumentException;
+	
+	public Beteiligung updateBeteiligung(Beteiligung c) throws IllegalArgumentException;
 
 	}

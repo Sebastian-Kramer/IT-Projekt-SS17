@@ -202,8 +202,8 @@ public void delete(Bewertung bew){
 	      
 	      if(bewe.getBewerbungs_ID()==null){
 	    	  stmt.executeUpdate("UPDATE Bewertung " + "SET stellungnahme='"
-	    	          + bewe.getStellungnahme() + "'" +   "SET bewertung=" + bewe.getBewertung()
-	    	          + "'" + "SET Bewerbungs_ID=NULL" + "WHERE Bewertung.ID=" + bewe.getID()); 
+	    	          + bewe.getStellungnahme() +  "', bewertung= '" + bewe.getBewertung()
+	    	          + "'" + "', Bewerbungs_ID = NULL," + "WHERE Bewertung.ID=" + bewe.getID()); 
 	      }else{
 	      stmt.executeUpdate("UPDATE Bewertung " + "SET stellungnahme='"
 	          + bewe.getStellungnahme() + "'" +   "SET bewertung=" + bewe.getBewertung());

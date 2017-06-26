@@ -34,6 +34,7 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
@@ -394,6 +395,7 @@ public class Projekte extends Showcase {
 																							@Override
 																							public void onSuccess(
 																									Void result) {
+																								
 																								adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
 
 																									@Override
@@ -418,32 +420,105 @@ public class Projekte extends Showcase {
 																											@Override
 																											public void onSuccess(
 																													Void result) {
-																												adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+																												adminService.getBeteiligungByProjekt(selectedProjektObject.getID(), new AsyncCallback<Vector<Beteiligung>>(){
 
 																													@Override
 																													public void onFailure(
 																															Throwable caught) {
-																														Window.alert("Löschen hat nicht funktioniert 8");
+																														// TODO Auto-generated method stub
 																														
 																													}
 
 																													@Override
 																													public void onSuccess(
-																															Void result) {
-																														Window.alert("Das Projekt wurde erfolgreich gelöscht");
-																														Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
-																														RootPanel.get("Details").clear();
-																														RootPanel.get("Details").add(showcase);
+																															Vector<Beteiligung> result) {
+																														if(result.isEmpty()){
+																															adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																																@Override
+																																public void onFailure(
+																																		Throwable caught) {
+																																	
+																																	
+																																}
+
+																																@Override
+																																public void onSuccess(
+																																		Void result) {
+																																	Window.alert("Projekt erfolgreich gelöscht");
+																																	Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+																																	RootPanel.get("Details").clear();
+																																	RootPanel.get("Details").add(showcase);
+																																	
+																																}
+																																
+																															});
+																														}else{
+																														for(Beteiligung b : result){
+																															b.setOrga_ID(0);
+																															b.setProjekt_ID(0);
+																															adminService.updateBeteiligung(b, new AsyncCallback<Beteiligung>(){
+
+																																@Override
+																																public void onFailure(
+																																		Throwable caught) {
+																																	// TODO Auto-generated method stub
+																																	
+																																}
+
+																																@Override
+																																public void onSuccess(
+																																		Beteiligung result) {
+																																	adminService.delete(result, new AsyncCallback<Void>(){
+
+																																		@Override
+																																		public void onFailure(
+																																				Throwable caught) {
+																																			// TODO Auto-generated method stub
+																																			
+																																		}
+
+																																		@Override
+																																		public void onSuccess(
+																																				Void result) {
+																																			adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																																				@Override
+																																				public void onFailure(
+																																						Throwable caught) {
+																																					// TODO Auto-generated method stub
+																																					
+																																				}
+
+																																				@Override
+																																				public void onSuccess(
+																																						Void result) {
+																																					Window.alert("Projekt erfolgreich gelöscht");
+																																					Showcase showcase = new Projekte(selectedProjektmarktplatz, person);
+																																					RootPanel.get("Details").clear();
+																																					RootPanel.get("Details").add(showcase);
+																																					
+																																					
+																																				}
+																																				
+																																			});
+																																			
+																																		}
+																																		
+																																	});
+																																	
+																																}
+																																
+																															});
+																															
+																														}
 																														
 																													}
-
-																									
-																													
-																													
-																														
-																													
+																													}
 																													
 																												});
+																													
+																											
 																												
 																											}
 																											
@@ -490,84 +565,14 @@ public class Projekte extends Showcase {
 						}
 						 
 					 });
-//					 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
-//
-//						@Override
-//						public void onFailure(Throwable caught) {
-//							// TODO Auto-generated method stub
-//							Window.alert("Fehler beim Löschen");
-//							
-//						}
-//
-//						@Override
-//						public void onSuccess(Projekt result) {
-//							Window.alert("Projekt wurde erfolgreich gelöscht");
-//							filltableprojekte();
-//							
-//						}
-//						};
-//						adminService.deleteProjekt(selectedProjektObject, callback);
+
 				}
 }else{
 	Window.alert("Löschen nicht möglich! Nur der Projektleiter kann ein Projekt löschen.");
 }
 			}	});
 		
-//		ssm_projekt.addSelectionChangeHandler(new Handler(){
-//
-//			@Override
-//			public void onSelectionChange(SelectionChangeEvent event) {
-//				projekt = ssm_projekt.getSelectedObject();
-//				Showcase showcase = new Projektseite(projekt, person);
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(showcase);
-////				
-//			}
-//			
-//		});
-		
-//		Column<HybridProjektPerson, String> projektname =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getProjektname();
-//					}
-//		};
-//					
-//		Column<HybridProjektPerson, String>	startdatum =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getStartdatum().toString();
-//				}
-//			
-//		};
-//		
-//		Column<HybridProjektPerson, String> enddatum =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getEnddatum().toString();
-//					}
-//			
-//		};
-//		
-//		Column<HybridProjektPerson, String> projektleiter =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getProjektleiter();
-//					}
-//			
-//		};
+
 			
 		
 		Column<Projekt, String> projektname = 
@@ -679,9 +684,7 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");
 
 		
-//		ct_projekte.setRowCount(projekte.size(), true);
-//		ct_projekte.setRowData(0, projekte);
-		
+
 
 		filltableprojekte();
 
@@ -713,53 +716,8 @@ public class Projekte extends Showcase {
 		 });
 		 
 	}
-		
-		
-
-		 
-//		 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
-//			 
-//				@Override
-//				public void onFailure(Throwable caught) {
-//					Window.alert("Fehler beim Laden der Daten aus der Datenbank");
-//				}
-//
-//				@Override
-//				public void onSuccess(Vector<Projekt> result) {
-//					Window.alert("Halloonsuccess");
-//					ct_alleProjekte.setRowData(0, result);
-//					ct_alleProjekte.setRowCount(result.size(), true);
-//					
-//				}
-//			 };
-//			adminService.getProjekteOf(projektid, callback);
-//		
-//		
-//	}
-//		class getProjekteOfProjektmarktplatz implements AsyncCallback<Vector<Projekt>>{
-//
-//			
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				// TODO Auto-generated method stub
-//				Window.alert("Failed bro");
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(Vector<Projekt> result) {
-//				Window.alert("onsuccess");
-//				ct_alleProjekte.setRowData(0, result);
-//				ct_alleProjekte.setRowCount(result.size(), true);
-//			}
-//			
-//		}
+				
 	
-	
-	
-		
-		
-
 		
 		
 		

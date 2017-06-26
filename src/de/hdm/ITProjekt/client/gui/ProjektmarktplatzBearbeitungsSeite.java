@@ -24,6 +24,7 @@ import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAu
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
@@ -167,6 +168,26 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 							@Override
 							public void onSuccess(Vector<Projekt> result) {
+								if(result.isEmpty()){
+									adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Void result) {
+											Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+											Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+											RootPanel.get("Details").clear();
+											RootPanel.get("Details").add(showcase);
+											
+										}
+										
+									});
+								}else{
 								for(final Projekt p : result){
 									p.setProjektleiter_ID(0);
 									p.setProjektmarktplatz_ID(0);
@@ -190,6 +211,40 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 												@Override
 												public void onSuccess(Vector<Ausschreibung> result) {
+													if(result.isEmpty()){
+														adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+
+															@Override
+															public void onFailure(Throwable caught) {
+																
+																
+															}
+
+															@Override
+															public void onSuccess(Void result) {
+																adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																	@Override
+																	public void onFailure(Throwable caught) {
+																		// TODO Auto-generated method stub
+																		
+																	}
+
+																	@Override
+																	public void onSuccess(Void result) {
+																		Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																		Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																		RootPanel.get("Details").clear();
+																		RootPanel.get("Details").add(showcase);
+																		
+																	}
+																	
+																});
+																
+															}
+															
+														});
+													}else{
 													for(final Ausschreibung a: result){
 														a.setOrga_ID(0);
 														a.setPartnerprofil_ID(0);
@@ -214,6 +269,58 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																	@Override
 																	public void onSuccess(Vector<Bewerbung> result) {
+																		if(result.isEmpty()){
+																			adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																				@Override
+																				public void onFailure(
+																						Throwable caught) {
+																					// TODO Auto-generated method stub
+																					
+																				}
+
+																				@Override
+																				public void onSuccess(Void result) {
+																					adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+
+																						@Override
+																						public void onFailure(
+																								Throwable caught) {
+																							// TODO Auto-generated method stub
+																							
+																						}
+
+																						@Override
+																						public void onSuccess(
+																								Void result) {
+																							adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																								@Override
+																								public void onFailure(
+																										Throwable caught) {
+																									// TODO Auto-generated method stub
+																									
+																								}
+
+																								@Override
+																								public void onSuccess(
+																										Void result) {
+																									Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																									Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																									RootPanel.get("Details").clear();
+																									RootPanel.get("Details").add(showcase);
+																								}
+																								
+																							});
+																							
+																						}
+																						
+																					});
+																					
+																				}
+																				
+																			});
+																		}else{
 																		for(final Bewerbung b : result){
 																			b.setAusschreibungs_ID(0);
 																			b.setOrga_ID(0);
@@ -241,6 +348,76 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																						@Override
 																						public void onSuccess(
 																								Vector<Bewertung> result) {
+																							if(result.isEmpty()){
+																								adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																									@Override
+																									public void onFailure(
+																											Throwable caught) {
+																										// TODO Auto-generated method stub
+																										
+																									}
+
+																									@Override
+																									public void onSuccess(
+																											Void result) {
+																										adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																											@Override
+																											public void onFailure(
+																													Throwable caught) {
+																												// TODO Auto-generated method stub
+																												
+																											}
+
+																											@Override
+																											public void onSuccess(
+																													Void result) {
+																												adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+
+																													@Override
+																													public void onFailure(
+																															Throwable caught) {
+																														// TODO Auto-generated method stub
+																														
+																													}
+
+																													@Override
+																													public void onSuccess(
+																															Void result) {
+																														adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																															@Override
+																															public void onFailure(
+																																	Throwable caught) {
+																																// TODO Auto-generated method stub
+																																
+																															}
+
+																															@Override
+																															public void onSuccess(
+																																	Void result) {
+																																Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																																Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																RootPanel.get("Details").clear();
+																																RootPanel.get("Details").add(showcase);
+																																
+																															}
+																															
+																														});
+																														
+																													}
+																													
+																												});
+																												
+																											}
+																											
+																										});
+																										
+																									}
+																									
+																								});
+																							}else{
 																							for(final Bewertung bewe : result){
 																								bewe.setBewerbungs_ID(0);
 																								bewe.setBeteiligungs_ID(0);
@@ -292,43 +469,171 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																															@Override
 																															public void onSuccess(
 																																	Void result) {
-																																adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+																																adminService.getBeteiligungByProjekt(p.getID(), new AsyncCallback<Vector<Beteiligung>>(){
 
 																																	@Override
 																																	public void onFailure(
 																																			Throwable caught) {
-																																		Window.alert("Löschen hat nicht funktioniert 10");
+																																		// TODO Auto-generated method stub
 																																		
 																																	}
 
 																																	@Override
 																																	public void onSuccess(
-																																			Void result) {
-																																		adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+																																			Vector<Beteiligung> result) {
+																																		if(result.isEmpty()){
+																																			adminService.deleteProjekt(p, new AsyncCallback<Void>(){
 
-																																			@Override
-																																			public void onFailure(
-																																					Throwable caught) {
-																																				// TODO Auto-generated method stub
+																																				@Override
+																																				public void onFailure(
+																																						Throwable caught) {
+																																					// TODO Auto-generated method stub
+																																					
+																																				}
+
+																																				@Override
+																																				public void onSuccess(
+																																						Void result) {
+																																					adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																																						@Override
+																																						public void onFailure(
+																																								Throwable caught) {
+																																							// TODO Auto-generated method stub
+																																							
+																																						}
+
+																																						@Override
+																																						public void onSuccess(
+																																								Void result) {
+																																							Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																																							Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																							RootPanel.get("Details").clear();
+																																							RootPanel.get("Details").add(showcase);
+																																							
+																																						}
+																																						
+																																					});
+																																					
+																																				}
 																																				
-																																			}
+																																			});
+																																		}else{
+																																			for(final Beteiligung bet : result){
+																																				bet.setOrga_ID(0);
+																																				bet.setProjekt_ID(0);
+																																				adminService.updateBeteiligung(bet, new AsyncCallback<Beteiligung>(){
 
-																																			@Override
-																																			public void onSuccess(
-																																					Void result) {
-																																				Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																																				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
-																																				RootPanel.get("Details").clear();
-																																				RootPanel.get("Details").add(showcase);
-																																				
-																																			}
+																																					@Override
+																																					public void onFailure(
+																																							Throwable caught) {
+																																						// TODO Auto-generated method stub
+																																						
+																																					}
 
-																																			
-																																		});
+																																					@Override
+																																					public void onSuccess(
+																																							Beteiligung result) {
+																																						adminService.delete(bet, new AsyncCallback<Void>(){
+
+																																							@Override
+																																							public void onFailure(
+																																									Throwable caught) {
+																																								// TODO Auto-generated method stub
+																																								
+																																							}
+
+																																							@Override
+																																							public void onSuccess(
+																																									Void result) {
+																																								adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+
+																																									@Override
+																																									public void onFailure(
+																																											Throwable caught) {
+																																										// TODO Auto-generated method stub
+																																										
+																																									}
+
+																																									@Override
+																																									public void onSuccess(
+																																											Void result) {
+																																										adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+
+																																											@Override
+																																											public void onFailure(
+																																													Throwable caught) {
+																																												// TODO Auto-generated method stub
+																																												
+																																											}
+
+																																											@Override
+																																											public void onSuccess(
+																																													Void result) {
+																																												Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+																																												Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																												RootPanel.get("Details").clear();
+																																												RootPanel.get("Details").add(showcase);
+																																												
+																																											}
+																																											
+																																										});
+																																										
+																																									}
+																																									
+																																								});
+																																								
+																																							}
+																																							
+																																						});
+																																						
+																																					}
+																																					
+																																				});
+																																			}
+																																		}
 																																		
 																																	}
 																																	
 																																});
+																																
+//																																adminService.deleteProjekt(p, new AsyncCallback<Void>(){
+//
+//																																	@Override
+//																																	public void onFailure(
+//																																			Throwable caught) {
+//																																		Window.alert("Löschen hat nicht funktioniert 10");
+//																																		
+//																																	}
+//
+//																																	@Override
+//																																	public void onSuccess(
+//																																			Void result) {
+//																																		adminService.deleteProjektmarktplatz(selectedObject, new AsyncCallback<Void>(){
+//
+//																																			@Override
+//																																			public void onFailure(
+//																																					Throwable caught) {
+//																																				// TODO Auto-generated method stub
+//																																				
+//																																			}
+//
+//																																			@Override
+//																																			public void onSuccess(
+//																																					Void result) {
+//																																				Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
+//																																				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+//																																				RootPanel.get("Details").clear();
+//																																				RootPanel.get("Details").add(showcase);
+//																																				
+//																																			}
+//
+//																																			
+//																																		});
+//																																		
+//																																	}
+//																																	
+//																																});
 																																
 																															}
 																															
@@ -348,6 +653,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																							}
 																							
 																						}
+																						}
 																						
 																					});
 																					
@@ -358,7 +664,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																		}
 																		
 																	}
-																	
+																	}
 																});
 																
 															}
@@ -366,6 +672,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 														});
 													}
 													
+												}
 												}
 												
 											});
@@ -376,6 +683,8 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 								}
 								
 							}
+							}
+							
 							 
 						 });
 						 
@@ -387,52 +696,21 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 						 
 						 
 						 
-//						 AsyncCallback<Projektmarktplatz> callback = new AsyncCallback<Projektmarktplatz>(){
-//	
-//							@Override
-//							public void onFailure(Throwable caught) {
-//								// TODO Auto-generated method stub
-//								Window.alert("Fehler beim Löschen");
-//								
-//							}
-//	
-//							@Override
-//							public void onSuccess(Projektmarktplatz result) {
-//								// TODO Auto-generated method stub
-//								Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-//								refreshlist();
-//							}
-//							};
-//							adminService.deleteProjektmarktplatz(selectedObject, callback);
+
 					}
 	}
 			});
 		 }
 		 
-//				 projektmarktplatz_loeschen.addClickHandler(new ClickHandler(){
-//	
-//				@Override
-//				public void onClick(ClickEvent event) {
-//					// "selectedobject" sprich die angewählte Zeile in der Tabelle wird instanziiert
-//					Projektmarktplatz selectedObject = ssm_alleProjektmarktplaetze.getSelectedObject();
-//					if (selectedObject != null){
-//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//						 if (adminService == null) {
-//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//					    }
-//						adminService.deleteProjektmarktplatz(selectedObject, new deleteProjektmarktplatzausDB());
-//						
-//					}
-//					refreshlist();
-//			}
-	 private void refreshlist(){
-		 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-		 if (adminService == null) {
-	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }
-		 adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
-		 
-	 }
+
+//	 private void refreshlist(){
+//		 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//		 if (adminService == null) {
+//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//	    }
+//		 adminService.getProjektmarktplatzAll(new getProjektmarktplatzAusDB());
+//		 
+//	 }
 		 
 //	 });
 //	 }
