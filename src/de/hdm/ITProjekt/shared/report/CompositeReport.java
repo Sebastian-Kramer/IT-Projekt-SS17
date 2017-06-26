@@ -52,6 +52,16 @@ public class CompositeReport extends Report{
 		 */	
 		public Report getSubReportAt(int i) {
 			return this.subReports.elementAt(i);
+			
 		}
+		
+		public int getSubReportsSize() {
+			return this.subReports.size();
+		}
+		
+		public Report getSubReportByIndex(int i) {
+			return this.subReports.elementAt(i);
+		}
+		
 
 }
