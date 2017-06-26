@@ -63,6 +63,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	public void onModuleLoad() {
 
 		RootPanel.get("HeaderReport").add(new Menuleiste());
+		
 		this.reportGenerator = ClientsideSettings.getReportGenerator();
 		this.loginService = ClientsideSettings.getLoginService();
 		this.adminService = ClientsideSettings.getpmpVerwaltung();
@@ -70,8 +71,8 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //			LoginServiceAsync loginService = GWT.create(LoginService.class);	
 
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/reportgenerator/reportgenerator");
-//			loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>() {
-			loginService.login("http://127.0.0.1:8888/ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
+			loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>() {
+//			loginService.login("http://127.0.0.1:8888/ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 				
 				@Override
 				public void onFailure(Throwable caught) {

@@ -1,7 +1,10 @@
 package de.hdm.ITProjekt.client.gui.report;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -38,7 +41,8 @@ public class MenubarReport extends StackPanel{
 	private Button alleeingegangenebewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
 	private Button faninfanoutanalyse = new Button ("Fan in/Fan out Analyse");
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
-	
+	private Button zuprojektmarktplatz = new Button("Projektmarktplatz Seite");
+	private Anchor projektmarktplatzanchor = new Anchor("Projektmarktplatz");
 	
 	IdentitySelection is = null;
 			
@@ -67,8 +71,12 @@ public class MenubarReport extends StackPanel{
 		homePanel.add(projektverflechtungen);
 		alleAusschreibungenzupartnerprofil.setWidth("200px");
 		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");
+
+		homePanel.add(zuprojektmarktplatz);
+		zuprojektmarktplatz.setWidth("200px");
+		zuprojektmarktplatz.setStylePrimaryName("navi-button");
 		
-		homePanel.setSpacing(5);
+		homePanel.setSpacing(10);
 		homePanel.setWidth("100%");
 		
 				
@@ -76,6 +84,14 @@ public class MenubarReport extends StackPanel{
 		this.addStyleName("gwt-StackPanel");
 		this.add(homePanel, "Report Generator");
 
+		zuprojektmarktplatz.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				projektmarktplatzanchor.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
+				Window.open(projektmarktplatzanchor.getHref(), "_self", "");
+			}
+		});
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
