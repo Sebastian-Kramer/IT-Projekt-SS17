@@ -1,7 +1,10 @@
 package de.hdm.ITProjekt.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -31,9 +34,13 @@ public class Menubar extends StackPanel {
 	
 	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	// Die "einzelnen" Seiten in die Panels legen
-	VerticalPanel homePanel = new VerticalPanel();
+	private VerticalPanel homePanel = new VerticalPanel();
 //	VerticalPanel projektPanel = new VerticalPanel();
-	VerticalPanel projektmarktplatzPanel = new VerticalPanel();
+	private VerticalPanel projektmarktplatzPanel = new VerticalPanel();
+	private VerticalPanel reportgeneratorPanel = new VerticalPanel();
+	
+
+	private Anchor reportLink = new Anchor();
 	
 	
 	
@@ -41,18 +48,18 @@ public class Menubar extends StackPanel {
 	
 	// Buttons in dem Panel "home"
 	
-	Button zurstartseiteButton = new Button("Startseite");
-	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
-	Button meineProjekteButton = new Button("Meine Projekte");
-	Button meinProfilButton = new Button("Mein Profil");
-	Button agbButton = new Button("AGB");
+	private Button zurstartseiteButton = new Button("Startseite");
+	private Button meineBewerbungenButton = new Button("Meine Bewerbungen");
+	private Button meineProjekteButton = new Button("Meine Projekte");
+	private Button meinProfilButton = new Button("Mein Profil");
+	private Button agbButton = new Button("AGB");
 	
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
-	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
-	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
-		
+	private Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
+	private Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
+	private Button reportgeneratorButton = new Button("Report Generator");
 	
 	IdentitySelection is = null;
 			
@@ -94,6 +101,10 @@ public class Menubar extends StackPanel {
 		projektmarktplatzPanel.setSpacing(5);
 		projektmarktplatzPanel.setWidth("100%");
 		
+		reportgeneratorPanel.add(reportgeneratorButton);
+		reportgeneratorButton.setWidth("200px");
+		reportgeneratorButton.setStylePrimaryName("navi-button");
+		reportgeneratorPanel.setSpacing(5);
 		// Zusammensetzen des projektseitePanels
 		
 //		projektseitePanel.add(blablaButton);
@@ -105,7 +116,8 @@ public class Menubar extends StackPanel {
 		this.setWidth("230px");
 		this.addStyleName("gwt-StackPanel");
 		this.add(homePanel, "Eigene Seite");
-		this.add(projektmarktplatzPanel, "Projekte");
+		this.add(projektmarktplatzPanel, "Marktplatz");
+		this.add(reportgeneratorPanel, "Report Generator");
 		
 		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
 		
@@ -124,7 +136,14 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
-		
+		reportgeneratorButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				reportLink.setHref(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html");
+				Window.open(reportLink.getHref(), "_self", "");
+			}
+		});
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
@@ -194,6 +213,8 @@ public class Menubar extends StackPanel {
 				Showcase showcase = new MeinProfilAnzeigen(person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+		
+		
 //				is.activateOrgUnits();
 //			
 //				Organisationseinheit selectedIdentity = is.getSelectedIdentityAsObject();	
