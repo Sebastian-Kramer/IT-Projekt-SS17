@@ -37,6 +37,7 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 	private Label personVorname = new Label("Vorname: ");
 	private Label personName = new Label("Name: ");
 	private Label personEmail = new Label("E-Mail: ");
+	private Label info = new Label("Die Bewerbung wurde von folgender Person abgegeben");
 	
 	private TextBox anredeBox = new TextBox();
 	private TextBox vornameBox = new TextBox();
@@ -58,28 +59,30 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		setGlassEnabled(true);
 		this.center();
 		bewerbungstext.setReadOnly(true);
-		bewerbungstext.setText(bewerbungId.getBewerbungstext());
+		bewerbungstext.setText(selectedId.getBewerbungstext());
 		bewerbungstext.setCharacterWidth(30);
 		bewerbungstext.setVisibleLines(30);
 
+
 		
-		
-		adminService.getPersonFromBewerbung(bewerbungId.getOrga_ID(), new BewerberDatails());
+		adminService.getPersonFromBewerbung(selectedId.getOrga_ID(), new BewerberDatails());
 		
 		
 		bewerbungstextft.setWidget(0, 0, bewerbungstext);
 		
-		bewerbungstextft.setWidget(1, 0, personAnrede);
-		bewerbungstextft.setWidget(1, 1, anredeBox);
+		bewerbungstextft.setWidget(1, 0, info);
 		
-		bewerbungstextft.setWidget(2, 0, personVorname);
-		bewerbungstextft.setWidget(2, 1, vornameBox);
+		bewerbungstextft.setWidget(2, 0, personAnrede);
+		bewerbungstextft.setWidget(2, 1, anredeBox);
 		
-		bewerbungstextft.setWidget(3, 0, personName);
-		bewerbungstextft.setWidget(3, 1, nameBox);
+		bewerbungstextft.setWidget(3, 0, personVorname);
+		bewerbungstextft.setWidget(3, 1, vornameBox);
 		
-		bewerbungstextft.setWidget(4, 0, personEmail);
-		bewerbungstextft.setWidget(4, 1, emailBox);
+		bewerbungstextft.setWidget(4, 0, personName);
+		bewerbungstextft.setWidget(4, 1, nameBox);
+		
+		bewerbungstextft.setWidget(5, 0, personEmail);
+		bewerbungstextft.setWidget(5, 1, emailBox);
 		
 		bewerbungstextft.setWidget(5, 0, schliessen);
 		
@@ -112,7 +115,6 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 			nameBox.setText(result.getName());
 			emailBox.setText(result.getEmail());
 			
-			Window.alert(" " + bewerbungId.getOrga_ID());
 			Window.alert("Die Daten des Bewerbers wurden erfolgreich geladen");
 			
 		}

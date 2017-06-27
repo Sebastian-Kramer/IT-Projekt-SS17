@@ -208,7 +208,7 @@ public class BewerbungMapper {
 		try {
 		      Statement stmt = con.createStatement();
 		      
-		      ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, Ausschreibungs_ID FROM Bewerbung WHERE Ausschreibungs_ID = " + id);
+		      ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, Ausschreibungs_ID, Orga_ID FROM Bewerbung WHERE Ausschreibungs_ID = " + id);
 		
 		      while(rs.next()){
 		    	  Bewerbung b = new Bewerbung();
@@ -216,7 +216,7 @@ public class BewerbungMapper {
 		    	  b.setBewerbungstext(rs.getString("bewerbungstext"));
 		    	  b.setErstelldatum(rs.getDate("erstelldatum"));
 		    	  b.setAusschreibungs_ID(rs.getInt("Ausschreibungs_ID"));
-//		    	  b.setOrga_ID(rs.getInt("Orga_ID"));
+		    	  b.setOrga_ID(rs.getInt("Orga_ID"));
 		    	  
 		    	  result.addElement(b);
 		      }

@@ -72,7 +72,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	private Projekt pro = new Projekt();
 	private Ausschreibung selectedAusschreibung;
 	private Person angemeldetePerson;
-	private Bewerbung b = new Bewerbung();
+	private Bewerbung b = null;
 	private Vector<Bewertung> bewe;
 	
 	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p){
@@ -125,8 +125,6 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		this.add(vp_bew);
 		this.add(hpanelnavigator);
 		
-		ct_bewerbungen.setSelectionModel(ssm_bew);
-		
 		
 		vp_bew.setSpacing(10);
 		
@@ -134,8 +132,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				b = ssm_bew.getSelectedObject();
-				DialogBoxDetailsBewerbung dialogbox = new DialogBoxDetailsBewerbung(b);
+				DialogBoxDetailsBewerbung dialogbox = new DialogBoxDetailsBewerbung(ssm_bew.getSelectedObject());
 				dialogbox.center();
 				
 			}
@@ -156,20 +153,18 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		if (selectedAusschreibung.getOrga_ID() == angemeldetePerson.getID()){
 			Window.alert("Sie haben die Ausschreibung angelegt, können alle Bewerbungen einsehen "
 					+ "und entsprechende Bewertungen abgeben");
-//			form.setWidget(0, 1, bewertung);
 			
 			ssm_bew.addSelectionChangeHandler(new Handler() {
 			
 				@Override
 				public void onSelectionChange(SelectionChangeEvent event) {
 					
-						hp_bew.add(anzeigen);
-						
-						
-						
+						hp_bew.add(anzeigen);		
 						
 				}
 			});
+			
+			
 
 			form.setWidget(0, 0, ct_bewerbungen);
 			
@@ -385,7 +380,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	}
 	
 	
-	public class allBewByAus implements AsyncCallback<Vector<Bewerbung>>{
+	private class allBewByAus implements AsyncCallback<Vector<Bewerbung>>{
 	
 		@Override
 		public void onFailure(Throwable caught) {

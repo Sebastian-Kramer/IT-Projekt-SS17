@@ -47,8 +47,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPersonbyID(int id, AsyncCallback<Person> callback);
 	
-	void getPersonFromBewerbung(Integer id, AsyncCallback<Person> callback);
-	
 	void setBewerbungsStatus(Bewerbung b, AsyncCallback<Bewerbung> callback);
 	
 	void getPartnerprofilfromPerson(int id, AsyncCallback<Eigenschaft> callback);
@@ -200,6 +198,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getProjektByOrgaID(Integer id, AsyncCallback<Vector<Projekt>> callback);
 
 	void getPersonByID(Integer id, AsyncCallback<Vector<Person>> callback);
+
+	void getPersonFromBewerbung(Integer id, AsyncCallback<Person> callback);
 
 	
 
