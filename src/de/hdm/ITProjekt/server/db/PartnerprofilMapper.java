@@ -76,6 +76,17 @@ public Vector<Partnerprofil> getAll(){
 	  return result;
 }
 
+//public Vector<Partnerprofil> getPartnerprofilByAusschreibungID(ausschreibungID){
+//	Connection con = DBConnection.connection();	 
+//	
+//	 Vector<Partnerprofil> result = new Vector<Partnerprofil>();
+//	 
+//	  try {
+//	      Statement stmt = con.createStatement();
+//
+//	      ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, aenderungsdatum FROM Partnerprofil ");
+//}
+
 //public Partnerprofil insert(Partnerprofil pp1){
 //	
 //	Connection con = DBConnection.connection();

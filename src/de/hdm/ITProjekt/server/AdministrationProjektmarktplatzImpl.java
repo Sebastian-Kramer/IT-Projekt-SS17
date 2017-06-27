@@ -708,12 +708,33 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.personMapper.getPersonByID(id);
 	}
 	@Override
+
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException {
 		return this.bewMapper.updateBewerbungsstatus(b);
 	}
 	@Override
 	public Person getPersonFromBewerbung(Integer id) {
 		return this.personMapper.getPersonbyOrgaID(id);
+	}
+
+	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.getAll();
+	}
+	@Override
+	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAll();
+	}
+	@Override
+	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.partnerprofilMapper.insert(pp1);
+	}
+	@Override
+	public Vector<Bewerbung> findByOrgaID(int Orga_ID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.bewMapper.findByPerson(Orga_ID);
 
 	}
 	
