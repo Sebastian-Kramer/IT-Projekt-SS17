@@ -37,7 +37,7 @@ public class MenubarReport extends StackPanel{
 	private Button alleBewerbungenByPerson = new Button("Eigene Bewerbungen");
 	private Button alleAusschreibungen = new Button("Alle Ausschreibungen");
 	private Button alleAusschreibungenzupartnerprofil = new Button("Ausschreibungen zu Partnerprofil");
-	private Button alleeingegangenebewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
+	private Button alleeigenenbewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
 	private Button faninfanoutanalyse = new Button ("Fan in/Fan out Analyse");
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
 	
@@ -58,7 +58,7 @@ public class MenubarReport extends StackPanel{
 		alleAusschreibungenzupartnerprofil.setWidth("200px");
 		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");	
 		
-		homePanel.add(alleeingegangenebewerbungen);
+		homePanel.add(alleeigenenbewerbungen);
 		alleBewerbungenByPerson.setWidth("200px");
 		alleBewerbungenByPerson.setStylePrimaryName("navi-button");
 		
@@ -112,9 +112,11 @@ public class MenubarReport extends StackPanel{
 			}
 		});
 
-		alleeingegangenebewerbungen.addClickHandler(new ClickHandler(){
+		alleeigenenbewerbungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				
+				ReportShowcase reportShowcase = new AllBewerbungenByAusschreibungShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}
