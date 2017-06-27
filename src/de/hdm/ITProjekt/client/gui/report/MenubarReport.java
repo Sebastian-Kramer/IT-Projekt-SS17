@@ -22,6 +22,7 @@ import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
+import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 
 public class MenubarReport extends StackPanel{
 	// Clickhandler auf "null" setzen
@@ -29,7 +30,6 @@ public class MenubarReport extends StackPanel{
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	// Die "einzelnen" Seiten in die Panels legen
 	private VerticalPanel homePanel = new VerticalPanel();
 	
@@ -44,7 +44,7 @@ public class MenubarReport extends StackPanel{
 	private Button faninfanoutanalyse = new Button ("Fan in/Fan out Analyse");
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
 	
-	private IdentitySelectionReport is = null;
+	IdentitySelectionReport isreport = null;
 			
 	public MenubarReport(final Person person){
 		
@@ -143,7 +143,7 @@ public class MenubarReport extends StackPanel{
 		
 	}
 			});
-			}
+	}
 	
 	private void add(VerticalPanel homePanel2, String string, VerticalPanel projektmarktplatzPanel2, String string2) {
 		// TODO Auto-generated method stub
@@ -151,14 +151,14 @@ public class MenubarReport extends StackPanel{
 	}
 
 	
-	public void setIdSelection(IdentitySelectionReport idSelection) {
-		this.is = idSelection;
+	public void setIdSelectionReport(IdentitySelectionReport idSelection) {
+		this.isreport = idSelection;
 	}
-	public IdentitySelectionReport getIdSelection() {
-		return is;
+	public IdentitySelectionReport getIdSelectionReport() {
+		return isreport;
 	}
 
-	public void reload(){
+	public void reloadReport(){
 		currentClickHandler.onClick(currentClickEvent);
 	}
 	

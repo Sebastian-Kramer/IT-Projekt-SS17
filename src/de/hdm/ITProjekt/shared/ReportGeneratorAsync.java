@@ -58,11 +58,16 @@ public interface ReportGeneratorAsync {
 	void findUnternehmenByKey(int id, AsyncCallback<Unternehmen> callback);
 
 	void getAllPersonen(AsyncCallback<Vector<Person>> callback);
+	
 
 	void getAusschreibungByMatchingPartnerprofil(Organisationseinheit o,
 			AsyncCallback<AllAusschreibungenByPartnerprofilReport> callback);
 
 	void getBewerberByAusschreibungen(Organisationseinheit o, AsyncCallback<Vector<Organisationseinheit>> callback);
+
+	void getTeamByKey(int teamID, AsyncCallback<Team> callback);
+
+	void getUnternehmenByKey(int unternehmenID, AsyncCallback<Unternehmen> callback);
 
 
 }

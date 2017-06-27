@@ -23,6 +23,7 @@ import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.report.IdentitySelectionReport;
 import de.hdm.ITProjekt.client.gui.report.MenubarReport;
+import de.hdm.ITProjekt.client.gui.report.MenuleisteReport;
 import de.hdm.ITProjekt.client.gui.report.MenuleisteReportMitProjektmarktplatz;
 import de.hdm.ITProjekt.client.gui.report.StartseiteReport;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -64,7 +65,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	@Override
 	public void onModuleLoad() {
 
-		RootPanel.get("HeaderReport").add(new Menuleiste());
+		RootPanel.get("header-topreport").add(new MenuleisteReport());
 		
 		this.reportGenerator = ClientsideSettings.getReportGenerator();
 		this.loginService = ClientsideSettings.getLoginService();
@@ -180,25 +181,22 @@ public class ProjektmarktplatzReport implements EntryPoint{
 			private void loadReportGenerator(Person person){
 				
 				signOutLink.setHref(loginInfo.getLogoutUrl());
-		  		ReportShowcase showcase = new StartseiteReport();
-//		  		Menubar mb = new Menubar(person);
-//				signOutLink.setHref(loginInfo.getLogoutUrl());//
-//				mainPanel.add(addPanel);
-//				mainPanel.add(showcase);
-//				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
-//				RootPanel.get("login").add(signOutLink);
-//				RootPanel.get("Details").add(mainPanel);
-//				RootPanel.get("Navigator").add(mb);
-				RootPanel.get("HeaderReport").clear();
-				RootPanel.get("HeaderReport").add(new MenuleisteReportMitProjektmarktplatz());
+		  		ReportShowcase showcasereport = new StartseiteReport();
+		  		MenubarReport mbr = new MenubarReport(person);
+		  		signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		mainPanel.add(addPanel);
-		  		mainPanel.add(showcase);
-				MenubarReport navigationReport = new MenubarReport(person);
-				RootPanel.get("identityreport").add(new IdentitySelectionReport (person, navigationReport));
+		  		mainPanel.add(showcasereport);
+
+		  		IdentitySelectionReport isreport = new IdentitySelectionReport(person, mbr);
+		  		mbr.setIdSelectionReport(isreport);
+				RootPanel.get("header-topreport").clear();
+				RootPanel.get("header-topreport").add(new MenuleisteReportMitProjektmarktplatz());
+		  		
+				RootPanel.get("identityreport").add(mbr.getIdSelectionReport());
 //				RootPanel.get("HeaderReport").clear();
 				RootPanel.get("loginreport").add(signOutLink);
 				RootPanel.get("DetailsReport").add(mainPanel);
-			    RootPanel.get("NavigatorReport").add(navigationReport);
+			    RootPanel.get("NavigatorReport").add(mbr);
 				
 			    
 			    //TopPanel für Logout

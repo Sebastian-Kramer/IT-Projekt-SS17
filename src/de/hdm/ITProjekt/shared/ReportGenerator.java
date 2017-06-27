@@ -60,5 +60,9 @@ public interface ReportGenerator extends RemoteService {
 	public Vector<Organisationseinheit> getBewerberByAusschreibungen(Organisationseinheit o) throws IllegalArgumentException;
 
 	public Vector<Person> getAllPersonen() throws IllegalArgumentException;
+	
+	public Team getTeamByKey (int teamID) throws IllegalArgumentException;
+	
+	public Unternehmen getUnternehmenByKey (int unternehmenID) throws IllegalArgumentException;
 }
 
