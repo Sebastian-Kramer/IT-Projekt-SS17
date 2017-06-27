@@ -125,13 +125,13 @@ import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 	@Override
 	public Person findPersonByKey(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		return null;
+		return this.adminService.getPersonbyID(id);
 	}
 
 	@Override
 	public Team findTeamByKey(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
-		return null;
+		return this.adminService.getTeamByID(id);
 	}
 
 	@Override
