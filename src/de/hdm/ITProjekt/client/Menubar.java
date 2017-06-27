@@ -155,7 +155,7 @@ public class Menubar extends StackPanel {
 		
 		meineBewerbungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new MeineBewerbungenSeite(person);
+				Showcase showcase = new MeineBewerbungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -165,7 +165,7 @@ public class Menubar extends StackPanel {
 		
 		stellenausschreibungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new StellenausschreibungenSeite(person);
+				Showcase showcase = new StellenausschreibungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -234,9 +234,9 @@ public class Menubar extends StackPanel {
 	}
 
 
-	public Button getProjektmarktplaetzeButton() {
-		return projektmarktplaetzeButton;
-	}
+//	public Button getProjektmarktplaetzeButton() {
+//		return projektmarktplaetzeButton;
+//	}
 
 
 	public IdentitySelection getIdSelection() {

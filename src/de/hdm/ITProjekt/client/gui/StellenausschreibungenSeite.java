@@ -20,6 +20,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -55,14 +56,16 @@ public class StellenausschreibungenSeite extends Showcase {
 	
 	private Ausschreibung a1 = new Ausschreibung();
 	private Person p1 = new Person();
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 
-	
 	public StellenausschreibungenSeite(){
 		
 	}
 
-	public StellenausschreibungenSeite(Person person) {
-		this.p1= person;
+	public StellenausschreibungenSeite(IdentitySelection is, Menubar menubar) {
+		this.is = is;
+		this.menubar = menubar;
 	}
 
 	@Override
@@ -146,7 +149,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 			    }
 				 adminService.getPersonbyID(1, new getPersonByID());
 				a1 = ssm.getSelectedObject();
-				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, p1);
+				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, menubar);
 				int left = Window.getClientHeight() / 3;
 				int top = Window.getClientWidth() / 3;
 				dialogBox.setPopupPosition(left, top);

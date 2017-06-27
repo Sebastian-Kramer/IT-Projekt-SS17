@@ -45,8 +45,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 private VerticalPanel vorpanel = new VerticalPanel();
 	 private Label gotogooglelabel = new Label("Sie haben noch kein Google Account?");
 	 private Label loginLabel = new Label("Bitte melden Sie sich mit Ihrem Google-Account an.");
-	 private Anchor signInLink = new Anchor ("Sign In");
-	 private Anchor signOutLink = new Anchor ("Sign Out");
+	 private Anchor signInLink = new Anchor ("Einloggen");
+	 private Anchor signOutLink = new Anchor ("Ausloggen");
 	 private Anchor goToGoogle = new Anchor ("Go to Google Sign In");
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
@@ -74,7 +74,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 		  
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
-		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
+		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{
 			  public void onFailure(Throwable Error) {
 				  Window.alert("Fehler Login" + Error.toString());
 				  
@@ -140,9 +140,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				signOutLink.setHref(loginInfo.getLogoutUrl());//
 				mainPanel.add(addPanel);
 				mainPanel.add(showcase);
+				IdentitySelection is = new IdentitySelection(person, mb);
+				mb.setIdSelection(is);
 				RootPanel.get("header-top").clear();
 				RootPanel.get("header-top").add(new MenuleisteMitReportGenerator());
-				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+				RootPanel.get("idendity").add(mb.getIdSelection());
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);
 				RootPanel.get("Navigator").add(mb);
