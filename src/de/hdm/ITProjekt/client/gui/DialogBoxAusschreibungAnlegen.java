@@ -48,15 +48,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private ListBox auswahlEigenschaften = new ListBox();
 	private ListBox wertEigenschaften = new ListBox();
 	
-	private Button hinzufuegen = new Button("Eigenschaft hinzufügen");
-	private Button speichern = new Button("Speichern");
-	private Button abbrechen = new Button("Abbrechen");
-	
 	private Label ablauffristLabel = new Label("Bewerbungfrist: ");
 	private Label bez = new Label("Name der Stellenausschreibung: ");
 	private Label text = new Label("Informationen zur Ausschreibung: ");
-	private Label auswahlLabel = new Label("Eigenschaften:");
-	private Label wertLabel = new Label("Kenntnisstand:");
 	
 	private DateBox ablaufDatum = new DateBox();
 	
@@ -154,6 +148,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					
 				}
 				else{
+					Window.alert(" " + ausschreibung_dialog.getOrga_ID());
+					Window.alert(person1.getName());
+					Window.alert(projekt1.getName());
 					DialogBoxPartnerprofilAnlegen profilbox = new DialogBoxPartnerprofilAnlegen(ausschreibung_dialog,person1,projekt1);
 					DialogBoxAusschreibungAnlegen.this.hide();
 					profilbox.center();

@@ -65,6 +65,7 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 		this.ausschreibung = ausschreibung;
 		this.person = person;
 		this.projekt = projekt;
+		
 		setText("Partnerprofil zu Ausschreibung hinzufügen");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -78,12 +79,6 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 		hp.add(abbrechen);
 		this.add(hp);
 	
-	 
-	
-		
-		
-		
-		
 		
 		hinzufuegen.addClickHandler(new ClickHandler(){
 
@@ -91,8 +86,6 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 			public void onClick(ClickEvent event) {
 				DialogBoxEigenschaftHinzufuegen box = new DialogBoxEigenschaftHinzufuegen(ausschreibung, profil, person, projekt);
 				box.center();
-				
-				
 				
 			}
 			
@@ -127,6 +120,7 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 
 							@Override
 							public void onSuccess(Ausschreibung result) {
+								Window.alert("Die Ausschreibung und das dazugehörige Partnerprofil wurden erfolgreich angelegt");
 								Showcase showcase = new Projektseite(projekt, person);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);

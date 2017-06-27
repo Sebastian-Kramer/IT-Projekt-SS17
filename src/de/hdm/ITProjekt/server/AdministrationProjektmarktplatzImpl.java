@@ -722,5 +722,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.partnerprofilMapper.insert(pp1);
 	}
+	@Override
+	public Vector<Bewerbung> findByOrgaID(int Orga_ID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.bewMapper.findByPerson(Orga_ID);
+	}
 	
 }

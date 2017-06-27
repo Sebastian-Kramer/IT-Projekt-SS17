@@ -177,6 +177,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException;
 
 	public Bewerbung insert(Bewerbung a) throws IllegalArgumentException;
+	
+	public Vector<Bewerbung> findByOrgaID (int Orga_ID) throws IllegalArgumentException;
 
 	public Beteiligung insert(Beteiligung b) throws IllegalArgumentException;
 	

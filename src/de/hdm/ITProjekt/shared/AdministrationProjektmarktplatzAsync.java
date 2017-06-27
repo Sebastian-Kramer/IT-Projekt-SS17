@@ -203,6 +203,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void addPartnerprofil(Partnerprofil pp1, AsyncCallback<Partnerprofil> callback);
 
+	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
+
 	
 
 }
