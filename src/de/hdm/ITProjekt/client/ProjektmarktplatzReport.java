@@ -72,7 +72,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //			LoginServiceAsync loginService = GWT.create(LoginService.class);	
 
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/reportgenerator/reportgenerator");
-			loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>() {
+			loginService.login(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 //			loginService.login("http://127.0.0.1:8888/ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 				
 				@Override
