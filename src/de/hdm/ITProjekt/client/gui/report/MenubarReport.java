@@ -40,11 +40,11 @@ public class MenubarReport extends StackPanel{
 	private Button alleBewerbungenByPerson = new Button("Eigene Bewerbungen");
 	private Button alleAusschreibungen = new Button("Alle Ausschreibungen");
 	private Button alleAusschreibungenzupartnerprofil = new Button("Ausschreibungen zu Partnerprofil");
-	private Button alleeingegangenebewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
+	private Button alleeigenenbewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
 	private Button faninfanoutanalyse = new Button ("Fan in/Fan out Analyse");
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
 	
-	IdentitySelection is = null;
+	private IdentitySelectionReport is = null;
 			
 	public MenubarReport(final Person person){
 		
@@ -60,7 +60,7 @@ public class MenubarReport extends StackPanel{
 		alleAusschreibungenzupartnerprofil.setWidth("200px");
 		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");	
 		
-		homePanel.add(alleeingegangenebewerbungen);
+		homePanel.add(alleeigenenbewerbungen);
 		alleBewerbungenByPerson.setWidth("200px");
 		alleBewerbungenByPerson.setStylePrimaryName("navi-button");
 		
@@ -105,17 +105,19 @@ public class MenubarReport extends StackPanel{
 		
 		alleAusschreibungenzupartnerprofil.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
-				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
-				currentClickHandler=this;
-				currentClickEvent=event;
+//				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
+//				RootPanel.get("DetailsReport").clear();
+//				RootPanel.get("DetailsReport").add(reportShowcase);
+//				currentClickHandler=this;
+//				currentClickEvent=event;
 			}
 		});
 
-		alleeingegangenebewerbungen.addClickHandler(new ClickHandler(){
+		alleeigenenbewerbungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				
+				ReportShowcase reportShowcase = new AllBewerbungenByAusschreibungShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}
@@ -128,7 +130,8 @@ public class MenubarReport extends StackPanel{
 				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
-				
+			}
+			});
 					
 			projektverflechtungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
@@ -147,21 +150,20 @@ public class MenubarReport extends StackPanel{
 		
 	}
 
-	public IdentitySelection getIdSelection() {
+	
+	public void setIdSelection(IdentitySelectionReport idSelection) {
+		this.is = idSelection;
+	}
+	public IdentitySelectionReport getIdSelection() {
 		return is;
 	}
-
 
 	public void reload(){
 		currentClickHandler.onClick(currentClickEvent);
 	}
 	
-			});
-//	public Menubar getMenubar(){
-//		return this;
-//	}
+	public MenubarReport getMenubarReport(){
+		return this;
+	}
 	
-	
-
-};
 	}
