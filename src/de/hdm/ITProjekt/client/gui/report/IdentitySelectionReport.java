@@ -11,8 +11,9 @@ import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
-import de.hdm.ITProjekt.shared.ReportGenerator;
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
@@ -21,41 +22,35 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class IdentitySelectionReport extends FlexTable{
 
-	private static IdentitySelectionReport navigation=null;
+	private static IdentitySelection navigation=null;
 	
 	private ListBox orgEinheit = new ListBox();
 	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
-
-	private static ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
-
-	private static Person person;
 	
-	public static void setPersonReport(Person person) {
-		IdentitySelectionReport.person = person;
-	}
+	private AdministrationProjektmarktplatzAsync adminService;
+	private ReportGeneratorAsync reportGenerator;
 	
 	// Zum Speichern von Informationen über die Identität
 	
+	private static Person person;
 	private static Team team;
 	private static Unternehmen unternehmen;
 	private MenubarReport menubarReport;
 	
-	public IdentitySelectionReport (Person person, final MenubarReport menubarReport){
+	public IdentitySelectionReport (final Person person, final MenubarReport menubarReport){
 	this.menubarReport=menubarReport;
-		
 	this.setWidget(1, 0, new Label("Nutze Identität von: "));
 	this.setWidget(1, 1, orgEinheit);
 	this.setStylePrimaryName("IdentityPanel");
 	
-	
+	this.reportGenerator = ClientsideSettings.getReportGenerator();
+	this.adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 	cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
-	orgEinheit.setWidth("250px");
-	((ServiceDefTarget)reportGenerator).setServiceEntryPoint("/reportgenerator/reportgenerator");
-
-	reportGenerator.findPersonByKey(1, new getUserReport());
+	orgEinheit.setWidth("200px");
+	reportGenerator.findPersonByKey(person.getID(), new getUserReport());
 	orgEinheit.addChangeHandler(new ChangeHandler() {
 
 		@Override
@@ -65,10 +60,8 @@ public class IdentitySelectionReport extends FlexTable{
 		}
 
 	});
-}
-
-
-public int getSelectedIndexReport(){
+	
+}public int getSelectedIndexReport(){
 	
 	int selectedID = orgEinheit.getSelectedIndex();
 	
@@ -114,7 +107,6 @@ public Organisationseinheit getSelectedIdentityAsObjectReport(){
 	}
 	return null;
 }
-
 public Person getUserReport(){
 	return person;
 }
@@ -135,9 +127,17 @@ public void deactivateOrgUnitsReport(){
 	orgEinheit.setEnabled(false);
 }
 
+//public void deactivateProjectMarkets(){
+//	Listbox2.setEnabled(false);
+//}
+
 public void activateOrgUnitsReport(){
 	orgEinheit.setEnabled(true);
 }
+
+//public void activateProjectMarkets(){
+//	Listbox2.setEnabled(true);
+//}
 
 public void setOwnOrgUnitToZeroReport(){
 	orgEinheit.setSelectedIndex(0);
@@ -151,10 +151,6 @@ public void reinitializeReport(){
 private IdentitySelectionReport getThis(){
 	return this;
 }
-
-
-	
-
 	private class getUserReport implements AsyncCallback<Person>{
 
 		@Override
@@ -166,60 +162,57 @@ private IdentitySelectionReport getThis(){
 
 		@Override
 		public void onSuccess(Person result) {
-			Window.alert(" hhaaaallooo " + result.getID());
-				orgEinheit.clear();
-//				Listbox2.clear();
-				person = result;
-				Integer personID = result.getID();
-				orgEinheit.addItem("Person: " + result.getVorname() + " " +
-													result.getName() , personID.toString());
-				
-				if (person.getTeam_ID() !=null) {
-					reportGenerator.getTeamByKey(result.getTeam_ID(), new getTeamReport());
-				}else if (person.getUN_ID() != null){
-					reportGenerator.getUnternehmenByKey(result.getUN_ID(), new getUnternehmenReport());
-				}
-//				adminService.getMarktplatzByPerson(result, new getProjektmarktplatz());
-				
-			}
+			orgEinheit.clear();
+//		Listbox2.clear();
+		person = result;
+		Integer personID = result.getID();
+		orgEinheit.addItem("Person: " + result.getVorname() + " " +
+											result.getName() , personID.toString());
 		
+		if (person.getTeam_ID() !=null) {
+			reportGenerator.getTeamByKey(result.getTeam_ID(), new getTeamReport());
+		}else if (person.getUN_ID() != null){
+			reportGenerator.getUnternehmenByKey(result.getUN_ID(), new getUnternehmenReport());
 		}
-		
-		private class getTeamReport implements AsyncCallback<Team>{
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Das Team der Person konnte nicht geladen werden");		
-			}
-
-			@Override
-			public void onSuccess(Team result) {
-				
-				Integer TeamID=result.getID();
-				orgEinheit.addItem("Team: "+result.getName(),TeamID.toString());	
-				team=result;
-				if(person.getUN_ID()!=null){
-					
-					reportGenerator.getUnternehmenByKey(person.getUN_ID(), new getUnternehmenReport());
-				}
-				
-			}
 			
 		}
 		
-		private class getUnternehmenReport implements AsyncCallback<Unternehmen>{
+	}
+	private class getTeamReport implements AsyncCallback<Team>{
 
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Das Unternehmen der Person konnte nicht geladen werden");			
-			}
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Das Team der Person konnte nicht geladen werden");		
+		}
 
-			@Override
-			public void onSuccess(Unternehmen result) {
-				Integer UnternehmenID=result.getID();
-				orgEinheit.addItem("Unternehmen: "+result.getName(),UnternehmenID.toString());
-				unternehmen=result;
-				}
+		@Override
+		public void onSuccess(Team result) {
+			
+			Integer TeamID=result.getID();
+			orgEinheit.addItem("Team: "+result.getName(),TeamID.toString());	
+			team=result;
+			if(person.getUN_ID()!=null){
 				
+				reportGenerator.getUnternehmenByKey(person.getUN_ID(), new getUnternehmenReport());
 			}
+			
+		}
+}
+	private class getUnternehmenReport implements AsyncCallback<Unternehmen>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Unternehmen result) {
+			Integer UnternehmenID=result.getID();
+			orgEinheit.addItem("Unternehmen: "+result.getName(),UnternehmenID.toString());
+			unternehmen=result;
+			}
+			
+		
+	}
 }
