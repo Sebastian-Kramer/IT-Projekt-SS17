@@ -6,7 +6,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
-public class AGB extends ReportShowcase{
+public class AGBReport extends ReportShowcase{
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	

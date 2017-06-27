@@ -140,6 +140,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				signOutLink.setHref(loginInfo.getLogoutUrl());//
 				mainPanel.add(addPanel);
 				mainPanel.add(showcase);
+				RootPanel.get("header-top").clear();
+				RootPanel.get("header-top").add(new MenuleisteMitReportGenerator());
 				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);

@@ -4,7 +4,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.ITProjekt.client.ReportShowcase;
 
-public class Impressum extends ReportShowcase{
+public class ImpressumReport extends ReportShowcase{
 
 	@Override
 	protected String getHeadlineText() {

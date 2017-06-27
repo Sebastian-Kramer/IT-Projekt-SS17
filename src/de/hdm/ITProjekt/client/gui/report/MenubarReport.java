@@ -41,8 +41,6 @@ public class MenubarReport extends StackPanel{
 	private Button alleeingegangenebewerbungen = new Button("Bewerbungen auf eigene Ausschreibungen");
 	private Button faninfanoutanalyse = new Button ("Fan in/Fan out Analyse");
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
-	private Button zuprojektmarktplatz = new Button("Projektmarktplatz Seite");
-	private Anchor projektmarktplatzanchor = new Anchor("Projektmarktplatz");
 	
 	IdentitySelection is = null;
 			
@@ -72,10 +70,6 @@ public class MenubarReport extends StackPanel{
 		alleAusschreibungenzupartnerprofil.setWidth("200px");
 		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");
 
-		homePanel.add(zuprojektmarktplatz);
-		zuprojektmarktplatz.setWidth("200px");
-		zuprojektmarktplatz.setStylePrimaryName("navi-button");
-		
 		homePanel.setSpacing(10);
 		homePanel.setWidth("100%");
 		
@@ -83,15 +77,6 @@ public class MenubarReport extends StackPanel{
 		this.setWidth("230px");
 		this.addStyleName("gwt-StackPanel");
 		this.add(homePanel, "Report Generator");
-
-		zuprojektmarktplatz.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				projektmarktplatzanchor.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
-				Window.open(projektmarktplatzanchor.getHref(), "_self", "");
-			}
-		});
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {

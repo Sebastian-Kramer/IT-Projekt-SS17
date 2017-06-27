@@ -25,7 +25,7 @@ public class MenuleisteReport extends HorizontalPanel{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					ReportShowcase showcase = new AGB();
+					ReportShowcase showcase = new AGBReport();
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 					currentClickHandler=this;
@@ -38,7 +38,7 @@ public class MenuleisteReport extends HorizontalPanel{
 				@Override
 			public void onClick(ClickEvent event) {
 
-				ReportShowcase showcase = new Impressum();
+				ReportShowcase showcase = new ImpressumReport();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;

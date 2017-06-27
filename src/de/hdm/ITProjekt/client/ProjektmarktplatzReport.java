@@ -22,6 +22,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.report.MenubarReport;
+import de.hdm.ITProjekt.client.gui.report.MenuleisteReportMitProjektmarktplatz;
 import de.hdm.ITProjekt.client.gui.report.StartseiteReport;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -36,7 +37,7 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class ProjektmarktplatzReport implements EntryPoint{
 	
-	 private LogInInfo oooo = null;
+	 private LogInInfo loginInfo = null;
 	 private VerticalPanel loginPanel = new VerticalPanel();
 	 private HorizontalPanel horvorpanel = new HorizontalPanel();
 	 private VerticalPanel verpanel = new VerticalPanel();
@@ -82,8 +83,8 @@ public class ProjektmarktplatzReport implements EntryPoint{
 				
 				@Override
 				public void onSuccess(LogInInfo result) {
-					oooo = result;
-					if(oooo.isLoggedIn()){
+					loginInfo = result;
+					if(loginInfo.isLoggedIn()){
 						/**
 						 * @return Vector mit allen Personen
 						 */
@@ -105,7 +106,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 									/**
 									 * Prüfen ob User bereits eingeloggt ist
 									 */
-									if(person.getEmail()==oooo.getEmailAddress()){
+									if(person.getEmail()==loginInfo.getEmailAddress()){
 										isUserRegistered = true;
 										/**
 										 * Falls User bereits eingeloggt ist wird der loadReportGenerator aufgerufen 
@@ -144,7 +145,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 				loginPanel.add(loginButton);
 				loginPanel.add(goToGoogle);
 				goToGoogle.setHref("https://accounts.google.com/SignUp?hl=de");
-				signInLink.setHref(oooo.getLoginUrl());
+				signInLink.setHref(loginInfo.getLoginUrl());
 				goToGoogle.setStylePrimaryName("googlesignin");
 				
 				verpanel.add(gotogooglelabel);
@@ -177,7 +178,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 			 */
 			private void loadReportGenerator(Person person){
 				
-				signOutLink.setHref(oooo.getLogoutUrl());
+				signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		ReportShowcase showcase = new StartseiteReport();
 //		  		Menubar mb = new Menubar(person);
 //				signOutLink.setHref(loginInfo.getLogoutUrl());//
@@ -187,7 +188,9 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //				RootPanel.get("login").add(signOutLink);
 //				RootPanel.get("Details").add(mainPanel);
 //				RootPanel.get("Navigator").add(mb);
-				
+
+				RootPanel.get("HeaderReport").clear();
+				RootPanel.get("HeaderReport").add(new MenuleisteReportMitProjektmarktplatz());
 				MenubarReport navigationReport = new MenubarReport(person);
 //				RootPanel.get("HeaderReport").clear();
 				RootPanel.get("HeaderReport").add(Logout);
@@ -263,7 +266,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 
 					@Override
 					protected void run() {
-						emailBox.setText(oooo.getEmailAddress());
+						emailBox.setText(loginInfo.getEmailAddress());
 						emailBox.setReadOnly(true);
 						plzBox.setMaxLength(5);
 						

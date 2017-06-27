@@ -37,10 +37,8 @@ public class Menubar extends StackPanel {
 	private VerticalPanel homePanel = new VerticalPanel();
 //	VerticalPanel projektPanel = new VerticalPanel();
 	private VerticalPanel projektmarktplatzPanel = new VerticalPanel();
-	private VerticalPanel reportgeneratorPanel = new VerticalPanel();
 	
 
-	private Anchor reportLink = new Anchor();
 	
 	
 	
@@ -101,10 +99,6 @@ public class Menubar extends StackPanel {
 		projektmarktplatzPanel.setSpacing(5);
 		projektmarktplatzPanel.setWidth("100%");
 		
-		reportgeneratorPanel.add(reportgeneratorButton);
-		reportgeneratorButton.setWidth("200px");
-		reportgeneratorButton.setStylePrimaryName("navi-button");
-		reportgeneratorPanel.setSpacing(5);
 		// Zusammensetzen des projektseitePanels
 		
 //		projektseitePanel.add(blablaButton);
@@ -117,7 +111,6 @@ public class Menubar extends StackPanel {
 		this.addStyleName("gwt-StackPanel");
 		this.add(homePanel, "Eigene Seite");
 		this.add(projektmarktplatzPanel, "Marktplatz");
-		this.add(reportgeneratorPanel, "Report Generator");
 		
 		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
 		
@@ -136,14 +129,6 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
-		reportgeneratorButton.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				reportLink.setHref(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html");
-				Window.open(reportLink.getHref(), "_self", "");
-			}
-		});
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
