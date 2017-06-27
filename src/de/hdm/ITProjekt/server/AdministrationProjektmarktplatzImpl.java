@@ -692,5 +692,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.beteilMapper.update(c);
 	}
+	@Override
+	public Vector<Beteiligung> getAllBeteiligungen() throws IllegalArgumentException {
+		
+		return this.beteilMapper.getAll();
+	}
+	@Override
+	public Vector<Projekt> getProjektByOrgaID(Integer id) throws IllegalArgumentException {
+		
+		return this.pMapper.getProjektById(id);
+	}
+	@Override
+	public Vector<Person> getPersonByID(Integer id) throws IllegalArgumentException {
+		
+		return this.personMapper.getPersonByID(id);
+	}
 	
 }

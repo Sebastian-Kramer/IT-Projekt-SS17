@@ -38,6 +38,8 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
+
 
 public class Projektseite extends Showcase{
 
@@ -58,8 +60,10 @@ public class Projektseite extends Showcase{
 	
 	VerticalPanel vp_projekt = new VerticalPanel();
 	HorizontalPanel hp_projekt = new HorizontalPanel();
+	VerticalPanel vp_projekt2 = new VerticalPanel();
 	
 	CellTable<Ausschreibung> ct_projektausschreibungen = new CellTable<Ausschreibung>();
+	CellTable<Person> ct_teilnehmer = new CellTable<Person>();
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	
@@ -85,7 +89,7 @@ public class Projektseite extends Showcase{
 	
 	@Override
 	protected String getHeadlineText() {
-		return selectedProjekt.getName();
+		return "<h2>" + selectedProjekt.getName() +  "</h2>";
 	}
 
 	@Override
@@ -132,6 +136,7 @@ public class Projektseite extends Showcase{
 		
 		RootPanel.get("Details").setWidth("100%");
 		ct_projektausschreibungen.setWidth("100%");
+		ct_teilnehmer.setWidth("100%");
 		
 		createStelle.setStylePrimaryName("myprofil-button");
 		detailsButton.setStylePrimaryName("myprofil-button");
@@ -141,7 +146,13 @@ public class Projektseite extends Showcase{
 		vp_projekt.add(ct_projektausschreibungen);
 		this.add(hpanelnavigator);
 		this.add(hp_projekt);
+		this.append("<br><h3>Die offenen Stellen des Projekts</h3></br>");
 		this.add(vp_projekt);
+		
+		vp_projekt2.add(ct_teilnehmer);
+		this.append("<br><h3>Die Teilnehmer des Projekts</h3></br>");
+		this.add(vp_projekt2);
+		
 		
 		hp_projekt.add(detailsButton);
 		if(person.getID()== selectedProjekt.getProjektleiter_ID()){
@@ -267,12 +278,35 @@ public class Projektseite extends Showcase{
 	
 	ct_projektausschreibungen.addColumn(bezeichnung, "Stellenbezeichnung");
 	ct_projektausschreibungen.addColumn(ablauffrist, "Ablauffrist");
+	
+	
+	Column<Person, String> name =
+			new Column<Person, String>(new ClickableTextCell()){
 
-	
-	
+				@Override
+				public String getValue(Person object) {
+					
+					return object.getVorname() + " " + object.getName();
+				}
+				
+			};
+			
+			Column<Person, String> email = 
+					new Column<Person, String>(new ClickableTextCell()){
+
+						@Override
+						public String getValue(Person object) {
+							// TODO Auto-generated method stub
+							return object.getEmail();
+						}
+				
+			};
+			
+			ct_teilnehmer.addColumn(name, "Name");
+			ct_teilnehmer.addColumn(email, "E-Mail");
 	
 	filltableauschreibungen();
-//	refreshList();
+	filltableteilnehmer();
 	
 	}
 
@@ -346,7 +380,7 @@ public class Projektseite extends Showcase{
 		public void onSuccess(Vector<Ausschreibung> result) {
 			ct_projektausschreibungen.setRowData(0, result);
 			ct_projektausschreibungen.setRowCount(result.size(), true);
-			Window.alert("Alle Auschreibungen für diese Projekt wurden geladen");
+//			Window.alert("Alle Auschreibungen für diese Projekt wurden geladen");
 			
 		}
 		
@@ -368,4 +402,46 @@ public class Projektseite extends Showcase{
 //		
 //	}
 
+	
+	private void filltableteilnehmer(){
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }
+		 adminService.getAllBeteiligungen(new AsyncCallback<Vector<Beteiligung>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Beteiligung> result) {
+				for(Beteiligung b : result){
+					if(b.getProjekt_ID()==selectedProjekt.getID()){
+						adminService.getPersonByID(b.getOrga_ID(), new AsyncCallback<Vector<Person>>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("das war nix");
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Person> result) {
+								Window.alert("funktioniert");
+								ct_teilnehmer.setRowData(0, result);
+								ct_teilnehmer.setRowCount(result.size(), true);
+								
+							}
+							
+						});
+					}
+				}
+				
+			}
+			 
+		 });
+	}
 }

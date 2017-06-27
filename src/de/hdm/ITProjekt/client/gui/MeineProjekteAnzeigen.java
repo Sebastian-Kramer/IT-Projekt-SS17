@@ -26,6 +26,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
@@ -40,6 +41,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
 	VerticalPanel vpanel_projekte = new VerticalPanel();
+	VerticalPanel vpanel_projekte2 = new VerticalPanel();
 	
 	Button projektmarktplatz = new Button("Projekte Suchen");
 	Button delete_projekt = new Button("Projekt Löschen");
@@ -72,11 +74,16 @@ public class MeineProjekteAnzeigen extends Showcase{
 		hpanel_projekte.add(delete_projekt);
 		hpanel_projekte.add(projektmarktplatz);
 		hpanel_projekte.add(show_projekt);
-		
-		vpanel_projekte.add(ct_meineProjekte);
-		vpanel_projekte.add(ct_verwProjekte);
 		this.add(hpanel_projekte);
+		
+		this.append("<br><h3>Meine Projekte als Teilnehmer</h3></br>");
+		vpanel_projekte.add(ct_meineProjekte);
 		this.add(vpanel_projekte);
+		
+		this.append(" ");
+		this.append("<br><h3>Meine Projekte als Projektleiter</h3></br>");
+		vpanel_projekte2.add(ct_verwProjekte);
+		this.add(vpanel_projekte2);
 		
 		projektmarktplatz.addClickHandler(new ClickHandler() {
 			
@@ -88,17 +95,17 @@ public class MeineProjekteAnzeigen extends Showcase{
 			}
 		});
 		
-		delete_projekt.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 if (adminService == null) {
-			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-			    }
-				 adminService.deleteTeilnahme(person, ssm_meineprojekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
-			}
-		});
+//		delete_projekt.addClickHandler(new ClickHandler() {
+//			
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//				 if (adminService == null) {
+//			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+//			    }
+//				 adminService.deleteTeilnahme(person, ssm_meineprojekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
+//			}
+//		});
 		
 		show_projekt.addClickHandler(new ClickHandler(){
 
@@ -107,7 +114,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 				Showcase showcase = new Projektseite(ssm_meineprojekt.getSelectedObject(), person);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
-				Window.alert(" " +ssm_meineprojekt.getSelectedObject().getProjektleiter_ID());
 				
 			}
 			
@@ -174,12 +180,14 @@ public class MeineProjekteAnzeigen extends Showcase{
 							}
 					   
 				   };
-		ct_meineProjekte.addColumn(meineProjekte);
+//		ct_meineProjekte.addColumn(meineProjekte);
+
 		ct_meineProjekte.addColumn(projektname, "Projektname");		    
 		ct_meineProjekte.addColumn(startdatum, "Startdatum");	
 		ct_meineProjekte.addColumn(enddatum, "Enddatum");	
 		ct_meineProjekte.addColumn(beschreibung, "Beschreibung");
 		filltableMeineProjekte();
+	
 		ct_verwProjekte.addColumn(projektname, "Projektname");
 		ct_verwProjekte.addColumn(startdatum, "Startdatum");
 		ct_verwProjekte.addColumn(enddatum, "Enddatum");
@@ -218,25 +226,64 @@ public class MeineProjekteAnzeigen extends Showcase{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		adminService.getAllProjekteByTeilnahme(person, new getProjekteByTeilnahme());
-	}	
-	
-	private class deleteTeilnehmerEinesProjekts implements AsyncCallback<Void>{
+		 
+		adminService.getAllBeteiligungen(new AsyncCallback<Vector<Beteiligung>>(){
 
-		@Override
-		public void onFailure(Throwable caught) {
-			Window.alert("Löschen fehlgeschlagen");
-		}
+			@Override
+			public void onFailure(Throwable caught) {
+				Window.alert(caught.getMessage());
+			}
 
-		@Override
-		public void onSuccess(Void result) {
-			Window.alert("Löschen erfolgreich");
-			Showcase showcase = new MeineProjekteAnzeigen(person);
-			RootPanel.get("Details").clear();
-			RootPanel.get("Details").add(showcase);
+			@Override
+			public void onSuccess(Vector<Beteiligung> result) {
+				for(Beteiligung b : result){
+					if(b.getOrga_ID()==person.getID()){
+						adminService.getProjektByOrgaID(b.getProjekt_ID(), new AsyncCallback<Vector<Projekt>>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Projekt> result) {
+								
+								ct_meineProjekte.setRowData(0, result);
+								ct_meineProjekte.setRowCount(result.size(), true);
+								
+							}
+							
+						});
+							
+						
+							
+					
+					}
+				}
+				
+			}
 			
-		}
-		
+		});
+//		adminService.getAllProjekteByTeilnahme(person, new getProjekteByTeilnahme());
+//	}	
+//	
+//	private class deleteTeilnehmerEinesProjekts implements AsyncCallback<Void>{
+//
+//		@Override
+//		public void onFailure(Throwable caught) {
+//			Window.alert("Löschen fehlgeschlagen");
+//		}
+//
+//		@Override
+//		public void onSuccess(Void result) {
+//			Window.alert("Löschen erfolgreich");
+//			Showcase showcase = new MeineProjekteAnzeigen(person);
+//			RootPanel.get("Details").clear();
+//			RootPanel.get("Details").add(showcase);
+//			
+//		}
+//		
 	}
 	
 	private class getProjekteByTeilnahme implements AsyncCallback <Vector<Projekt>>{
