@@ -160,9 +160,7 @@ public class Projekte extends Showcase {
 					 Showcase showcase = new Projektseite(projekt, person, selectedProjektmarktplatz);
 					 RootPanel.get("Details").clear();
 					 RootPanel.get("Details").add(showcase);
-					 Window.alert(" " + projekt.getProjektleiter_ID());
-					 Window.alert(person.getName());
-					 Window.alert(projekt.getName());
+					 
 					 
 				}
 				
@@ -617,26 +615,26 @@ public class Projekte extends Showcase {
 			  			return object.getEnddatum().toString();
 		  			}
 		  };
-		  Column<Projekt, String> projektleiter = 
-				    new Column<Projekt, String>(new ClickableTextCell())  {
-								    
-			  			@Override
-			  			public String getValue(Projekt object) {
-			  			// TODO Auto-generated method stub
-											
-			  			return object.getProjektleiter_ID().toString();
-		  			}
-		  };
-		  Column<Projekt, String> markt = 
-				    new Column<Projekt, String>(new ClickableTextCell())  {
-								    
-			  			@Override
-			  			public String getValue(Projekt object) {
-			  			// TODO Auto-generated method stub
-											
-			  			return object.getProjektmarktplatz_ID().toString();
-		  			}
-		  };
+//		  Column<Projekt, String> projektleiter = 
+//				    new Column<Projekt, String>(new ClickableTextCell())  {
+//								    
+//			  			@Override
+//			  			public String getValue(Projekt object) {
+//			  			// TODO Auto-generated method stub
+//											
+//			  			return object.getProjektleiter_ID().toString();
+//		  			}
+//		  };
+//		  Column<Projekt, String> markt = 
+//				    new Column<Projekt, String>(new ClickableTextCell())  {
+//								    
+//			  			@Override
+//			  			public String getValue(Projekt object) {
+//			  			// TODO Auto-generated method stub
+//											
+//			  			return object.getProjektmarktplatz_ID().toString();
+//		  			}
+//		  };
 		  
 		  //Erstellen der Buttonspalte um Details öffnen zu können
 		  Column<Projekt,String> buttonCell =
@@ -679,8 +677,8 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
-		ct_alleProjekte.addColumn(projektleiter, "projektleiter");
-		ct_alleProjekte.addColumn(markt);
+//		ct_alleProjekte.addColumn(projektleiter, "projektleiter");
+//		ct_alleProjekte.addColumn(markt);
 		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");
 
 		

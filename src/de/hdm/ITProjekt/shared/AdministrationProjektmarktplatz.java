@@ -45,7 +45,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void deleteProjekt(Projekt a)throws IllegalArgumentException;
 	
-	public Projekt getProjektByID(int id) throws IllegalArgumentException;
+	Projekt getProjektByID(int id);
 	
 	public Person getPersonbyID(int id)throws IllegalArgumentException;
 	
@@ -119,6 +119,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public void deletePerson(Person p) throws IllegalArgumentException;
 	
+	public Vector<Person> getPersonByID(Integer id) throws IllegalArgumentException;
+	
 	//Methoden von Partnerprofil
 
 	
@@ -191,5 +193,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void delete(Beteiligung a) throws IllegalArgumentException;
 	
 	public Beteiligung updateBeteiligung(Beteiligung c) throws IllegalArgumentException;
+	
+	public Vector<Beteiligung> getAllBeteiligungen() throws IllegalArgumentException;
+	
+	public Vector<Projekt> getProjektByOrgaID(Integer id) throws IllegalArgumentException;
 
 	}

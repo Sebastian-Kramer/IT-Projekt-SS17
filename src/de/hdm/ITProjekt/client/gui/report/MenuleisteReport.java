@@ -12,16 +12,16 @@ public class MenuleisteReport extends HorizontalPanel{
 		private static ClickHandler currentClickHandler = null;
 		private static ClickEvent currentClickEvent = null;
 		
-		private Anchor agbAnchor = new Anchor("AGB");
-		private Anchor impressumAnchor = new Anchor("Impressum");
+		private Anchor agbReportAnchor = new Anchor("AGB");
+		private Anchor impressumReportAnchor = new Anchor("Impressum");
 		
 		 
 		public MenuleisteReport(){
 			
-			this.add(agbAnchor);
-			this.add(impressumAnchor);
+			this.add(agbReportAnchor);
+			this.add(impressumReportAnchor);
 			
-			agbAnchor.addClickHandler(new ClickHandler() {
+			agbReportAnchor.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
@@ -34,7 +34,7 @@ public class MenuleisteReport extends HorizontalPanel{
 				}
 			});
 			
-			impressumAnchor.addClickHandler(new ClickHandler() {
+			impressumReportAnchor.addClickHandler(new ClickHandler() {
 				@Override
 			public void onClick(ClickEvent event) {
 
