@@ -707,5 +707,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.personMapper.getPersonByID(id);
 	}
+	@Override
+	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.getAll();
+	}
+	@Override
+	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.aMapper.getAll();
+	}
+	@Override
+	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.partnerprofilMapper.insert(pp1);
+	}
 	
 }

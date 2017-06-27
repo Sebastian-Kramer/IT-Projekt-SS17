@@ -86,6 +86,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Ausschreibung update(Ausschreibung c) throws IllegalArgumentException;
 	
 	public Vector<Ausschreibung> findByProjekt(Projekt projekt) throws IllegalArgumentException;
+	
+	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException;
 
 	
 /*
@@ -129,6 +131,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void deletePartnerprofil(Partnerprofil p) throws IllegalArgumentException;
 	
 	public Partnerprofil getPartnerprofilOfOrganisationseinheit (Organisationseinheit o) throws IllegalArgumentException;
+	
+	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException;
 	
 	// Methoden von Teilnahme
 	
@@ -197,5 +201,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Beteiligung> getAllBeteiligungen() throws IllegalArgumentException;
 	
 	public Vector<Projekt> getProjektByOrgaID(Integer id) throws IllegalArgumentException;
+	
+	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException;
 
 	}

@@ -16,6 +16,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.Label;
+import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.datepicker.client.DateBox;
@@ -25,6 +26,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
@@ -43,15 +45,26 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private TextArea ausschreibungstext = new TextArea();
 	private TextArea ausschreibungsbez = new TextArea();
 	
+	private ListBox auswahlEigenschaften = new ListBox();
+	private ListBox wertEigenschaften = new ListBox();
+	
+	private Button hinzufuegen = new Button("Eigenschaft hinzufügen");
+	private Button speichern = new Button("Speichern");
+	private Button abbrechen = new Button("Abbrechen");
+	
 	private Label ablauffristLabel = new Label("Bewerbungfrist: ");
 	private Label bez = new Label("Name der Stellenausschreibung: ");
 	private Label text = new Label("Informationen zur Ausschreibung: ");
+	private Label auswahlLabel = new Label("Eigenschaften:");
+	private Label wertLabel = new Label("Kenntnisstand:");
 	
 	private DateBox ablaufDatum = new DateBox();
 	
 	private FlexTable ausschreibungstextft = new FlexTable();
+	private FlexTable pe_form = new FlexTable();
 	
 	private Ausschreibung ausschreibung_dialog = new Ausschreibung();
+	private Eigenschaft eigenschaft = new Eigenschaft();
 	
 	private Person person1 = new Person();
 	private Projekt projekt1 = new Projekt();
@@ -64,6 +77,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 
 	
 	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final Person person){
+		this.projekt1 = projekt;
+		this.person1 = person;
+		
 		setText("Ausschreibung anlegen");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -83,9 +99,14 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		ausschreibungstextft.setWidget(2, 1, ausschreibungstext);
 		ausschreibungstextft.setWidget(3, 0, ablauffristLabel);
 		ausschreibungstextft.setWidget(3, 1, ablaufDatum);
+		
 		vp.add(ausschreibungstextft);
 		vp.add(hp);
+		
 		this.add(vp);
+		
+		
+		
 		
 		final DatePicker datepicker_datum = new DatePicker();
 		
@@ -112,6 +133,8 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			
 		});
 		
+	
+		
 		createAusschreibung.addClickHandler(new ClickHandler(){
 			
 
@@ -131,13 +154,12 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					
 				}
 				else{
-					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-					 
-					if (adminService == null) {
-					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-					 }
-					//adminService.addAusschreibung(ausschreibungstext.getText(), ausschreibungsbez.getText(), ablaufDatum.getValue(), new addAusschreibungInDB());
-					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB());
+					DialogBoxPartnerprofilAnlegen profilbox = new DialogBoxPartnerprofilAnlegen(ausschreibung_dialog,person1,projekt1);
+					DialogBoxAusschreibungAnlegen.this.hide();
+					profilbox.center();
+					
+					
+					
 					
 				}
 				

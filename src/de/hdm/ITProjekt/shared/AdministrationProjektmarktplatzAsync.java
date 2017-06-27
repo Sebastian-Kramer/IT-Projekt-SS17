@@ -197,6 +197,12 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPersonByID(Integer id, AsyncCallback<Vector<Person>> callback);
 
+	void getAllPartnerprofile(AsyncCallback<Vector<Partnerprofil>> callback);
+
+	void getAllAusschreibungen(AsyncCallback<Vector<Ausschreibung>> callback);
+
+	void addPartnerprofil(Partnerprofil pp1, AsyncCallback<Partnerprofil> callback);
+
 	
 
 }

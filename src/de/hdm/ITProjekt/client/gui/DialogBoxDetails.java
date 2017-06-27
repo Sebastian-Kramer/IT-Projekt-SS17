@@ -56,6 +56,8 @@ public class DialogBoxDetails extends DialogBox{
 
 	private FlexTable form = new FlexTable();
 	
+	
+	
 	private TextBox kontaktNameBox = new TextBox();
 	private TextBox emailBox = new TextBox();
 	
