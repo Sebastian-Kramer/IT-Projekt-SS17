@@ -16,6 +16,7 @@ import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
 import de.hdm.ITProjekt.shared.bo.*;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
 
@@ -28,11 +29,14 @@ public class DialogBoxAusschreibung extends DialogBox {
 	Button schliessen = new Button("schliessen");
 	Button bewerben = new Button("Auf Stelle bewerben");
 	
+	
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 	private TextArea ausschreibungstext = new TextArea();
 	private FlexTable ausschreibungstextft = new FlexTable();
 	
 	
-	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung, final Person person){
+	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung,final IdentitySelection is, final Menubar menubar){
 		setText(selectedAusschreibung.getBezeichnung());
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -65,7 +69,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 			@Override
 			public void onClick(ClickEvent event) {
 				DialogBoxAusschreibung.this.hide();
-				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, person);
+				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
 				DialogBoxBewerbungAnlegen.center();
 				
 			}
