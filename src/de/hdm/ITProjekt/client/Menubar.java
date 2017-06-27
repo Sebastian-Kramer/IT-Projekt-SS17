@@ -228,9 +228,9 @@ public class Menubar extends StackPanel {
 	}
 
 
-	public Button getProjektmarktplaetzeButton() {
-		return projektmarktplaetzeButton;
-	}
+//	public Button getProjektmarktplaetzeButton() {
+//		return projektmarktplaetzeButton;
+//	}
 
 
 	public IdentitySelection getIdSelection() {

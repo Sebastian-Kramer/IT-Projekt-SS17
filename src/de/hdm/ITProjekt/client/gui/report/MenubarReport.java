@@ -42,7 +42,7 @@ public class MenubarReport extends StackPanel{
 	private Button projektverflechtungen = new Button("Projektverflechtungen anzeigen");
 	
 	
-	IdentitySelection is = null;
+	private IdentitySelectionReport is = null;
 			
 	public MenubarReport(final Person person){
 		
@@ -104,11 +104,11 @@ public class MenubarReport extends StackPanel{
 		
 		alleAusschreibungenzupartnerprofil.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
-				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
-				currentClickHandler=this;
-				currentClickEvent=event;
+//				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
+//				RootPanel.get("DetailsReport").clear();
+//				RootPanel.get("DetailsReport").add(reportShowcase);
+//				currentClickHandler=this;
+//				currentClickEvent=event;
 			}
 		});
 
@@ -129,7 +129,8 @@ public class MenubarReport extends StackPanel{
 				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
-				
+			}
+			});
 					
 			projektverflechtungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
@@ -148,21 +149,20 @@ public class MenubarReport extends StackPanel{
 		
 	}
 
-	public IdentitySelection getIdSelection() {
+	
+	public void setIdSelection(IdentitySelectionReport idSelection) {
+		this.is = idSelection;
+	}
+	public IdentitySelectionReport getIdSelection() {
 		return is;
 	}
-
 
 	public void reload(){
 		currentClickHandler.onClick(currentClickEvent);
 	}
 	
-			});
-//	public Menubar getMenubar(){
-//		return this;
-//	}
+	public MenubarReport getMenubarReport(){
+		return this;
+	}
 	
-	
-
-};
 	}

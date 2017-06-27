@@ -27,6 +27,7 @@ import com.google.gwt.user.client.ui.FlexTable.FlexCellFormatter;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.client.gui.report.MenubarReport;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -97,7 +98,7 @@ public class IdentitySelection extends FlexTable{
 		});
 	}
 
-	
+
 	public int getSelectedIndex(){
 		
 		int selectedID = orgEinheit.getSelectedIndex();
