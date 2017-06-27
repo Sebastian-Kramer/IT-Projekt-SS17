@@ -64,7 +64,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID FROM Person "
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID, isAdmin FROM Person "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
@@ -76,6 +76,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -121,6 +122,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -159,6 +161,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -194,6 +197,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByObject(p).getStrasse());
 				p.setHausnummer(super.findByObject(p).getHausnummer());
 				p.setPlz(super.findByObject(p).getPlz());

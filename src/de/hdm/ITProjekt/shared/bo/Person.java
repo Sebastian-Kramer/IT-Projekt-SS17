@@ -27,6 +27,11 @@ public class Person extends Organisationseinheit{
 	 */
 	
 	private String anrede;
+	/*
+	 * isAdmin der Organisationseinheit
+	 */
+	
+	private boolean isAdmin;
 	
 	/*
 	 * Realisierung der Beziehung zu einem Team mittels Fremdschlüsselbeziehung
@@ -56,10 +61,25 @@ public class Person extends Organisationseinheit{
 	 * Setzen der Emailadresse
 	 * @param email
 	 */
-	
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	
+	/*
+	 * Auslesen isAdmin
+	 * @return isAdmin 
+	 */
+	public boolean getisAdmin() {
+		return isAdmin;
+	}
+	/*
+	 * Setzen des isAdmin Befehls
+	 * @param isAdmin
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
+	}
+
 	
 	/*
 	 * Auslesen des Vornamens
