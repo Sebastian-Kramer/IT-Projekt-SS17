@@ -21,6 +21,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
 import de.hdm.ITProjekt.server.db.BewerbungMapper;
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
@@ -44,6 +45,8 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
 	
 	private Ausschreibung selectedAusschreibung = new Ausschreibung();
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 	
 	
 	Label bewerbungstext_label = new Label();
@@ -51,8 +54,9 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 	TextArea bewerbungstext = new TextArea();
 	FlexTable bewerbungstextft = new FlexTable();
 	
-	public DialogBoxBewerbungAnlegen(final Ausschreibung ausschreibung1, final Person p1){
-		this.person = p1;
+	public DialogBoxBewerbungAnlegen(final Ausschreibung ausschreibung1, final IdentitySelection is, Menubar menubar){
+		this.is = is;
+		this.menubar = menubar;
 		this.selectedAusschreibung = ausschreibung1;
 		
 		setText("Bewerbung verfassen");
@@ -85,8 +89,12 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 			public void onClick(ClickEvent event) {
 				bewerbung_dialog.setBewerbungstext(bewerbungstext.getText());
 				bewerbung_dialog.setAusschreibungs_ID(ausschreibung1.getID());
-				bewerbung_dialog.setOrga_ID(p1.getID());
+
+
 				bewerbung_dialog.setStatus("laufend");
+
+				bewerbung_dialog.setOrga_ID(is.getSelectedIdentityID());
+
 				bewerbung_dialog.setErstelldatum(new Date());
 				
 				
@@ -123,7 +131,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Ihr Bewerbung wurde erfolgreich versendet");
 			hide();
-			Showcase showcase = new MeineBewerbungenSeite(person);
+			Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 			
