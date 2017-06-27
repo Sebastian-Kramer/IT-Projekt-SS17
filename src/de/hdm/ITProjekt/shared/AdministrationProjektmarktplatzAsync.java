@@ -157,7 +157,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getProjektByID(int id, AsyncCallback<Projekt> callback);
 
-
 	void deleteUnternehmen(Unternehmen u, AsyncCallback<Void> callback);
 
 	void deletePerson(Person p, AsyncCallback<Void> callback);
@@ -191,5 +190,13 @@ public interface AdministrationProjektmarktplatzAsync {
 	void delete(Beteiligung a, AsyncCallback<Void> callback);
 
 	void updateBeteiligung(Beteiligung c, AsyncCallback<Beteiligung> callback);
+
+	void getAllBeteiligungen(AsyncCallback<Vector<Beteiligung>> callback);
+
+	void getProjektByOrgaID(Integer id, AsyncCallback<Vector<Projekt>> callback);
+
+	void getPersonByID(Integer id, AsyncCallback<Vector<Person>> callback);
+
+	
 
 }
