@@ -209,6 +209,40 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		  return result;
 	}
 	
+	public Vector<Person> getPersonByID(Integer id){
+Connection con = DBConnection.connection();
+Vector <Person> result = new Vector<Person>();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID FROM Person "
+          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				Person p = new Person();
+				p.setID(rs.getInt("ID"));
+				p.setEmail(rs.getString("email"));
+				p.setAnrede(rs.getString("anrede"));
+				p.setVorname(rs.getString("vorname"));
+				p.setName(rs.getString("name"));
+				p.setTeam_ID(rs.getInt("Team_ID"));
+				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setStrasse(super.findByKey(id).getStrasse());
+				p.setHausnummer(super.findByKey(id).getHausnummer());
+				p.setPlz(super.findByKey(id).getPlz());
+				p.setOrt(super.findByKey(id).getOrt());
+				p.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+				
+				result.addElement(p);
+	}
+		}
+		catch (SQLException e2) {
+	        e2.printStackTrace();
+		}
+		return result;
+		
+	}
+	
 
 	public Person createPerson(Person p){
 		
