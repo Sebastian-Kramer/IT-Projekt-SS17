@@ -430,7 +430,7 @@ public class Projektseite extends Showcase{
 
 							@Override
 							public void onSuccess(Vector<Person> result) {
-								Window.alert("funktioniert");
+//								Window.alert("funktioniert");
 								ct_teilnehmer.setRowData(0, result);
 								ct_teilnehmer.setRowCount(result.size(), true);
 								

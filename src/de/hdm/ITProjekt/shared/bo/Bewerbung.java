@@ -19,10 +19,17 @@ public class Bewerbung extends BusinessObject {
 	private String bewerbungstext = "";
 	
 	/*
-	 * Erstellungsdatum der Bewerbung, das bei Erstellung jedes Objekts
+	 * Status der Bewerbung kann auf laufend, abgeleht, angenommen
 	 * von Bewerbung das aktuelle Datum durch Null-Argument-Konstruktor der importierten Klasse Date setzt
 	 */
 	
+	private String status = "";
+	
+	/*
+	 * Erstellungsdatum der Bewerbung, das bei Erstellung jedes Objekts
+	 * von Bewerbung das aktuelle Datum durch Null-Argument-Konstruktor der importierten Klasse Date setzt
+	 */
+
 	private Date erstelldatum = null;
 	
 	/*
@@ -92,10 +99,27 @@ public class Bewerbung extends BusinessObject {
 	}
 	
 	/*
+	 * Auslesen des Bewerbungsstatus
+	 * @return status
+	 */
+	
+	public String getStatus() {
+		return status;
+	}
+
+	/*
+	 * Setzten des Bewerbungsstatus
+	 * @param status
+	 */
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	/*
 	 * Auslesen des Fremdschlüssels Ausschreibungs ID
 	 * @return Ausschreibungs_ID
 	 */
-	
 	public Integer getAusschreibungs_ID() {
 		return Ausschreibungs_ID;
 	}

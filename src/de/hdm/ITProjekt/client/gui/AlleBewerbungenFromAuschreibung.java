@@ -48,14 +48,12 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Button anzeigen = new Button("Bewerbung anzeigen");
-	private Button bewerten = new Button("Bewertung abgeben");
-	private Button zurueck = new Button("Zurück zu den Ausschreibungen");
 	
 	private Anchor zurstartseite = new Anchor("Startseite");
 	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
 	private Anchor zuprojekte = new Anchor("/Projekte");
 	private Anchor projektverwaltung = new Anchor("/Projektverwaltung");
-	private Label zuausschreibung = new Label("/Ausschriebung");
+	private Label zuausschreibung = new Label("/Stellenausschreibungen");
 
 	private VerticalPanel vp_bew = new VerticalPanel();
 	private FlexTable ft_navi = new FlexTable();
@@ -74,7 +72,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	private Projekt pro = new Projekt();
 	private Ausschreibung selectedAusschreibung;
 	private Person angemeldetePerson;
-	private Bewerbung b;
+	private Bewerbung b = new Bewerbung();
 	private Vector<Bewertung> bewe;
 	
 	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p){
@@ -113,9 +111,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		projektverwaltung.setStylePrimaryName("navigationanchor");
 		zuausschreibung.setStylePrimaryName("navigationanchor");
 		
-		bewerten.setStylePrimaryName("myprofil-button");
 		anzeigen.setStylePrimaryName("myprofil-button");
-		zurueck.setStylePrimaryName("myprofil-button");
+
 		
 		ft_navi.setWidget(0, 0, zurstartseite);
 		ft_navi.setWidget(0, 1, zuprojektmarktplaetze);
@@ -130,9 +127,20 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		ct_bewerbungen.setSelectionModel(ssm_bew);
 		
-		b = ssm_bew.getSelectedObject();
 		
 		vp_bew.setSpacing(10);
+		
+		anzeigen.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				b = ssm_bew.getSelectedObject();
+				DialogBoxDetailsBewerbung dialogbox = new DialogBoxDetailsBewerbung(b);
+				dialogbox.center();
+				
+			}
+			
+		});
 		
 //		form.setWidget(0, 1, bewertung);
 //		form.setWidget(0, 0, ct_bewerbungen);
@@ -150,15 +158,27 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					+ "und entsprechende Bewertungen abgeben");
 //			form.setWidget(0, 1, bewertung);
 			
+			ssm_bew.addSelectionChangeHandler(new Handler() {
+			
+				@Override
+				public void onSelectionChange(SelectionChangeEvent event) {
+					
+						hp_bew.add(anzeigen);
+						
+						
+						
+						
+				}
+			});
+
 			form.setWidget(0, 0, ct_bewerbungen);
-			hp_bew.add(bewerten);
-			hp_bew.add(anzeigen);
-			hp_bew.add(zurueck);
+			
 			hp_bew1.add(form);
+			this.add(vp_bew);
 			this.add(hp_bew);
 			this.add(hp_bew1);	
 			vp_bew.add(ct_bewerbungen);
-			this.add(vp_bew);
+			
 			
 		}else{
 			Window.alert("Leider kann nur der Stellenausschreibende die Bewerbungen sehen");
@@ -197,44 +217,44 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 //			filltablebewerbung();
 		}
 		
-		bewerten.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 
-				if (adminService == null) {
-				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-				 }
-				adminService.getAllBewertungen(new getAllBewertungen());
-					
-					b = ssm_bew.getSelectedObject();
-					
-					Boolean vorhanden = false;
-					for (Bewertung bewertung : bewe){
-								
-					
-					if(bewertung.getBewerbungs_ID() == b.getID()){
-						Window.alert("Es wurde bereits eine Bewertung abgegeben");
-						Window.alert(bewertung.toString());
-						vorhanden = false;
-						break;
-					}
-					else if(bewertung.getBewerbungs_ID() != b.getID()){
-						vorhanden = true;
-
-					}
-					}
-					if(vorhanden == true){					
-					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
-					dialogBox.center();}
-
-				
-			}
-			
-			
-		});
+//		bewerten.addClickHandler(new ClickHandler(){
+//
+//			@Override
+//			public void onClick(ClickEvent event) {
+//				
+//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+//				 
+//				if (adminService == null) {
+//				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+//				 }
+//				adminService.getAllBewertungen(new getAllBewertungen());
+//					
+//					b = ssm_bew.getSelectedObject();
+//					
+//					Boolean vorhanden = false;
+//					for (Bewertung bewertung : bewe){
+//								
+//					
+//					if(bewertung.getBewerbungs_ID() == b.getID()){
+//						Window.alert("Es wurde bereits eine Bewertung abgegeben");
+//						Window.alert(bewertung.toString());
+//						vorhanden = false;
+//						break;
+//					}
+//					else if(bewertung.getBewerbungs_ID() != b.getID()){
+//						vorhanden = true;
+//
+//					}
+//					}
+//					if(vorhanden == true){					
+//					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
+//					dialogBox.center();}
+//
+//				
+//			}
+//			
+//			
+//		});
 		Column<Bewerbung, String> text = 
 				new Column<Bewerbung, String>(new ClickableTextCell()){
 
@@ -267,21 +287,48 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 		};
 		
+		
+		
 		buttoncell.setFieldUpdater(new FieldUpdater<Bewerbung,String>(){
 
 			@Override
 			public void update(int index, Bewerbung object, String value) {
 				object = ssm_bew.getSelectedObject();
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, angemeldetePerson);
-				dialogBox.center();
-				}
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 
+				if (adminService == null) {
+				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+				 }
+				adminService.getAllBewertungen(new getAllBewertungen());
+
 				
+				Boolean vorhanden = false;
+				for (Bewertung bewertung : bewe){
+							
+				
+				if(bewertung.getBewerbungs_ID() == object.getID()){
+					Window.alert("Es wurde bereits eine Bewertung abgegeben");
+					Window.alert(bewertung.toString());
+					vorhanden = false;
+					break;
+				}
+				else if(bewertung.getBewerbungs_ID() != object.getID()){
+					vorhanden = true;
+
+				}
+				}
+				if(vorhanden == true){					
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, angemeldetePerson);
+				dialogBox.center();}
+
+			
+				}	
 				
 			}
 			
 		);
 		
-zurstartseite.addClickHandler(new ClickHandler() {
+		zurstartseite.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {

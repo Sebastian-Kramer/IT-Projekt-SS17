@@ -97,6 +97,30 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		return this.findByKey(p.getID());	
 	}
 
+	public Person getPersonbyOrgaID(Integer id){
+		
+		Connection con = DBConnection.connection();
+		Person p = new Person();
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name FROM Person "
+			          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				p.setID(rs.getInt("ID"));
+				p.setEmail(rs.getString("email"));
+				p.setAnrede(rs.getString("anrede"));
+				p.setVorname(rs.getString("vorname"));
+				p.setName(rs.getString("name"));
+			}
+			
+		}catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+		return p;
+	}
+	
 	/*
 	 * Notiz von Mert: Nochmal dr�ber schauen und ausgeben lassen in TestStart!
 	 */

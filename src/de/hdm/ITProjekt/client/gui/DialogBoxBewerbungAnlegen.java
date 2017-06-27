@@ -86,7 +86,9 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 				bewerbung_dialog.setBewerbungstext(bewerbungstext.getText());
 				bewerbung_dialog.setAusschreibungs_ID(ausschreibung1.getID());
 				bewerbung_dialog.setOrga_ID(p1.getID());
+				bewerbung_dialog.setStatus("laufend");
 				bewerbung_dialog.setErstelldatum(new Date());
+				
 				
 				if(bewerbungstext.getText().isEmpty()){
 					Window.alert("Bitte geben Sie einen Bewerbungstext ein");

@@ -99,9 +99,9 @@ public class BewerbungMapper {
 		   	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Bewerbung (ID, bewerbungstext, erstelldatum, Ausschreibungs_ID, Orga_ID)" 
+		    		stmt.executeUpdate("INSERT INTO Bewerbung (ID, bewerbungstext, erstelldatum, status, Ausschreibungs_ID, Orga_ID)" 
 		    				+ "VALUES (" + a.getID() + ", " + "'" + a.getBewerbungstext() + "'"  
-		    				+ ", " + "'" + format.format(a.getErstelldatum()) + "'" 
+		    				+ ", " + "'" + format.format(a.getErstelldatum()) + "'" + ", "  + "'" +a.getStatus() + "'"
 		    				+ ", " + a.getAusschreibungs_ID() + ", " + a.getOrga_ID()  +")"); 
 		    	  
 		      }
@@ -129,6 +129,19 @@ public class BewerbungMapper {
 				e2.printStackTrace();
 			}
 		}
+	
+	public Bewerbung updateBewerbungsstatus(Bewerbung b){
+		Connection con = DBConnection.connection();
+		
+		try{
+			Statement stmt = con.createStatement();
+			stmt.executeUpdate("UPDATE Bewerbung " + "SET status= " + "'" + b.getStatus() + "'" 
+			+  "WHERE ID = " +b.getID());
+		}catch(SQLException e){
+			e.printStackTrace();
+		}
+		return b;
+	}
 	
 	public Bewerbung update(Bewerbung c) {
 	    Connection con = DBConnection.connection();

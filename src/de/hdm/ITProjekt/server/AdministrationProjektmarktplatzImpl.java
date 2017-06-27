@@ -707,5 +707,14 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.personMapper.getPersonByID(id);
 	}
+	@Override
+	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException {
+		return this.bewMapper.updateBewerbungsstatus(b);
+	}
+	@Override
+	public Person getPersonFromBewerbung(Integer id) {
+		return this.personMapper.getPersonbyOrgaID(id);
+
+	}
 	
 }

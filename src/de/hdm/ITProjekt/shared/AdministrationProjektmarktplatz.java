@@ -198,4 +198,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Vector<Projekt> getProjektByOrgaID(Integer id) throws IllegalArgumentException;
 
+	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
+
+	public Person getPersonFromBewerbung(Integer id);
+
 	}

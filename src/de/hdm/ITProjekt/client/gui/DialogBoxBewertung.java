@@ -129,7 +129,7 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
 				
-					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, person);		
+					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, person, bew);		
 					dialogBox.center();
 					DialogBoxBewertung.this.hide();		
 				}
@@ -138,6 +138,7 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
+					bew.setStatus("abgelehnt");
 					
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 
@@ -145,6 +146,7 @@ public class DialogBoxBewertung extends DialogBox{
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
 					adminService.insertWithoutBeteil(bewert, new BewertungAnlegen());
+					adminService.setBewerbungsStatus(bew, new BewerbungStatus());
 					DialogBoxBewertung.this.hide();
 				}
 				
@@ -169,7 +171,21 @@ public class DialogBoxBewertung extends DialogBox{
 		}
 		
 	}
-	
+	public class BewerbungStatus implements AsyncCallback<Bewerbung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Der Bewerbungsstatus konnte nicht verändert werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Bewerbung result) {
+			Window.alert("Der Status der Bewerbung wurde zu 'Abgelehnt' geändert");
+			
+		}
+		
+	}
 	
 	
 	

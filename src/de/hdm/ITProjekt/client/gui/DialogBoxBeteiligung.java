@@ -36,7 +36,7 @@ import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxBeteiligung extends DialogBox{
 	
-	 DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");
+	DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
@@ -64,11 +64,13 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private Beteiligung be = new Beteiligung();
 	private Beteiligung newBeteiligung;
 	private Person person;
+	private Bewerbung bewerbung;
 	
-	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, Person p){
+	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, Person p, Bewerbung bew){
 		this.aus = a;
 		this.bewe = b;
 		this.person = p;
+		this.bewerbung = bew;
 		
 		this.setText("Projektbeteiligung erstellen");
 		this.setAnimationEnabled(true);
@@ -106,6 +108,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				be.setEnddatum(endBox.getValue());
 				be.setOrga_ID(aus.getOrga_ID());
 				be.setProjekt_ID(aus.getProjekt_ID());
+				bewerbung.setStatus("angenommen");
 
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -114,6 +117,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				adminService.insert(be, new BeteiligungAnlegen());
+				adminService.setBewerbungsStatus(bewerbung, new BewerbungStatus());
 				
 				DialogBoxBeteiligung.this.hide();
 			}
@@ -162,6 +166,21 @@ public class DialogBoxBeteiligung extends DialogBox{
 			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, person);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
+			
+		}
+		
+	}
+	public class BewerbungStatus implements AsyncCallback<Bewerbung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Der Bewerbungsstatus konnte nicht verändert werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Bewerbung result) {
+			Window.alert("Der Status der Bewerbung wurde zu 'Angenommen' geändert");
 			
 		}
 		
