@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
+import de.hdm.ITProjekt.client.gui.report.IdentitySelectionReport;
 import de.hdm.ITProjekt.client.gui.report.MenubarReport;
 import de.hdm.ITProjekt.client.gui.report.MenuleisteReportMitProjektmarktplatz;
 import de.hdm.ITProjekt.client.gui.report.StartseiteReport;
@@ -72,7 +73,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //			LoginServiceAsync loginService = GWT.create(LoginService.class);	
 
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/reportgenerator/reportgenerator");
-			loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>() {
+			loginService.login(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 //			loginService.login("http://127.0.0.1:8888/ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 				
 				@Override
@@ -188,13 +189,15 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //				RootPanel.get("login").add(signOutLink);
 //				RootPanel.get("Details").add(mainPanel);
 //				RootPanel.get("Navigator").add(mb);
-
 				RootPanel.get("HeaderReport").clear();
 				RootPanel.get("HeaderReport").add(new MenuleisteReportMitProjektmarktplatz());
+		  		mainPanel.add(addPanel);
+		  		mainPanel.add(showcase);
 				MenubarReport navigationReport = new MenubarReport(person);
+				RootPanel.get("identityreport").add(new IdentitySelectionReport (person, navigationReport));
 //				RootPanel.get("HeaderReport").clear();
-				RootPanel.get("HeaderReport").add(Logout);
-				RootPanel.get("DetailsReport").add(showcase);
+				RootPanel.get("loginreport").add(signOutLink);
+				RootPanel.get("DetailsReport").add(mainPanel);
 			    RootPanel.get("NavigatorReport").add(navigationReport);
 				
 			    
