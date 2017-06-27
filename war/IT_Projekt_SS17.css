@@ -50,6 +50,9 @@ div#test{
 div#idendity{
 	float: right;
 }
+div#identity{
+	float: right;
+}
 
 div#body-body{
 	background: aliceblue;
@@ -229,7 +232,14 @@ header a#navlink {
 	margin:20px 20px 0 0;
 }
 
+ul#header-topreport {
+	position:absolute; 
+	top: 0px;
+	left: -15px;
 
+	list-style-type: none;  
+	color: blue;
+}
 ul#header-top { 
 	position:absolute; 
 	top: 0px;

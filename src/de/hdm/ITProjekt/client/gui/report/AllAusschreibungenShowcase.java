@@ -1,7 +1,6 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
@@ -13,7 +12,7 @@ public class AllAusschreibungenShowcase extends ReportShowcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Alle Ausschreibung";
+		return "Alle Ausschreibungen";
 	}
 
 	@Override

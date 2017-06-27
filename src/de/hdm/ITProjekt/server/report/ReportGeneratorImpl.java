@@ -153,6 +153,18 @@ import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 		return null;
 	}
 
+	@Override
+	public Team getTeamByKey(int teamID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return adminService.getTeamByID(teamID);
+	}
+
+	@Override
+	public Unternehmen getUnternehmenByKey(int unternehmenID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return adminService.getUnByID(unternehmenID);
+	}
+
 
 
 	
