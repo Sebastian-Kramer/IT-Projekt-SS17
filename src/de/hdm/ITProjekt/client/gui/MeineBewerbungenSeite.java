@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -51,13 +52,16 @@ public class MeineBewerbungenSeite extends Showcase {
 	VerticalPanel vpanel = new VerticalPanel();
 	
 	final SingleSelectionModel<HybridAusschreibungBewerbung> ssm = new SingleSelectionModel<>();
-	private Person person;
+	private Person person = null;
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 	
 	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
 	Button bewerbungLoeschen_button	= new Button ("Bewerbung zur�ckziehen");
 	
-	public MeineBewerbungenSeite(Person person){
-		this.person = person;
+	public MeineBewerbungenSeite(IdentitySelection is, Menubar menubar){
+		this.is = is;
+		this.menubar = menubar;
 	}
 	
 
@@ -69,7 +73,7 @@ public class MeineBewerbungenSeite extends Showcase {
 
 	@Override
 	protected void run() {
-		
+		is.activateOrgUnits();
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineBewerbungen.setWidth("100%");
 		
@@ -194,7 +198,7 @@ public class MeineBewerbungenSeite extends Showcase {
 							@Override
 							public void onSuccess(Void result) {
 								Window.alert("Bewerbung erfolgreich gel�scht");
-								Showcase showcase = new MeineBewerbungenSeite(person);
+								Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
 								
