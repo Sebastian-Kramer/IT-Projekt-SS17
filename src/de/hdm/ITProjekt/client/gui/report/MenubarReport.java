@@ -11,6 +11,7 @@ import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
@@ -20,6 +21,7 @@ import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
 
 public class MenubarReport extends StackPanel{
 	// Clickhandler auf "null" setzen
@@ -80,8 +82,10 @@ public class MenubarReport extends StackPanel{
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
-				
+			ReportShowcase reportShowcase = new AllBewerbungenByPersonShowcase();
+			RootPanel.get("DetailsReport").clear();
+			RootPanel.get("DetailsReport").add(reportShowcase);
+
 				currentClickHandler=this;
 				currentClickEvent=event;
 				
@@ -90,7 +94,9 @@ public class MenubarReport extends StackPanel{
 			
 		alleAusschreibungen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
+				ReportShowcase reportShowcase = new AllAusschreibungenShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 				
@@ -99,7 +105,9 @@ public class MenubarReport extends StackPanel{
 		
 		alleAusschreibungenzupartnerprofil.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				
+				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}
@@ -115,12 +123,18 @@ public class MenubarReport extends StackPanel{
 		
 			faninfanoutanalyse.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
+				ReportShowcase reportShowcase = new FanInFanOutShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 				
 					
 			projektverflechtungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
+				ReportShowcase reportShowcase = new ProjektverflechtungenShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 		

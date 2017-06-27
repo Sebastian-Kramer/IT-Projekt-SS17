@@ -1,6 +1,6 @@
 package de.hdm.ITProjekt.shared.report;
 
-public class AllBewerbungenByOrganisationseinheitReport extends SimpleReport {
+public class AllBewerbungenByPersonReport extends SimpleReport {
 
 	/**
 	 * 
