@@ -21,6 +21,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 
 import de.hdm.ITProjekt.client.gui.Homeseite;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
+import de.hdm.ITProjekt.client.gui.report.IdentitySelectionReport;
 import de.hdm.ITProjekt.client.gui.report.MenubarReport;
 import de.hdm.ITProjekt.client.gui.report.MenuleisteReportMitProjektmarktplatz;
 import de.hdm.ITProjekt.client.gui.report.StartseiteReport;
@@ -188,13 +189,15 @@ public class ProjektmarktplatzReport implements EntryPoint{
 //				RootPanel.get("login").add(signOutLink);
 //				RootPanel.get("Details").add(mainPanel);
 //				RootPanel.get("Navigator").add(mb);
-
 				RootPanel.get("HeaderReport").clear();
 				RootPanel.get("HeaderReport").add(new MenuleisteReportMitProjektmarktplatz());
+		  		mainPanel.add(addPanel);
+		  		mainPanel.add(showcase);
 				MenubarReport navigationReport = new MenubarReport(person);
+				RootPanel.get("identityreport").add(new IdentitySelectionReport (person, navigationReport));
 //				RootPanel.get("HeaderReport").clear();
-				RootPanel.get("HeaderReport").add(Logout);
-				RootPanel.get("DetailsReport").add(showcase);
+				RootPanel.get("loginreport").add(signOutLink);
+				RootPanel.get("DetailsReport").add(mainPanel);
 			    RootPanel.get("NavigatorReport").add(navigationReport);
 				
 			    
