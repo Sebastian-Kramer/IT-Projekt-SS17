@@ -46,16 +46,33 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 	private ListBox auswahlEigenschaften = new ListBox();
 	private ListBox wertEigenschaften = new ListBox();
 	
+	private ListBox auswahlEigenschaften1 = new ListBox();
+	private ListBox wertEigenschaften1 = new ListBox();
+	
+	private ListBox auswahlEigenschaften2 = new ListBox();
+	private ListBox wertEigenschaften2 = new ListBox();
+	
 	private Label auswahlLabel = new Label("Eigenschaften:");
 	private Label wertLabel = new Label("Kenntnisstand:");
+	private Label auswahlLabel1 = new Label("Eigenschaften:");
+	private Label wertLabel1 = new Label("Kenntnisstand:");
+	private Label auswahlLabel2 = new Label("Eigenschaften:");
+	private Label wertLabel2 = new Label("Kenntnisstand:");
 	
 	private FlexTable pe_form = new FlexTable();
 	
 	private Eigenschaft eigenschaft = new Eigenschaft();
+	private Eigenschaft eigenschaft1 = new Eigenschaft();
+	private Eigenschaft eigenschaft2 = new Eigenschaft();
+	
+	private Partnerprofil profil = new Partnerprofil();
+	
+	IdentitySelection is = null;
 	
 	
 	
-	public DialogBoxEigenschaftHinzufuegen(final Ausschreibung ausschreibung, final Partnerprofil partnerprofil, final Person person, final Projekt projekt){
+	public DialogBoxEigenschaftHinzufuegen(final Partnerprofil partnerprofil){
+		this.profil = partnerprofil;
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
 		this.setText("Eigenschaft zu Partnerprofil hinzufuegen");
@@ -70,14 +87,47 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 
 		wertEigenschaften.addItem("Grundkenntisse");
 		wertEigenschaften.addItem("Fortgeschritten");
-		wertEigenschaften.addItem("Experte");	
+		wertEigenschaften.addItem("Experte");
+		
+		auswahlEigenschaften1.addItem("Java");
+		auswahlEigenschaften1.addItem("PHP");
+		auswahlEigenschaften1.addItem("Word");
+		auswahlEigenschaften1.addItem("Excel");
+		auswahlEigenschaften1.addItem("PowerPoint");
+		auswahlEigenschaften1.addItem("C++");
+		
+
+		wertEigenschaften1.addItem("Grundkenntisse");
+		wertEigenschaften1.addItem("Fortgeschritten");
+		wertEigenschaften1.addItem("Experte");
+		
+		auswahlEigenschaften2.addItem("Java");
+		auswahlEigenschaften2.addItem("PHP");
+		auswahlEigenschaften2.addItem("Word");
+		auswahlEigenschaften2.addItem("Excel");
+		auswahlEigenschaften2.addItem("PowerPoint");
+		auswahlEigenschaften2.addItem("C++");
+		
+
+		wertEigenschaften2.addItem("Grundkenntisse");
+		wertEigenschaften2.addItem("Fortgeschritten");
+		wertEigenschaften2.addItem("Experte");
 		
 		pe_form.setWidget(0, 0, auswahlLabel);
 		pe_form.setWidget(0, 1, auswahlEigenschaften);
 		pe_form.setWidget(1, 0, wertLabel);
 		pe_form.setWidget(1, 1, wertEigenschaften);
-		pe_form.setWidget(2, 0, hinzufuegen);
-		pe_form.setWidget(2, 1, abbrechen);
+		pe_form.setWidget(2, 0, auswahlLabel1);
+		pe_form.setWidget(2, 1, auswahlEigenschaften1);
+		pe_form.setWidget(3, 0, wertLabel1);
+		pe_form.setWidget(3, 1, wertEigenschaften1);
+		pe_form.setWidget(4, 0, auswahlLabel2);
+		pe_form.setWidget(4,1, auswahlEigenschaften2);
+		pe_form.setWidget(5, 0, wertLabel2);
+		pe_form.setWidget(5, 1, wertEigenschaften2);
+		pe_form.setWidget(6, 0, hinzufuegen);
+		pe_form.setWidget(6, 1, abbrechen);
+		
 		
 		vpanel.add(pe_form);
 		this.add(vpanel);
@@ -103,10 +153,43 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 					}
 
 					@Override
-					public void onSuccess(Eigenschaft result) {
-						DialogBoxPartnerprofilAnlegen box_profil = new DialogBoxPartnerprofilAnlegen(ausschreibung,person,projekt);
-						DialogBoxEigenschaftHinzufuegen.this.hide();
-						box_profil.center();
+					public void onSuccess(Eigenschaft result) {		
+						eigenschaft1.setPartnerprofil_ID(partnerprofil.getID());;
+						eigenschaft1.setName(auswahlEigenschaften1.getSelectedItemText());
+						eigenschaft1.setWert(wertEigenschaften1.getSelectedItemText());
+						adminService.createEigenschaft(eigenschaft1, new AsyncCallback<Eigenschaft>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Eigenschaft result) {
+								eigenschaft2.setPartnerprofil_ID(partnerprofil.getID());;
+								eigenschaft2.setName(auswahlEigenschaften2.getSelectedItemText());
+								eigenschaft2.setWert(wertEigenschaften2.getSelectedItemText());
+								adminService.createEigenschaft(eigenschaft2, new AsyncCallback<Eigenschaft>(){
+
+									@Override
+									public void onFailure(Throwable caught) {
+										// TODO Auto-generated method stub
+										
+									}
+
+									@Override
+									public void onSuccess(Eigenschaft result) {
+										DialogBoxEigenschaftHinzufuegen.this.hide();
+										
+									}
+									
+								});
+								
+							}
+							
+						});
+						
 						
 					}
 					 

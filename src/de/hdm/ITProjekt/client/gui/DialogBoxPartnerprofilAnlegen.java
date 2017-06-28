@@ -84,8 +84,7 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBoxEigenschaftHinzufuegen box = new DialogBoxEigenschaftHinzufuegen(ausschreibung, profil, person, projekt);
-				box.center();
+			
 				
 			}
 			
