@@ -33,6 +33,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
@@ -49,7 +50,8 @@ public class Projektseite extends Showcase{
 	private Button detailsButton = new Button("Stellendetails anzeigen");
 	private Button alleBewerbungen = new Button("Bewerbungen anzeigen");
 //	private Button showausschreibung = new Button("Stellenausschreibung anzeigen");
-	private Button back = new Button("Zurück zum Projektmarktplatz");
+	private Button delete = new Button("Stellenausschreibung löschen");
+	private Button deleteTeilnehmer = new Button("Teilnehmer entfernen");
 	
 	private Anchor zurstartseite = new Anchor("Startseite");
 	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
@@ -66,6 +68,9 @@ public class Projektseite extends Showcase{
 	CellTable<Person> ct_teilnehmer = new CellTable<Person>();
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
+	final SingleSelectionModel<Person> ssm_person = new SingleSelectionModel<>();
+	
+	private IdentitySelection is = null;
 	
 	private Person person = new Person();
 	private Projekt selectedProjekt = new Projekt();
@@ -76,14 +81,14 @@ public class Projektseite extends Showcase{
 		
 	}
 	
-	public Projektseite(Projekt selectedObject, Person person){
+	public Projektseite(Projekt selectedObject,IdentitySelection is){
 		this.selectedProjekt = selectedObject;
-		this.person = person;
+		this.is = is;
 		
 	}
-	public Projektseite(Projekt selectedObject, Person person, Projektmarktplatz projektmarktplatz){
+	public Projektseite(Projekt selectedObject, IdentitySelection is, Projektmarktplatz projektmarktplatz){
 		this.selectedProjekt = selectedObject;
-		this.person = person;
+		this.is = is;
 		this.projektmarktplatz = projektmarktplatz;
 	}
 	
@@ -115,20 +120,12 @@ public class Projektseite extends Showcase{
 				RootPanel.get("Details").add(showcase);
 			}
 		});
-		zuprojektmarktplaetze.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite(person);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-			}
-		});
+	
 		zuprojekte.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projekte(projektmarktplatz, person);
+				Showcase showcase = new Projekte(projektmarktplatz, is);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -141,7 +138,7 @@ public class Projektseite extends Showcase{
 		createStelle.setStylePrimaryName("myprofil-button");
 		detailsButton.setStylePrimaryName("myprofil-button");
 		alleBewerbungen.setStylePrimaryName("myprofil-button");
-		back.setStylePrimaryName("myprofil-button");
+		delete.setStylePrimaryName("myprofil-button");
 		
 		vp_projekt.add(ct_projektausschreibungen);
 		this.add(hpanelnavigator);
@@ -155,11 +152,12 @@ public class Projektseite extends Showcase{
 		
 		
 		hp_projekt.add(detailsButton);
-		if(person.getID()== selectedProjekt.getProjektleiter_ID()){
+		if(is.getUser().getID()== selectedProjekt.getProjektleiter_ID()){
 		hp_projekt.add(alleBewerbungen);
 		hp_projekt.add(createStelle);
+		hp_projekt.add(delete);
 		}
-		hp_projekt.add(back);
+
 //		hp_projekt.add(showausschreibung);
 		
 		ct_projektausschreibungen.setSelectionModel(ssm);
@@ -169,8 +167,8 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					if(person.getID() == selectedProjekt.getProjektleiter_ID()){
-					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen(selectedProjekt, person);
+					if(is.getUser().getID() == selectedProjekt.getProjektleiter_ID()){
+					DialogBoxAusschreibungAnlegen dialogBox = new DialogBoxAusschreibungAnlegen(selectedProjekt, is);
 					dialogBox.center();
 					
 					}else{
@@ -184,19 +182,208 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					DialogBoxDetails dialogBox = new DialogBoxDetails(selectedProjekt, person);
+					DialogBoxDetails dialogBox = new DialogBoxDetails(selectedProjekt, is);
 					dialogBox.center();
 					
 				}
 							
 			});
-			back.addClickHandler(new ClickHandler(){
+			delete.addClickHandler(new ClickHandler(){
 
 				@Override
 				public void onClick(ClickEvent event) {
-					Showcase showcase = new ProjektmarktplatzSeite(person);
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					final Ausschreibung selectedAusschreibung = ssm.getSelectedObject();
+					if(is.getUser().getID() == selectedProjekt.getProjektleiter_ID()){
+						selectedAusschreibung.setOrga_ID(0);
+						selectedAusschreibung.setPartnerprofil_ID(0);
+						selectedAusschreibung.setProjekt_ID(0);
+						adminService.update(selectedAusschreibung, new AsyncCallback<Ausschreibung>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Das hat nich geklappt1");
+								
+							}
+
+							@Override
+							public void onSuccess(Ausschreibung result) {
+								adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
+
+									@Override
+									public void onFailure(Throwable caught) {
+										Window.alert("Das hat nicht geklappt 2");
+										
+									}
+
+									@Override
+									public void onSuccess(Vector<Bewerbung> result) {
+										if(result.isEmpty()){
+											adminService.deleteAusschreibung(selectedAusschreibung, new AsyncCallback<Void>(){
+
+												@Override
+												public void onFailure(Throwable caught) {
+													// TODO Auto-generated method stub
+													
+												}
+
+												@Override
+												public void onSuccess(Void result) {
+							
+													Showcase Showcase = new Projektseite(selectedProjekt, is);
+													Window.alert("Die Ausschreibung wurde erfolgreich gelöscht");
+													RootPanel.get("Details").clear();
+													RootPanel.get("Details").add(Showcase);
+													
+													
+												}
+												
+											});
+										}else{
+											for(final Bewerbung b : result){
+												b.setAusschreibungs_ID(0);
+												b.setOrga_ID(0);
+												adminService.updateBewerbung(b, new AsyncCallback<Bewerbung>(){
+
+													@Override
+													public void onFailure(Throwable caught) {
+														// TODO Auto-generated method stub
+														
+													}
+
+													@Override
+													public void onSuccess(Bewerbung result) {
+														adminService.getBewertungByBewerbung(result, new AsyncCallback<Vector<Bewertung>>(){
+
+															@Override
+															public void onFailure(Throwable caught) {
+																// TODO Auto-generated method stub
+																
+															}
+
+															@Override
+															public void onSuccess(Vector<Bewertung> result) {
+																if(result.isEmpty()){
+																	adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																		@Override
+																		public void onFailure(Throwable caught) {
+																			// TODO Auto-generated method stub
+																			
+																		}
+
+																		@Override
+																		public void onSuccess(Void result) {
+																			adminService.deleteAusschreibung(selectedAusschreibung, new AsyncCallback<Void>(){
+
+																				@Override
+																				public void onFailure(
+																						Throwable caught) {
+																					// TODO Auto-generated method stub
+																					
+																				}
+
+																				@Override
+																				public void onSuccess(Void result) {
+																					Showcase Showcase = new Projektseite(selectedProjekt, is);
+																					Window.alert("Die Ausschreibung wurde erfolgreich gelöscht");
+																					RootPanel.get("Details").add(Showcase);
+																					
+																				}
+																				
+																			});
+																			
+																		}
+																		
+																	});
+																}else{
+																	for(final Bewertung bew : result){
+																		bew.setBeteiligungs_ID(0);
+																		bew.setBewerbungs_ID(0);
+																		adminService.updateBewertung(bew, new AsyncCallback<Bewertung>(){
+
+																			@Override
+																			public void onFailure(Throwable caught) {
+																				// TODO Auto-generated method stub
+																				
+																			}
+
+																			@Override
+																			public void onSuccess(Bewertung result) {
+																				adminService.deleteBewertung(bew, new AsyncCallback<Void>(){
+
+																					@Override
+																					public void onFailure(
+																							Throwable caught) {
+																						// TODO Auto-generated method stub
+																						
+																					}
+
+																					@Override
+																					public void onSuccess(Void result) {
+																						adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																							@Override
+																							public void onFailure(
+																									Throwable caught) {
+																								// TODO Auto-generated method stub
+																								
+																							}
+
+																							@Override
+																							public void onSuccess(
+																									Void result) {
+																								adminService.deleteAusschreibung(selectedAusschreibung, new AsyncCallback<Void>(){
+
+																									@Override
+																									public void onFailure(
+																											Throwable caught) {
+																										// TODO Auto-generated method stub
+																										
+																									}
+
+																									@Override
+																									public void onSuccess(
+																											Void result) {
+																										Showcase Showcase = new Projektseite(selectedProjekt, is);
+																										Window.alert("Die Ausschreibung wurde erfolgreich gelöscht");
+																										RootPanel.get("Details").add(Showcase);
+																										
+																									}
+																									
+																								});
+																								
+																							}
+																							
+																						});
+																						
+																					}
+																					
+																				});
+																				
+																			}
+																			
+																		});
+																	}
+																}
+																
+															}
+															
+														});
+														
+													}
+													
+												});
+											}
+										}
+										
+									}
+									
+								});
+								
+							}
+							
+						});
+					}
 					
 				}
 				
@@ -206,10 +393,56 @@ public class Projektseite extends Showcase{
 				@Override
 				public void onClick(ClickEvent event) {
 					a1 = ssm.getSelectedObject();
-					Showcase showcase = new AlleBewerbungenFromAuschreibung(a1, person, selectedProjekt, projektmarktplatz);
+					Showcase showcase = new AlleBewerbungenFromAuschreibung(a1, is, selectedProjekt, projektmarktplatz);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 			
+				}
+				
+			});
+			
+			deleteTeilnehmer.addClickHandler(new ClickHandler(){
+
+				@Override
+				public void onClick(ClickEvent event) {
+					final Person selectedPerson = ssm_person.getSelectedObject();
+					if(is.getUser().getID()==selectedProjekt.getProjektleiter_ID()){
+						adminService.getBeteiligungByOrga(selectedPerson.getID(), new AsyncCallback<Vector<Beteiligung>>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Vector<Beteiligung> result) {
+								for(Beteiligung b: result){
+									if(b.getOrga_ID()==selectedPerson.getID()){
+										adminService.delete(b, new AsyncCallback<Void>(){
+
+											@Override
+											public void onFailure(Throwable caught) {
+												// TODO Auto-generated method stub
+												
+											}
+
+											@Override
+											public void onSuccess(Void result) {
+												
+												
+											}
+											
+										});
+										
+									}
+								}
+								
+							}
+							
+						});
+					}
+					
 				}
 				
 			});

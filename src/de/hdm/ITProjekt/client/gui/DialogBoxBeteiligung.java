@@ -58,6 +58,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private DateBox startBox = new DateBox();
 	private DateBox endBox = new DateBox();
 	
+	IdentitySelection is = null;
 	
 	private Ausschreibung aus;
 	private Bewertung bewe;
@@ -66,10 +67,10 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private Person person;
 	private Bewerbung bewerbung;
 	
-	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, Person p, Bewerbung bew){
+	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, IdentitySelection is, Bewerbung bew){
 		this.aus = a;
 		this.bewe = b;
-		this.person = p;
+		this.is = is;
 		this.bewerbung = bew;
 		
 		this.setText("Projektbeteiligung erstellen");
@@ -163,7 +164,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 		@Override
 		public void onSuccess(Bewertung result) {
 			Window.alert("Die Bewertung wurde erfolgreich abgegeben");
-			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, person);
+			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 			

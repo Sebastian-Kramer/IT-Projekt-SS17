@@ -27,6 +27,7 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class DialogBoxUnternehmen extends DialogBox{
 	
+	IdentitySelection is = null;
 	private Person person = new Person();
 	private Unternehmen unternehmen = new Unternehmen();
 	private VerticalPanel vpanel = new VerticalPanel();
@@ -53,8 +54,8 @@ public class DialogBoxUnternehmen extends DialogBox{
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
-	public DialogBoxUnternehmen(final Person person){
-		this.person = person;
+	public DialogBoxUnternehmen(final IdentitySelection is){
+		this.is = is;
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
 		this.setText("Unternehmen");
@@ -125,21 +126,21 @@ public class DialogBoxUnternehmen extends DialogBox{
 				@Override
 				public void onSuccess(Unternehmen result) {
 			
-					person.setUN_ID(result.getID());
+					is.getUser().setUN_ID(result.getID());
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
-					adminService.updatePerson(person, new updateperson());
+					adminService.updatePerson(is.getUser(), new updateperson());
 					hide();
-					Menubar menubar = new Menubar(person);
+					Menubar menubar = new Menubar(is.getUser());
 					RootPanel.get("idendity").clear();
-					RootPanel.get("idendity").add(new IdentitySelection(person, menubar));
+					RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
 					
 					RootPanel.get("Navigator").clear();
 					RootPanel.get("Navigator").add(menubar);
 					
-					Showcase showcase = new MeinProfilAnzeigen(person);
+					Showcase showcase = new MeinProfilAnzeigen(is);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 				}
