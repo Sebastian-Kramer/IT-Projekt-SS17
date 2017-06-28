@@ -199,7 +199,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPersonByID(Integer id, AsyncCallback<Vector<Person>> callback);
 
-
 	void getPersonFromBewerbung(Integer id, AsyncCallback<Person> callback);
 
 	void getAllPartnerprofile(AsyncCallback<Vector<Partnerprofil>> callback);
@@ -209,6 +208,8 @@ public interface AdministrationProjektmarktplatzAsync {
 	void addPartnerprofil(Partnerprofil pp1, AsyncCallback<Partnerprofil> callback);
 
 	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
+
+	void findPartnerprofilByID(int id, AsyncCallback<Partnerprofil> callback);
 
 
 	

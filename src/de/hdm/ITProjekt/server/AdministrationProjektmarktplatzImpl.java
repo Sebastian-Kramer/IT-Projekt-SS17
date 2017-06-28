@@ -720,7 +720,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException {
 		
-		return this.partnerprofilMapper.getAll();
+		return this.partnerprofilMapper.getAllPartnerprofile();
 	}
 	@Override
 	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
@@ -737,6 +737,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		// TODO Auto-generated method stub
 		return this.bewMapper.findByPerson(Orga_ID);
 
+	}
+	@Override
+	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.findByKey(id);
 	}
 	
 }

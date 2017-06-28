@@ -209,5 +209,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
 
 	public Person getPersonFromBewerbung(Integer id);
+	
+	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException;
+	
 
 	}
