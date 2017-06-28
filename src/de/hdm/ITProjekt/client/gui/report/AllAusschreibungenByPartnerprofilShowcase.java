@@ -12,12 +12,11 @@ import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 
 public class AllAusschreibungenByPartnerprofilShowcase extends Showcase {
 
-	private IdentitySelectionReport identitySelectionReport = null;
+	private IdentitySelectionReport isreport = null;
 	
-	public AllAusschreibungenByPartnerprofilShowcase(){
-	}
-	public AllAusschreibungenByPartnerprofilShowcase(IdentitySelectionReport identityChoiceReport) {
-		this.identitySelectionReport = identityChoiceReport;
+	
+	public AllAusschreibungenByPartnerprofilShowcase(IdentitySelectionReport isreport) {
+		this.isreport = isreport;
 	}
 	
 	@Override
@@ -35,7 +34,7 @@ public class AllAusschreibungenByPartnerprofilShowcase extends Showcase {
 		
 		ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
 		
-		reportGenerator.createAllAusschreibungenByPartnerprofilReport(identitySelectionReport.getSelectedIdentityAsObjectReport(), new AsyncCallback<AllAusschreibungenByPartnerprofilReport>() {
+		reportGenerator.getAusschreibungByMatchingPartnerprofil(isreport.getSelectedIdentityAsObjectReport(), new AsyncCallback<AllAusschreibungenByPartnerprofilReport>() {
 			
 			@Override
 			public void onFailure(Throwable caught) {

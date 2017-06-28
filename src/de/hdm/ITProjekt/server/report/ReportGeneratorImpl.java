@@ -62,17 +62,16 @@ import de.hdm.ITProjekt.shared.report.Row;
 	@Override
 	public AllAusschreibungenByPartnerprofilReport createAllAusschreibungenByPartnerprofilReport(Organisationseinheit o)
 			throws IllegalArgumentException {
-
+	
 		Vector<Ausschreibung> alleAusschreibungen = adminService.getAllAusschreibungen();
 		
 		Partnerprofil referenzPartnerprofil = adminService.getPartnerprofilOfOrganisationseinheit(o);
 		
-		Vector<Eigenschaft> referenzEigenschaften = adminService.getAllEigenschaftenbyPartnerprofilID(referenzPartnerprofil.getID());	
+		Vector<Eigenschaft> referenzEigenschaften = adminService.getAllEigenschaftofPerson(referenzPartnerprofil);	
 	
 		
 		
 		for (Ausschreibung ausschreibung : alleAusschreibungen) {
-			
 			Vector<Eigenschaft> eigenschaftenDerAusschreibung = adminService.getAllEigenschaftenbyPartnerprofilID(ausschreibung.getPartnerprofil_ID());
 		}
 		
@@ -112,7 +111,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		Partnerprofil partnerprofil = adminService.getPartnerprofilOfOrganisationseinheit(o);
 		
-		Vector<Eigenschaft> eigenschaften = adminService.getAllEigenschaftenbyPartnerprofilID(partnerprofil.getID());
+		Vector<Eigenschaft> eigenschaften = adminService.getAllEigenschaftofPerson(partnerprofil);
 		
 		Vector<Ausschreibung> allAusschreibungen = adminService.getAllAusschreibungen();
 		System.out.println("Anzahl der Ausschreibungen: "+allAusschreibungen.size());
@@ -122,11 +121,8 @@ import de.hdm.ITProjekt.shared.report.Row;
 			
 			Partnerprofil partnerprofilByAusschreibung = adminService.getPartnerprofilByAusschreibung(ausschreibung);
 			System.out.println("Partnerprofil ID: "+partnerprofilByAusschreibung.getID());
-			/**
-			 * @param id, welche aus dem partnerprofilOfAusschreibung-Objekt gelesen wird
-			 * @return Vector mit allen Eigenschaften zu dem übergebnen Partnerprofil
-			 */
-			Vector<Eigenschaft> eigenschaftenByAusschreibung = adminService.getAllEigenschaftenbyPartnerprofilID(partnerprofilByAusschreibung.getID());
+			
+			Vector<Eigenschaft> eigenschaftenByAusschreibung = adminService.getAllEigenschaftofPerson(partnerprofilByAusschreibung);
 			System.out.println("Anzahl der Eigenschaften zu diesem Partnerprofil: "+eigenschaftenByAusschreibung.size());
 			if(eigenschaften.size()==eigenschaftenByAusschreibung.size()){
 				System.out.println("Anzahl der Eigenschaften passt");

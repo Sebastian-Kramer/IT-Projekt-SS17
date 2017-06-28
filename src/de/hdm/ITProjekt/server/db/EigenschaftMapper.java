@@ -204,8 +204,7 @@ public class EigenschaftMapper {
 			try{
 				Statement stmt = con.createStatement();
 				
-				 ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
-						 + "WHERE Partnerprofil_ID =" + Partnerprofil_ID);
+				 ResultSet rs = stmt.executeQuery("SELECT * FROM eigenschaft "+ " WHERE Partnerprofil_ID= " + Partnerprofil_ID);
 				 
 				 while (rs.next()) {
 				        // Ergebnis-Tupel in Objekt umwandeln

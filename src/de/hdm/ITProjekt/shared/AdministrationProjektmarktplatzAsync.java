@@ -236,6 +236,8 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAusschreibungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Ausschreibung>> callback);
 
+	void getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p, AsyncCallback<Vector<Eigenschaft>> callback);
+
 
 	
 

@@ -822,5 +822,19 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Vector<Ausschreibung> getAusschreibungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
 		return this.aMapper.findAusschreibungByOrga(o);
 	}
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p) throws IllegalArgumentException {
+
+		Vector <Eigenschaft> result = new Vector<Eigenschaft>();
+		
+		if(p != null && this.eigenschaftsMapper != null ){
+			Vector<Eigenschaft> eigenschaft = this.eigenschaftsMapper.getEigenschaftbyID(p.getID());
+			
+			if(eigenschaft != null){
+				result.addAll(eigenschaft);
+			}
+		}
+		return result;
+	}
 	
 }

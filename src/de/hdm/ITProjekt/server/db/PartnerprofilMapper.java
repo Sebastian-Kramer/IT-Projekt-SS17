@@ -2,8 +2,11 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.server.db.DBConnection;
-import java.sql.*;
 import java.util.Vector;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
 public class PartnerprofilMapper {
