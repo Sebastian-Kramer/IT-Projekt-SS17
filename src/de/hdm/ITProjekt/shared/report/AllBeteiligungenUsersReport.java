@@ -1,6 +1,6 @@
 package de.hdm.ITProjekt.shared.report;
 
-public class AllBeteiligungenToProjectReport extends SimpleReport{
+public class AllBeteiligungenUsersReport extends SimpleReport{
 
 	/**
 	 * 

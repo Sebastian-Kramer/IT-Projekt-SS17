@@ -8,7 +8,7 @@ import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
-import de.hdm.ITProjekt.shared.report.AllBeteiligungenToProjectReport;
+import de.hdm.ITProjekt.shared.report.AllBeteiligungenUsersReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByAusschreibungReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByOrganisationseinheitReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
@@ -29,7 +29,7 @@ public interface ReportGeneratorAsync {
 
 	void createAllAusschreibungenReport(AsyncCallback<AllAusschreibungenReport> callback);
 
-	void createAllBeteiligungenToProjectReport(int id, AsyncCallback<AllBeteiligungenToProjectReport> callback);
+	void createAllBeteiligungenToProjectReport(int id, AsyncCallback<AllBeteiligungenUsersReport> callback);
 
 	void createAllBewerbungenByAusschreibungReport(Organisationseinheit o,
 			AsyncCallback<AllBewerbungenByAusschreibungReport> callback);
@@ -63,7 +63,7 @@ public interface ReportGeneratorAsync {
 	void getAusschreibungByMatchingPartnerprofil(Organisationseinheit o,
 			AsyncCallback<AllAusschreibungenByPartnerprofilReport> callback);
 
-	void getBewerberByAusschreibungen(Organisationseinheit o, AsyncCallback<Vector<Organisationseinheit>> callback);
+	void getBewerberByEigeneAusschreibungen(Organisationseinheit o, AsyncCallback<Vector<Organisationseinheit>> callback);
 
 	void getTeamByKey(int teamID, AsyncCallback<Team> callback);
 

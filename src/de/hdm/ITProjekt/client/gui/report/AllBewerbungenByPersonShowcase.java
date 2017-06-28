@@ -1,8 +1,9 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import de.hdm.ITProjekt.client.ReportShowcase;
+import de.hdm.ITProjekt.client.Showcase;
 
-public class AllBewerbungenByPersonShowcase extends ReportShowcase {
+public class AllBewerbungenByPersonShowcase extends Showcase {
 
 	@Override
 	protected String getHeadlineText() {

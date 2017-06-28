@@ -306,7 +306,7 @@ public class HTMLReportWriter implements Serializable{
 	  }
 	  
 	  
-	  public void process(AllBeteiligungenToProjectReport r) {
+	  public void process(AllBeteiligungenUsersReport r) {
 		  
 		  //Löschen des Ergebnisses der vorherigen Prozessierung
 		  this.resetReportText();

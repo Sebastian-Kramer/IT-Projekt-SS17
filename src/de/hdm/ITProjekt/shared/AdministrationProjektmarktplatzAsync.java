@@ -212,6 +212,7 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
 
 
+
 	void getOrgaEinheitFromBewerbung(Integer id, AsyncCallback<Organisationseinheit> callback);
 
 	void getAllEigenschaftenFromOrga(Integer id, AsyncCallback<Vector<Eigenschaft>> callback);
@@ -221,6 +222,19 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findPartnerprofilByID(int id, AsyncCallback<Partnerprofil> callback);
 
+	void getPartnerprofilByAusschreibung(Ausschreibung a, AsyncCallback<Partnerprofil> callback);
+
+	void getOrgaeinheitByID(int o, AsyncCallback<Organisationseinheit> callback);
+
+	void getBeteiligungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Beteiligung>> callback);
+
+	void getAusschreibungByID(int a, AsyncCallback<Ausschreibung> callback);
+
+	void getBewerbungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Bewerbung>> callback);
+
+	void getAllOrganisationseinheiten(AsyncCallback<Vector<Organisationseinheit>> callback);
+
+	void getAusschreibungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Ausschreibung>> callback);
 
 
 	

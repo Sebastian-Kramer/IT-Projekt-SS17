@@ -48,6 +48,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 private Anchor signInLink = new Anchor ("Einloggen");
 	 private Anchor signOutLink = new Anchor ("Ausloggen");
 	 private Anchor goToGoogle = new Anchor ("Go to Google Sign In");
+	 private Label reportgeneratorlabel = new Label("Sie wollen auf den Report Generator?");
+	 private VerticalPanel reportpanel = new VerticalPanel();
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
@@ -56,13 +58,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private Button seiteVerlassen = new Button("Seite verlassen");
 	 
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-	  
-	  
-	  private Button projektmarktplatz = new Button("Projektmarktplatz");
-	  private Button report = new Button("Report Generator");
-	  
+
+	  private Button zumReportgenerator = new Button("Report Generator");
+	    
 	  private Anchor reportLink = new Anchor();
-	  private Anchor projektmarktplatzLink = new Anchor();
 	/**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benötigen wir eine Methode
@@ -71,12 +70,18 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
-//		  RootPanel.get("header-top").add(new Menuleiste());
-//		  RootPanel.get("Details").add(new AbfrageProjektmarktplatzReport());
-//		
-//		 		  
-//				RootPanel.get("header-top").clear();
-				RootPanel.get("header-top").add(new MenuleisteMitReportGenerator());
+		  
+		  zumReportgenerator.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				reportLink.setHref(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html");
+				Window.open(reportLink.getHref(), "_self", "");
+
+			}
+		});
+		  
+		  RootPanel.get("header-top").add(new Menuleiste());
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
 		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{
@@ -173,11 +178,16 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				verpanel.add(goToGoogle);
 				verpanel.setSpacing(10);
 				
+				reportpanel.add(reportgeneratorlabel);
+				reportpanel.add(zumReportgenerator);
+				
 				vorpanel.add(loginPanel);
 				vorpanel.add(loginButton);
+				vorpanel.add(reportpanel);
 				vorpanel.setSpacing(10);
 				horvorpanel.add(vorpanel);
 				horvorpanel.add(verpanel);
+				
 				
 				RootPanel.get("Details").add(horvorpanel);
 				

@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
@@ -48,23 +49,36 @@ public class BeteiligungMapper {
 		}
 		return null;	
 	}
-	
-//	public Vector<Beteiligung> getAllProjektbeteiligungen(int beteiligungid){
-//		Connection con = DBConnection.connection();	 
-//		
-//		 Vector<Beteiligung> result = new Vector<Beteiligung>();
-//		 
-//		  try {
-//		      Statement stmt = con.createStatement();
-//
-//		      ResultSet rs = stmt.executeQuery("SELECT Beteiligung.ID, Beteiligung.umfang, Beteiligung.startdatum, Beteiligung.enddatum, Beteiligung.Projekt_ID, "
-//		      										+ "Beteiligung.Orga_ID, projekt.name FROM Beteiligung INNER JOIN projekt On beteiligung.Projekt_ID=projekt.ID");
-//		      while(rs.next()){
-//		    	  Beteiligung b = new Beteiligung();
-//		    	  
-//		      }
-//	}
-	
+public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
+		
+		Connection con = DBConnection.connection();
+
+		Vector<Beteiligung> result = new Vector<Beteiligung>();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID FROM Beteiligung "
+          + "WHERE Orga_ID=" + o.getID());
+			
+			while(rs.next()){
+				Beteiligung p = new Beteiligung();
+				p.setID(rs.getInt("ID"));
+				p.setUmfang(rs.getString("umfang"));
+				p.setStartdatum(rs.getDate("startdatum"));
+				p.setEnddatum(rs.getDate("enddatum"));
+				p.setProjekt_ID(rs.getInt("Projekt_ID"));
+				p.setOrga_ID(rs.getInt("Orga_ID"));
+				
+				result.addElement(p);
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return result;	
+	}
+		
 	public Vector<Beteiligung> getAll(){
 		
 		 Connection con = DBConnection.connection();	 

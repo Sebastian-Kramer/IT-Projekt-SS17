@@ -740,7 +740,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	}
 	@Override
-
 	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException {
 		return this.orgMapper.findByID(id);
 	}
@@ -755,5 +754,73 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.partnerprofilMapper.findByKey(id);
 	}
 
+	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException {
+		if (a != null && this.partnerprofilMapper != null) {
+			return this.partnerprofilMapper.findByKey(a.getPartnerprofil_ID());
+			
+		}
+		else {
+			return null;
+		}
+	}
+	@Override
+	public Organisationseinheit getOrgaeinheitByID(int o) throws IllegalArgumentException {
+		Person p = personMapper.findByKey(o);
+		Unternehmen u = unMapper.findByKey(o);
+		Team t = tMapper.findByKey(o);
+		
+		if(p != null){
+			return p;
+		}
+		if(u != null){
+			return u;
+		}
+		if(t != null){
+			return t;
+		}
+		else return null;
+	}
+	@Override
+	public Vector<Beteiligung> getBeteiligungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+		Vector<Beteiligung> result = new Vector<>();
+		
+		if (o != null && this.beteilMapper != null) {
+			Vector<Beteiligung> beteiligungen = this.beteilMapper.findByOrgaeinheit(o);
+			
+			if (beteiligungen != null) {
+				result.addAll(beteiligungen);
+			}
+		}
+		
+		return result;
+	}
+	@Override
+	public Ausschreibung getAusschreibungByID(int a) throws IllegalArgumentException {
+		return this.aMapper.findByKey(a);
+	}
+	@Override
+	public Vector<Bewerbung> getBewerbungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+
+		Vector<Bewerbung> result = new Vector<>();
+		
+		if (o != null && this.bewMapper != null) {
+			Vector<Bewerbung> bewerbungen = this.bewMapper.findByPerson(o.getID());
+			
+			if (bewerbungen != null) {
+				result.addAll(bewerbungen);
+			}
+		}
+		
+		return result;
+	}
+	@Override
+	public Vector<Organisationseinheit> getAllOrganisationseinheiten() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.orgMapper.getAllOrganisationseinheit();
+	}
+	@Override
+	public Vector<Ausschreibung> getAusschreibungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+		return this.aMapper.findAusschreibungByOrga(o);
+	}
 	
 }
