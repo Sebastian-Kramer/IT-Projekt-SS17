@@ -49,7 +49,7 @@ public interface ReportGeneratorAsync {
 
 	void createFanOutAnalyse(AsyncCallback<FanOut> callback);
 
-	void createProjektverflechtungenReport(int id, AsyncCallback<ProjektverflechtungReport> callback);
+	void createProjektverflechtungReport(int id, AsyncCallback<ProjektverflechtungReport> callback);
 
 	void findPersonByKey(int id, AsyncCallback<Person> callback);
 

@@ -49,7 +49,7 @@ public interface ReportGenerator extends RemoteService {
 	
 	public abstract FanOut createFanOutAnalyse() throws IllegalArgumentException;
 	
-	ProjektverflechtungReport createProjektverflechtungenReport(int id) throws IllegalArgumentException;
+	ProjektverflechtungReport createProjektverflechtungReport(int id) throws IllegalArgumentException;
 	
 	public Person findPersonByKey(int id) throws IllegalArgumentException;
 	
