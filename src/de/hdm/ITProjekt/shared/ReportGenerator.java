@@ -13,7 +13,7 @@ import de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.AllBeteiligungenToProjectReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByAusschreibungReport;
-import de.hdm.ITProjekt.shared.report.AllBewerbungenByPersonReport;
+import de.hdm.ITProjekt.shared.report.AllBewerbungenByOrganisationseinheitReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenWithAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.FanIn;
@@ -37,7 +37,7 @@ public interface ReportGenerator extends RemoteService {
 	
 	public abstract AllBewerbungenByAusschreibungReport createAllBewerbungenByAusschreibungReport (Organisationseinheit o) throws IllegalArgumentException;
 	
-	public abstract AllBewerbungenByPersonReport createAllBewerbungenByPersonReport (int id) throws IllegalArgumentException;
+	public abstract AllBewerbungenByOrganisationseinheitReport createAllBewerbungenByPersonReport (int id) throws IllegalArgumentException;
 	
 	public abstract AllBewerbungenWithAusschreibungenReport createAllBewerbungenWithAusschreibungenReport(Organisationseinheit o) throws IllegalArgumentException;
 		
