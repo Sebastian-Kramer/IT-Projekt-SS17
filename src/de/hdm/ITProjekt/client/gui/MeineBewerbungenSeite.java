@@ -152,6 +152,18 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 			
 		};
+		Column<HybridAusschreibungBewerbung, String> status =
+				new Column<HybridAusschreibungBewerbung, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridAusschreibungBewerbung object) {
+						
+						return object.getBewerbungsstatus();
+					}
+			
+		
+			
+		};
 		
 		
 		
@@ -214,6 +226,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
 		ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
 		ct_meineBewerbungen.addColumn(projektname, "Projekt");
+		ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
 		ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
 		ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
 		
@@ -229,8 +242,9 @@ public class MeineBewerbungenSeite extends Showcase {
 			ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
 			ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
 			ct_meineBewerbungen.addColumn(projektname, "Projekt");
-			ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
-			ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
+			ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
+			ct_meineBewerbungen.setRowCount(meineBewerbungenTeam.size(), true);
+			ct_meineBewerbungen.setRowData(0, meineBewerbungenTeam);
 			
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			 if (adminService == null) {
@@ -244,8 +258,10 @@ public class MeineBewerbungenSeite extends Showcase {
 				ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
 				ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
 				ct_meineBewerbungen.addColumn(projektname, "Projekt");
-				ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
-				ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
+				ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
+				
+				ct_meineBewerbungen.setRowCount(meineBewerbungenUnternehmen.size(), true);
+				ct_meineBewerbungen.setRowData(0, meineBewerbungenUnternehmen);
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 if (adminService == null) {
@@ -481,6 +497,8 @@ public class MeineBewerbungenSeite extends Showcase {
 								localHybrid.setAblauffrist(a.getDatum());
 								localHybrid.setBewerbungstext(localBewerbung.getBewerbungstext());
 								localHybrid.setProjektname(result.getName());
+								localHybrid.setBewerbungsstatus(localBewerbung.getStatus());
+							
 								
 								
 								

@@ -31,6 +31,7 @@ public class HTMLReportWriter implements Serializable{
 			    return this.paragraphToHTML((SimpleParagraph) p);
 			}
 		}	
+	
 		
 		/**
 		 * Umwadeln eines CompositeParagraphs in HTML.
@@ -706,16 +707,7 @@ public class HTMLReportWriter implements Serializable{
 		       this.reportText = result.toString();
 	  }
 	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-	  
-//	  public void process(AlleBewerbungenAufEigeneAusschreibungenReport r){
+//	  public void process1(AllBewerbungenByAusschreibungReport r){
 //		    // Zunächst löschen wir das Ergebnis vorhergehender Prozessierungen.
 //		    this.resetReportText();
 //
@@ -731,7 +723,7 @@ public class HTMLReportWriter implements Serializable{
 //		     */
 //		    result.append("<H2>" + r.getTitel() + "</H2>");
 //		    result.append("<table><tr>");
-//		    result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
+//		    result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
 //		        + "</td></tr></table>");
 //
 //		    /*
@@ -746,7 +738,7 @@ public class HTMLReportWriter implements Serializable{
 //		       * Sollte dies in einer erweiterten Form des Projekts nicht mehr gelten,
 //		       * so müsste hier eine detailliertere Implementierung erfolgen.
 //		       */
-//		    	AlleBewerbungenAufEineAusschreibungDesUsers subReport = (AlleBewerbungenAufEineAusschreibungDesUsers) r
+//		    	AllBewerbungenToOneAusschreibungReport subReport = (AllBewerbungenToOneAusschreibungReport) r
 //		          .getSubReportByIndex(i);
 //
 //		      this.process(subReport);

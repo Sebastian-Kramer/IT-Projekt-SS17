@@ -211,11 +211,15 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
 
+
 	void getOrgaEinheitFromBewerbung(Integer id, AsyncCallback<Organisationseinheit> callback);
 
 	void getAllEigenschaftenFromOrga(Integer id, AsyncCallback<Vector<Eigenschaft>> callback);
 	
 	
+
+
+	void findPartnerprofilByID(int id, AsyncCallback<Partnerprofil> callback);
 
 
 

@@ -721,7 +721,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException {
 		
-		return this.partnerprofilMapper.getAll();
+		return this.partnerprofilMapper.getAllPartnerprofile();
 	}
 	@Override
 	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
@@ -740,12 +740,19 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	}
 	@Override
+
 	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException {
 		return this.orgMapper.findByID(id);
 	}
 	@Override
 	public Vector<Eigenschaft> getAllEigenschaftenFromOrga(Integer id) throws IllegalArgumentException {
 		return this.eigenschaftsMapper.getEigenschaftbyId(id);
+	}
+
+
+	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.findByKey(id);
 	}
 
 	

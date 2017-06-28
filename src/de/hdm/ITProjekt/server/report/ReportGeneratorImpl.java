@@ -15,7 +15,7 @@ import de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.AllBeteiligungenToProjectReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByAusschreibungReport;
-import de.hdm.ITProjekt.shared.report.AllBewerbungenByPersonReport;
+import de.hdm.ITProjekt.shared.report.AllBewerbungenByOrganisationseinheitReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenWithAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.FanIn;
@@ -148,7 +148,7 @@ import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 	}
 
 	@Override
-	public AllBewerbungenByPersonReport createAllBewerbungenByPersonReport(int id) throws IllegalArgumentException {
+	public AllBewerbungenByOrganisationseinheitReport createAllBewerbungenByPersonReport(int id) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return null;
 	}

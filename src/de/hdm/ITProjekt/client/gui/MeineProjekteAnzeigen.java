@@ -227,7 +227,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projektseite(ssm_meineprojekt.getSelectedObject(), person);
+				Showcase showcase = new Projektseite(ssm_meineprojekt.getSelectedObject(), is.getUser());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
@@ -318,25 +318,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 			}
 			
 		});
-//		adminService.getAllProjekteByTeilnahme(person, new getProjekteByTeilnahme());
-//	}	
-//	
-//	private class deleteTeilnehmerEinesProjekts implements AsyncCallback<Void>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			Window.alert("Löschen fehlgeschlagen");
-//		}
-//
-//		@Override
-//		public void onSuccess(Void result) {
-//			Window.alert("Löschen erfolgreich");
-//			Showcase showcase = new MeineProjekteAnzeigen(person);
-//			RootPanel.get("Details").clear();
-//			RootPanel.get("Details").add(showcase);
-//			
-//		}
-//		
+
 	}
 	
 	private void filltableMeineProjekteUnternehmen(){
@@ -432,35 +414,5 @@ public class MeineProjekteAnzeigen extends Showcase{
 			
 		});
 	}
-	
-	private class getProjekteByTeilnahme implements AsyncCallback <Vector<Projekt>>{
-
-		@Override
-		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-			
-		}
-
-		@Override
-		public void onSuccess(Vector<Projekt> result) {
-			if (result != null){
-				ct_meineProjekte.setRowData(0, result);
-				ct_meineProjekte.setRowCount(result.size(), true);
-			}else{
-				Window.alert("Sie haben keine Projekte");
-			}
-			
-		}
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 }

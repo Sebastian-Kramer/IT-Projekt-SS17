@@ -1,13 +1,17 @@
 package de.hdm.ITProjekt.client.gui;
 
 import java.util.Date;
+import java.util.Vector;
 
+import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
 import com.google.gwt.event.logical.shared.ValueChangeHandler;
 import com.google.gwt.i18n.client.DateTimeFormat;
+import com.google.gwt.user.cellview.client.CellTable;
+import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
@@ -24,9 +28,11 @@ import com.google.gwt.user.datepicker.client.DatePicker;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
@@ -39,14 +45,16 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private VerticalPanel vp = new VerticalPanel();
 	private HorizontalPanel hp = new HorizontalPanel();
 	
-	Button createAusschreibung = new Button("Stellenausschreibung anlegen");
-	Button cancel = new Button("abbrechen");
+	private Button createAusschreibung = new Button("Stellenausschreibung anlegen");
+	private Button cancel = new Button("abbrechen");
+	private Button hinzufuegen = new Button("Eigenschaft hinzufügen");
+	
+	private CellTable <Eigenschaft> ct_eigenschaften = new CellTable<Eigenschaft>();
+	
+	
 	
 	private TextArea ausschreibungstext = new TextArea();
 	private TextArea ausschreibungsbez = new TextArea();
-	
-	private ListBox auswahlEigenschaften = new ListBox();
-	private ListBox wertEigenschaften = new ListBox();
 	
 	private Label ablauffristLabel = new Label("Bewerbungfrist: ");
 	private Label bez = new Label("Name der Stellenausschreibung: ");
@@ -60,6 +68,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private Ausschreibung ausschreibung_dialog = new Ausschreibung();
 	private Eigenschaft eigenschaft = new Eigenschaft();
 	
+	private Partnerprofil profil = new Partnerprofil();
 	private Person person1 = new Person();
 	private Projekt projekt1 = new Projekt();
 	
@@ -95,6 +104,8 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		ausschreibungstextft.setWidget(3, 1, ablaufDatum);
 		
 		vp.add(ausschreibungstextft);
+		vp.add(ct_eigenschaften);
+		vp.add(hinzufuegen);
 		vp.add(hp);
 		
 		this.add(vp);
@@ -117,6 +128,33 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		});
 		datepicker_datum.setValue(new Date(), true);
 		
+		hinzufuegen.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				adminService.addPartnerprofil(profil, new AsyncCallback<Partnerprofil>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						
+						
+					}
+
+					@Override
+					public void onSuccess(Partnerprofil result) {
+						DialogBoxEigenschaftHinzufuegen dialog_eigenschaft = new DialogBoxEigenschaftHinzufuegen(result);
+						Window.alert(" " + result.getID());
+						profil.setID(result.getID());
+						dialog_eigenschaft.center();
+						
+					}
+					
+				});
+				
+			}
+			
+		});
+		
 		cancel.addClickHandler(new ClickHandler(){
 
 			@Override
@@ -134,29 +172,52 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				
 			ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
 			ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
 			ausschreibung_dialog.setDatum(ablaufDatum.getValue());
 			ausschreibung_dialog.setOrga_ID(projekt.getProjektleiter_ID());
 			ausschreibung_dialog.setProjekt_ID(projekt.getID());
+			ausschreibung_dialog.setPartnerprofil_ID(profil.getID());
+			
 				
 				if(ausschreibungsbez.getText().isEmpty()){
 					Window.alert("Bitte eine Stellenbezeichnung hinzufügen");
 					if(ausschreibungstext.getText().isEmpty()){
 						Window.alert("Bitte eine Stellenbeschreibung hinzfügen");
-					}
 					
+					if(profil.getID() == 0){
+						Window.alert("Bitte ein Partnerprofil hinzufügen");
+					}
+					}	
 				}
 				else{
-					Window.alert(" " + ausschreibung_dialog.getOrga_ID());
-					Window.alert(person1.getName());
-					Window.alert(projekt1.getName());
-					DialogBoxPartnerprofilAnlegen profilbox = new DialogBoxPartnerprofilAnlegen(ausschreibung_dialog,person1,projekt1);
-					DialogBoxAusschreibungAnlegen.this.hide();
-					profilbox.center();
+					adminService.addAusschreibung(ausschreibung_dialog, new addAusschreibungInDB(){
+						
+					});
 					
+					Column<Eigenschaft, String> name = 
+						    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+						    
+								@Override
+								public String getValue(Eigenschaft object) {
+									return object.getName();
+								}
+								    
+				 };
+				 Column<Eigenschaft, String> wert = 
+						    new Column<Eigenschaft, String>(new ClickableTextCell())  {
+						    
+								@Override
+								public String getValue(Eigenschaft object) {
+									return object.getWert();
+								}
+								
+				 };
 					
-					
+//					ct_eigenschaften.addColumn(name,"Fähigkeit");
+//					ct_eigenschaften.addColumn(wert, "Wert");
+//					filltableeigenschaften();
 					
 				}
 				
@@ -168,6 +229,32 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 		DateTimeFormat dateformat = DateTimeFormat.getFormat("yyyy-MM-dd");
 		ablaufDatum.setFormat(new DateBox.DefaultFormat(dateformat));
 	}
+	
+	
+private void filltableeigenschaften(){
+		
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	    }	
+		 adminService.getAllEigenschaftenbyPartnerprofilID(profil.getID(), new AsyncCallback<Vector<Eigenschaft>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Eigenschaft> result) {
+				ct_eigenschaften.setRowData(0, result);
+				ct_eigenschaften.setRowCount(result.size(), true);
+			}
+			 
+		 });
+	}
+	
+	
 	
 		
 	private class addAusschreibungInDB implements AsyncCallback<Ausschreibung>{

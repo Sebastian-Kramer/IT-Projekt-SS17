@@ -94,7 +94,6 @@ public class AusschreibungMapper {
 				  
 				  while (rs.next()) {
 					Ausschreibung a = new Ausschreibung();
-					
 				 	a.setID(rs.getInt("ID"));
 					a.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					a.setBezeichnung(rs.getString("bezeichnung"));
@@ -171,9 +170,9 @@ public class AusschreibungMapper {
 			   	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID)" 
+			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID,Partnerprofil_ID)" 
 			    		+ "VALUES (" + a.getID() + ", " + "'" + a.getAusschreibungstext() + "'" + ", " + "'" + a.getBezeichnung() 
-			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID()  +")"); 
+			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID() + ", " + a.getPartnerprofil_ID()  +")"); 
 			    	  
 			      }
 			}
