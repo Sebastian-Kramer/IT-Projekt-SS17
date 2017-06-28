@@ -754,6 +754,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.partnerprofilMapper.findByKey(id);
 	}
 
+
 	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException {
 		if (a != null && this.partnerprofilMapper != null) {
 			return this.partnerprofilMapper.findByKey(a.getPartnerprofil_ID());
@@ -822,5 +823,22 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Vector<Ausschreibung> getAusschreibungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
 		return this.aMapper.findAusschreibungByOrga(o);
 	}
+
+	@Override
+	public Vector<Beteiligung> getBeteiligungByOrga(Integer orgaid) throws IllegalArgumentException {
+		
+		return this.getBeteiligungByOrga(orgaid);
+	}
+	@Override
+	public void deleteTeamByID(Integer t) throws IllegalArgumentException {
+		this.tMapper.deleteTeam(t);
+		
+	}
+	@Override
+	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException {
+		this.unMapper.deleteUnternehmen(u);
+		
+	}
+
 	
 }

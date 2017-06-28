@@ -37,15 +37,15 @@ import de.hdm.ITProjekt.shared.bo.Projekt;
 
 public class EigenschaftenHinzufuegen extends Showcase{
 	
-	private IdentitySelection identitySelection = null;
+	private IdentitySelection is = null;
 	private Menubar mb = null;
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Person user = new Person();
 	
-	public EigenschaftenHinzufuegen(Person person){
-		this.user = person;
+	public EigenschaftenHinzufuegen(IdentitySelection is){
+		this.is	 = is;
 	}
 	
 	private VerticalPanel vpanel = new VerticalPanel();
@@ -98,7 +98,7 @@ public class EigenschaftenHinzufuegen extends Showcase{
 					 if (adminService == null) {
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
-					 adminService.getPartnerprofilOfOrganisationseinheit(user, new AsyncCallback<Partnerprofil>(){
+					 adminService.getPartnerprofilOfOrganisationseinheit(is.getUser(), new AsyncCallback<Partnerprofil>(){
 
 							@Override
 							public void onFailure(Throwable caught) {
@@ -121,7 +121,7 @@ public class EigenschaftenHinzufuegen extends Showcase{
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					Showcase showcase = new MeinProfilAnzeigen(user);
+					Showcase showcase = new MeinProfilAnzeigen(is);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 				}
@@ -152,7 +152,7 @@ public class EigenschaftenHinzufuegen extends Showcase{
 
 		@Override
 		public void onSuccess(Eigenschaft result) {
-			Showcase showcase = new MeinProfilAnzeigen(user);
+			Showcase showcase = new MeinProfilAnzeigen(is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 		}

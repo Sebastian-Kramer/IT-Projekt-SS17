@@ -120,9 +120,9 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 							@Override
 							public void onSuccess(Ausschreibung result) {
 								Window.alert("Die Ausschreibung und das dazugehörige Partnerprofil wurden erfolgreich angelegt");
-								Showcase showcase = new Projektseite(projekt, person);
+//								Showcase showcase = new Projektseite(projekt, is);
 								RootPanel.get("Details").clear();
-								RootPanel.get("Details").add(showcase);
+//								RootPanel.get("Details").add(showcase);
 								
 								
 							}

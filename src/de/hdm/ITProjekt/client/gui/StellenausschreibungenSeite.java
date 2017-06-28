@@ -45,8 +45,6 @@ public class StellenausschreibungenSeite extends Showcase {
 	VerticalPanel vpanel = new VerticalPanel();
 	
 	//Buttons erstellen
-//	Button deleteausschreibung = new Button("Stellenausschreibung entfernen");
-//	Button createausschreibung = new Button("Stellenausschreibung anlegen");
 	Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	
 	// Erlaubt das anklicken in Tabellen
@@ -83,26 +81,22 @@ public class StellenausschreibungenSeite extends Showcase {
 		// Größe der Tablle im div Container, sprich der Seite
 		ct_eigeneAusschreibungen.setWidth("100%", true);
 		
-		// Hinzufügen der Buttons und Textbox zum Panel
-//		hpanel_ausschreibung.add(createausschreibung);
-//		hpanel_ausschreibung.add(deleteausschreibung);
+
 		hpanel_ausschreibung.add(showausschreibung);
 
 				
-		// Hinzufügen der Tabelle ins VerticalPanel
+
 		vpanel.add(ct_alleAusschreibungen);
 		vpanel.add(ct_eigeneAusschreibungen);
 						
-		// In die seite laden
+
 		this.add(hpanel_ausschreibung);
 		this.add(vpanel);
 		
-		//Stylen der Button
+
 		
 		ct_alleAusschreibungen.setSelectionModel(ssm);
-		//ct_eigeneAusschreibungen.setSelectionModel(ssm_fremde);
-		
-		//Was soll in der Tabelle angezeigt werden
+
 		
 		Column <Ausschreibung, String> Bezeichnung =
 				new Column<Ausschreibung, String>(new ClickableTextCell()){
@@ -147,7 +141,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 adminService.getPersonbyID(1, new getPersonByID());
+				 adminService.getPersonbyID(is.getUser().getID(), new getPersonByID());
 				a1 = ssm.getSelectedObject();
 				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, menubar);
 				int left = Window.getClientHeight() / 3;
@@ -163,38 +157,12 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	});
 	
 
-//	ct_alleAusschreibungen.addDomHandler(new ClickHandler()
-//    {
-//        @Override
-//        public void onClick(ClickEvent event)
-//       
-//        {
-//    if(ssm != null){
-//        	Showcase showcase = new StellenausschreibungenSeite(ssm.getSelectedObject().getID());
-//        	RootPanel.get("Details").clear();
-//			RootPanel.get("Details").add(showcase);
-//    }
-//    else {
-//    	Window.alert("FEHLEEER");
-//    }
-//        }
-//       
-//    }, ClickEvent.getType());
-
-	// Wie soll die Spalte (Column) heißen?
-
 	ct_alleAusschreibungen.addColumn(Bezeichnung, "Bezeichnung");
 	ct_alleAusschreibungen.addColumn(Datum, "Einstelldatum");
 	ct_alleAusschreibungen.addColumn(Stellenbeschreibung, "Stellenbeschreibung");
 	
-//	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//	 if (adminService == null) {
-//      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//    }
-//	adminService.getAll(new getAusschreibungAusDB());
 	filltableausschreibung();
-//	loschenAusschreibung();
-//	anlegenAusschreibung();
+
 		}
 
 	private void filltableausschreibung() {
@@ -223,106 +191,6 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 
 	}
 	
-	// Löschen aus der Datenbank und Tabelle
-
-
-//	private void loschenAusschreibung() {
-//		deleteausschreibung.addClickHandler(new ClickHandler(){
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//
-//				Ausschreibung selectedObject = ssm.getSelectedObject();
-//				if (selectedObject != null){
-//					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//					 if (adminService == null) {
-//				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//				    }
-//					 AsyncCallback<Ausschreibung> callback = new AsyncCallback<Ausschreibung>(){
-//
-//						@Override
-//						public void onFailure(Throwable caught) {
-//							// TODO Auto-generated method stub
-//							Window.alert("Fehler beim Löschen");
-//							
-//						}
-//
-//						@Override
-//						public void onSuccess(Ausschreibung result) {
-//							// TODO Auto-generated method stub
-//							Window.alert("Die Stellenausschreibung wurde erfolgreich gelöscht");
-//							refreshlist();
-//						}
-//					 };
-//					 
-//					 adminService.deleteAusschreibung(selectedObject, null);
-//					 }
-//			}
-//		});
-//		
-//					 }
-						private void refreshlist() {
-
-							 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-							 if (adminService == null) {
-						      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-						    }
-							 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
-
-								@Override
-								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
-									Window.alert("Fehler beim Laden der Daten aus der Datenbank");
-								}
-								@Override
-								public void onSuccess(Vector<Ausschreibung> result) {
-									// TODO Auto-generated method stub
-									ct_alleAusschreibungen.setRowData(0, result	);
-									ct_alleAusschreibungen.setRowCount(result.size(), true);
-									
-										
-									}
-								};
-							adminService.getAll(callback);
-							 
-						 }
-
-
-//	private void anlegenAusschreibung() {
-//
-//		createausschreibung.addClickHandler(new ClickHandler() {
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				
-//				 // Initialize the service proxy.
-//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//			    if (adminService == null) {
-//			     
-//			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//			    }
-//			    
-//			     // Set up the callback object.
-//			    AsyncCallback<Ausschreibung> callback = new AsyncCallback<Ausschreibung>() {
-//			   
-//			      public void onFailure(Throwable caught) {
-//			        // TODO: Do something with errors.
-//			    	  Window.alert("onFailure");
-//			    }
-//				
-//					@Override
-//					public void onSuccess(Ausschreibung result) {
-////						filltableausschreibung();  		
-//									}
-//				
-//			    };
-//			    
-//			     // Make the call to the stock price service.
-//				   //adminService.addAusschreibung(null, callback);
-//			    
-//	 }
-//});
-//}
 	public class getAusschreibungAusDB implements AsyncCallback<Vector<Ausschreibung>>{
 	@Override
 	public void onFailure(Throwable caught) {
