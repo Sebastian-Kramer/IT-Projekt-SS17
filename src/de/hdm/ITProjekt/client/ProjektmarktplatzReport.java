@@ -53,19 +53,32 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	 private HorizontalPanel addPanel = new HorizontalPanel();
 	 private VerticalPanel mainPanel = new VerticalPanel();
 	 private Person p1 = new Person();
+
+	 private Label projektmarktplatzlabel = new Label("Sie wollen auf den Report Generator?");
 	  
 	 private Button loginButton = new Button("Login");
 	 private Button seiteVerlassen = new Button("Seite verlassen");
+	 private Button zumprojektmarktplatz = new Button("Zum Projektmarktplatz");
+	 private Anchor projektLink = new Anchor();
+	 private VerticalPanel projektmarktpanel = new VerticalPanel();
 	 
-	  
-	private AdministrationProjektmarktplatzAsync adminService;
-	private ReportGeneratorAsync reportGenerator;
-	private LoginServiceAsync loginService = null;
+	 private AdministrationProjektmarktplatzAsync adminService;
+	 private ReportGeneratorAsync reportGenerator;
+	 private LoginServiceAsync loginService = null;
 	
 	@Override
 	public void onModuleLoad() {
 
-		RootPanel.get("header-topreport").add(new MenuleisteReportMitProjektmarktplatz());
+		RootPanel.get("header-topreport").add(new MenuleisteReport());
+		
+		zumprojektmarktplatz.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				projektLink.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
+				Window.open(projektLink.getHref(), "_self", "");
+				}
+		});
 		
 		this.reportGenerator = ClientsideSettings.getReportGenerator();
 		this.loginService = ClientsideSettings.getLoginService();
@@ -153,8 +166,12 @@ public class ProjektmarktplatzReport implements EntryPoint{
 				verpanel.add(goToGoogle);
 				verpanel.setSpacing(10);
 				
+				projektmarktpanel.add(projektmarktplatzlabel);
+				projektmarktpanel.add(zumprojektmarktplatz);
+				
 				vorpanel.add(loginPanel);
 				vorpanel.add(loginButton);
+				vorpanel.add(projektmarktpanel);
 				vorpanel.setSpacing(10);
 				horvorpanel.add(vorpanel);
 				horvorpanel.add(verpanel);

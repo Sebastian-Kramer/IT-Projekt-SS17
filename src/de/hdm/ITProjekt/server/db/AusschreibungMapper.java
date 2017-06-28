@@ -2,6 +2,7 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
@@ -74,6 +75,34 @@ public class AusschreibungMapper {
 				return null;
 			}
 			return null;	
+		}		
+		public Vector<Ausschreibung> findAusschreibungByOrga(Organisationseinheit o){
+			
+			Connection con = DBConnection.connection();
+			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
+	          + "WHERE Orga_ID=" + o.getID());
+				
+				if(rs.next()){
+					Ausschreibung p = new Ausschreibung();
+					p.setID(rs.getInt("ID"));
+					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					p.setBezeichnung(rs.getString("bezeichnung"));
+					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+					 result.addElement(p);
+
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
 		}
 		
 		/*

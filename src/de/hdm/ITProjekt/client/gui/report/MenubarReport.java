@@ -82,7 +82,7 @@ public class MenubarReport extends StackPanel{
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-			ReportShowcase reportShowcase = new AllBewerbungenByPersonShowcase();
+			Showcase reportShowcase = new AllBewerbungenByPersonShowcase();
 			RootPanel.get("DetailsReport").clear();
 			RootPanel.get("DetailsReport").add(reportShowcase);
 
@@ -94,9 +94,9 @@ public class MenubarReport extends StackPanel{
 			
 		alleAusschreibungen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				ReportShowcase reportShowcase = new AllAusschreibungenShowcase();
+				Showcase Showcase = new AllAusschreibungenShowcase();
 				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
+				RootPanel.get("DetailsReport").add(Showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 				
@@ -105,19 +105,19 @@ public class MenubarReport extends StackPanel{
 		
 		alleAusschreibungenzupartnerprofil.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-//				ReportShowcase reportShowcase = new AllAusschreibungenByPartnerprofilShowcase();
-//				RootPanel.get("DetailsReport").clear();
-//				RootPanel.get("DetailsReport").add(reportShowcase);
-//				currentClickHandler=this;
-//				currentClickEvent=event;
+				Showcase Showcase = new AllAusschreibungenByPartnerprofilShowcase();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(Showcase);
+				currentClickHandler=this;
+				currentClickEvent=event;
 			}
 		});
 
 		alleeigenenbewerbungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				ReportShowcase reportShowcase = new AllBewerbungenByAusschreibungShowcase();
+				Showcase showcase = new AllBewerbungenByAusschreibungShowcase();
 				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
+				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}
@@ -125,9 +125,9 @@ public class MenubarReport extends StackPanel{
 		
 			faninfanoutanalyse.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				ReportShowcase reportShowcase = new FanInFanOutShowcase();
+				Showcase showcase = new FanInFanOutShowcase();
 				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
+				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}
@@ -135,9 +135,9 @@ public class MenubarReport extends StackPanel{
 					
 			projektverflechtungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				ReportShowcase reportShowcase = new ProjektverflechtungenShowcase();
+				Showcase showcase = new ProjektverflechtungenShowcase();
 				RootPanel.get("DetailsReport").clear();
-				RootPanel.get("DetailsReport").add(reportShowcase);
+				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 		

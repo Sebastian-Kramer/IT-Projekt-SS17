@@ -11,7 +11,7 @@ import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
-import de.hdm.ITProjekt.shared.report.AllBeteiligungenToProjectReport;
+import de.hdm.ITProjekt.shared.report.AllBeteiligungenUsersReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByAusschreibungReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenByPersonReport;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
@@ -33,7 +33,7 @@ public interface ReportGenerator extends RemoteService {
 	
 	public abstract AllAusschreibungenReport createAllAusschreibungenReport() throws IllegalArgumentException;
 	
-	public abstract AllBeteiligungenToProjectReport createAllBeteiligungenToProjectReport (int id) throws IllegalArgumentException;
+	public abstract AllBeteiligungenUsersReport createAllBeteiligungenToProjectReport (int id) throws IllegalArgumentException;
 	
 	public abstract AllBewerbungenByAusschreibungReport createAllBewerbungenByAusschreibungReport (Organisationseinheit o) throws IllegalArgumentException;
 	
@@ -57,7 +57,7 @@ public interface ReportGenerator extends RemoteService {
 	
 	public Unternehmen findUnternehmenByKey (int id) throws IllegalArgumentException;
 
-	public Vector<Organisationseinheit> getBewerberByAusschreibungen(Organisationseinheit o) throws IllegalArgumentException;
+	public Vector<Organisationseinheit> getBewerberByEigeneAusschreibungen(Organisationseinheit o) throws IllegalArgumentException;
 
 	public Vector<Person> getAllPersonen() throws IllegalArgumentException;
 	

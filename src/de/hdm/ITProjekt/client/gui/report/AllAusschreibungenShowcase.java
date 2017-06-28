@@ -3,11 +3,12 @@ package de.hdm.ITProjekt.client.gui.report;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.ReportShowcase;
+import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 
-public class AllAusschreibungenShowcase extends ReportShowcase {
+public class AllAusschreibungenShowcase extends Showcase {
 
 	@Override
 	protected String getHeadlineText() {
@@ -19,7 +20,7 @@ public class AllAusschreibungenShowcase extends ReportShowcase {
 	protected void run() {
 		// TODO Auto-generated method stub
 
-		final ReportShowcase showcase = this;
+		final Showcase showcase = this;
 		
 		this.append("Auslesen aller Ausschreibungen auf dem Projektmarktplatz");
 		
@@ -45,8 +46,7 @@ public class AllAusschreibungenShowcase extends ReportShowcase {
 					HTMLReportWriter writer = new HTMLReportWriter();
 				
 					writer.process(result);
-					
-//					showcase.append(writer.getReportText());
+					showcase.append(writer.getReportText());
 				}	
 			}
 		});	

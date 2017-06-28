@@ -209,5 +209,18 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
 
 	public Person getPersonFromBewerbung(Integer id);
+	
+	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException;
+	
+	public Organisationseinheit getOrgaeinheitByID(int o) throws IllegalArgumentException;
 
+	public Vector<Beteiligung> getBeteiligungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException;
+	
+	public Ausschreibung getAusschreibungByID(int a) throws IllegalArgumentException;
+	
+	public Vector<Bewerbung> getBewerbungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException;
+	
+	public Vector<Organisationseinheit> getAllOrganisationseinheiten()throws IllegalArgumentException;
+	
+	public Vector<Ausschreibung> getAusschreibungByOrgaeinheit(Organisationseinheit o)throws IllegalArgumentException;
 	}
