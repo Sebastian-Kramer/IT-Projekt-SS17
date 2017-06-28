@@ -65,7 +65,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	@Override
 	public void onModuleLoad() {
 
-		RootPanel.get("header-topreport").add(new MenuleisteReport());
+		RootPanel.get("header-topreport").add(new MenuleisteReportMitProjektmarktplatz());
 		
 		this.reportGenerator = ClientsideSettings.getReportGenerator();
 		this.loginService = ClientsideSettings.getLoginService();
@@ -122,8 +122,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 									/**
 									 * Falls User noch nicht registriert ist, wird die RegistrierenForm aufgerufen
 									 */
-									RootPanel.get("DetailsReport").clear();
-									RootPanel.get("DetailsReport").add(new RegistrierungsForm());							
+									Window.alert("Bitte registrieren Sie sich über den Projektmarktplatz");						
 								}
 							}
 						});

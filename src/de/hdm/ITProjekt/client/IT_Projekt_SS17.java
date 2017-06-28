@@ -58,9 +58,11 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	  
 	  
-//	  private Button projektmarktplatz = new Button("Projektmarktplatz");
-
+	  private Button projektmarktplatz = new Button("Projektmarktplatz");
+	  private Button report = new Button("Report Generator");
 	  
+	  private Anchor reportLink = new Anchor();
+	  private Anchor projektmarktplatzLink = new Anchor();
 	/**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benötigen wir eine Methode
@@ -69,9 +71,12 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
-		  RootPanel.get("header-top").add(new Menuleiste());
-		  
-		  
+//		  RootPanel.get("header-top").add(new Menuleiste());
+//		  RootPanel.get("Details").add(new AbfrageProjektmarktplatzReport());
+//		
+//		 		  
+//				RootPanel.get("header-top").clear();
+				RootPanel.get("header-top").add(new MenuleisteMitReportGenerator());
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
 		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{
@@ -130,8 +135,9 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				  }
 			  }
 			  });
-		  
-	  }
+			}
+			
+	  
 	 
 			public void load(Person person){
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
