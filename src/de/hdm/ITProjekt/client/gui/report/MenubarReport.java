@@ -82,7 +82,7 @@ public class MenubarReport extends StackPanel{
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-			Showcase reportShowcase = new AllBewerbungenByPersonShowcase();
+			Showcase reportShowcase = new AllBewerbungenByPersonShowcase(isreport);
 			RootPanel.get("DetailsReport").clear();
 			RootPanel.get("DetailsReport").add(reportShowcase);
 
@@ -105,7 +105,7 @@ public class MenubarReport extends StackPanel{
 		
 		alleAusschreibungenzupartnerprofil.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase Showcase = new AllAusschreibungenByPartnerprofilShowcase();
+				Showcase Showcase = new AllAusschreibungenByPartnerprofilShowcase(isreport);
 				RootPanel.get("DetailsReport").clear();
 				RootPanel.get("DetailsReport").add(Showcase);
 				currentClickHandler=this;
@@ -115,7 +115,7 @@ public class MenubarReport extends StackPanel{
 
 		alleeigenenbewerbungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new AllBewerbungenByAusschreibungShowcase();
+				Showcase showcase = new AllBewerbungenByAusschreibungShowcase(isreport);
 				RootPanel.get("DetailsReport").clear();
 				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
@@ -135,7 +135,7 @@ public class MenubarReport extends StackPanel{
 					
 			projektverflechtungen.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new ProjektverflechtungenShowcase();
+				Showcase showcase = new ProjektverflechtungenShowcase(isreport);
 				RootPanel.get("DetailsReport").clear();
 				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
