@@ -74,19 +74,20 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 	private Person angemeldetePerson;
 	private Bewerbung b = null;
 	private Vector<Bewertung> bewe;
+	private IdentitySelection is = null;
 	
-	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p){
+	public AlleBewerbungenFromAuschreibung(Ausschreibung a, IdentitySelection is){
 		this.selectedAusschreibung = a;
-		this.angemeldetePerson = p;
+		this.is = is;
 	}
-	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p, Projekt pr){
+	public AlleBewerbungenFromAuschreibung(Ausschreibung a, IdentitySelection is, Projekt pr){
 		this.selectedAusschreibung = a;
-		this.angemeldetePerson = p;
+		this.is = is;
 		this.pro = pr;
 	}
-	public AlleBewerbungenFromAuschreibung(Ausschreibung a, Person p, Projekt pr, Projektmarktplatz pm){
+	public AlleBewerbungenFromAuschreibung(Ausschreibung a, IdentitySelection is, Projekt pr, Projektmarktplatz pm){
 		this.selectedAusschreibung = a;
-		this.angemeldetePerson = p;
+		this.is = is;
 		this.pro = pr;
 		this.pmp = pm;
 	}
@@ -150,7 +151,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		
 		
-		if (selectedAusschreibung.getOrga_ID() == angemeldetePerson.getID()){
+		if (selectedAusschreibung.getOrga_ID() == is.getUser().getID()){
 			Window.alert("Sie haben die Ausschreibung angelegt, können alle Bewerbungen einsehen "
 					+ "und entsprechende Bewertungen abgeben");
 			
@@ -288,6 +289,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 
 			@Override
 			public void update(int index, Bewerbung object, String value) {
+				Window.alert(" " + is.getUser().getName());
 				object = ssm_bew.getSelectedObject();
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -295,11 +297,15 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				adminService.getAllBewertungen(new getAllBewertungen());
-
 				
 				Boolean vorhanden = false;
+
+				if(bewe.isEmpty()){
+					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
+					dialogBox.center();
+					}else{
 				for (Bewertung bewertung : bewe){
-							
+					Window.alert(" " +object.getID());	
 				
 				if(bewertung.getBewerbungs_ID() == object.getID()){
 					Window.alert("Es wurde bereits eine Bewertung abgegeben");
@@ -308,13 +314,21 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					break;
 				}
 				else if(bewertung.getBewerbungs_ID() != object.getID()){
+					Window.alert(" Es geht");
 					vorhanden = true;
 
 				}
 				}
+					}
+//				if(bewe.size() == 0){
+//
+//					vorhanden = true;
+//					
+//				}
 				if(vorhanden == true){					
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, angemeldetePerson);
-				dialogBox.center();}
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
+				dialogBox.center();
+				}
 
 			
 				}	
@@ -336,7 +350,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite(angemeldetePerson);
+				Showcase showcase = new ProjektmarktplatzSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -345,7 +359,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projekte(pmp, angemeldetePerson);
+				Showcase showcase = new Projekte(pmp, is);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -354,7 +368,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projektseite(pro, angemeldetePerson);
+				Showcase showcase = new Projektseite(pro, is);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -410,7 +424,6 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		@Override
 		public void onSuccess(Vector<Bewertung> result) {
 			bewe = result;	
-			
 		}
 		
 	}

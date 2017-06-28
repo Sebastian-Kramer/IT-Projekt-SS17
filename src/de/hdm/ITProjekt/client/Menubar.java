@@ -60,6 +60,10 @@ public class Menubar extends StackPanel {
 	private Button reportgeneratorButton = new Button("Report Generator");
 	
 	IdentitySelection is = null;
+	
+	public Menubar(final IdentitySelection is){
+		
+	}
 			
 	public Menubar(final Person person){
 		// Zusammensetzen des startseitePanels
@@ -131,8 +135,7 @@ public class Menubar extends StackPanel {
 //		});
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
-				Showcase showcase = new ProjektmarktplatzSeite(person);
+				Showcase showcase = new ProjektmarktplatzSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -155,6 +158,7 @@ public class Menubar extends StackPanel {
 		
 		meineBewerbungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
+				Window.alert(""+ is.getSelectedIdentityAsObject().getID());
 				Showcase showcase = new MeineBewerbungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
@@ -195,7 +199,7 @@ public class Menubar extends StackPanel {
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
 				currentClickEvent=event;
-				Showcase showcase = new MeinProfilAnzeigen(person);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 		

@@ -93,7 +93,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 
 				bewerbung_dialog.setStatus("laufend");
 
-				bewerbung_dialog.setOrga_ID(is.getSelectedIdentityID());
+				bewerbung_dialog.setOrga_ID(is.getSelectedIdentityAsObject().getID());
 
 				bewerbung_dialog.setErstelldatum(new Date());
 				

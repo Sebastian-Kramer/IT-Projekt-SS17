@@ -3,7 +3,6 @@ package de.hdm.ITProjekt.client.gui.report;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.AllBewerbungenWithAusschreibungenReport;

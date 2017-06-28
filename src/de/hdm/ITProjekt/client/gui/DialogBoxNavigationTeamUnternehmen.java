@@ -32,6 +32,8 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 	private Unternehmen unternehmen = new Unternehmen();
 	
 	private Person person_neu = new Person();
+	
+	IdentitySelection is = null;
 
 	Partnerprofil p1 = new Partnerprofil();
 	
@@ -55,23 +57,24 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 	
 	private Partnerprofil partnerprofil = new Partnerprofil();
 	
-	public DialogBoxNavigationTeamUnternehmen(final Person person){
-		this.person = person;
+	public DialogBoxNavigationTeamUnternehmen(final IdentitySelection is){
+		
+		this.is = is;
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
 		this.setText("Team");
 		fertig.setStylePrimaryName("button");
 		
-		if(person.getTeam_ID() != null){
+		if(is.getUser().getTeam_ID() != null){
 		teamerstellen.setVisible(false);
 		}
-		if(person.getUN_ID() != null){
+		if(is.getUser().getUN_ID() != null){
 		unternehmenerstellen.setVisible(false);
 		}
-		if(person.getTeam_ID() == null){
+		if(is.getUser().getTeam_ID() == null){
 		teamloeschen.setVisible(false);
 		}
-		if(person.getUN_ID() == null){
+		if(is.getUser().getUN_ID() == null){
 		unternehmenloeschen.setVisible(false);
 		}
 		
@@ -79,8 +82,8 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if (person.getUN_ID() != null ){					
-					DialogBox dialogbox = new DialogBoxTeam(person);
+				if (is.getUser().getUN_ID() != null ){					
+					DialogBox dialogbox = new DialogBoxTeam(is);
 					dialogbox.center();
 					hide();
 				}
@@ -95,10 +98,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if (person.getTeam_ID() == null){
+				if (is.getUser().getTeam_ID() == null){
 				Window.alert("Sie haben kein Team");
 			}else{
-				DialogBox dialogbox = new DialogBoxTeamLoeschen(person);
+				DialogBox dialogbox = new DialogBoxTeamLoeschen(is);
 				dialogbox.center();
 				hide();
 				
@@ -110,10 +113,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if (person.getUN_ID() != null){
+				if (is.getUser().getUN_ID() != null){
 					Window.alert("Bearbeiten Sie bitte Ihr bestehendes Unternehmen");
 				}else{
-				DialogBox dialogbox = new DialogBoxUnternehmen(person);
+				DialogBox dialogbox = new DialogBoxUnternehmen(is);
 				dialogbox.center();
 				hide();
 				}
@@ -125,10 +128,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				if (person.getUN_ID() == null){
+				if (is.getUser().getUN_ID() == null){
 					Window.alert("Sie haben kein Unternehmen");
 				}else{
-				DialogBox dialogbox = new DialogBoxUnternehmenLoeschen(person);
+				DialogBox dialogbox = new DialogBoxUnternehmenLoeschen(is);
 				dialogbox.center();
 				hide();
 				}
@@ -153,7 +156,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		this.add(vpanel);
 	}
 	private class DialogBoxTeamLoeschen extends DialogBox{
-		private Person person = new Person();
+		private IdentitySelection is = null;
 		
 		private VerticalPanel vpanel = new VerticalPanel();
 		private HorizontalPanel hpanel = new HorizontalPanel();	
@@ -167,16 +170,16 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 		
 		private FlexTable teamloschenseite = new FlexTable();
-		public DialogBoxTeamLoeschen(final Person person) {
+		public DialogBoxTeamLoeschen(final IdentitySelection is) {
 			
 			ja.addClickHandler(new ClickHandler() {
 				
 				@Override
 				public void onClick(ClickEvent event) {
 					
-					 team.setID(person.getTeam_ID());
+					 team.setID(is.getUser().getTeam_ID());
 					 if (team.getID() != 0){
-					 person.setTeam_ID(0);
+					 is.getUser().setTeam_ID(0);
 					 }
 					 
 					 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -196,7 +199,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 						public void onSuccess(Partnerprofil result) {
 							result = partnerprofil; 
 							team.setPartnerprofil_ID(partnerprofil.getID());
-							adminService.updatePerson(person, new AsyncCallback<Person>(){
+							adminService.updatePerson(is.getUser(), new AsyncCallback<Person>(){
 
 								@Override
 								public void onFailure(Throwable caught) {
@@ -234,10 +237,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 												 	RootPanel.get("idendity").clear();
 													RootPanel.get("Navigator").clear();
 													RootPanel.get("Details").clear();
-													Showcase showcase = new MeinProfilAnzeigen(person);
-													Menubar mb = new Menubar(person);
+													Showcase showcase = new MeinProfilAnzeigen(is);
+													Menubar mb = new Menubar(is.getUser());
 													RootPanel.get("Details").add(showcase);
-													RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+													RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
 													RootPanel.get("Navigator").add(mb);
 												}
 												
@@ -266,7 +269,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				@Override
 				public void onClick(ClickEvent event) {
 					hide();
-					Showcase showcase = new MeinProfilAnzeigen(person);
+					Showcase showcase = new MeinProfilAnzeigen(is);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 					
@@ -285,6 +288,8 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		
 		private VerticalPanel vpanel = new VerticalPanel();
 		private HorizontalPanel hpanel = new HorizontalPanel();	
+		
+		private IdentitySelection is = null;
 
 		private Button fertig = new Button("Fertig");
 		
@@ -297,22 +302,22 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 		AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 		
 		private FlexTable unternehmenloschenseite = new FlexTable();
-		public DialogBoxUnternehmenLoeschen(final Person person) {
+		public DialogBoxUnternehmenLoeschen(final IdentitySelection is) {
 			
 			ja.addClickHandler(new ClickHandler() {
 				
 				
 				@Override
 				public void onClick(ClickEvent event) {
-					unternehmen.setID(person.getUN_ID());
-					if (person.getTeam_ID() == null){
-						person.setUN_ID(0);
+					unternehmen.setID(is.getUser().getUN_ID());
+					if (is.getUser().getTeam_ID() == null){
+						is.getUser().setUN_ID(0);
 					 
 					 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
-					 adminService.getPartnerprofilOfOrganisationseinheit(unternehmen, new AsyncCallback<Partnerprofil>(){
+					 adminService.getPartnerprofilOfOrganisationseinheit(is.getSelectedIdentityAsObject(), new AsyncCallback<Partnerprofil>(){
 
 						@Override
 						public void onFailure(Throwable caught) {
@@ -327,7 +332,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 							 if (adminService == null) {
 						     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 						   }
-							adminService.updatePerson(person, new AsyncCallback<Person>(){
+							adminService.updatePerson(is.getUser(), new AsyncCallback<Person>(){
 
 								@Override
 								public void onFailure(Throwable caught) {
@@ -338,12 +343,12 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 								@Override
 								public void onSuccess(Person result) {
 									final Partnerprofil p = new Partnerprofil();
-									p.setID(unternehmen.getPartnerprofil_ID());
+									p.setID(is.getSelectedIdentityAsObject().getPartnerprofil_ID());
 									((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 									 if (adminService == null) {
 								     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 									 }
-									 adminService.deleteUnternehmen(unternehmen, new AsyncCallback<Void>(){
+									 adminService.deleteUnternehmenByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Void>(){
 
 										@Override
 										public void onFailure(Throwable caught) {
@@ -372,10 +377,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 												 	RootPanel.get("idendity").clear();
 													RootPanel.get("Navigator").clear();
 													RootPanel.get("Details").clear();
-													Showcase showcase = new MeinProfilAnzeigen(person);
-													Menubar mb = new Menubar(person);
+													Showcase showcase = new MeinProfilAnzeigen(is);
+													Menubar mb = new Menubar(is.getUser());
 													RootPanel.get("Details").add(showcase);
-													RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+													RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
 													RootPanel.get("Navigator").add(mb);
 												}
 												 
@@ -407,7 +412,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				@Override
 				public void onClick(ClickEvent event) {
 					hide();
-					Showcase showcase = new MeinProfilAnzeigen(person);
+					Showcase showcase = new MeinProfilAnzeigen(is);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 					
@@ -446,9 +451,9 @@ private Person person = new Person();
 				@Override
 				public void onClick(ClickEvent event) {
 					
-					 team.setID(person.getTeam_ID());
+					 team.setID(is.getUser().getTeam_ID());
 					 if (team.getID() != 0){
-					 person.setTeam_ID(0);
+					 is.getUser().setTeam_ID(0);
 					 }
 					 
 					 ((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -456,7 +461,7 @@ private Person person = new Person();
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
 					 
-					 adminService.getPartnerprofilOfOrganisationseinheit(team, new AsyncCallback<Partnerprofil>(){
+					 adminService.getPartnerprofilOfOrganisationseinheit(is.getSelectedIdentityAsObject(), new AsyncCallback<Partnerprofil>(){
 
 						@Override
 						public void onFailure(Throwable caught) {
@@ -467,8 +472,8 @@ private Person person = new Person();
 						@Override
 						public void onSuccess(Partnerprofil result) {
 							result = partnerprofil; 
-							team.setPartnerprofil_ID(partnerprofil.getID());
-							adminService.updatePerson(person, new AsyncCallback<Person>(){
+							is.getSelectedIdentityAsObject().setPartnerprofil_ID(partnerprofil.getID());
+							adminService.updatePerson(is.getUser(), new AsyncCallback<Person>(){
 
 								@Override
 								public void onFailure(Throwable caught) {
@@ -482,7 +487,7 @@ private Person person = new Person();
 									 if (adminService == null) {
 								     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 								   }
-									 adminService.deleteTeam(team, new AsyncCallback<Void>(){
+									 adminService.deleteTeamByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Void>(){
 
 										@Override
 										public void onFailure(Throwable caught) {

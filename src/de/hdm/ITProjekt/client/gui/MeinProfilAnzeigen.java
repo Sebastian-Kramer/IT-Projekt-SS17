@@ -52,11 +52,11 @@ public class MeinProfilAnzeigen extends Showcase{
 	private ButtonCell bearbeitenButton = new ButtonCell();
 	private ButtonCell loeschenButton = new ButtonCell();
 	
-	private IdentitySelection identitySelection = null;
+	private IdentitySelection is = null;
 	private Menubar mb = null;
 
-	public MeinProfilAnzeigen(Person person){
-		this.user = person;
+	public MeinProfilAnzeigen(IdentitySelection is){
+		this.is = is;
 	}
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
@@ -201,7 +201,7 @@ public class MeinProfilAnzeigen extends Showcase{
 						
 						@Override
 						public void onClick(ClickEvent event) {
-							DialogBox dialogbox = new DialogBoxNavigationTeamUnternehmen(user);
+							DialogBox dialogbox = new DialogBoxNavigationTeamUnternehmen(is);
 							dialogbox.center();
 						}
 					});
@@ -210,8 +210,8 @@ public class MeinProfilAnzeigen extends Showcase{
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
 			
-			adminService.getPersonbyID(user.getID(), new getPersonausDB());
-			adminService.getPartnerprofilOfOrganisationseinheit(user, new AsyncCallback<Partnerprofil>(){
+			adminService.getPersonbyID(is.getUser().getID(), new getPersonausDB());
+			adminService.getPartnerprofilOfOrganisationseinheit(is.getSelectedIdentityAsObject(), new AsyncCallback<Partnerprofil>(){
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -463,7 +463,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				@Override
 				public void update(int index, Eigenschaft object, String value) {
 					
-				DialogBox dbeigenschaftaendern = new DialogBoxEigenschaftenAendern(user, object);
+				DialogBox dbeigenschaftaendern = new DialogBoxEigenschaftenAendern(is, object);
 				dbeigenschaftaendern.center();
 					
 				}
@@ -490,7 +490,7 @@ public class MeinProfilAnzeigen extends Showcase{
 					selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
 					if(selectedObject_alleEigenschaften != null){
 						
-						Showcase showcase= new EigenschaftenHinzufuegen(user);
+						Showcase showcase= new EigenschaftenHinzufuegen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 			}else{
@@ -561,7 +561,7 @@ public class MeinProfilAnzeigen extends Showcase{
 
 							@Override
 							public void onSuccess(Unternehmen result) {
-								Showcase showcase = new MeinProfilAnzeigen(user);
+								Showcase showcase = new MeinProfilAnzeigen(is);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
 							}
@@ -576,7 +576,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -590,7 +590,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 ClientsideSettings.getpmpVerwaltung().getTeamByID(user.getTeam_ID(), new AsyncCallback<Team>(){
+				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Team>(){
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -628,7 +628,7 @@ public class MeinProfilAnzeigen extends Showcase{
 							public void onSuccess(Team result) {
 
 								Window.alert("Success get team update");
-								Showcase showcase = new MeinProfilAnzeigen(user);
+								Showcase showcase = new MeinProfilAnzeigen(is);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
 							}
@@ -643,7 +643,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -691,7 +691,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new EigenschaftenHinzufuegen(user);
+				Showcase showcase = new EigenschaftenHinzufuegen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -701,7 +701,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -710,7 +710,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -718,7 +718,7 @@ public class MeinProfilAnzeigen extends Showcase{
 		
 		abbrechen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -776,7 +776,7 @@ public class MeinProfilAnzeigen extends Showcase{
 
 			@Override
 			public void onSuccess(Void result) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -878,7 +878,7 @@ public class MeinProfilAnzeigen extends Showcase{
 					@Override
 					public void onSuccess(Void result) {
 						hide();
-						Showcase showcase = new MeinProfilAnzeigen(user);
+						Showcase showcase = new MeinProfilAnzeigen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 					}

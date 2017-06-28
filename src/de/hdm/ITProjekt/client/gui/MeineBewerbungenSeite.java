@@ -77,7 +77,7 @@ public class MeineBewerbungenSeite extends Showcase {
 
 	@Override
 	protected void run() {
-		is.activateOrgUnits();
+//		is.activateOrgUnits();
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineBewerbungen.setWidth("100%");
 		
@@ -234,7 +234,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		 adminService.findByOrgaID(is.getSelectedIdentityAsObject().getID(), new BewerbungAnzeigenCallback() );
+		 adminService.findByOrgaID(is.getUser().getID(), new BewerbungAnzeigenCallback() );
 		
 		}else if(is.getSelectedIdentityAsObject() instanceof Team){	
 			ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");

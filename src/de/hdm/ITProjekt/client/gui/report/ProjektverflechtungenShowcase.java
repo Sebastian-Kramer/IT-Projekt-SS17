@@ -6,7 +6,6 @@ import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import de.hdm.ITProjekt.client.ClientsideSettings;
@@ -66,8 +65,7 @@ private IdentitySelectionReport identitySelectionReport = null;
 	 * Anschließend wird geprüft ob es sich bei der jeweiligen Organisationseinheit um eine
 	 * Person, ein Unternehmen oder ein Team handelt.
 	 */
-	reportGenerator.getBewerberByAusschreibungen(identitySelectionReport.getSelectedIdentityAsObjectReport(), 
-			new AsyncCallback<Vector<Organisationseinheit>>() {
+	reportGenerator.getBewerberByEigeneAusschreibungen(identitySelectionReport.getSelectedIdentityAsObjectReport(), new AsyncCallback<Vector<Organisationseinheit>>() {
 
 				@Override
 				public void onFailure(Throwable caught) {
