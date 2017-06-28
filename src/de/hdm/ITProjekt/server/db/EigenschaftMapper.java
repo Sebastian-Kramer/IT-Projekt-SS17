@@ -52,6 +52,8 @@ public class EigenschaftMapper {
 			}
 			return result;	
 		}
+		
+		
 		public Eigenschaft findByKey(int id){
 			Connection con = DBConnection.connection();
 			
@@ -76,6 +78,31 @@ public class EigenschaftMapper {
 			}
 			return null;	
 		}
+		public Eigenschaft getByPartnerprofil_ID(int id){
+			Connection con = DBConnection.connection();
+			
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
+	          + "WHERE Partnerprofil_ID" + id);
+				
+				if(rs.next()){
+					Eigenschaft e = new Eigenschaft();
+					e.setID(rs.getInt("ID"));
+					e.setName(rs.getString("name"));
+					e.setWert(rs.getString("wert"));
+					e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+					
+					return e;
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return null;	
+		}
+		
 		
 		public Vector<Eigenschaft> getAll(){
 			
@@ -183,6 +210,34 @@ public class EigenschaftMapper {
 				 while (rs.next()) {
 				        // Ergebnis-Tupel in Objekt umwandeln
 				    	  Eigenschaft e = new Eigenschaft();
+					       e.setID(rs.getInt("ID"));
+					       e.setName(rs.getString("name"));
+					       e.setWert(rs.getString("wert"));
+					       e.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+					       eObj.add(e);
+				      }
+				   
+				    }
+				    catch (SQLException e2) {
+				      e2.printStackTrace();
+				    }  
+				    return eObj;
+		}
+public Vector<Eigenschaft> getEigenschaftbyId(Integer Partnerprofil_ID ){
+			
+			Vector<Eigenschaft> eObj = new Vector<Eigenschaft>();
+			
+			Connection con = DBConnection.connection();
+			
+			try{
+				Statement stmt = con.createStatement();
+				
+				 ResultSet rs = stmt.executeQuery("SELECT ID, name, wert, Partnerprofil_ID FROM Eigenschaft "
+						 + "WHERE Partnerprofil_ID =" + Partnerprofil_ID);
+				 
+				 while (rs.next()) {
+				        // Ergebnis-Tupel in Objekt umwandeln
+				    	   Eigenschaft e = new Eigenschaft();
 					       e.setID(rs.getInt("ID"));
 					       e.setName(rs.getString("name"));
 					       e.setWert(rs.getString("wert"));

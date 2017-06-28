@@ -208,6 +208,11 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
 
-	public Person getPersonFromBewerbung(Integer id);
+	public Person getPersonFromBewerbung(Integer id) throws IllegalArgumentException;
+	
+	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException;
+	
+	public Vector<Eigenschaft> getAllEigenschaftenFromOrga(Integer id) throws IllegalArgumentException;
+
 
 	}

@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
+
+import de.hdm.ITProjekt.client.gui.DialogBoxDetailsBewerbung.OrgaeinheitFromBewerbung;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
@@ -199,7 +201,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPersonByID(Integer id, AsyncCallback<Vector<Person>> callback);
 
-
 	void getPersonFromBewerbung(Integer id, AsyncCallback<Person> callback);
 
 	void getAllPartnerprofile(AsyncCallback<Vector<Partnerprofil>> callback);
@@ -209,6 +210,13 @@ public interface AdministrationProjektmarktplatzAsync {
 	void addPartnerprofil(Partnerprofil pp1, AsyncCallback<Partnerprofil> callback);
 
 	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
+
+	void getOrgaEinheitFromBewerbung(Integer id, AsyncCallback<Organisationseinheit> callback);
+
+	void getAllEigenschaftenFromOrga(Integer id, AsyncCallback<Vector<Eigenschaft>> callback);
+	
+	
+
 
 
 	

@@ -45,7 +45,6 @@ public class OrganisationseinheitMapper {
 				o.setPlz(rs.getInt("plz"));
 				o.setOrt(rs.getString("ort"));
 				o.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
-				
 				return o;
 			}
 		}
@@ -56,8 +55,35 @@ public class OrganisationseinheitMapper {
 		return null;	
 	
 	}
-	protected Organisationseinheit findByObject(Organisationseinheit o){
+	public Organisationseinheit findByObject(Organisationseinheit o){
 		return this.findByKey(o.getID()); 
+	}
+	
+	public Organisationseinheit findByID(Integer id){
+		Connection con = DBConnection.connection();
+		Organisationseinheit o = new Organisationseinheit();
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, strasse, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
+          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				
+				o.setID(rs.getInt("ID"));
+				o.setStrasse(rs.getString("strasse"));
+				o.setHausnummer(rs.getInt("hausnummer"));
+				o.setPlz(rs.getInt("plz"));
+				o.setOrt(rs.getString("ort"));
+				o.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+				
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return o;	
+	
 	}
 	
 	public Organisationseinheit findByForeignPartnerprofilId(int partnerprofilId){
