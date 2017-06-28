@@ -8,6 +8,7 @@ import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.FanInFanOutReport;
+import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 
 public class FanInFanOutShowcase extends Showcase {
 
@@ -55,4 +56,4 @@ public class FanInFanOutShowcase extends Showcase {
 	}
 	}
 
-}
+

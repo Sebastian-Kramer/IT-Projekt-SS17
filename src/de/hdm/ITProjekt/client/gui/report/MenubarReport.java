@@ -141,6 +141,7 @@ public class MenubarReport extends StackPanel{
 				currentClickHandler=this;
 				currentClickEvent=event;
 		
+			
 	}
 			});
 	}

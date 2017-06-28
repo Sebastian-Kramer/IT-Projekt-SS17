@@ -1,6 +1,5 @@
 package de.hdm.ITProjekt.client.gui.report;
 
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 
 public class AllBewerbungenByAusschreibungShowcase extends Showcase {
