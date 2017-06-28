@@ -141,21 +141,26 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
 
     return u;
   }
-
-
-
-public void deleteUnternehmen(Unternehmen u) {
+public void deleteUnternehmen(Integer u) {
+	Unternehmen unternehmen = new Unternehmen();
+	unternehmen.setID(u);
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
-      stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u.getID());
-      super.delete(u);
+      stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u);
+      super.delete(unternehmen);
     }
+    
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
   }
 
+
+public void deleteUnternehmen(Unternehmen u) {
+    this.deleteUnternehmen(u.getID());
+
+}
 }

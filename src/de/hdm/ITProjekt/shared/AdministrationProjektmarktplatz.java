@@ -212,5 +212,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException;
 	
-
+	public Vector <Beteiligung> getBeteiligungByOrga(Integer orgaid) throws IllegalArgumentException;
+	
+	public void deleteTeamByID(Integer t) throws IllegalArgumentException;
+	
+	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException;
 	}

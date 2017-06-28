@@ -40,7 +40,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
 		this.tnMapper = TeilnahmeMapper.tnMapper();
-//		this.orgMapper = OrganisationseinheitMapper.orgMapper();
+		this.orgMapper = OrganisationseinheitMapper.orgMapper();
 		this.tMapper = TeamMapper.tMapper();
 		this.unMapper = UnternehmenMapper.unMapper();
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
@@ -742,6 +742,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException {
 		
 		return this.partnerprofilMapper.findByKey(id);
+	}
+	@Override
+	public Vector<Beteiligung> getBeteiligungByOrga(Integer orgaid) throws IllegalArgumentException {
+		
+		return this.getBeteiligungByOrga(orgaid);
+	}
+	@Override
+	public void deleteTeamByID(Integer t) throws IllegalArgumentException {
+		this.tMapper.deleteTeam(t);
+		
+	}
+	@Override
+	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException {
+		this.unMapper.deleteUnternehmen(u);
+		
 	}
 	
 }

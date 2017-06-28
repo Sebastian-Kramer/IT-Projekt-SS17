@@ -122,6 +122,34 @@ public class BeteiligungMapper {
 		 return result;
 	}
 	
+	public Vector <Beteiligung> getBeteiligungByOrga(Integer orgaid){
+		 Connection con = DBConnection.connection();	 
+			
+		 Vector<Beteiligung> result = new Vector<Beteiligung>();
+		 
+		 try{
+			 Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID FROM Beteiligung WHERE Orga_ID=" + orgaid); 
+		      
+		      while(rs.next()){
+		    	  Beteiligung p = new Beteiligung();
+					p.setID(rs.getInt("ID"));
+					p.setUmfang(rs.getString("umfang"));
+					p.setStartdatum(rs.getDate("startdatum"));
+					p.setEnddatum(rs.getDate("enddatum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+				  
+				  result.addElement(p);
+		      }
+		 }
+		 catch (SQLException e2) {
+		        e2.printStackTrace();
+		 }
+		 return result;
+	}
+	
 	
 	public Beteiligung insert(Beteiligung a){
 		

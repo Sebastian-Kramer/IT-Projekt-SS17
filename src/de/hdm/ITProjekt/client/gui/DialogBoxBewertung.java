@@ -59,11 +59,12 @@ public class DialogBoxBewertung extends DialogBox{
 	private Ausschreibung aus;
 	private Beteiligung bet;
 	private Person person;
+	private IdentitySelection is = null;
 	
-	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, Person p){
+	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, final IdentitySelection is){
 		this.bew = b;
 		this.aus = a;
-		this.person = p;
+		this.is = is;
 		
 		this.setText("Hier können Sie ein Bewertung abgeben");
 		this.setAnimationEnabled(true);
@@ -129,7 +130,7 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
 				
-					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, person, bew);		
+					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, is, bew);		
 					dialogBox.center();
 					DialogBoxBewertung.this.hide();		
 				}

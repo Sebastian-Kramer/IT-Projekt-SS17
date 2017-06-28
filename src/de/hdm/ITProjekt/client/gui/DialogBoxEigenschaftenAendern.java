@@ -34,13 +34,17 @@ public class DialogBoxEigenschaftenAendern extends DialogBox{
 
 	private ListBox auswahlEigenschaften = new ListBox();
 	private ListBox wertEigenschaften = new ListBox();
+	
+	private IdentitySelection is = null;
 
 	private Label auswahlLabel = new Label("Eigenschaften:");
 	private Label wertLabel = new Label("Kenntnisstand:");
 	
 	private FlexTable eigenschaftaendern = new FlexTable();
 
-	public DialogBoxEigenschaftenAendern(final Person person, final Eigenschaft eigenschaft){
+	public DialogBoxEigenschaftenAendern(final IdentitySelection is, final Eigenschaft eigenschaft){
+		this.is = is;
+		
 		
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
@@ -80,7 +84,7 @@ public class DialogBoxEigenschaftenAendern extends DialogBox{
 					@Override
 					public void onSuccess(Eigenschaft result) {
 						hide();
-						Showcase showcase = new MeinProfilAnzeigen(person);
+						Showcase showcase = new MeinProfilAnzeigen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 					}

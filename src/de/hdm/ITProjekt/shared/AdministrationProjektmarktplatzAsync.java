@@ -211,6 +211,12 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findPartnerprofilByID(int id, AsyncCallback<Partnerprofil> callback);
 
+	void getBeteiligungByOrga(Integer orgaid, AsyncCallback<Vector<Beteiligung>> callback);
+
+	void deleteTeamByID(Integer t, AsyncCallback<Void> callback);
+
+	void deleteUnternehmenByID(Integer u, AsyncCallback<Void> callback);
+
 
 	
 

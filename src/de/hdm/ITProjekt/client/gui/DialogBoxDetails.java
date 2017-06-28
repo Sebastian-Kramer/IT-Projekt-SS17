@@ -43,7 +43,7 @@ public class DialogBoxDetails extends DialogBox{
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
-	private IdentitySelection identitySelection = null;
+	
 	
 	private VerticalPanel vp = new VerticalPanel();
 	private HorizontalPanel hp = new HorizontalPanel();
@@ -56,7 +56,7 @@ public class DialogBoxDetails extends DialogBox{
 
 	private FlexTable form = new FlexTable();
 	
-	
+	private IdentitySelection is = null;
 	
 	private TextBox kontaktNameBox = new TextBox();
 	private TextBox emailBox = new TextBox();
@@ -65,8 +65,8 @@ public class DialogBoxDetails extends DialogBox{
 	private Projekt selectedProjekt;
 	
 
-	public DialogBoxDetails(Projekt selectedProjekt, Person person) {
-		this.person = person;
+	public DialogBoxDetails(Projekt selectedProjekt, IdentitySelection is) {
+		this.is = is;
 		this.selectedProjekt = selectedProjekt;
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");

@@ -51,7 +51,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	private CellTable <Eigenschaft> ct_eigenschaften = new CellTable<Eigenschaft>();
 	
-	
+	IdentitySelection is = null;
 	
 	private TextArea ausschreibungstext = new TextArea();
 	private TextArea ausschreibungsbez = new TextArea();
@@ -79,15 +79,15 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 
 	
-	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final Person person){
+	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final IdentitySelection is){
 		this.projekt1 = projekt;
-		this.person1 = person;
+		this.is = is;
 		
 		setText("Ausschreibung anlegen");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		
-		this.person1 = person;
+		
 		this.projekt1 = projekt;
 		
 		hp.add(createAusschreibung);
@@ -269,7 +269,7 @@ private void filltableeigenschaften(){
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
 				hide();
-				Showcase showcase = new Projektseite(projekt1, person1);
+				Showcase showcase = new Projektseite(projekt1, is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
