@@ -103,7 +103,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
-		if (person.getisAdmin() == true){
+		if (is.getUser().getisAdmin() == true){
 		hpanel_projektmarktplatz.add(bearbeitungsmodus_deaktiv);
 		}
 		

@@ -58,7 +58,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private DateBox startBox = new DateBox();
 	private DateBox endBox = new DateBox();
 	
-	IdentitySelection is = null;
+	private IdentitySelection is = null;
 	
 	private Ausschreibung aus;
 	private Bewertung bewe;

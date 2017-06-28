@@ -146,10 +146,12 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 
 			public void load(Person person){
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
-		  		Showcase showcase = new Homeseite();
-		  		Menubar mb = new Menubar(person);
+		  		
 				signOutLink.setHref(loginInfo.getLogoutUrl());//
 				mainPanel.add(addPanel);
+				Showcase showcase = new Homeseite();
+		  		Menubar mb = new Menubar(person);
+//		  		Window.alert(person.getName());
 				mainPanel.add(showcase);
 				IdentitySelection is = new IdentitySelection(person, mb);
 				mb.setIdSelection(is);

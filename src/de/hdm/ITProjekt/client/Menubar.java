@@ -135,7 +135,6 @@ public class Menubar extends StackPanel {
 //		});
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Window.alert(""+ is.getUser().getID());
 				Showcase showcase = new ProjektmarktplatzSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);

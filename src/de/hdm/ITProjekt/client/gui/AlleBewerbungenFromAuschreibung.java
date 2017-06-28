@@ -289,6 +289,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 
 			@Override
 			public void update(int index, Bewerbung object, String value) {
+				Window.alert(" " + is.getUser().getName());
 				object = ssm_bew.getSelectedObject();
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -296,11 +297,15 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				adminService.getAllBewertungen(new getAllBewertungen());
-
 				
 				Boolean vorhanden = false;
+
+				if(bewe.isEmpty()){
+					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
+					dialogBox.center();
+					}else{
 				for (Bewertung bewertung : bewe){
-							
+					Window.alert(" " +object.getID());	
 				
 				if(bewertung.getBewerbungs_ID() == object.getID()){
 					Window.alert("Es wurde bereits eine Bewertung abgegeben");
@@ -309,13 +314,21 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					break;
 				}
 				else if(bewertung.getBewerbungs_ID() != object.getID()){
+					Window.alert(" Es geht");
 					vorhanden = true;
 
 				}
 				}
+					}
+//				if(bewe.size() == 0){
+//
+//					vorhanden = true;
+//					
+//				}
 				if(vorhanden == true){					
 				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
-				dialogBox.center();}
+				dialogBox.center();
+				}
 
 			
 				}	
@@ -411,7 +424,6 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		@Override
 		public void onSuccess(Vector<Bewertung> result) {
 			bewe = result;	
-			
 		}
 		
 	}
