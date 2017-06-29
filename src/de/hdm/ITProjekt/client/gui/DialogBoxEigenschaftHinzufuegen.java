@@ -180,6 +180,7 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 
 									@Override
 									public void onSuccess(Eigenschaft result) {
+										Window.alert("Die Eigenschaften wurden erfolgreich zum Partnerprofil hinzugefügt");
 										DialogBoxEigenschaftHinzufuegen.this.hide();
 										
 									}

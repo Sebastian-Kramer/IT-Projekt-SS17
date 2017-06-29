@@ -137,6 +137,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			if(ssm !=null){
+				
 				a1 = ssm.getSelectedObject();
 				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, menubar);
 				int left = Window.getClientHeight() / 3;
