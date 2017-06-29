@@ -2,11 +2,15 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Realisierung einer Stellenausschreibung, die einen Ausschreibungstext, eine Bezeichnung und
+ * ein Erstellungsdatum hat.
+ */
+
 public class Ausschreibung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int ID = 0; 
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
 	private Date datum = null;
@@ -45,22 +49,6 @@ public class Ausschreibung extends BusinessObject {
 	
 	public Ausschreibung() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	/*
-	 * @return ID
-	 */
-	
-	public int getID() {
-		return ID;
-	}
-	
-	/*
-	 *  @param ID
-	 */
-	
-	public void setID(int iD) {
-		ID = iD;
 	}
 	
 	/*
@@ -130,8 +118,14 @@ public class Ausschreibung extends BusinessObject {
 	 * @param projekt_ID
 	 */
 	
-	public void setProjekt_ID(int projekt_ID) {
-		Projekt_ID = projekt_ID;
+	public void setProjekt_ID(Integer projekt_ID) {
+		if(projekt_ID == 0){
+			this.Projekt_ID = null;
+		}else{
+			this.Projekt_ID = projekt_ID;
+				
+			}
+		
 	}
 	
 	/*
@@ -148,8 +142,12 @@ public class Ausschreibung extends BusinessObject {
 	 * @param partnerprofil_ID
 	 */
 	
-	public void setPartnerprofil_ID(int partnerprofil_ID) {
-		Partnerprofil_ID = partnerprofil_ID;
+	public void setPartnerprofil_ID(Integer partnerprofil_ID) {
+		if(partnerprofil_ID == 0){
+			this.Partnerprofil_ID = null;
+		}else{
+			this.Partnerprofil_ID = partnerprofil_ID;
+		}
 	}
 	
 	/*
@@ -166,8 +164,12 @@ public class Ausschreibung extends BusinessObject {
 	 * @param orga_ID
 	 */
 	
-	public void setOrga_ID(int orga_ID) {
-		Orga_ID = orga_ID;
+	public void setOrga_ID(Integer orga_ID) {
+		if(orga_ID == 0){
+			this.Orga_ID = null;
+		}else{
+			this.Orga_ID = orga_ID;
+		}
 	}
 	
 	/*
@@ -177,7 +179,7 @@ public class Ausschreibung extends BusinessObject {
 	 */
 	
 	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
+		return "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
 				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
 	}
 	

@@ -20,7 +20,9 @@ public class Menuleiste extends HorizontalPanel{
 	
 	 
 	public Menuleiste(){
-		
+
+		agbAnchor.setStylePrimaryName("menuleistereportanchor");
+		impressumAnchor.setStylePrimaryName("menuleistereportanchor");
 		this.add(agbAnchor);
 		this.add(impressumAnchor);
 		
@@ -37,7 +39,8 @@ public class Menuleiste extends HorizontalPanel{
 			}
 		});
 		
-		impressumAnchor.addClickHandler(new ClickHandler() {@Override
+		impressumAnchor.addClickHandler(new ClickHandler() {
+			@Override
 		public void onClick(ClickEvent event) {
 
 			Showcase showcase = new Impressum();
@@ -49,10 +52,4 @@ public class Menuleiste extends HorizontalPanel{
 		});
 	}}
 	
-	
-//	
-//   
-//
-//    RootPanel.get("Header").add(menuleistePanel);
-// }	
-//
+

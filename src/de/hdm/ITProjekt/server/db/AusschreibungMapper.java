@@ -9,6 +9,13 @@ import java.sql.*;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 
+/*
+ * Die Klasse AusschreibungMapper bildet Ausschreibungs-Objekte auf einer relationalen Datenbank ab.
+ * Mit Hilfe von verschiedenen Methoden können die jeweilgen Objekte aus der Datenbank geholt, geschrieben 
+ * oder aktualisiert werden.
+ * Die Besonderheit ist, dass Objekte in DB-Strukturen und umgekehrt umgewandelt werden können
+ */
+
 public class AusschreibungMapper {
 	
 	/*
@@ -56,8 +63,8 @@ public class AusschreibungMapper {
 			
 			try{
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
-	          + "WHERE ID=" + id + " ORDER BY ID");
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung "
+	          + "WHERE ID=" + id);
 				
 				if(rs.next()){
 					Ausschreibung p = new Ausschreibung();
@@ -67,6 +74,7 @@ public class AusschreibungMapper {
 					p.setDatum(rs.getDate("datum"));
 					p.setProjekt_ID(rs.getInt("Projekt_ID"));
 					p.setOrga_ID(rs.getInt("Orga_ID"));
+					p.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 					return p;
 				}
 			}
@@ -76,7 +84,7 @@ public class AusschreibungMapper {
 			}
 			return null;	
 		}		
-		public Vector<Ausschreibung> findAusschreibungByOrga(Organisationseinheit o){
+		public Vector<Ausschreibung> findAusschreibungByOrga1(Organisationseinheit o){
 			
 			Connection con = DBConnection.connection();
 			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
@@ -106,10 +114,47 @@ public class AusschreibungMapper {
 		}
 		
 		/*
+		 * Alle Ausschreibungen werden anhand der übergebenen, Organisationseinheit
+		 * in einem Vector zurückgegeben.
+		 * @return alle Elemente die im Vector gespeichert wurden
+		 * @param ID Orga_ID der Tabelle Ausschreibung
+		 */
+		
+		public Vector<Ausschreibung> findAusschreibungByOrga(Organisationseinheit o){
+			
+			Connection con = DBConnection.connection();
+			Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
+	          + "WHERE Orga_ID=" + o.getID());
+				
+				if(rs.next()){
+					Ausschreibung p = new Ausschreibung();
+					p.setID(rs.getInt("ID"));
+					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					p.setBezeichnung(rs.getString("bezeichnung"));
+					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+					result.addElement(p);
+
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
+		}
+		
+		/*
 		 * Auslesen aller Ausschreibungen eines Projekts mittels Projekt ID
 		 * @return result
 		 * @param projektId
 		 */
+		
 		 public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId){
 				
 			  Connection con = DBConnection.connection();
@@ -137,8 +182,7 @@ public class AusschreibungMapper {
 			}
 			  return result;
 		  }
-		
-		
+				
 		/*
 		 * Alle Auschreibungen aus der Datenbank werden ausgegeben
 		 * @return result
@@ -146,9 +190,7 @@ public class AusschreibungMapper {
 		
 		public Vector<Ausschreibung> getAll(){
 			
-			 Connection con = DBConnection.connection();
-			 
-			
+			 Connection con = DBConnection.connection();		
 			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
 			 
 			  try {
@@ -234,13 +276,16 @@ public class AusschreibungMapper {
 			}
 		
 		/*
-		 * Erneutes schreiben eines Ausschreibungsobjekts in die Datenbank
+		 * Wir eine Ausschreibung aktualisiert wird geprüft ob eine Projekt null ist. 
+		 * Dies sorgt dafür dass es keine Wert mit 0 oder gibt. Daselbe wird für Organisationseinheit
+		 * und Partnerprofil gemacht 
 		 * @param a
 		 * @return das als PArameter übergebene und aktualisierte Ausschreibungsobjekt
 		 */
 		
 		public Ausschreibung update(Ausschreibung c) {
-		    Connection con = DBConnection.connection();
+		    
+			Connection con = DBConnection.connection();
 
 		    try {
 		      Statement stmt = con.createStatement();
@@ -260,23 +305,28 @@ public class AusschreibungMapper {
 	          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\", "
 	          + "WHERE Ausschreibung.ID=" + c.getID());
 
+
 		      }
 		      
 		    		  
-		    }
+
+		      }		    		  
+
+		  
 		    catch (SQLException e) {
 		      e.printStackTrace();
 		    }
-
 		    return c;
 		  }
 		
 		/*
-		 * Suchen der einer Ausschreibung durch das übergebene Ausschreibungsobjekt
+		 * Suchen einer oder mehrerer Ausschreibungen über die Projekt_ID.
+		 * Die aus der DB gelesenen Werte werden in einen Vector gespeichert.
 		 * @param a
 		 * @return projekt.getID
 		 */
 		public Vector<Ausschreibung> findByProjekt(int projektID){
+			
 			Connection con = DBConnection.connection();
 			Vector<Ausschreibung> result = new Vector<Ausschreibung>();
 			
@@ -304,13 +354,14 @@ public class AusschreibungMapper {
 			return result;
 		}
 		
+		/*
+		 * Hilfsmethode, die die Methode finByProjekt(int projektID) nicht mit der ID,
+		 * sondern mit einem übergebenen Projekt ausführt.
+		 */
+		
 		public Vector<Ausschreibung> findByProjekt(Projekt projekt){
 			
-			return findByProjekt(projekt.getID());
-			
-		}
-		
-		
-		
+			return findByProjekt(projekt.getID());			
+		}	
 }
 

@@ -24,8 +24,10 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
+import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
@@ -55,10 +57,14 @@ public class DialogBoxBewertung extends DialogBox{
 	private Bewerbung bew;
 	private Bewertung bewert = new Bewertung();
 	private Ausschreibung aus;
+	private Beteiligung bet;
+	private Person person;
+	private IdentitySelection seleceted_is = null;
 	
-	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a){
+	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, IdentitySelection is){
 		this.bew = b;
 		this.aus = a;
+		this.seleceted_is = is;
 		
 		this.setText("Hier können Sie ein Bewertung abgeben");
 		this.setAnimationEnabled(true);
@@ -117,25 +123,34 @@ public class DialogBoxBewertung extends DialogBox{
 
 			@Override
 			public void onClick(ClickEvent event) {
+
 				if(janein.getSelectedItemText() == "Ja"){
-				DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(aus);
-				dialogBox.center();
-								
-				bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
-				bewert.setStellungnahme(db.getText());
-				bewert.setBeteiligungs_ID(1);
-				bewert.setBewerbungs_ID(b.getID());
+					
+					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
+					bewert.setStellungnahme(db.getText());
+					bewert.setBewerbungs_ID(b.getID());
 				
-				
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 
-				if (adminService == null) {
-				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-				 }
-				adminService.insert(bewert, new BewertungAnlegen());
-				
-				
+					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, seleceted_is , bew);		
+					dialogBox.center();
+					DialogBoxBewertung.this.hide();		
 				}
+				else{
+					
+					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
+					bewert.setStellungnahme(db.getText());
+					bewert.setBewerbungs_ID(b.getID());
+					bew.setStatus("abgelehnt");
+					
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 
+					if (adminService == null) {
+					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+					 }
+					adminService.insertWithoutBeteil(bewert, new BewertungAnlegen());
+					adminService.setBewerbungsStatus(bew, new BewerbungStatus());
+					DialogBoxBewertung.this.hide();
+				}
+				
 			}
 			
 		});
@@ -157,7 +172,21 @@ public class DialogBoxBewertung extends DialogBox{
 		}
 		
 	}
-	
+	public class BewerbungStatus implements AsyncCallback<Bewerbung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Der Bewerbungsstatus konnte nicht verändert werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Bewerbung result) {
+			Window.alert("Der Status der Bewerbung wurde zu 'Abgelehnt' geändert");
+			
+		}
+		
+	}
 	
 	
 	

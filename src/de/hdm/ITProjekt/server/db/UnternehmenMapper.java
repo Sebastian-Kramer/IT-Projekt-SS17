@@ -18,7 +18,7 @@ public class UnternehmenMapper extends OrganisationseinheitMapper{
 	
 	protected UnternehmenMapper(){
 		
-	}
+	};
 
 	public static UnternehmenMapper unMapper(){
 		if(unMapper == null){
@@ -102,12 +102,12 @@ public Unternehmen createUnternehmen(Unternehmen u){
 		      u.setID(super.insert(u));
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM Unternehmen ");
+		              + "FROM organisationseinheit ");
 		      
 		
 		      if(rs.next()){
 		    	  
-		    	  	u.setID(rs.getInt("maxid") + 1);
+		    	  	u.setID(rs.getInt("maxid"));
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
@@ -130,32 +130,37 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
 
     try {
       Statement stmt = con.createStatement();
-
+      u.setID(super.update(u));
+      super.orgMapper().update(u);
       stmt.executeUpdate("UPDATE Unternehmen SET " + "name=\""
           + u.getName() + "\"" + "WHERE ID=" + u.getID());
     }
     catch (SQLException e2) {
       e2.printStackTrace();
-      super.update(u);
     }
 
     return u;
   }
-
-
-
-public void deleteUnternehmen(Unternehmen u) {
+public void deleteUnternehmen(Integer u) {
+	Unternehmen unternehmen = new Unternehmen();
+	unternehmen.setID(u);
     Connection con = DBConnection.connection();
 
     try {
       Statement stmt = con.createStatement();
-      stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u.getID());
-      super.delete(u);
+      stmt.executeUpdate("DELETE FROM Unternehmen " + "WHERE ID=" + u);
+      super.delete(unternehmen);
     }
+    
     catch (SQLException e2) {
       e2.printStackTrace();
     }
 
   }
 
+
+public void deleteUnternehmen(Unternehmen u) {
+    this.deleteUnternehmen(u.getID());
+
+}
 }

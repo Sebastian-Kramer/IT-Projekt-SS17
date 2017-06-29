@@ -23,7 +23,7 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
-	// Konflikt gelöst
+	// Konflikt gelï¿½st
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
@@ -31,8 +31,12 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 	Button ok = new Button("Ok");
 	Button abbrechen = new Button("Abbrechen");
 	
+	private IdentitySelection is = null;
+	
 	Label projektmarktplatzname = new Label ("Projektmarktplatzbezeichnung: ");
 	TextArea bezeichnung = new TextArea();
+	
+
 
 	FlexTable projektmarktplatzseite = new FlexTable();
 	private Projektmarktplatz selectedObjectvonAnlegen;
@@ -73,7 +77,7 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
@@ -94,14 +98,14 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			Window.alert("Veränderung konnte nicht gespeichert werden!");
+			Window.alert("Verï¿½nderung konnte nicht gespeichert werden!");
 			
 		}
 
 		@Override
 		public void onSuccess(Projektmarktplatz result) {
-			Window.alert("Veränderung wurde gespeichert werden!");
-			Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+			Window.alert("Verï¿½nderung wurde gespeichert werden!");
+			Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);			
 		}

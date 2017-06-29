@@ -21,7 +21,6 @@ import de.hdm.ITProjekt.shared.bo.Person;
 public class DialogBoxProfilLoeschen extends DialogBox{
 	private Person person = new Person();
 
-	private IT_Projekt_SS17 profilloschen = new IT_Projekt_SS17();
 	
 	private VerticalPanel vpanel = new VerticalPanel();
 	private HorizontalPanel hpanel = new HorizontalPanel();

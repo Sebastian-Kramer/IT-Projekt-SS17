@@ -23,6 +23,7 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite.getProjektmarktplatzAusDB;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
@@ -33,6 +34,7 @@ import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.bo.Projekt;
+import de.hdm.ITProjekt.shared.bo.Team;
 public class MeineBewerbungenSeite extends Showcase {
 	
 	private static ClickHandler currentClickHandler = null;
@@ -42,8 +44,11 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	CellTable<Bewerbung> ct_alleBewerbungen = new CellTable<Bewerbung>();
 	CellTable<HybridAusschreibungBewerbung> ct_meineBewerbungen = new CellTable<HybridAusschreibungBewerbung>();
-	Vector<HybridAusschreibungBewerbung> meineBewerbungen = new Vector<HybridAusschreibungBewerbung>();
-	
+	CellTable<HybridAusschreibungBewerbung> ct_meineBewerbungenTeam = new CellTable<HybridAusschreibungBewerbung>();
+	CellTable<HybridAusschreibungBewerbung> ct_meineBewerbungenUnternehmen = new CellTable<HybridAusschreibungBewerbung>();
+	Vector<HybridAusschreibungBewerbung> meineBewerbungenPerson = new Vector<HybridAusschreibungBewerbung>();
+	Vector<HybridAusschreibungBewerbung> meineBewerbungenTeam = new Vector<HybridAusschreibungBewerbung>();
+	Vector<HybridAusschreibungBewerbung> meineBewerbungenUnternehmen = new Vector<HybridAusschreibungBewerbung>();
 	
 	
 	
@@ -51,13 +56,16 @@ public class MeineBewerbungenSeite extends Showcase {
 	VerticalPanel vpanel = new VerticalPanel();
 	
 	final SingleSelectionModel<HybridAusschreibungBewerbung> ssm = new SingleSelectionModel<>();
-	private Person person;
+	private Person person = null;
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 	
 	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
 	Button bewerbungLoeschen_button	= new Button ("Bewerbung zur�ckziehen");
 	
-	public MeineBewerbungenSeite(Person person){
-		this.person = person;
+	public MeineBewerbungenSeite(IdentitySelection is, Menubar menubar){
+		this.is = is;
+		this.menubar = menubar;
 	}
 	
 
@@ -69,7 +77,7 @@ public class MeineBewerbungenSeite extends Showcase {
 
 	@Override
 	protected void run() {
-		
+//		is.activateOrgUnits();
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineBewerbungen.setWidth("100%");
 		
@@ -82,16 +90,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		this.add(vpanel);
 		
 		ct_meineBewerbungen.setSelectionModel(ssm);
-//		
-//		Column<Bewerbung, String> erstelldatum =
-//				new Column<Bewerbung, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(Bewerbung object) {
-//						
-//						return object.getErstelldatum().toString();
-//					}
-//		};
+
 		
 		Column<HybridAusschreibungBewerbung, String> ausschreibungsbezeichnung =
 				new Column<HybridAusschreibungBewerbung, String>(new ClickableTextCell()){
@@ -153,6 +152,18 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 			
 		};
+		Column<HybridAusschreibungBewerbung, String> status =
+				new Column<HybridAusschreibungBewerbung, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(HybridAusschreibungBewerbung object) {
+						
+						return object.getBewerbungsstatus();
+					}
+			
+		
+			
+		};
 		
 		
 		
@@ -169,7 +180,7 @@ public class MeineBewerbungenSeite extends Showcase {
 				}
 			else{
 //				if (ssm.getSelectedObject() == null){
-					Window.alert("Bitte Bewerbung ausw�hlen");
+					Window.alert("Bitte Bewerbung auswählen");
 //				}
 				
 			}
@@ -188,13 +199,13 @@ public class MeineBewerbungenSeite extends Showcase {
 							@Override
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
-								Window.alert("L�schen fehlgeschlagen");
+								Window.alert("Löschen fehlgeschlagen");
 							}
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Bewerbung erfolgreich gel�scht");
-								Showcase showcase = new MeineBewerbungenSeite(person);
+								Window.alert("Bewerbung erfolgreich gelöscht");
+								Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
 								
@@ -209,24 +220,63 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 
 		
-	
+		if(is.getSelectedIdentityAsObject() instanceof Person){	
 		ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
 		ct_meineBewerbungen.addColumn(ausschreibender, "Ausschreibender");
 		ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
 		ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
 		ct_meineBewerbungen.addColumn(projektname, "Projekt");
-		ct_meineBewerbungen.setRowCount(meineBewerbungen.size(), true);
-		ct_meineBewerbungen.setRowData(0, meineBewerbungen);
+		ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
+		ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
+		ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		adminService.findByPerson(person, new BewerbungAnzeigenCallback());
+		 adminService.findByOrgaID(is.getUser().getID(), new BewerbungAnzeigenCallback() );
+		
+		}else if(is.getSelectedIdentityAsObject() instanceof Team){	
+			ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
+			ct_meineBewerbungen.addColumn(ausschreibender, "Ausschreibender");
+			ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
+			ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
+			ct_meineBewerbungen.addColumn(projektname, "Projekt");
+			ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
+			ct_meineBewerbungen.setRowCount(meineBewerbungenTeam.size(), true);
+			ct_meineBewerbungen.setRowData(0, meineBewerbungenTeam);
+			
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+			 adminService.findByOrgaID(is.getSelectedIdentityAsObject().getID(), new BewerbungAnzeigenCallback() );
+			 
+		
+			
+			}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){	
+				ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
+				ct_meineBewerbungen.addColumn(ausschreibender, "Ausschreibender");
+				ct_meineBewerbungen.addColumn(erstellungsdatum, "eingereicht am");
+				ct_meineBewerbungen.addColumn(ablauffrist, "Bewerbungsfrist");
+				ct_meineBewerbungen.addColumn(projektname, "Projekt");
+				ct_meineBewerbungen.addColumn(status, "Bewerbungsstatus");
+				
+				ct_meineBewerbungen.setRowCount(meineBewerbungenUnternehmen.size(), true);
+				ct_meineBewerbungen.setRowData(0, meineBewerbungenUnternehmen);
+				
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 adminService.findByOrgaID(is.getSelectedIdentityAsObject().getID(), new BewerbungAnzeigenCallback() );
+				
+				}
 		
 		
 		
 	}
+	
 	
 	private void filltablebewerbungen(){
 		
@@ -257,8 +307,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		 }
 
 	private void refreshList(){
-		ct_meineBewerbungen.setRowCount(meineBewerbungen.size(), true);
-		ct_meineBewerbungen.setRowData(0, meineBewerbungen);
+		ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
+		ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
@@ -303,7 +353,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		private String ausschreibungsbezeichung;
 		private String Team;
 		private String Unternehmen;
-//		private String bewerbungsstatus;
+		private String bewerbungsstatus;
 		public String ausschreibender;
 		public Date ablauffrist;
 		public String bewerbungstext;
@@ -327,18 +377,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		public void setAusschreibungsbezeichung(String ausschreibungsbezeichung) {
 			this.ausschreibungsbezeichung = ausschreibungsbezeichung;
 		}
-		public String getTeam() {
-			return Team;
-		}
-		public void setTeam(String team) {
-			Team = team;
-		}
-		public String getUnternehmen() {
-			return Unternehmen;
-		}
-		public void setUnternehmen(String unternehmen) {
-			Unternehmen = unternehmen;
-		}
+		
 		public String getAusschreibender() {
 			return ausschreibender;
 		}
@@ -363,6 +402,12 @@ public class MeineBewerbungenSeite extends Showcase {
 		public void setProjektname(String projektname) {
 			this.projektname = projektname;
 		}
+		public String getBewerbungsstatus() {
+			return bewerbungsstatus;
+		}
+		public void setBewerbungsstatus(String bewerbungsstatus) {
+			this.bewerbungsstatus = bewerbungsstatus;
+		}
 		
 		
 		
@@ -370,6 +415,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	/*
 	 * Implementieren des Callbacks
+	 * Über die Callbacks werden die benötigten Attribute im lokalen Hyrbid gespeichert, um diese später in der Tabelle anzeigen zu können
 	 */
 	
 	private class BewerbungAnzeigenCallback implements AsyncCallback<Vector<Bewerbung>>{
@@ -412,7 +458,7 @@ public class MeineBewerbungenSeite extends Showcase {
 							public void onSuccess(Projekt result) {
 								ClientsideSettings.getpmpVerwaltung().getPersonbyID(a.getOrga_ID(), new AsyncCallback<Person>(){
 									
-									public Person ausschreibender;
+									
 									
 									@Override
 									public void onFailure(Throwable caught) {
@@ -423,10 +469,15 @@ public class MeineBewerbungenSeite extends Showcase {
 
 									@Override
 									public void onSuccess(Person result) {
-										ausschreibender = result;
-										meineBewerbungen.add(localHybrid);
-										ct_meineBewerbungen.setRowCount(meineBewerbungen.size(), true);
-										ct_meineBewerbungen.setRowData(0, meineBewerbungen);
+										final Person p = result;
+										localHybrid.setAusschreibender(p.getAnrede() + " " + p.getName() + " " + p.getVorname() );
+										meineBewerbungenPerson.add(localHybrid);
+										ct_meineBewerbungen.setRowCount(meineBewerbungenPerson.size(), true);
+										ct_meineBewerbungen.setRowData(0, meineBewerbungenPerson);
+										
+										meineBewerbungenTeam.add(localHybrid);
+										meineBewerbungenUnternehmen.add(localHybrid);
+										
 										
 									}
 									
@@ -435,10 +486,12 @@ public class MeineBewerbungenSeite extends Showcase {
 								localHybrid.setBewerbungId(localBewerbung.getID());
 								localHybrid.setErstellungsdatum(localBewerbung.getErstelldatum());
 								localHybrid.setAusschreibungsbezeichung(a.getBezeichnung());
-								localHybrid.setAusschreibender(result.getName());
 								localHybrid.setAblauffrist(a.getDatum());
 								localHybrid.setBewerbungstext(localBewerbung.getBewerbungstext());
 								localHybrid.setProjektname(result.getName());
+								localHybrid.setBewerbungsstatus(localBewerbung.getStatus());
+							
+								
 								
 								
 								

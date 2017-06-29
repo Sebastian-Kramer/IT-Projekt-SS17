@@ -2,7 +2,9 @@ package de.hdm.ITProjekt.client.gui;
 
 import java.util.Vector;
 
+import com.google.gwt.cell.client.ButtonCell;
 import com.google.gwt.cell.client.ClickableTextCell;
+import com.google.gwt.cell.client.FieldUpdater;
 import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -38,6 +40,7 @@ import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
@@ -46,11 +49,14 @@ public class MeinProfilAnzeigen extends Showcase{
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-	private IdentitySelection identitySelection = null;
+	private ButtonCell bearbeitenButton = new ButtonCell();
+	private ButtonCell loeschenButton = new ButtonCell();
+	
+	private IdentitySelection is = null;
 	private Menubar mb = null;
 
-	public MeinProfilAnzeigen(Person person){
-		this.user = person;
+	public MeinProfilAnzeigen(IdentitySelection is){
+		this.is = is;
 	}
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
 	private VerticalPanel vpanel = new VerticalPanel();
@@ -168,8 +174,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Eigenschaft selectedObject_alleEigenschaften = new Eigenschaft();
 	private Unternehmen unternehmenobject = new Unternehmen();
 	private Team teamobject = new Team();
-	
-	private Button button = new Button();
+	private Team teamupdate = new Team();
 	
 		@Override
 		protected String getHeadlineText() {
@@ -179,10 +184,9 @@ public class MeinProfilAnzeigen extends Showcase{
 		protected void run() {
 			
 			profilloeschen.addClickHandler(new ClickHandler() {
-				
 				@Override
 				public void onClick(ClickEvent event) {
-				if (user.getUN_ID() == null && user.getTeam_ID() == null){
+				if (is.getUser().getUN_ID() == null && is.getUser().getTeam_ID() == null){
 					DialogBox dbox = new DialogBoxProfilLoeschen(user);
 					dbox.center();
 					
@@ -196,7 +200,7 @@ public class MeinProfilAnzeigen extends Showcase{
 						
 						@Override
 						public void onClick(ClickEvent event) {
-							DialogBox dialogbox = new DialogBoxNavigationTeamUnternehmen(user);
+							DialogBox dialogbox = new DialogBoxNavigationTeamUnternehmen(is);
 							dialogbox.center();
 						}
 					});
@@ -205,14 +209,41 @@ public class MeinProfilAnzeigen extends Showcase{
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
 			
-			 adminService.getPersonbyID(user.getID(), new getPersonausDB());
-			
-			if(user.getTeam_ID() != null){
-			adminService.getTeamByID(user.getTeam_ID(), new getTeamAusDBbyPerson());
+			adminService.getPersonbyID(is.getUser().getID(), new getPersonausDB());
+			adminService.getPartnerprofilOfOrganisationseinheit(is.getSelectedIdentityAsObject(), new AsyncCallback<Partnerprofil>(){
+
+				@Override
+				public void onFailure(Throwable caught) {
+					// TODO Auto-generated method stub
+					
+				}
+
+				@Override
+				public void onSuccess(Partnerprofil result) {
+					adminService.getAllEigenschaftofPerson(result, new AsyncCallback<Vector<Eigenschaft>>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Vector<Eigenschaft> result) {
+							pe_alleEigenschaften.setRowData(0, result);
+							pe_alleEigenschaften.setRowCount(result.size(), true);
+						}
+						
+					});
+				}
+				
+			});
+			if(is.getUser().getTeam_ID() != null){
+			adminService.getTeamByID(is.getUser().getTeam_ID(), new getTeamAusDBbyPerson());
 			}
 			
-			if(user.getUN_ID() != null){
-			adminService.getUnByID(user.getUN_ID(), new getUnternahmenAusDBbyPerson());
+			if(is.getUser().getUN_ID() != null){
+			adminService.getUnByID(is.getUser().getUN_ID(), new getUnternehmenAusDBbyPerson());
 			}
 			
 			pe_alleEigenschaften.setWidth("100%");
@@ -338,20 +369,22 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			team_flextable.setWidget(2, 0, team);
 			
-			team_flextable.setWidget(3, 1, teamstrasse);
-			team_flextable.setWidget(3, 0, labelteamstrasse);
+
+			team_flextable.setWidget(3,  1, teamname);
+			team_flextable.setWidget(3, 0, labelteamname);
 			
-			team_flextable.setWidget(4,  1, teamhausnummer);
-			team_flextable.setWidget(4, 0, labelteamhausnummer);
+			team_flextable.setWidget(4, 1, teamstrasse);
+			team_flextable.setWidget(4, 0, labelteamstrasse);
 			
-			team_flextable.setWidget(5,  1, teamplz);
-			team_flextable.setWidget(5, 0, labelteamplz);
+			team_flextable.setWidget(5,  1, teamhausnummer);
+			team_flextable.setWidget(5, 0, labelteamhausnummer);
 			
-			team_flextable.setWidget(6,  1, teamort);
-			team_flextable.setWidget(6, 0, labelteamort);
+			team_flextable.setWidget(6,  1, teamplz);
+			team_flextable.setWidget(6, 0, labelteamplz);
+			
+			team_flextable.setWidget(7,  1, teamort);
+			team_flextable.setWidget(7, 0, labelteamort);
 		
-			team_flextable.setWidget(7,  1, teamname);
-			team_flextable.setWidget(7, 0, labelteamname);
 		
 			team_flextable.setCellSpacing(10);
 			
@@ -359,17 +392,21 @@ public class MeinProfilAnzeigen extends Showcase{
 			vpanel.add(klickensiehier);
 			vpanel.add(ft_buttonPanel);
 			vpanel.add(form);
-			vpanel.add(un_flextable);
+			vpanel.add(eigenschaften);
+			vpanel.add(pe_alleEigenschaften);
 			
-			blabla.add(eigenschaften);
-			blabla.add(pe_alleEigenschaften);
+			blabla.add(un_flextable);
+			
+			partnerprofilDaten.add(team_flextable);
+			
 //			partnerprofilDaten.add(eigenschaften);
 //			partnerprofilDaten.add(pe_alleEigenschaften);
-			partnerprofilDaten.add(team_flextable);
+			
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
-			hpanel.add(partnerprofilDaten);	
 			hpanel.add(blabla);
+			hpanel.add(partnerprofilDaten);	
+			
 			this.add(hpanel);
 			//-------------------- RootPanel wird vergrößert!
 //			RootPanel.get("Details").setWidth("1000px");
@@ -398,6 +435,52 @@ public class MeinProfilAnzeigen extends Showcase{
 						}
 						    
 		 };
+		 Column<Eigenschaft,String> bearbeitenCell =
+				  new Column<Eigenschaft,String>(bearbeitenButton){
+
+					@Override
+					public String getValue(Eigenschaft object) {
+						
+						return "Bearbeiten";
+					}
+			  
+		  };
+		  Column<Eigenschaft,String> loeschenCell =
+				  new Column<Eigenschaft,String>(loeschenButton){
+
+					@Override
+					public String getValue(Eigenschaft object) {
+						
+						return "Löschen";
+					}
+			  
+		  };
+		  
+		  //
+		  bearbeitenCell.setFieldUpdater(new FieldUpdater<Eigenschaft,String>(){
+
+				@Override
+				public void update(int index, Eigenschaft object, String value) {
+					
+				DialogBox dbeigenschaftaendern = new DialogBoxEigenschaftenAendern(is, object);
+				dbeigenschaftaendern.center();
+					
+				}
+				  
+			  });
+		 
+		  loeschenCell.setFieldUpdater(new FieldUpdater<Eigenschaft,String>(){
+
+				@Override
+				public void update(int index, Eigenschaft object, String value) {
+					
+				DialogBox dbeigenschaftenloschen = new DialogBoxEigenschaftLoeschenAbfrage(object);
+				dbeigenschaftenloschen.center();		
+					
+				}
+				  
+			  });
+		 
 		 
 		 ssm_alleEigenschaften.addSelectionChangeHandler(new Handler(){
 				
@@ -406,7 +489,7 @@ public class MeinProfilAnzeigen extends Showcase{
 					selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
 					if(selectedObject_alleEigenschaften != null){
 						
-						Showcase showcase= new EigenschaftenHinzufuegen(user);
+						Showcase showcase= new EigenschaftenHinzufuegen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 			}else{
@@ -417,7 +500,11 @@ public class MeinProfilAnzeigen extends Showcase{
 		 
 		 pe_alleEigenschaften.addColumn(name, "Bereich");
 		 pe_alleEigenschaften.addColumn(wert, "Ausprägung der Eigenschaft");
+		 pe_alleEigenschaften.addColumn(bearbeitenCell, " ");
+		 pe_alleEigenschaften.addColumn(loeschenCell, " ");
 	
+		
+		
 		 
 		unternehmen_bearbeiten.addClickHandler(new ClickHandler() {
 			
@@ -435,7 +522,131 @@ public class MeinProfilAnzeigen extends Showcase{
 				
 			}
 		});	
+		unternehmen_speichern.addClickHandler(new ClickHandler() {
 			
+			@Override
+			public void onClick(ClickEvent event) {
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 ClientsideSettings.getpmpVerwaltung().getUnByID(is.getUser().getUN_ID(), new AsyncCallback<Unternehmen>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Unternehmen result) {
+						result.setHausnummer(Integer.parseInt(unternehmenHausnummerBox.getText()));
+						result.setName(unternehmenNameBox.getText());
+						result.setOrt(unternehmenOrtBox.getText());
+						result.setPlz(Integer.parseInt(unternehmenPlzBox.getText()));
+						result.setStrasse(unternehmenStrasseBox.getText());
+						
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+					    }
+						ClientsideSettings.getpmpVerwaltung().updateUnternehmen(result, new AsyncCallback<Unternehmen>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Unternehmen result) {
+								Showcase showcase = new MeinProfilAnzeigen(is);
+								RootPanel.get("Details").clear();
+								RootPanel.get("Details").add(showcase);
+							}
+							
+						});
+						
+					}
+					});
+			}
+		});
+		unternehmen_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
+		team_speichern.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Window.alert("Nach clickhandler");
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Team>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Team result) {
+						Window.alert("Success get team by id" + result.getID());
+						result.setHausnummer(Integer.parseInt(teamstrasse.getText()));
+						Window.alert("hausnummer");
+						result.setName(teamname.getText());
+						Window.alert("name");
+						result.setOrt(teamort.getText());
+						Window.alert("ort");
+						result.setPlz(Integer.parseInt(teamplz.getText()));
+						Window.alert("plz");
+						result.setStrasse(teamstrasse.getText());
+						Window.alert("straße");
+						Window.alert("Nach variablen");
+						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+						 if (adminService == null) {
+					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+					    }
+						 Window.alert("nach adminservice");
+						ClientsideSettings.getpmpVerwaltung().updateTeam(result, new AsyncCallback<Team>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								Window.alert("Failure");
+							}
+
+							@Override
+							public void onSuccess(Team result) {
+
+								Window.alert("Success get team update");
+								Showcase showcase = new MeinProfilAnzeigen(is);
+								RootPanel.get("Details").clear();
+								RootPanel.get("Details").add(showcase);
+							}
+							
+						});
+					}
+					 
+				 });
+			}
+		});
+		team_abbrechen.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
 		team_bearbeiten.addClickHandler(new ClickHandler() {
 			
 			@Override
@@ -475,12 +686,21 @@ public class MeinProfilAnzeigen extends Showcase{
 			}
 		
 		});
+		eigenschaften.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				Showcase showcase = new EigenschaftenHinzufuegen(is);
+				RootPanel.get("Details").clear();
+				RootPanel.get("Details").add(showcase);
+			}
+		});
 		
 		team_abbrechen.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -489,7 +709,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -497,7 +717,7 @@ public class MeinProfilAnzeigen extends Showcase{
 		
 		abbrechen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -555,7 +775,7 @@ public class MeinProfilAnzeigen extends Showcase{
 
 			@Override
 			public void onSuccess(Void result) {
-				Showcase showcase = new MeinProfilAnzeigen(user);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -621,7 +841,75 @@ public class MeinProfilAnzeigen extends Showcase{
 			}
 			
 		}
-		private class getUnternahmenAusDBbyPerson implements AsyncCallback<Unternehmen>{
+//		private class 
+		private class DialogBoxEigenschaftLoeschenAbfrage extends DialogBox{
+
+			private VerticalPanel vpanel = new VerticalPanel();
+			private HorizontalPanel hpanel = new HorizontalPanel();
+			private Button ja = new Button("Ja");
+			private Button abbrechen = new Button("Nein");
+			
+			private Label eigenschaftloschenfrage = new Label("Möchten Sie Ihre Eigenschaft löschen?.");
+
+			AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+			
+			private FlexTable ft_person = new FlexTable();
+			
+			public DialogBoxEigenschaftLoeschenAbfrage(final Eigenschaft e){
+				
+				ja.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+										
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				adminService.deleteEigenschaft(e, new AsyncCallback<Void>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Void result) {
+						hide();
+						Showcase showcase = new MeinProfilAnzeigen(is);
+						RootPanel.get("Details").clear();
+						RootPanel.get("Details").add(showcase);
+					}
+					
+				});
+			}
+		});
+				abbrechen.addClickHandler(new ClickHandler() {
+					
+					@Override
+					public void onClick(ClickEvent event) {
+						hide();
+					}
+				});
+				this.setAnimationEnabled(false);
+				this.setGlassEnabled(true);
+				this.setText("Eigenschaft Löschen");
+				ja.setStylePrimaryName("button");
+				abbrechen.setStylePrimaryName("button");
+				
+				ft_person.setWidget(0, 0, eigenschaftloschenfrage);
+				ft_person.setWidget(1, 0, ja);
+				ft_person.setWidget(1, 1, abbrechen);
+				
+				vpanel.add(ft_person);
+						
+				this.add(vpanel);
+			}
+			
+		}
+		
+		private class getUnternehmenAusDBbyPerson implements AsyncCallback<Unternehmen>{
 
 			@Override
 			public void onFailure(Throwable caught) {

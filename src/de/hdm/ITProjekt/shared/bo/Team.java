@@ -1,8 +1,12 @@
 package de.hdm.ITProjekt.shared.bo;
 
+/*
+ * Ein Team ist eine Organisationseinheit und hat außer den Attributen, die es erbt noch einen
+ * Namen, mit dem es auf dem Projektmarktplatz aktiv ist.
+ */
+
 public class Team extends Organisationseinheit{
 
-	
 	private static final long serialVersionUID = 1L;
 	
 	/*

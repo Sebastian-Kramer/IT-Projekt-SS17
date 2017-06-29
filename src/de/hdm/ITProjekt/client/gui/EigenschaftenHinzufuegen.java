@@ -31,20 +31,21 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
 public class EigenschaftenHinzufuegen extends Showcase{
 	
-	private IdentitySelection identitySelection = null;
+	private IdentitySelection is = null;
 	private Menubar mb = null;
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Person user = new Person();
 	
-	public EigenschaftenHinzufuegen(Person person){
-		this.user = person;
+	public EigenschaftenHinzufuegen(IdentitySelection is){
+		this.is	 = is;
 	}
 	
 	private VerticalPanel vpanel = new VerticalPanel();
@@ -58,9 +59,12 @@ public class EigenschaftenHinzufuegen extends Showcase{
 	private Button abbrechen = new Button("Abbrechen");
 	
 	private ListBox auswahlEigenschaften = new ListBox();
+	private ListBox wertEigenschaften = new ListBox();
 	
-	private Label auswahlLabel = new Label("Folgende Eigenschaften können hinzugefügt werden");
+	private Label auswahlLabel = new Label("Eigenschaften:");
+	private Label wertLabel = new Label("Kenntnisstand:");
 	
+	private Eigenschaft eigenschaft1 = new Eigenschaft();
 	
 	@Override
 	protected String getHeadlineText() {
@@ -70,18 +74,8 @@ public class EigenschaftenHinzufuegen extends Showcase{
 
 	@Override
 	protected void run() {
+				 
 		
-		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-		 if (adminService == null) {
-	     adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	   }
-		 adminService.getPartnerprofilfromPerson(user.getID(), new getEigenschaftHinzufuegen());
-
-		 
-		 
-		
-		 	vpanel.setSpacing(2);
-		 
 			auswahlEigenschaften.addItem("Java");
 			auswahlEigenschaften.addItem("PHP");
 			auswahlEigenschaften.addItem("Word");
@@ -89,16 +83,66 @@ public class EigenschaftenHinzufuegen extends Showcase{
 			auswahlEigenschaften.addItem("PowerPoint");
 			auswahlEigenschaften.addItem("C++");
 			
-			pe_form.setWidget(5, 1, auswahlEigenschaften);
-			pe_form.setWidget(5, 0, auswahlLabel);
+
+			wertEigenschaften.addItem("Grundkenntisse");
+			wertEigenschaften.addItem("Fortgeschritten");
+			wertEigenschaften.addItem("Experte");			
+			
+			
+			speichern.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				   }
+					 adminService.getPartnerprofilOfOrganisationseinheit(is.getUser(), new AsyncCallback<Partnerprofil>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Partnerprofil result) {
+							eigenschaft1.setPartnerprofil_ID(result.getID());
+							eigenschaft1.setName(auswahlEigenschaften.getSelectedItemText());
+							eigenschaft1.setWert(wertEigenschaften.getSelectedItemText());
+							adminService.createEigenschaft(eigenschaft1, new EigenschaftHinzufuegen());
+							}
+							 
+						 });
+				}
+			});
+			abbrechen.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					Showcase showcase = new MeinProfilAnzeigen(is);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
+				}
+			});
+			
+			pe_form.setWidget(0, 0, auswahlLabel);
+			pe_form.setWidget(0, 1, auswahlEigenschaften);
+			pe_form.setWidget(1, 0, wertLabel);
+			pe_form.setWidget(1, 1, wertEigenschaften);
+			pe_form.setWidget(2, 0, speichern);
+			pe_form.setWidget(2, 1, abbrechen);
 			
 			vpanel.add(pe_form);
 			
 			this.add(vpanel);
 			this.setSpacing(2);
+	
+			
 	}
 	
-	private class getEigenschaftHinzufuegen implements AsyncCallback<Eigenschaft>{
+	private class EigenschaftHinzufuegen implements AsyncCallback<Eigenschaft>{
 
 		@Override
 		public void onFailure(Throwable caught) {
@@ -108,8 +152,9 @@ public class EigenschaftenHinzufuegen extends Showcase{
 
 		@Override
 		public void onSuccess(Eigenschaft result) {
-			// TODO Auto-generated method stub
-			
+			Showcase showcase = new MeinProfilAnzeigen(is);
+			RootPanel.get("Details").clear();
+			RootPanel.get("Details").add(showcase);
 		}
 		
 	}

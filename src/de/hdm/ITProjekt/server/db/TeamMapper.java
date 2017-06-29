@@ -12,7 +12,7 @@ private static TeamMapper tMapper = null;
 	
 	protected TeamMapper(){
 		
-	}
+	};
 	
 	public static TeamMapper tMapper(){
 		if(tMapper == null){
@@ -112,6 +112,7 @@ public Vector<Team> findByUN(int unternehmenId){
 	  return t;
   }
 
+
 public Team insert(Team p1){
 	
 	Connection con = DBConnection.connection();
@@ -151,24 +152,30 @@ public Team insert(Team p1){
 	}
 	return p1;		
 }
-
-public void delete(Team p1){
-	
+public void deleteTeam(Integer t){
+	Team team = new Team();
+	team.setID(t);
 	Connection con = DBConnection.connection();
 	
 	try {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("DELETE FROM Team " 
-	    		  			+ "WHERE ID = " + p1.getID());
-	      super.delete(p1);
+	    		  			+ "WHERE ID = " + t);
+	      super.delete(team);
 
 		}
 	
 	catch (SQLException e2) {
 			e2.printStackTrace();
 		}
+	
+}
+public void deleteTeam(Team p1){
+	this.deleteTeam(p1.getID());
 	}
+
+
 
 public Team update(Team t) {
     Connection con = DBConnection.connection();
@@ -183,12 +190,11 @@ public Team update(Team t) {
       if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
-    	  super.update(t);
     	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" + ", UN_ID = " + t.getUN_ID() + " WHERE ID = " + t.getID());
-    	  super.update(t);
+    	  
       }
       
     }

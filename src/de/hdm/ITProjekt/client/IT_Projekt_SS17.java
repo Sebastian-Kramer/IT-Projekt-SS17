@@ -38,30 +38,30 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class IT_Projekt_SS17 implements EntryPoint {
 		
-	 private static LogInInfo loginInfo = null;
+	 private LogInInfo loginInfo = null;
 	 private VerticalPanel loginPanel = new VerticalPanel();
 	 private HorizontalPanel horvorpanel = new HorizontalPanel();
 	 private VerticalPanel verpanel = new VerticalPanel();
 	 private VerticalPanel vorpanel = new VerticalPanel();
 	 private Label gotogooglelabel = new Label("Sie haben noch kein Google Account?");
 	 private Label loginLabel = new Label("Bitte melden Sie sich mit Ihrem Google-Account an.");
-	 private Anchor signInLink = new Anchor ("Sign In");
-	 private Anchor signOutLink = new Anchor ("Sign Out");
+	 private Anchor signInLink = new Anchor ("Einloggen");
+	 private Anchor signOutLink = new Anchor ("Ausloggen");
 	 private Anchor goToGoogle = new Anchor ("Go to Google Sign In");
+	 private Label reportgeneratorlabel = new Label("Sie wollen auf den Report Generator?");
+	 private VerticalPanel reportpanel = new VerticalPanel();
 	 
 	  private HorizontalPanel addPanel = new HorizontalPanel();
 	  private VerticalPanel mainPanel = new VerticalPanel();
 	  private Person p1 = new Person();
-	  ;
 	  private Button loginButton = new Button("Login");
 	  private Button seiteVerlassen = new Button("Seite verlassen");
 	 
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-	  
-	  
-//	  private Button projektmarktplatz = new Button("Projektmarktplatz");
 
-	  
+	  private Button zumReportgenerator = new Button("Zum Report Generator");
+	    
+	  private Anchor reportLink = new Anchor();
 	/**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
 	   * zusichert, benötigen wir eine Methode
@@ -70,12 +70,21 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
+		  
+		  zumReportgenerator.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				reportLink.setHref(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html");
+				Window.open(reportLink.getHref(), "_self", "");
+
+			}
+		});
+		  
 		  RootPanel.get("header-top").add(new Menuleiste());
-		  
-		  
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
-		  loginService.login(GWT.getHostPageBaseURL(), new AsyncCallback<LogInInfo>()	{
+		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{
 			  public void onFailure(Throwable Error) {
 				  Window.alert("Fehler Login" + Error.toString());
 				  
@@ -131,17 +140,24 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				  }
 			  }
 			  });
-		  
-	  }
+			}
+			
+	  
 	 
 			public void load(Person person){
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
-		  		Showcase showcase = new Homeseite();
-		  		Menubar mb = new Menubar(person);
-				signOutLink.setHref(loginInfo.getLogoutUrl());//
+
+				signOutLink.setStylePrimaryName("ausloggenanchorreport");
 				mainPanel.add(addPanel);
+				Showcase showcase = new Homeseite();
+		  		Menubar mb = new Menubar(person);
+//		  		Window.alert(person.getName());
 				mainPanel.add(showcase);
-				RootPanel.get("idendity").add(new IdentitySelection(person, mb));
+				IdentitySelection is = new IdentitySelection(person, mb);
+				mb.setIdSelection(is);
+				RootPanel.get("header-top").clear();
+				RootPanel.get("header-top").add(new Menuleiste());
+				RootPanel.get("idendity").add(mb.getIdSelection());
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);
 				RootPanel.get("Navigator").add(mb);
@@ -164,11 +180,16 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				verpanel.add(goToGoogle);
 				verpanel.setSpacing(10);
 				
+				reportpanel.add(reportgeneratorlabel);
+				reportpanel.add(zumReportgenerator);
+				
 				vorpanel.add(loginPanel);
 				vorpanel.add(loginButton);
+				vorpanel.add(reportpanel);
 				vorpanel.setSpacing(10);
 				horvorpanel.add(vorpanel);
 				horvorpanel.add(verpanel);
+				
 				
 				RootPanel.get("Details").add(horvorpanel);
 				

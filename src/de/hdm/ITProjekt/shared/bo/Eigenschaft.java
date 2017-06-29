@@ -1,5 +1,12 @@
 package de.hdm.ITProjekt.shared.bo;
 
+/*
+ * Jeder Bewerber und jede Ausschreibung hat Eigenschaften. Bei einem Bewerber bilden die Eigenschaften
+ * das 'Können' des Bewerbers ab. Bei einer Ausschreibung bilden die Eigenschaften die Anforderungen ab, 
+ * die ein Bewerber für diese Stelle haben sollte. Eine oder mehrere Eigenschaften gehören zu einem Partnerprofil.
+ * Eine Eigenschaft hat einen Namen und einen Wert.
+ */
+
 public class Eigenschaft extends BusinessObject{
 	private static final long serialVersionUID = 1L;
 
@@ -15,7 +22,7 @@ public class Eigenschaft extends BusinessObject{
 	 * Realisierung einer Beziehung zu Partnerprofil mitels Fremdschlüssel
 	 */
 	
-	private int Partnerprofil_ID = 0 ;
+	private Integer Partnerprofil_ID = 0 ;
 
 	/*
 	 * Auslesen des Namens
@@ -58,7 +65,7 @@ public class Eigenschaft extends BusinessObject{
 	 * @return Partnerprofil_ID
 	 */
 	
-	public int getPartnerprofil_ID() {
+	public Integer getPartnerprofil_ID() {
 		return Partnerprofil_ID;
 	}
 	
@@ -67,10 +74,22 @@ public class Eigenschaft extends BusinessObject{
 	 * @param Partnerprofil_ID
 	 */
 	
-	public void setPartnerprofil_ID(int partnerprofil_ID) {
-		Partnerprofil_ID = partnerprofil_ID;
+	public void setPartnerprofil_ID(Integer partnerprofil_ID) {
+		if (partnerprofil_ID == 0){
+			this.Partnerprofil_ID = null;
+		} else {
+			this.Partnerprofil_ID = partnerprofil_ID;
+		}
+		
 }
-
+	/*
+	 * Zum Testen der Klasse in der Konsole
+	 * @return ID + " " + bez
+	 */
+	public String toString(){
+		return name + " " + wert;
+	}
+		
 	/*
 	 * Es wird �berpr�ft ob ein Objekt ungleich NULL ist und gecastet werden kann
 	 * instanceof �berpr�ft ob o zuweisungskompatibel zu BusinessObject ist

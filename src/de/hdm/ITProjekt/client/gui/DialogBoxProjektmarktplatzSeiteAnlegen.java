@@ -38,6 +38,8 @@ public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 
 	FlexTable projektmarktplatzseite = new FlexTable();
 	
+	private IdentitySelection is = null;
+	
 	public DialogBoxProjektmarktplatzSeiteAnlegen(){
 		
 		this.setText("Projektmarktplatz anlegen");
@@ -75,7 +77,7 @@ public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
@@ -102,7 +104,7 @@ public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 	@Override
 	public void onSuccess(Projektmarktplatz result) {
 		Window.alert("Projektmarktplatz wurde erfolgreich angelegt");
-		Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+		Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 		RootPanel.get("Details").clear();
 		RootPanel.get("Details").add(showcase);
 	}

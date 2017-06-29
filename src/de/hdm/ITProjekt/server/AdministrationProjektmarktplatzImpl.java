@@ -1,5 +1,6 @@
 package de.hdm.ITProjekt.server;
 
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Vector;
@@ -10,14 +11,12 @@ import de.hdm.ITProjekt.server.db.*;
 import de.hdm.ITProjekt.shared.*;
 import de.hdm.ITProjekt.shared.bo.*;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 			implements AdministrationProjektmarktplatz{
 	
-
-	
-	private ArrayList<String> projektmarktplaetze = new ArrayList<String>(); 
 	private static final long serialVersionUID = 1L;	
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
@@ -26,6 +25,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	private UnternehmenMapper unMapper = null;
 	private BewerbungMapper bewMapper = null;
 	private BewertungMapper bewertMapper = null;
+	private BeteiligungMapper beteilMapper = null;
 	private AusschreibungMapper aMapper = null;
 	private TeilnahmeMapper tnMapper = null;
 	private OrganisationseinheitMapper orgMapper = null;
@@ -41,12 +41,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.bewMapper = BewerbungMapper.bewMapper();
 		this.aMapper = AusschreibungMapper.aMapper();
 		this.tnMapper = TeilnahmeMapper.tnMapper();
-//		this.orgMapper = OrganisationseinheitMapper.orgMapper();
+		this.orgMapper = OrganisationseinheitMapper.orgMapper();
 		this.tMapper = TeamMapper.tMapper();
 		this.unMapper = UnternehmenMapper.unMapper();
 		this.partnerprofilMapper = PartnerprofilMapper.ppMapper();
 		this.eigenschaftsMapper = EigenschaftMapper.eMapper();
 		this.bewertMapper = BewertungMapper.beweMapper();
+		this.beteilMapper = BeteiligungMapper.bMapper();
 		
 	}
 	/*
@@ -104,21 +105,21 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pmpMapper.findByBez(bez);
 	}
 
-	@Override
-	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
-		// TODO Auto-generated method stub
-		// Wenn nicht alle Fremdschl�ssel gel�scht sind kann Proejktmarktplatz nicht gel�scht werden. Hier muss deleteprojekt auch aufgerufen werden.
-		
-		Vector<Projekt> projekt = this.getProjekteOf(p);
-		
-		if(projekt != null){
-			for(Projekt pr : projekt){
-				this.deleteProjekt(pr);
-			}
-		}
-		
-		return this.pmpMapper.deleteMarktplatz(p);
-	}
+//	@Override
+//	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
+//		// TODO Auto-generated method stub
+//		// Wenn nicht alle Fremdschl�ssel gel�scht sind kann Proejktmarktplatz nicht gel�scht werden. Hier muss deleteprojekt auch aufgerufen werden.
+//		
+//		Vector<Projekt> projekt = this.getProjekteOf(p);
+//		
+//		if(projekt != null){
+//			for(Projekt pr : projekt){
+//				this.deleteProjekt(pr);
+//			}
+//		}
+//		
+//		return this.pmpMapper.deleteMarktplatz(p);
+//	}
 
 	@Override
 	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p) {
@@ -184,19 +185,20 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //		return this.pMapper.findByProjektmarktplatz(projektmarktplatzID);
 //	}
 	
-	public Projekt deleteProjekt(Projekt pr){
-		
-		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
-		
-		if(ausschreibung != null){
-			for(Ausschreibung a : ausschreibung){
-				this.deleteAusschreibung(a);
-			}
-			
-		}
-		
-		return this.pMapper.deleteProjekt(pr);
-	}
+//	public void deleteProjekt(Projekt pr){
+//		
+//		Vector<Ausschreibung> ausschreibung = this.findByProjekt(pr);
+//		
+//		
+//		if(ausschreibung != null){
+//			for(Ausschreibung a : ausschreibung){
+//				this.deleteAusschreibung(a);
+//			}
+//			
+//		}
+//		
+//		return this.pMapper.deleteProjekt(pr);
+//	}
 	
 	@Override
 	public Vector<Projekt> getAllProjekte() {
@@ -338,23 +340,24 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.aMapper.getAll();
 	}
 	
-//	@Override
-//	public Ausschreibung addAusschreibung(String text, String bezeichnung, Date date) {
-//		Ausschreibung aus = new Ausschreibung();
-//		aus.setAusschreibungstext(text);
-//		aus.setBezeichnung(bezeichnung);
-//		aus.setDatum(date);
-//		aus.setProjekt_ID(1);
-//		aus.setOrga_ID(1);
-//		
-//		return this.aMapper.addAusschreibung(aus);
-//	}
+	
+	public Ausschreibung addAusschreibung(String text, String bezeichnung, Date date) {
+		Ausschreibung aus = new Ausschreibung();
+		aus.setAusschreibungstext(text);
+		aus.setBezeichnung(bezeichnung);
+		aus.setDatum(date);
+		aus.setProjekt_ID(1);
+		aus.setOrga_ID(1);
+		
+		return this.aMapper.addAusschreibung(aus);
+	}
 	
 	
 
 
 	@Override
 	public void deleteAusschreibung(Ausschreibung a) {
+		this.aMapper.deleteAusschreibung(a);
 
 	}
 	@Override
@@ -386,7 +389,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	//Rückgabe eines Team-Objects anhand der übergebenen ID
 	@Override
-	public Team getTeamByID(Integer id) {
+	public Team getTeamByID(int id) {
 		return this.tMapper.findByKey(id);
 	}
 	@Override
@@ -462,6 +465,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 		}
 	
+	
 	@Override
 	public void deletePartnerprofil(Partnerprofil p) throws IllegalArgumentException {
 		this.partnerprofilMapper.delete(p);
@@ -513,7 +517,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.aMapper.addAusschreibung(a);
 }
 
-	
+	@Override
+	public Eigenschaft createEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		return this.eigenschaftsMapper.insert(e);
+	}
 	@Override
 	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException {
 		
@@ -521,6 +528,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	}
 
+	
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftofPerson(Partnerprofil p) throws IllegalArgumentException {
+		return this.eigenschaftsMapper.findByPartnerprofil(p);
+	}
+	
 	@Override
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) {
 	
@@ -559,6 +572,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.unMapper.deleteUnternehmen(u);
 	}
 	@Override
+	public Unternehmen updateUnternehmen(Unternehmen u) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.unMapper.updateUnternehmen(u);
+	}	
+	@Override
 	public void deleteTeam(Team team) throws IllegalArgumentException {
 		this.tMapper.delete(team);
 		
@@ -590,13 +608,253 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 		return this.bewertMapper.insert(a);
 	}
-	
 
-	
-	
-	
-
-	
-	
-	
+	@Override
+	public Beteiligung insert(Beteiligung b) {
+		
+		return this.beteilMapper.insert(b);
 	}
+	@Override
+	public Bewertung insertWithoutBeteil(Bewertung a) {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.insertWithoutBeteil(a);
+	}
+	@Override
+	public Projekt updateProjekt(Projekt c) throws IllegalArgumentException {
+		return this.pMapper.update(c);
+	}
+	@Override
+	public Bewerbung updateBewerbung(Bewerbung c) throws IllegalArgumentException {
+		
+		return this.bewMapper.update(c);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBewerbung(Bewerbung bewerbung) throws IllegalArgumentException {
+		
+		return this.bewertMapper.getBewertungByBewerbung(bewerbung);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBewerbung(int bewerbungId) throws IllegalArgumentException {
+		return this.bewertMapper.getBewertungByBewerbung(bewerbungId);
+	}
+	@Override
+	public Bewertung updateBewertung(Bewertung bewe) throws IllegalArgumentException {
+		
+		return this.bewertMapper.update(bewe);
+	}
+	@Override
+	public void deleteBewertung(Bewertung bew) throws IllegalArgumentException {
+		this.bewertMapper.delete(bew);
+	}
+		
+		
+		
+
+	public Vector<Bewertung> getAllBewertungen() {
+		// TODO Auto-generated method stub
+		return this.bewertMapper.getAll();
+
+	}
+
+	public void deleteEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		this.eigenschaftsMapper.deleteEigenschaft(e);
+	}
+	@Override
+	public Eigenschaft updateEigenschaft(Eigenschaft e) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.eigenschaftsMapper.update(e);
+	}
+	@Override
+	public void deleteProjekt(Projekt a) throws IllegalArgumentException {
+		this.pMapper.deleteProjekt(a);
+		
+	}
+	@Override
+	public void deleteProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException {
+		this.pmpMapper.deleteMarktplatz(p);
+		
+	}
+	@Override
+	public Vector<Projekt> getAllProjekteByProjektleiter(int personId) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.pMapper.getAllProjekteByProjektleiter(personId);
+	}
+	
+	public Vector<Beteiligung> getBeteiligungByProjekt(int projektid) throws IllegalArgumentException {
+		
+		return this.beteilMapper.getBeteiligungByProjekt(projektid);
+	}
+	@Override
+	public void delete(Beteiligung a) throws IllegalArgumentException {
+		this.beteilMapper.delete(a);
+		
+	}
+	@Override
+	public Beteiligung updateBeteiligung(Beteiligung c) throws IllegalArgumentException {
+		
+		return this.beteilMapper.update(c);
+	}
+	@Override
+	public Vector<Beteiligung> getAllBeteiligungen() throws IllegalArgumentException {
+		
+		return this.beteilMapper.getAll();
+	}
+	@Override
+	public Vector<Projekt> getProjektByOrgaID(Integer id) throws IllegalArgumentException {
+		
+		return this.pMapper.getProjektById(id);
+	}
+	@Override
+	public Vector<Person> getPersonByID(Integer id) throws IllegalArgumentException {
+		
+		return this.personMapper.getPersonByID(id);
+	}
+	@Override
+
+	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException {
+		return this.bewMapper.updateBewerbungsstatus(b);
+	}
+	@Override
+	public Person getPersonFromBewerbung(Integer id) {
+		return this.personMapper.getPersonbyOrgaID(id);
+	}
+
+	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.getAllPartnerprofile();
+	}
+	@Override
+	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
+		return this.aMapper.getAll();
+	}
+	@Override
+	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.partnerprofilMapper.insert(pp1);
+	}
+	@Override
+	public Vector<Bewerbung> findByOrgaID(int Orga_ID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.bewMapper.findByPerson(Orga_ID);
+
+	}
+	@Override
+	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException {
+		return this.orgMapper.findByID(id);
+	}
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftenFromOrga(Integer id) throws IllegalArgumentException {
+		return this.eigenschaftsMapper.getEigenschaftbyId(id);
+	}
+
+
+	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException {
+		
+		return this.partnerprofilMapper.findByKey(id);
+	}
+
+
+	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException {
+		if (a != null && this.partnerprofilMapper != null) {
+//			System.out.println(this.partnerprofilMapper.findByKeyInteger(a.getPartnerprofil_ID()));
+			return this.partnerprofilMapper.findByKeyInteger(a.getPartnerprofil_ID());
+			
+		}
+		else {
+			return null;
+		}
+		
+	}
+	@Override
+	public Organisationseinheit getOrgaeinheitByID(int o) throws IllegalArgumentException {
+		Person p = personMapper.findByKey(o);
+		Unternehmen u = unMapper.findByKey(o);
+		Team t = tMapper.findByKey(o);
+		
+		if(p != null){
+			return p;
+		}
+		if(u != null){
+			return u;
+		}
+		if(t != null){
+			return t;
+		}
+		else return null;
+	}
+	@Override
+	public Vector<Beteiligung> getBeteiligungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+		Vector<Beteiligung> result = new Vector<>();
+		
+		if (o != null && this.beteilMapper != null) {
+			Vector<Beteiligung> beteiligungen = this.beteilMapper.findByOrgaeinheit(o);
+			
+			if (beteiligungen != null) {
+				result.addAll(beteiligungen);
+			}
+		}
+		
+		return result;
+	}
+	@Override
+	public Ausschreibung getAusschreibungByID(int a) throws IllegalArgumentException {
+		return this.aMapper.findByKey(a);
+	}
+	@Override
+	public Vector<Bewerbung> getBewerbungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+
+		Vector<Bewerbung> result = new Vector<>();
+		
+		if (o != null && this.bewMapper != null) {
+			Vector<Bewerbung> bewerbungen = this.bewMapper.findByPerson(o.getID());
+			
+			if (bewerbungen != null) {
+				result.addAll(bewerbungen);
+			}
+		}
+		
+		return result;
+	}
+	@Override
+	public Vector<Organisationseinheit> getAllOrganisationseinheiten() throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.orgMapper.getAllOrganisationseinheit();
+	}
+	@Override
+	public Vector<Ausschreibung> getAusschreibungByOrgaeinheit(Organisationseinheit o) throws IllegalArgumentException {
+		return this.aMapper.findAusschreibungByOrga(o);
+	}
+	@Override
+	public Vector<Eigenschaft> getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p) throws IllegalArgumentException {
+
+		Vector <Eigenschaft> result = new Vector<Eigenschaft>();
+		
+		if(p != null && this.eigenschaftsMapper != null ){
+			Vector<Eigenschaft> eigenschaft = this.eigenschaftsMapper.getEigenschaftbyID(p.getID());
+			
+			if(eigenschaft != null){
+				result.addAll(eigenschaft);
+			}
+		}
+		return result;
+	}
+
+	@Override
+	public Vector<Beteiligung> getBeteiligungByOrga(Integer orgaid) throws IllegalArgumentException {
+		
+		return this.getBeteiligungByOrga(orgaid);
+	}
+	@Override
+	public void deleteTeamByID(Integer t) throws IllegalArgumentException {
+		this.tMapper.deleteTeam(t);
+		
+	}
+	@Override
+	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException {
+		this.unMapper.deleteUnternehmen(u);
+		
+	}
+
+	
+}

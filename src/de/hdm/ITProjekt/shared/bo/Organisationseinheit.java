@@ -1,6 +1,11 @@
 package de.hdm.ITProjekt.shared.bo;
 
-
+/*
+ * Eine Organisationseinheit kann eine Person, ein Team oder ein Unternehmen einschließen, 
+ * welche auf dem Projektmarktplatz angemeldet sind. Eine Organisationseinheit hat einen Stand-/
+ * Wohnort der durch eine Strasse, Hausnummer, Postleitzahl und den Ort ausgedrückt wird.
+ * Diese Attribute werden an die genannten Klassen (Person, Team und Unternehmen) vererbt.
+ */
 
 public class Organisationseinheit extends BusinessObject{
 	
@@ -33,11 +38,7 @@ public class Organisationseinheit extends BusinessObject{
 	 * Realisierung einer Beziehung zu Partnerprofil mittels Fremdschlüssel
 	 */
 
-
 	private Integer Partnerprofil_ID = 0;
-
-	
-//	private Integer Partnerprofil_ID = 0;
 	
 	/*
 	 * Auslesen der Straße
@@ -110,18 +111,6 @@ public class Organisationseinheit extends BusinessObject{
 	public void setOrt(String ort) {
 		this.ort = ort;
 	}
-	
-//		return "\n" + "ID: " + ID + "\n" + "strasse: " + strasse + "\n" + "Hausnummer: " + hausnummer
-//				+ "\n" + "Postleitzahl: " + plz + "\n" + "Wohnort: " + ort + "\n" 
-//				+ "Diese Organisationseinheit gehört zu diesem Partnerprofil: " + Partnerprofil_ID;
-//	}
-	
-	/*
-	 * Es wird �berpr�ft ob ein Objekt ungleich NULL ist und gecastet werden kann
-	 * instanceof �berpr�ft ob o zuweisungskompatibel zu BusinessObject ist
-	 * @return true
-	 * @return false wenn keine Gleichheit besteht
-	 */
 	
 	public Integer getPartnerprofil_ID() {
 		return Partnerprofil_ID;
