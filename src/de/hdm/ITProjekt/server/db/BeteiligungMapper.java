@@ -7,15 +7,41 @@ import java.sql.*;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 
+/*
+ * Die Klasse BeteiligungMapper bildet Beteiligungs-Objekte auf einer relationalen Datenbank ab.
+ * Mit Hilfe von verschiedenen Methoden können die jeweilgen Objekte aus der Datenbank geholt, geschrieben 
+ * oder aktualisiert werden.
+ * Die Besonderheit ist, dass Objekte in DB-Strukturen und umgekehrt umgewandelt werden können
+ */
+
 public class BeteiligungMapper {
+	
+	/*
+	 * SimpleDateFormat wird benötigt um das korrekte Format 
+	 * eines Datum zu lesen oder zu schreiben
+	 */
 	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
+	
 	private static BeteiligungMapper bMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse BeteiligungMapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected BeteiligungMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return bMapper
+	 */
 	
 	public static BeteiligungMapper bMapper(){
 		if(bMapper == null){
@@ -23,6 +49,13 @@ public class BeteiligungMapper {
 		}
 		return bMapper;
 	}
+	
+	/*
+	 * Beteiligung wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Beteiligung entsprechend der übergebenen ID
+	 * @param ID Primärschlüssel ID der Tabelle Beteiligung
+	 */
+	
 	public Beteiligung findByKey(int id){
 		
 		Connection con = DBConnection.connection();
@@ -49,10 +82,17 @@ public class BeteiligungMapper {
 		}
 		return null;	
 	}
-public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
+	
+	/*
+	 * Alle Beteiligungen werden anhand der übergebenen, Organisationseinheit
+	 * in einem Vector zurückgegeben.
+	 * @return alle Elemente die im Vector gespeichert wurden
+	 * @param ID Orga_ID der Tabelle Beteiligung
+	 */
+	
+	public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		
 		Connection con = DBConnection.connection();
-
 		Vector<Beteiligung> result = new Vector<Beteiligung>();
 		
 		try{
@@ -78,11 +118,15 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		}
 		return result;	
 	}
+	
+	/*
+	 * Auslesen aller Beteiligungen die in der DB gespeichert sind
+	 * @return Vector mit allen gefundenen Beteiligungen
+	 */
 		
 	public Vector<Beteiligung> getAll(){
 		
-		 Connection con = DBConnection.connection();	 
-		
+		 Connection con = DBConnection.connection();	 	
 		 Vector<Beteiligung> result = new Vector<Beteiligung>();
 		 
 		  try {
@@ -107,6 +151,12 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		      }
 		  return result;
 	}
+	
+	/*
+	 * Auslesen aller Beteiligungen eines Projekts mittels Projekt ID.
+	 * @return Vector mit allen Beteiligungen zu einem Projekt.
+	 * @param projektId
+	 */
 	
 	public Vector <Beteiligung> getBeteiligungByProjekt(int projektid){
 		 Connection con = DBConnection.connection();	 
@@ -136,6 +186,13 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		 return result;
 	}
 	
+	/*
+	 * Alle Beteiligungen werden anhand der übergebenen, Organisationseinheit
+	 * in einem Vector zurückgegeben.
+	 * @return alle Elemente die im Vector gespeichert wurden
+	 * @param ID Orga_ID der Tabelle Beteiligung
+	 */
+	
 	public Vector <Beteiligung> getBeteiligungByOrga(Integer orgaid){
 		 Connection con = DBConnection.connection();	 
 			
@@ -164,6 +221,13 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		 return result;
 	}
 	
+	/*
+	 * Wird eine Beteiligung neu angelegt wird diese mit der insert-Methode in die jeweilige Tabelle 
+	 * der Datenbank geschrieben.
+	 * Dazu wird die bisher höchste ID gesucht und mit 1 addiert.
+	 * @return Gespeichertes Beteiligungs Objekt.
+	 * @param neuen Beteiligungsobjekt
+	 */
 	
 	public Beteiligung insert(Beteiligung a){
 		
@@ -174,12 +238,10 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
 		              + "FROM Beteiligung ");
-		      
-		
+		      		
 		      if(rs.next()){
 		    	  
 		    	  	a.setID(rs.getInt("maxid") + 1);
-		   	  
 		    	  	stmt = con.createStatement();
 		    	  	
 		    		stmt.executeUpdate("INSERT INTO Beteiligung (ID, umfang, startdatum, enddatum, Projekt_ID, Orga_ID)" 
@@ -196,6 +258,10 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		return a;		
 	}
 	
+	/*
+	 * Beteiligung wird aus der Datenbank gelöscht
+	 * @param zu löschendes Beteiligungsobjekt
+	 */
 	
 	public void delete(Beteiligung a){
 		
@@ -203,16 +269,19 @@ public Vector<Beteiligung> findByOrgaeinheit(Organisationseinheit o){
 		
 		try {
 		      Statement stmt = con.createStatement();
-
 		      stmt.executeUpdate("DELETE FROM Beteiligung " 
 		    		  			+ "WHERE Beteiligung.ID = " + a.getID());
-
 			}
 		
 		catch (SQLException e2) {
 				e2.printStackTrace();
 			}
 		}
+	
+	/*
+	 * Eine vorhandene Beteiligung aus der Datenbank wird aktualisiert
+	 * @param zu aktualisierendes Beteiligungsobjekt
+	 */
 	
 	public Beteiligung update(Beteiligung c) {
 	    Connection con = DBConnection.connection();

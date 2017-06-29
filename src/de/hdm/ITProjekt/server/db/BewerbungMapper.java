@@ -11,14 +11,41 @@ import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Person;
 
+/*
+ * Die Klasse BewerbungMapper bildet Bewerbungs-Objekte auf einer relationalen Datenbank ab.
+ * Mit Hilfe von verschiedenen Methoden können die jeweilgen Objekte aus der Datenbank geholt, geschrieben 
+ * oder aktualisiert werden.
+ * Die Besonderheit ist, dass Objekte in DB-Strukturen und umgekehrt umgewandelt werden können
+ */
+
 public class BewerbungMapper {
+	
+	/*
+	 * SimpleDateFormat wird benötigt um das korrekte Format 
+	 * eines Datum zu lesen oder zu schreiben
+	 */
+	
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
+	
 	private static BewerbungMapper bewMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse BewerbungMapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected BewerbungMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return bewMapper
+	 */
 	
 	public static BewerbungMapper bewMapper(){
 		if(bewMapper == null){
@@ -26,6 +53,13 @@ public class BewerbungMapper {
 		}
 		return bewMapper;
 	}
+	
+	/*
+	 * Bewerbung wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Bewerbung entsprechend der übergebenen ID
+	 * @param ID Primärschlüssel ID der Tabelle Bewerbung
+	 */
+	
 	public Bewerbung findByKey(int id){
 		
 		Connection con = DBConnection.connection();
@@ -51,6 +85,11 @@ public class BewerbungMapper {
 		}
 		return null;	
 	}
+	
+	/*
+	 * Auslesen aller Bewerbungen die in der DB gespeichert sind
+	 * @return Vector mit allen gefundenen Bewerbungen
+	 */
 	
 	public Vector<Bewerbung> getAll(){
 		
@@ -82,7 +121,14 @@ public class BewerbungMapper {
 		  return result;
 	}
 	
-	
+	/*
+	 * Wird eine Bewerbung neu angelegt wird diese mit der insert-Methode in die jeweilige Tabelle 
+	 * der Datenbank geschrieben.
+	 * Dazu wird die bisher höchste ID gesucht und mit 1 addiert.
+	 * @return Gespeichertes Bewerbung Objekt.
+	 * @param neuen Bewerbungsobjekt
+	 */
+		
 	public Bewerbung insert(Bewerbung a){
 		
 		Connection con = DBConnection.connection();
@@ -113,6 +159,10 @@ public class BewerbungMapper {
 		return a;		
 	}
 	
+	/*
+	 * Bewerbung wird aus der Datenbank gelöscht
+	 * @param zu löschendes Bewerbungsobjekt
+	 */
 	
 	public void delete(Bewerbung a){
 		
@@ -131,6 +181,11 @@ public class BewerbungMapper {
 			}
 		}
 	
+	/*
+	 * Eine vorhandener Bewerbungsstatus aus der Datenbank wird aktualisiert
+	 * @param zu aktualisierendes Bewerbungsobjekt
+	 */
+	
 	public Bewerbung updateBewerbungsstatus(Bewerbung b){
 		Connection con = DBConnection.connection();
 		
@@ -143,6 +198,11 @@ public class BewerbungMapper {
 		}
 		return b;
 	}
+	
+	/*
+	 * Eine vorhandene Bewerbung aus der Datenbank wird aktualisiert
+	 * @param zu aktualisierendes Bewerbungsobjekt
+	 */
 	
 	public Bewerbung update(Bewerbung c) {
 	    Connection con = DBConnection.connection();
@@ -167,7 +227,15 @@ public class BewerbungMapper {
 	    return c;
 	  }
 	
+	/*
+	 * Alle Bewerbungen werden anhand der übergebenen, Organisationseinheit
+	 * in einem Vector zurückgegeben.
+	 * @return alle Elemente die im Vector gespeichert wurden
+	 * @param ID Orga_ID der Tabelle Bewerbung
+	 */
+	
 	public Vector<Bewerbung> findByPerson (int Orga_ID){
+		
 		Connection con = DBConnection.connection();
 		Vector<Bewerbung> result = new Vector<Bewerbung>();
 		
@@ -195,16 +263,28 @@ public class BewerbungMapper {
 		return result;
 	}
 	
+	/*
+	 * Hilfsmethode die alle Bewerbungen einer Person mit Hilfe eines
+	 * Person-Object findet.
+	 * Methode findByPerson (int Orga_ID) wird aufgerufen
+	 * @param Person
+	 */
+	
 	public Vector<Bewerbung> findByPerson(Person person){
 		
 		return findByPerson(person.getID());	
 	}
 	
+	/*
+	 * Alle Bewerbungen werden anhand der übergebenen AusschreibungsID
+	 * in einem Vector zurückgegeben.
+	 * @return alle Elemente die im Vector gespeichert wurden
+	 * @param ID Ausschreibungs_ID der Tabelle Bewerbung
+	 */
 	
 	public Vector<Bewerbung> findByAusschreibung(int id){
 		
 		Connection con = DBConnection.connection();
-		
 		Vector<Bewerbung> result = new Vector<Bewerbung>();
 		
 		try {
@@ -226,11 +306,9 @@ public class BewerbungMapper {
 		catch (SQLException e2) {
 		      e2.printStackTrace();
 		}
-		return result;
-		
+		return result;		
 		}
-		
-		
+			
 	}
 	
 
