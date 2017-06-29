@@ -213,5 +213,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p, AsyncCallback<Vector<Eigenschaft>> callback);
 
+	void deleteBewertungbyBeteiligung(int id, AsyncCallback<Void> callback);
 
 	}

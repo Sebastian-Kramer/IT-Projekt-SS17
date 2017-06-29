@@ -262,6 +262,23 @@ public class BewertungMapper {
 			}
 	}
 	
+	public void deleteBewertungByBeteiligung(int id){
+		
+		Connection con = DBConnection.connection();
+		
+		try {
+		      Statement stmt = con.createStatement();
+	
+		      stmt.executeUpdate("DELETE FROM Bewertung " 
+		    		  			+ " WHERE Beteiligungs_ID = " + id);
+	
+			}
+		
+		catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+	}
+	
 	/*
 	 * Eine vorhandene Bewertung aus der Datenbank wird aktualisiert
 	 * @param zu aktualisierendes Bewertungsobjekt

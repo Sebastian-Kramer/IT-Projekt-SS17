@@ -201,5 +201,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void deleteTeamByID(Integer t) throws IllegalArgumentException;
 	
 	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException;
+	
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException;
 
 	}

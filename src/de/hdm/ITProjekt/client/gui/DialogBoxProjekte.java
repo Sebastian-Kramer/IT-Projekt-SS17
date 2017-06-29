@@ -192,7 +192,7 @@ public class DialogBoxProjekte extends DialogBox {
 
 		@Override
 		public void onSuccess(Projekt result) {
-			Window.alert(" " + result.getProjektleiter_ID());
+
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
 			
 			hide();
@@ -219,7 +219,6 @@ public class DialogBoxProjekte extends DialogBox {
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				 adminService.createProjekt(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
-				 //(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
 			}
 			
 		}

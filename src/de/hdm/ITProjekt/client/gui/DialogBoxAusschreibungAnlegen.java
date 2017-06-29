@@ -72,13 +72,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private Person person1 = new Person();
 	private Projekt projekt1 = new Projekt();
 	
-//	public DialogBoxAusschreibungAnlegen(Projekt projekt, Person person){
-//		this.projekt = projekt;
-//		this.person = person;
-//	}
-	
 
-	
 	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final IdentitySelection is){
 		this.projekt1 = projekt;
 		this.is = is;
@@ -143,7 +137,6 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					@Override
 					public void onSuccess(Partnerprofil result) {
 						DialogBoxEigenschaftHinzufuegen dialog_eigenschaft = new DialogBoxEigenschaftHinzufuegen(result);
-						Window.alert(" " + result.getID());
 						profil.setID(result.getID());
 						dialog_eigenschaft.center();
 						

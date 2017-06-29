@@ -27,6 +27,8 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Team;
@@ -50,16 +52,14 @@ public class MeineProjekteAnzeigen extends Showcase{
 	
 	Button delete_projekt = new Button("Projekt Löschen");
 	Button show_projekt = new Button("Projekt anzeigen");
+	Button delete_Beteiligung = new Button("Eigene Beteiligung löschen");
 	
 	private final SingleSelectionModel<Projekt> ssm_meineprojekt = new SingleSelectionModel<Projekt>();
 	
 	private Projekt projekt;
 	private Person person;
 	private IdentitySelection is = null;
-//	
-//	public MeineProjekteAnzeigen(Person person) {
-//		this.person = person;
-//	}
+	private Beteiligung beteil;
 	
 	public MeineProjekteAnzeigen(IdentitySelection is){
 		this.is = is;
@@ -67,7 +67,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 
 	@Override
 	protected String getHeadlineText() {
-		// TODO Auto-generated method stub
 		return "<h2> Meine Projekte </h2>";
 	}
 
@@ -80,8 +79,13 @@ public class MeineProjekteAnzeigen extends Showcase{
 		ct_meineProjekte.setSelectionModel(ssm_meineprojekt);
 		ct_verwProjekte.setWidth("100%", true);
 		ct_verwProjekte.setSelectionModel(ssm_meineprojekt);
+		delete_projekt.setStylePrimaryName("myprofil-button");
+		show_projekt.setStylePrimaryName("myprofil-button");
+		delete_Beteiligung.setStylePrimaryName("myprofil-button");
+		
 		hpanel_projekte.add(delete_projekt);
 		hpanel_projekte.add(show_projekt);
+		hpanel_projekte.add(delete_Beteiligung);
 		this.add(hpanel_projekte);
 		
 		
@@ -90,8 +94,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 			    
 					@Override
 					public String getValue(Projekt object) {
-						// TODO Auto-generated method stub
-						
 						return object.getName();
 					}
 			    };
@@ -101,9 +103,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 			    new Column<Projekt, String>(new ClickableTextCell())  {
 					    
 					@Override
-					public String getValue(Projekt object) {
-					// TODO Auto-generated method stub
-								
+					public String getValue(Projekt object) {								
 					return object.getStartdatum().toString();
 					}
 			    };		
@@ -112,9 +112,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 			    new Column<Projekt, String>(new ClickableTextCell())  {
 							    
 		  			@Override
-		  			public String getValue(Projekt object) {
-		  			// TODO Auto-generated method stub
-										
+		  			public String getValue(Projekt object) {										
 		  			return object.getEnddatum().toString();
 		  			}
 	  			};			 
@@ -132,7 +130,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 
 						@Override
 						public String getValue(Projekt object) {
-							// TODO Auto-generated method stub
 							return "Meine Projekte als Teilnehmer";
 						}
 				   
@@ -177,7 +174,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 						filltableMeineProjekteTeam();
 					}
 		
-
 		
 		show_projekt.addClickHandler(new ClickHandler(){
 
@@ -191,6 +187,22 @@ public class MeineProjekteAnzeigen extends Showcase{
 			
 		});
 		
+		delete_Beteiligung.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+				 if (adminService == null) {
+			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+			    }
+				 
+				 			
+				 adminService.getBeteiligungByProjekt(ssm_meineprojekt.getSelectedObject().getID(), new BeteiligungFromProjekt());
+				
+			}
+			
+		});
+		
 		ssm_meineprojekt.addSelectionChangeHandler(new Handler(){
 
 			@Override
@@ -198,12 +210,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 				
 			}
 			
-		});
-		
-
-		
-		
-		
+		});			
 	}
 	
 	private void filltableVerwProjekte(){
@@ -313,8 +320,6 @@ public class MeineProjekteAnzeigen extends Showcase{
 							
 						});
 							
-						
-							
 					
 					}
 				}
@@ -359,10 +364,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 							}
 							
 						});
-							
-						
-							
-					
+											
 					}
 				}
 				
@@ -370,5 +372,66 @@ public class MeineProjekteAnzeigen extends Showcase{
 			
 		});
 	}
+
+	private class BeteiligungFromProjekt implements AsyncCallback<Vector<Beteiligung>>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert(" Die Beteiligungen konnten nicht geladen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Beteiligung> result) {
+
+			for (Beteiligung b : result){
+				
+				if(b.getOrga_ID() == is.getSelectedIdentityAsObject().getID()){
+					
+					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+					 if (adminService == null) {
+				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+				    }
+					
+					adminService.deleteBewertungbyBeteiligung(b.getID(), new DeleteBewerbung());
+					adminService.delete(b, new DeleteBeteiligung());
+				}
+			}
+			
+		}
+		
+	}
 	
+	private class DeleteBewerbung implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			
+			
+		}
+		
+	}
+	private class DeleteBeteiligung implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert(" Die Beteiligung wurde gelöscht");
+			Showcase showcase = new MeineProjekteAnzeigen(is);
+			RootPanel.get("Details").clear();
+			RootPanel.get("Details").add(showcase);
+		}
+		
+	}
 }

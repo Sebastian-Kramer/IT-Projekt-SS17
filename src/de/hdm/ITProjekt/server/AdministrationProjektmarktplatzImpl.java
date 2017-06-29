@@ -855,6 +855,11 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.unMapper.deleteUnternehmen(u);
 		
 	}
+	@Override
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException {
+		this.bewertMapper.deleteBewertungByBeteiligung(id);;
+		
+	}
 
 	
 }

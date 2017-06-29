@@ -147,6 +147,7 @@ public class Projektseite extends Showcase{
 		detailsButton.setStylePrimaryName("myprofil-button");
 		alleBewerbungen.setStylePrimaryName("myprofil-button");
 		delete.setStylePrimaryName("myprofil-button");
+		deleteTeilnehmer.setStylePrimaryName("myprofil-button");
 		
 		vp_projekt.add(ct_projektausschreibungen);
 		this.add(hpanelnavigator);

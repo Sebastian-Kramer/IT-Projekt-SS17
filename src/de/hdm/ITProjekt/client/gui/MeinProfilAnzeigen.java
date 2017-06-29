@@ -76,7 +76,6 @@ public class MeinProfilAnzeigen extends Showcase{
 	private FlexTable ft_buttonPanel = new FlexTable();
 	private static DialogBox db_team = new DialogBox();
 	private static DialogBox db_unternehmen = new DialogBox();
-	//Anlegen der Buttons für verschiedene Funktionen
 	private Button bearbeiten = new Button("Bearbeiten");
 	private Button speichern = new Button("Speichern");
 	private Button abbrechen = new Button("Abbrechen");
@@ -310,8 +309,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			ft_buttonPanel.setWidget(0, 0, bearbeiten);
 			ft_buttonPanel.setWidget(0, 1, speichern);
 			ft_buttonPanel.setWidget(0, 2, abbrechen);
-//			ft_buttonPanel.setWidget(0, 3, newTeam);
-//			ft_buttonPanel.setWidget(0, 4, newUN);
+
 			
 		
 			unternehmen_abbrechen.setVisible(false);
@@ -320,8 +318,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			team_speichern.setVisible(false);
 			speichern.setVisible(false);
 			abbrechen.setVisible(false);
-//			newTeam.setVisible(false);
-//			newUN.setVisible(false);
+
 			
 			un_flextable.setWidget(0, 0, unternehmen_bearbeiten);
 			un_flextable.setWidget(1, 0, unternehmen_speichern);
@@ -383,8 +380,6 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			partnerprofilDaten.add(team_flextable);
 			
-//			partnerprofilDaten.add(eigenschaften);
-//			partnerprofilDaten.add(pe_alleEigenschaften);
 			
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
@@ -392,10 +387,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			hpanel.add(partnerprofilDaten);	
 			
 			this.add(hpanel);
-			//-------------------- RootPanel wird vergrößert!
-//			RootPanel.get("Details").setWidth("1000px");
 
-//			hpanel.add(vpanel);
 			
 
 			this.setSpacing(8);
