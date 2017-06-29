@@ -15,7 +15,7 @@ public class ImpressumReport extends ReportShowcase{
 	@Override
 	protected void run() {
 		
-		RootPanel.get("Details").setWidth("100%");
+		RootPanel.get("DetailsReport").setWidth("100%");
 		
 		this.append("<div class='Impressum'>"
 				+ "Hochschule der Medien"+ "</br>"
