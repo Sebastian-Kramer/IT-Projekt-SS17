@@ -578,7 +578,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}	
 	@Override
 	public void deleteTeam(Team team) throws IllegalArgumentException {
-		this.tMapper.delete(team);
+		this.tMapper.deleteTeam(team);
 		
 	}
 	@Override

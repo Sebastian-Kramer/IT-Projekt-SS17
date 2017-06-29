@@ -10,41 +10,25 @@ import com.google.gwt.user.client.ui.RootPanel;
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 
-/**
- * Diese Klasse erstellt die Menuleiste und dessen Anchors. 
- * Hierzu werden jeweils ClickHandler erstellt.
- * @author Giuseppe
- */
 
-public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
+public class MenuleisteReportOhneLogin extends HorizontalPanel{
 
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
 	private Anchor agbAnchor = new Anchor("AGB");
 	private Anchor impressumAnchor = new Anchor("Impressum");
-	private Anchor projektmarktplatzAnchor = new Anchor("Projektmarktplatz");
-	 
-	public MenuleisteReportMitProjektmarktplatz(){
-		
-		this.add(projektmarktplatzAnchor);
+	public MenuleisteReportOhneLogin(){
+		agbAnchor.setStylePrimaryName("menuleistereportanchor");
+		impressumAnchor.setStylePrimaryName("menuleistereportanchor");
 		this.add(agbAnchor);
 		this.add(impressumAnchor);
-		
-		projektmarktplatzAnchor.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				projektmarktplatzAnchor.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
-				Window.open(projektmarktplatzAnchor.getHref(), "_self", "");
-			}
-		});
-		
+				
 		agbAnchor.addClickHandler(new ClickHandler() {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new AGBReport();
+				Showcase showcase = new AGBReportOhneLogin();
 				RootPanel.get("DetailsReport").clear();
 				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
@@ -57,7 +41,7 @@ public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 			@Override
 		public void onClick(ClickEvent event) {
 
-			Showcase showcase = new ImpressumReport();
+			Showcase showcase = new ImpressumReportOhneLogin();
 			RootPanel.get("DetailsReport").clear();
 			RootPanel.get("DetailsReport").add(showcase);
 			currentClickHandler=this;

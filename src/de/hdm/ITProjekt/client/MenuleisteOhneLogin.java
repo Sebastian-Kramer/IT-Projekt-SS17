@@ -9,39 +9,33 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.ITProjekt.client.gui.AGB;
+import de.hdm.ITProjekt.client.gui.AGBOhneLogin;
 import de.hdm.ITProjekt.client.gui.Impressum;
+import de.hdm.ITProjekt.client.gui.ImpressumOhneLogin;
+import de.hdm.ITProjekt.client.gui.report.AGBReportOhneLogin;
 
-public class MenuleisteMitReportGenerator extends HorizontalPanel{
+public class MenuleisteOhneLogin extends HorizontalPanel{
 		
 		private static ClickHandler currentClickHandler = null;
 		private static ClickEvent currentClickEvent = null;
 		
 		private Anchor agbAnchor = new Anchor("AGB");
 		private Anchor impressumAnchor = new Anchor("Impressum");
-		private Anchor reportgeneratorAnchor = new Anchor("Report Generator");
-		private Anchor reportLink = new Anchor();
 		
 		
-		public MenuleisteMitReportGenerator(){
+		public MenuleisteOhneLogin(){
 
-			this.add(reportgeneratorAnchor);
+			agbAnchor.setStylePrimaryName("menuleistereportanchor");
+			impressumAnchor.setStylePrimaryName("menuleistereportanchor");
+			
 			this.add(agbAnchor);
 			this.add(impressumAnchor);
-			
-			reportgeneratorAnchor.addClickHandler(new ClickHandler() {
-				
-				@Override
-				public void onClick(ClickEvent event) {
-					reportLink.setHref(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html");
-					Window.open(reportLink.getHref(), "_self", "");
-				}
-			});
-			
+						
 			agbAnchor.addClickHandler(new ClickHandler() {
 
 				@Override
 				public void onClick(ClickEvent event) {
-					Showcase showcase = new AGB();
+					Showcase showcase = new AGBOhneLogin();
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 					currentClickHandler=this;
@@ -54,7 +48,7 @@ public class MenuleisteMitReportGenerator extends HorizontalPanel{
 				@Override
 			public void onClick(ClickEvent event) {
 
-				Showcase showcase = new Impressum();
+				Showcase showcase = new ImpressumOhneLogin();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
