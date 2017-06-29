@@ -94,14 +94,11 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 
 
 				bewerbung_dialog.setStatus("laufend");
-				if(is.getUser() instanceof Person){
-					Window.alert("Person");
+				if(is.getSelectedIdentityAsObject() instanceof Person){
 					bewerbung_dialog.setOrga_ID(is.getUser().getID());
 				}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){
-					Window.alert("Unternehmen");
 				bewerbung_dialog.setOrga_ID(is.getSelectedIdentityAsObject().getID());
 				}else if(is.getSelectedIdentityAsObject() instanceof Team){
-					Window.alert("Team");
 					bewerbung_dialog.setOrga_ID(is.getSelectedIdentityAsObject().getID());
 				}
 				bewerbung_dialog.setErstelldatum(new Date());

@@ -47,7 +47,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	private Button createAusschreibung = new Button("Stellenausschreibung anlegen");
 	private Button cancel = new Button("abbrechen");
-	private Button hinzufuegen = new Button("Eigenschaft hinzufügen");
+	private Button hinzufuegen = new Button("Partnerprofil hinzufügen");
 	
 	private CellTable <Eigenschaft> ct_eigenschaften = new CellTable<Eigenschaft>();
 	

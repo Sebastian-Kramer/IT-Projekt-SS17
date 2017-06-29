@@ -166,6 +166,7 @@ public class Projektseite extends Showcase{
 			hp_projekt.add(alleBewerbungen);		
 			hp_projekt.add(createStelle);		
 			hp_projekt.add(delete);
+			hp_projekt.add(deleteTeilnehmer);
 		}else{
 			hp_projekt.add(detailsButton);
 		}
@@ -220,6 +221,7 @@ public class Projektseite extends Showcase{
 
 							@Override
 							public void onSuccess(Ausschreibung result) {
+								Window.alert("KAKA");
 								adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
 
 									@Override
@@ -231,11 +233,12 @@ public class Projektseite extends Showcase{
 									@Override
 									public void onSuccess(Vector<Bewerbung> result) {
 										if(result.isEmpty()){
+											
 											adminService.deleteAusschreibung(selectedAusschreibung, new AsyncCallback<Void>(){
 
 												@Override
 												public void onFailure(Throwable caught) {
-													// TODO Auto-generated method stub
+													Window.alert("Das hat nicht geklappt 2.4");
 													
 												}
 
@@ -359,7 +362,9 @@ public class Projektseite extends Showcase{
 																									public void onSuccess(
 																											Void result) {
 																										Showcase Showcase = new Projektseite(selectedProjekt, is);
+																								
 																										Window.alert("Die Ausschreibung wurde erfolgreich gelöscht");
+																										RootPanel.get("Details").clear();
 																										RootPanel.get("Details").add(Showcase);
 																										
 																									}
@@ -419,13 +424,14 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
+					
 					final Person selectedPerson = ssm_person.getSelectedObject();
 					if(is.getUser().getID()==selectedProjekt.getProjektleiter_ID()){
 						adminService.getBeteiligungByOrga(selectedPerson.getID(), new AsyncCallback<Vector<Beteiligung>>(){
 
 							@Override
 							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
+								Window.alert("Klappt nicht");
 								
 							}
 
@@ -437,13 +443,13 @@ public class Projektseite extends Showcase{
 
 											@Override
 											public void onFailure(Throwable caught) {
-												// TODO Auto-generated method stub
+												Window.alert("Das hat nicht geklappt");
 												
 											}
 
 											@Override
 											public void onSuccess(Void result) {
-												
+												Window.alert("Löschen erfolgreich");
 												
 											}
 											
@@ -455,6 +461,8 @@ public class Projektseite extends Showcase{
 							}
 							
 						});
+					}else{
+						Window.alert("Das geht so nicht");
 					}
 					
 				}

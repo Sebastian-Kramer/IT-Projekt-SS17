@@ -103,13 +103,6 @@ public class Menubar extends StackPanel {
 		projektmarktplatzPanel.setSpacing(5);
 		projektmarktplatzPanel.setWidth("100%");
 		
-		// Zusammensetzen des projektseitePanels
-		
-//		projektseitePanel.add(blablaButton);
-//		blablaButton.setWidth("200px");
-//		blablaButton.setStylePrimaryName("navi-button");
-//		
-//		projektseitePanel.setSpacing(5);
 		
 		this.setWidth("230px");
 		this.addStyleName("gwt-StackPanel");
@@ -158,6 +151,7 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
+
 		meinProfilButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
@@ -165,6 +159,7 @@ public class Menubar extends StackPanel {
 				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+
 
 			}
 		});

@@ -189,9 +189,8 @@ public class Projekte extends Showcase {
 					
 				selectedProjektObject.setProjektmarktplatz_ID(0);
 				selectedProjektObject.setProjektleiter_ID(0);
-				Window.alert("Geht");
 				if (selectedProjektObject != null){
-					Window.alert("Geht nicht");
+					
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
@@ -201,10 +200,7 @@ public class Projekte extends Showcase {
 						@Override
 						public void onFailure(Throwable caught) {
 
-							Window.alert("Geht nicht");
-
-							Window.alert("Das hat nicht geklappt");
-
+							
 							
 						}
 
@@ -852,6 +848,8 @@ public class Projekte extends Showcase {
 							 
 						 });
 					}
+				}else{
+					Window.alert("Nur der Projektleiter kann ein Projekt löschen");
 				}
 				
 			}
