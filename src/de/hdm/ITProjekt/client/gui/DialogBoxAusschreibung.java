@@ -112,10 +112,32 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBoxAusschreibung.this.hide();
-				DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
-				DialogBoxBewerbungAnlegen.center();
-				
+				adminService.getAllProjekte(new AsyncCallback<Vector<Projekt>>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Projekt> result) {
+						for(Projekt p : result){
+							if(p.getProjektleiter_ID() == is.getUser().getID() && is.getSelectedIdentityAsObject() instanceof Person){
+								Window.alert("Der Projektleiter kann sich nicht auf Stellen seines eigenen Projekts bewerben!");
+								
+							}else{
+								DialogBoxAusschreibung.this.hide();
+								DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
+								DialogBoxBewerbungAnlegen.center();
+								
+							}
+						}
+						
+					}
+					
+				});
+			
 			}
 			
 		});
@@ -135,11 +157,10 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 					for(Partnerprofil a : result){
 						
-						Window.alert(" " + result.elementAt(0).getID());
+						
 						
 						if(ausschreibung.getPartnerprofil_ID() == a.getID()){
 							
-							Window.alert(" Springt in schleifen rein");
 							
 							adminService.getAllEigenschaftenbyPartnerprofilID(a.getID(), new AsyncCallback<Vector<Eigenschaft>>(){
 
@@ -152,7 +173,6 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 								@Override
 								public void onSuccess(Vector<Eigenschaft> result) {
-									Window.alert(" Die Eigenschaften wurden gefunden");
 									ct_eigenschaften.setRowData(0, result);
 									ct_eigenschaften.setRowCount(result.size(),true);
 									
