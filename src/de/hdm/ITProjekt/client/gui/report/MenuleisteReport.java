@@ -6,6 +6,7 @@ import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import de.hdm.ITProjekt.client.ReportShowcase;
+import de.hdm.ITProjekt.client.Showcase;
 
 public class MenuleisteReport extends HorizontalPanel{
 		
@@ -17,7 +18,8 @@ public class MenuleisteReport extends HorizontalPanel{
 		
 		 
 		public MenuleisteReport(){
-			
+			agbReportAnchor.setStylePrimaryName("menuleistereportanchor");
+			impressumReportAnchor.setStylePrimaryName("menuleistereportanchor");
 			this.add(agbReportAnchor);
 			this.add(impressumReportAnchor);
 			
@@ -25,9 +27,9 @@ public class MenuleisteReport extends HorizontalPanel{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					ReportShowcase showcase = new AGBReport();
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					Showcase showcase = new AGBReport();
+					RootPanel.get("DetailsReport").clear();
+					RootPanel.get("DetailsReport").add(showcase);
 					currentClickHandler=this;
 					currentClickEvent=event;
 			
@@ -38,9 +40,9 @@ public class MenuleisteReport extends HorizontalPanel{
 				@Override
 			public void onClick(ClickEvent event) {
 
-				ReportShowcase showcase = new ImpressumReport();
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
+				Showcase showcase = new ImpressumReport();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}

@@ -25,32 +25,21 @@ public class ProjektverflechtungenShowcase extends Showcase {
 	
 private IdentitySelectionReport identitySelectionReport = null;
 	
-	/**
-	 * Konstruktor, dem eine Instanz der IdentityChoiceReport und der Navigation übergeben wird.
-	 * @param identityChoiceReport
-	 */
-
 	public ProjektverflechtungenShowcase(IdentitySelectionReport identitySelectionReport) {
 		this.identitySelectionReport=identitySelectionReport;
 	}
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Report Projektverpflechtungen";
+		return "<h1>Report Projektverpflechtungen</h1>";
 	}
 
 	@Override
 	protected void run() {
 
 
-		/**
-		 * Auslesen der ReportGeneratorAsync Instanz
-		 */
 		ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
 		
-		/**
-		 * GUI- Elemente
-		 */
 		VerticalPanel inputPanel = new VerticalPanel();
 		final HTMLResultPanel resultPanel = new HTMLResultPanel();
 		final Showcase showcase = this;

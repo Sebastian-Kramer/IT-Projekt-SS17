@@ -9,9 +9,6 @@ public class Projektmarktplatz extends BusinessObject {
 	private static final long serialVersionUID = 1L;
 	
 	
-	 
-	private int ID = 0;  //eventeull löschen da ID von BO übergeben wird
-	
 	/*
 	 * Bezeichnung des Projektmarktplatzes
 	 */
@@ -30,22 +27,7 @@ public class Projektmarktplatz extends BusinessObject {
 		this.bez = bez;
 	}
 	
-	/*
-	 * Auslesen der ID
-	 * @return ID
-	 */
-	public int getID() {
-		return ID;
-	}
 	
-	/*
-	 * Setzen der ID
-	 * @param iD
-	 */
-
-	public void setID(int iD) {
-		ID = iD;
-	}
 	
 	/*
 	 * Auslesen der Bezeichnung
@@ -70,9 +52,9 @@ public class Projektmarktplatz extends BusinessObject {
 	 * @return ID + " " + bez
 	 */
 	
-	public String toString(){
-		return ID + " " + bez;
-	}
+//	public String toString(){
+//		return ID + " " + bez;
+//	}
 	
 	
 	public boolean equals(Object o) {

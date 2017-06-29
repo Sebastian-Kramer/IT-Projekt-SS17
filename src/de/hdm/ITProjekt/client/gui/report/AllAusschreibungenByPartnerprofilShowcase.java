@@ -22,14 +22,14 @@ public class AllAusschreibungenByPartnerprofilShowcase extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Alle Ausschreibungen des Partnerprofils";
+		return "<h1>Alle Ausschreibungen des Partnerprofils</h1>";
 	}
 
 	@Override
 	protected void run() {
 		final Showcase showcase = this;
 		
-		this.append("Auslesen aller Ausschreibungen des Partnerprofils");
+		this.append("<h3>Auslesen aller Ausschreibungen des Partnerprofils</h3>");
 		
 		
 		ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();

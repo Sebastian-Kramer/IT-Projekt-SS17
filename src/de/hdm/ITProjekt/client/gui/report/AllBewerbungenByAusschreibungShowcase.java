@@ -19,7 +19,7 @@ public class AllBewerbungenByAusschreibungShowcase extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Report für alle Bewerbungen auf die eigene Ausschreibungen";
+		return "<h1>Report für alle Bewerbungen auf die eigene Ausschreibungen</h1>";
 	}
 
 	@Override

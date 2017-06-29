@@ -114,7 +114,7 @@ public class HTMLReportWriter implements Serializable{
 		    
 		  	result.append("<H3>" + r.getTitel() + "</H3>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		    
 		  	 Vector<Row> rows = r.getRows();
@@ -170,7 +170,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H2>" + r.getTitel() + "</H2>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  
@@ -228,7 +228,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		    result.append("<H1>" + r.getTitel() + "</H1>");
 		    result.append("<table><tr>");
-		    result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		    result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		        + "</td></tr></table>");
 
 		    /*
@@ -275,7 +275,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		    result.append("<H2>" + r.getTitel() + "</H2>");
 		    result.append("<table><tr>");
-		    result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		    result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		        + "</td></tr></table>");
 
 		    /*
@@ -325,7 +325,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H1>" + r.getTitel() + "</H1>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	
@@ -384,7 +384,7 @@ public class HTMLReportWriter implements Serializable{
 			     */
 			  	result.append("<H3>" + r.getTitel() + "</H3>");
 			  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-			  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+			  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 			  	        + "</td></tr></table>");
 			  	
 			  	
@@ -441,7 +441,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H3>" + r.getTitel() + "</H3>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	
@@ -496,7 +496,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H1>" + r.getTitel() + "</H1>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	
@@ -553,7 +553,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H3>" + r.getTitel() + "</H3>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	
@@ -610,7 +610,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H3>" + r.getTitel() + "</H3>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	
@@ -669,7 +669,7 @@ public class HTMLReportWriter implements Serializable{
 		     */
 		  	result.append("<H1>" + r.getTitel() + "</H1>");
 		  	result.append("<table style=\"width:400px;border:1px solid silver\"><tr>");
-		  	result.append("</tr><tr><td></td><td>" + r.getErstelldatum().toString()
+		  	result.append("</tr><tr><td></td><td>" + r.getErstellungsdatum().toString()
 		  	        + "</td></tr></table>");
 		  	
 		  	

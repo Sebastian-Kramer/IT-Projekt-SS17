@@ -11,7 +11,7 @@ public class Report implements Serializable {
 	private String titel = "";
 	
 
-	private Date erstellDatum = null;
+	private Date erstellungsdatum = null;
 	
 	
 
@@ -29,14 +29,14 @@ public class Report implements Serializable {
 	}
 
 
-	public Date getErstelldatum() {
-		return erstellDatum;
+	public Date getErstellungsdatum() {
+		return erstellungsdatum;
 	}
 
 	
 
-	public void setErstelldatum(Date erstellDatum) {
-		this.erstellDatum = erstellDatum;
+	public void setErstellungsdatum(Date erstellungsdatum) {
+		this.erstellungsdatum = erstellungsdatum;
 	}
 
 	// zurückgeben von Paragraph Objekt, dass die Kopfdaten beinhaltet

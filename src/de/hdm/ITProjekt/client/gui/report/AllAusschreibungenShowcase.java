@@ -13,7 +13,7 @@ public class AllAusschreibungenShowcase extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Alle Ausschreibungen";
+		return "<h1>Alle Ausschreibungen</h1>";
 	}
 
 	@Override
@@ -22,7 +22,7 @@ public class AllAusschreibungenShowcase extends Showcase {
 
 		final Showcase showcase = this;
 		
-		this.append("Auslesen aller Ausschreibungen auf dem Projektmarktplatz");
+		this.append("<h3>Auslesen aller Ausschreibungen auf dem Projektmarktplatz</h3>");
 		
 		/**
 		 * Auslesen der ReportGeneratorAsync Instanz

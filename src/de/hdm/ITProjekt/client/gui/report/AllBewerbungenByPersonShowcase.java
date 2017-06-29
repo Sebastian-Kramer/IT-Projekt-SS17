@@ -22,7 +22,7 @@ public class AllBewerbungenByPersonShowcase extends Showcase {
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Report für meine Bewerbungen";
+		return "<h1>Report für meine Bewerbungen</h1>";
 	}
 
 	@Override

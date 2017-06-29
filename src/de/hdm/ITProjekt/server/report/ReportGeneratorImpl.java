@@ -3,6 +3,7 @@ package de.hdm.ITProjekt.server.report;
 import java.util.Date;
 import java.util.Vector;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 import de.hdm.ITProjekt.server.AdministrationProjektmarktplatzImpl;
@@ -93,7 +94,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		AllAusschreibungenByPartnerprofilReport result = new AllAusschreibungenByPartnerprofilReport();
 			
 			result.setTitel("");
-			result.setErstelldatum(new Date());
+			result.setErstellungsdatum(new Date());
 			
 			
 			Row headline = new Row();
@@ -110,19 +111,19 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		Partnerprofil partnerprofil = adminService.getPartnerprofilOfOrganisationseinheit(o);
 		
-		Vector<Eigenschaft> eigenschaften = adminService.getAllEigenschaftofPerson(partnerprofil);
+		Vector<Eigenschaft> eigenschaften = adminService.getAllEigenschaftByPartnerprofilObjekt(partnerprofil);
 		
 		Vector<Ausschreibung> allAusschreibungen = adminService.getAllAusschreibungen();
 		System.out.println("Anzahl der Ausschreibungen: "+allAusschreibungen.size());
 		
 		for(Ausschreibung ausschreibung : allAusschreibungen){
 			System.out.println("");
-			
 			Partnerprofil partnerprofilByAusschreibung = adminService.getPartnerprofilByAusschreibung(ausschreibung);
-			System.out.println("Partnerprofil ID: "+partnerprofilByAusschreibung.getID());
+			System.out.println("Partnerprofil ID: "+ partnerprofilByAusschreibung.getID());
 			
-			Vector<Eigenschaft> eigenschaftenByAusschreibung = adminService.getAllEigenschaftofPerson(partnerprofilByAusschreibung);
+			Vector<Eigenschaft> eigenschaftenByAusschreibung = adminService.getAllEigenschaftenbyPartnerprofilID(partnerprofilByAusschreibung.getID());
 			System.out.println("Anzahl der Eigenschaften zu diesem Partnerprofil: "+eigenschaftenByAusschreibung.size());
+			
 			if(eigenschaften.size()==eigenschaftenByAusschreibung.size()){
 				System.out.println("Anzahl der Eigenschaften passt");
 				int matchCounter = 0;
@@ -138,10 +139,10 @@ import de.hdm.ITProjekt.shared.report.Row;
 				
 				Person projektleiterByProjekt = this.findPersonByKey(projektByAusschreibung.getProjektleiter_ID());
 				if(matchCounter==eigenschaften.size()){
-					if(projektleiterByProjekt.getPartnerprofil_ID() != partnerprofil.getID()){
-						System.out.println("Partnerprofil passt, füge zur Menge hinzu!");
+//					if(projektleiterByProjekt.getPartnerprofil_ID() != partnerprofil.getID()){
+//						System.out.println("Partnerprofil passt, füge zur Menge hinzu!");
 						matchingAusschreibungen.add(ausschreibung);
-					}
+//					}
 				}
 			}
 		}
@@ -174,7 +175,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 			AllAusschreibungenReport result = new AllAusschreibungenReport();
 			
 			result.setTitel("Alle Ausschreibungen");
-			result.setErstelldatum(new Date());
+			result.setErstellungsdatum(new Date());
 			
 			
 			Row headline = new Row();
@@ -241,7 +242,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Alle Beteiligungen des Users");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 		Row headline = new Row();
 		
@@ -292,7 +293,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Alle eigenen Bewerbungen mit den zugehörigen Ausschreibungen");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 
 		
@@ -350,7 +351,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Alle eigenen Bewerbungen mit den zugehörigen Ausschreibungen");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 
 		
@@ -409,7 +410,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Alle eigenen Bewerbungen mit den zugehörigen Ausschreibungen");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 
 		Row headline = new Row();
 		
@@ -465,7 +466,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Fan-In/ Fan-Out-Analyse");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 			
 			result.addSubReport(this.createFanInAnalyse());
@@ -487,7 +488,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		result.setTitel("Anzahl der Bewerbungen");
 		
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 		Row headline = new Row();
 		headline.addColumn(new Column("ID"));
@@ -559,7 +560,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 		Row headline = new Row();
 		headline.addColumn(new Column("ID"));
@@ -636,7 +637,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		
 		result.setTitel("Projektverflechtung");
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 	
 	      result.addSubReport(this.createAllBeteiligungenToProjectReport(id));
@@ -707,7 +708,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 		+ ", ID: " + ausschreibung.getID());
 		
 		
-		result.setErstelldatum(new Date());
+		result.setErstellungsdatum(new Date());
 		
 		
 		Row headline = new Row();

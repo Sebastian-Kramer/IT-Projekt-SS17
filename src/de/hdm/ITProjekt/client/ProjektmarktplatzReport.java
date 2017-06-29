@@ -197,16 +197,17 @@ public class ProjektmarktplatzReport implements EntryPoint{
 			private void loadReportGenerator(Person person){
 				
 				signOutLink.setHref(loginInfo.getLogoutUrl());
-		  		ReportShowcase showcasereport = new StartseiteReport();
+				signOutLink.setStylePrimaryName("ausloggenanchorreport");
+		  		Showcase startseitereport = new StartseiteReport();
 		  		MenubarReport mbr = new MenubarReport(person);
 		  		signOutLink.setHref(loginInfo.getLogoutUrl());
 		  		mainPanel.add(addPanel);
-		  		mainPanel.add(showcasereport);
-
+		  		mainPanel.add(startseitereport);
+		  		
 		  		IdentitySelectionReport isreport = new IdentitySelectionReport(person, mbr);
 		  		mbr.setIdSelectionReport(isreport);
 				RootPanel.get("header-topreport").clear();
-				RootPanel.get("header-topreport").add(new MenuleisteReportMitProjektmarktplatz());
+				RootPanel.get("header-topreport").add(new MenuleisteReport());
 		  		
 				RootPanel.get("identityreport").add(mbr.getIdSelectionReport());
 //				RootPanel.get("HeaderReport").clear();

@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.ITProjekt.client.ReportShowcase;
+import de.hdm.ITProjekt.client.Showcase;
 
 public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 
@@ -38,7 +39,7 @@ public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				ReportShowcase showcase = new AGBReport();
+				Showcase showcase = new AGBReport();
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -51,7 +52,7 @@ public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 			@Override
 		public void onClick(ClickEvent event) {
 
-			ReportShowcase showcase = new ImpressumReport();
+			Showcase showcase = new ImpressumReport();
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 			currentClickHandler=this;

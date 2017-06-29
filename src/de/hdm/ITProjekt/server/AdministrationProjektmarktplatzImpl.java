@@ -11,6 +11,7 @@ import de.hdm.ITProjekt.server.db.*;
 import de.hdm.ITProjekt.shared.*;
 import de.hdm.ITProjekt.shared.bo.*;
 
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
@@ -725,7 +726,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
 		return this.aMapper.getAll();
 	}
 	@Override
@@ -757,12 +757,14 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 
 	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException {
 		if (a != null && this.partnerprofilMapper != null) {
-			return this.partnerprofilMapper.findByKey(a.getPartnerprofil_ID());
+//			System.out.println(this.partnerprofilMapper.findByKeyInteger(a.getPartnerprofil_ID()));
+			return this.partnerprofilMapper.findByKeyInteger(a.getPartnerprofil_ID());
 			
 		}
 		else {
 			return null;
 		}
+		
 	}
 	@Override
 	public Organisationseinheit getOrgaeinheitByID(int o) throws IllegalArgumentException {
