@@ -3,8 +3,10 @@ package de.hdm.ITProjekt.client.gui;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -16,6 +18,7 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.IT_Projekt_SS17;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 
 public class DialogBoxProfilLoeschen extends DialogBox{
@@ -26,6 +29,8 @@ public class DialogBoxProfilLoeschen extends DialogBox{
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	private Button ja = new Button("Ja");
 	private Button abbrechen = new Button("Nein");
+	private Partnerprofil partnerprofil = new Partnerprofil();
+	private Anchor projektmarktplatzLink = new Anchor();
 	
 	private Label frage = new Label("Möchten Sie Ihr Profil Löschen? Dieser Vorgang kann nicht rückganig gemacht werden.");
 
@@ -60,7 +65,7 @@ public class DialogBoxProfilLoeschen extends DialogBox{
 				 if (adminService == null) {
 			     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			   }
-				 adminService.deletePerson(person, new AsyncCallback<Void>(){
+				 adminService.getPartnerprofilOfOrganisationseinheit(person, new AsyncCallback<Partnerprofil>(){
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -69,10 +74,38 @@ public class DialogBoxProfilLoeschen extends DialogBox{
 					}
 
 					@Override
-					public void onSuccess(Void result) {
-//						profilloschen.onModuleLoad();
-						hide();
-//						ja.setHTML(profilloschen.getLoginInfo().getLogoutUrl());	
+					public void onSuccess(Partnerprofil result) {
+						partnerprofil = result;
+						adminService.deletePerson(person, new AsyncCallback<Void>(){
+
+								@Override
+								public void onFailure(Throwable caught) {
+									// TODO Auto-generated method stub
+									
+								}
+			
+								@Override
+								public void onSuccess(Void result) {
+									adminService.deletePartnerprofil(partnerprofil, new AsyncCallback<Void>(){
+
+										@Override
+										public void onFailure(Throwable caught) {
+											// TODO Auto-generated method stub
+											
+										}
+
+										@Override
+										public void onSuccess(Void result) {
+											hide();
+											projektmarktplatzLink.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
+											Window.open(projektmarktplatzLink.getHref(), "_self", "");
+										}
+										
+									});
+								
+								}
+					 
+				 });
 					}
 					 
 				 });

@@ -24,7 +24,7 @@ import de.hdm.ITProjekt.client.gui.IdentitySelection;
 import de.hdm.ITProjekt.client.gui.report.IdentitySelectionReport;
 import de.hdm.ITProjekt.client.gui.report.MenubarReport;
 import de.hdm.ITProjekt.client.gui.report.MenuleisteReport;
-import de.hdm.ITProjekt.client.gui.report.MenuleisteReportMitProjektmarktplatz;
+import de.hdm.ITProjekt.client.gui.report.MenuleisteReportOhneLogin;
 import de.hdm.ITProjekt.client.gui.report.StartseiteReport;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -69,6 +69,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	@Override
 	public void onModuleLoad() {
 
+		RootPanel.get("header-topreport").clear();
 		RootPanel.get("header-topreport").add(new MenuleisteReport());
 		
 		zumprojektmarktplatz.addClickHandler(new ClickHandler() {
@@ -84,11 +85,9 @@ public class ProjektmarktplatzReport implements EntryPoint{
 		this.loginService = ClientsideSettings.getLoginService();
 		this.adminService = ClientsideSettings.getpmpVerwaltung();
 	
-//			LoginServiceAsync loginService = GWT.create(LoginService.class);	
 
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/reportgenerator/reportgenerator");
 			loginService.login(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
-//			loginService.login("http://127.0.0.1:8888/ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 				
 				@Override
 				public void onFailure(Throwable caught) {
@@ -100,13 +99,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 				public void onSuccess(LogInInfo result) {
 					loginInfo = result;
 					if(loginInfo.isLoggedIn()){
-						/**
-						 * @return Vector mit allen Personen
-						 */
-//						((ServiceDefTarget)reportGenerator).setServiceEntryPoint("/reportgenerator/reportgenerator");
-//						 if (reportGenerator == null) {
-//							 reportGenerator = GWT.create(ReportGenerator.class);
-//						    }
+					
 						reportGenerator.getAllPersonen(new AsyncCallback<Vector<Person>>() {
 
 							@Override
@@ -135,7 +128,9 @@ public class ProjektmarktplatzReport implements EntryPoint{
 									/**
 									 * Falls User noch nicht registriert ist, wird die RegistrierenForm aufgerufen
 									 */
-									Window.alert("Bitte registrieren Sie sich über den Projektmarktplatz");						
+									Window.alert("Bitte registrieren Sie sich über den Projektmarktplatz");	
+									projektLink.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
+									Window.open(projektLink.getHref(), "_self", "");
 								}
 							}
 						});
@@ -207,7 +202,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 		  		IdentitySelectionReport isreport = new IdentitySelectionReport(person, mbr);
 		  		mbr.setIdSelectionReport(isreport);
 				RootPanel.get("header-topreport").clear();
-				RootPanel.get("header-topreport").add(new MenuleisteReport());
+				RootPanel.get("header-topreport").add(new MenuleisteReportOhneLogin());
 		  		
 				RootPanel.get("identityreport").add(mbr.getIdSelectionReport());
 //				RootPanel.get("HeaderReport").clear();

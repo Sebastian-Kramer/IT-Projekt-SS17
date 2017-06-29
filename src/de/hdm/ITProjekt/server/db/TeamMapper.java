@@ -189,7 +189,7 @@ public Team update(Team t) {
 
       if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
-    	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
+    	          + t.getName() +"'" + ", UN_ID = NULL" + " WHERE ID = " + t.getID());
     	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"

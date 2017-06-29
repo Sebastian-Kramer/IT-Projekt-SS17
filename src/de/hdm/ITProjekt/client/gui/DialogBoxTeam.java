@@ -104,30 +104,6 @@ public class DialogBoxTeam extends DialogBox{
 	vpanel.add(hpanel);
 	this.add(vpanel);
 	}
-//	private class teamInDB implements AsyncCallback<Team>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			// TODO Auto-generated method stub
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Team result) {
-//			team.setName(teamnametext.getText());
-//			team.setPlz(Integer.parseInt(teamplztext.getText()));
-//			team.setHausnummer(Integer.parseInt(teamhausnummertext.getText()));
-//			team.setOrt(teamorttext.getText());
-//			team.setStrasse(teamstrassetext.getText());
-//			team.setUN_ID(person.getUN_ID());
-//			hide();
-//			Showcase showcase = new MeinProfilAnzeigen(person);
-//			RootPanel.get("Details").clear();
-//			RootPanel.get("Details").add(showcase);
-//			
-//		}
-//		
-//	}
 
 	private class teamindb implements AsyncCallback<Partnerprofil>{
 
@@ -144,7 +120,7 @@ public class DialogBoxTeam extends DialogBox{
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
 			adminService.createTeam(teamnametext.getText(), Integer.parseInt(teamplztext.getText()),  Integer.parseInt(teamhausnummertext.getText()), 
-					teamorttext.getText(), teamstrassetext.getText(), person.getUN_ID(), result.getID(), new AsyncCallback<Team>(){
+					teamorttext.getText(), teamstrassetext.getText(), is.getUser().getUN_ID(), result.getID(), new AsyncCallback<Team>(){
 				
 				@Override
 				public void onFailure(Throwable caught) {
@@ -160,16 +136,30 @@ public class DialogBoxTeam extends DialogBox{
 				     }
 					 adminService.updatePerson(is.getUser(), new updateperson());
 					 hide();
-					Menubar menubar = new Menubar(is.getUser());
-					RootPanel.get("idendity").clear();
-					RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
-					
-					RootPanel.get("Navigator").clear();
-					RootPanel.get("Navigator").add(menubar);
-						
-					Showcase showcase = new MeinProfilAnzeigen(is);
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					 adminService.getPersonbyID(is.getUser().getID(), new AsyncCallback<Person>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Person result) {
+							Menubar menubar = new Menubar(is.getUser());
+							RootPanel.get("idendity").clear();
+							RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
+							
+							RootPanel.get("Navigator").clear();
+							RootPanel.get("Navigator").add(menubar);
+								
+							Showcase showcase = new MeinProfilAnzeigen(is);
+							RootPanel.get("Details").clear();
+							RootPanel.get("Details").add(showcase);
+						}
+						 
+					 });
+				
 				}
 				
 			});
