@@ -120,6 +120,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException;
 
+	public Vector<Eigenschaft> getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p) throws IllegalArgumentException;
+	
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) throws IllegalArgumentException;
 	
 	public Team updateTeam(Team team) throws IllegalArgumentException;

@@ -2,8 +2,11 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.server.db.DBConnection;
-import java.sql.*;
 import java.util.Vector;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.SimpleDateFormat;
 
 public class PartnerprofilMapper {
@@ -14,7 +17,7 @@ public class PartnerprofilMapper {
 	
 	protected PartnerprofilMapper(){
 		
-	}
+	};
 	
 	public static PartnerprofilMapper ppMapper(){
 		if(ppMapper == null){
@@ -48,6 +51,32 @@ public Partnerprofil findByKey(int id){
 		}
 		return null;	
 	}
+
+public Partnerprofil findByKeyInteger(Integer id){
+	
+	Connection con = DBConnection.connection();
+	
+	try{
+		Statement stmt = con.createStatement();
+
+		ResultSet rs = stmt.executeQuery("SELECT ID, erstellungsdatum, aenderungsdatum FROM Partnerprofil "
+
+      + "WHERE ID=" + id);
+		
+		if(rs.next()){
+			Partnerprofil p = new Partnerprofil();
+			p.setID(rs.getInt("ID"));
+			p.setErstellungsdatum(rs.getDate("erstellungsdatum"));
+			p.setAenderungsdatum(rs.getDate("aenderungsdatum"));
+			return p;
+		}
+	}
+	catch(SQLException e2){
+		e2.printStackTrace();
+		return null;
+	}
+	return null;	
+}
 
 public Vector<Partnerprofil> getAll(){
 	

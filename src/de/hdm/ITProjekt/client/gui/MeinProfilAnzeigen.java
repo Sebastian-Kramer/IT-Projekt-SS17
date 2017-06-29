@@ -184,10 +184,9 @@ public class MeinProfilAnzeigen extends Showcase{
 		protected void run() {
 			
 			profilloeschen.addClickHandler(new ClickHandler() {
-				
 				@Override
 				public void onClick(ClickEvent event) {
-				if (user.getUN_ID() == null && user.getTeam_ID() == null){
+				if (is.getUser().getUN_ID() == null && is.getUser().getTeam_ID() == null){
 					DialogBox dbox = new DialogBoxProfilLoeschen(user);
 					dbox.center();
 					
@@ -239,12 +238,12 @@ public class MeinProfilAnzeigen extends Showcase{
 				}
 				
 			});
-			if(user.getTeam_ID() != null){
-			adminService.getTeamByID(user.getTeam_ID(), new getTeamAusDBbyPerson());
+			if(is.getUser().getTeam_ID() != null){
+			adminService.getTeamByID(is.getUser().getTeam_ID(), new getTeamAusDBbyPerson());
 			}
 			
-			if(user.getUN_ID() != null){
-			adminService.getUnByID(user.getUN_ID(), new getUnternehmenAusDBbyPerson());
+			if(is.getUser().getUN_ID() != null){
+			adminService.getUnByID(is.getUser().getUN_ID(), new getUnternehmenAusDBbyPerson());
 			}
 			
 			pe_alleEigenschaften.setWidth("100%");
@@ -531,7 +530,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 ClientsideSettings.getpmpVerwaltung().getUnByID(user.getUN_ID(), new AsyncCallback<Unternehmen>(){
+				 ClientsideSettings.getpmpVerwaltung().getUnByID(is.getUser().getUN_ID(), new AsyncCallback<Unternehmen>(){
 
 					@Override
 					public void onFailure(Throwable caught) {

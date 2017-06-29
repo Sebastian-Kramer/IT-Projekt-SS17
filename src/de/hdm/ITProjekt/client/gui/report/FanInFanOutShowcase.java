@@ -4,12 +4,19 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.FanInFanOutReport;
 import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 
+
+/**
+ * Diese Klasse gibt eine FanIn-FanOut Analyse qus. 
+ * Hierfür wird die ReportGeneratorAsync Instanz ausgelesen. 
+ * Bei erfolgreichem Callback wird sie
+ * in Form eines Reports ausgegeben.
+ * @author Giuseppe
+ */
 public class FanInFanOutShowcase extends Showcase {
 
 	@Override
@@ -22,15 +29,10 @@ public class FanInFanOutShowcase extends Showcase {
 
 		final Showcase showcase = this;
 		
-		/**
-		 * Auslesen der ProjektmarktplatzAsync Instanz
-		 */
+
 		ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
 		
 		
-		/**
-		 * Bei erfolgreichem Callback wird ein Report mit einer Fan-in/ Fan-out Analyse ausgegeben.
-		 */
 		reportGenerator.createFanInFanOutReport(new AsyncCallback<FanInFanOutReport>() {
 
 					@Override

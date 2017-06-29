@@ -63,8 +63,8 @@ public class AusschreibungMapper {
 			
 			try{
 				Statement stmt = con.createStatement();
-				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
-	          + "WHERE ID=" + id + " ORDER BY ID");
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung "
+	          + "WHERE ID=" + id);
 				
 				if(rs.next()){
 					Ausschreibung p = new Ausschreibung();
@@ -74,6 +74,7 @@ public class AusschreibungMapper {
 					p.setDatum(rs.getDate("datum"));
 					p.setProjekt_ID(rs.getInt("Projekt_ID"));
 					p.setOrga_ID(rs.getInt("Orga_ID"));
+					p.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 					return p;
 				}
 			}
@@ -82,6 +83,34 @@ public class AusschreibungMapper {
 				return null;
 			}
 			return null;	
+		}		
+		public Vector<Ausschreibung> findAusschreibungByOrga1(Organisationseinheit o){
+			
+			Connection con = DBConnection.connection();
+			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
+	          + "WHERE Orga_ID=" + o.getID());
+				
+				if(rs.next()){
+					Ausschreibung p = new Ausschreibung();
+					p.setID(rs.getInt("ID"));
+					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					p.setBezeichnung(rs.getString("bezeichnung"));
+					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+					 result.addElement(p);
+
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
 		}
 		
 		/*
@@ -276,8 +305,14 @@ public class AusschreibungMapper {
 	          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\", "
 	          + "WHERE Ausschreibung.ID=" + c.getID());
 
+
+		      }
+		      
+		    		  
+
 		      }		    		  
-		    }
+
+		  
 		    catch (SQLException e) {
 		      e.printStackTrace();
 		    }
@@ -290,8 +325,6 @@ public class AusschreibungMapper {
 		 * @param a
 		 * @return projekt.getID
 		 */
-		
-		
 		public Vector<Ausschreibung> findByProjekt(int projektID){
 			
 			Connection con = DBConnection.connection();

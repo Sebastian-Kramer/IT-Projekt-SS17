@@ -7,9 +7,14 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
-
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
+
+/**
+ * Diese Klasse erstellt die Menuleiste und dessen Anchors. 
+ * Hierzu werden jeweils ClickHandler erstellt.
+ * @author Giuseppe
+ */
 
 public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 
@@ -52,7 +57,7 @@ public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 			@Override
 		public void onClick(ClickEvent event) {
 
-			ReportShowcase showcase = new ImpressumReport();
+			Showcase showcase = new ImpressumReport();
 			RootPanel.get("DetailsReport").clear();
 			RootPanel.get("DetailsReport").add(showcase);
 			currentClickHandler=this;

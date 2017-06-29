@@ -180,7 +180,7 @@ public class MeineBewerbungenSeite extends Showcase {
 				}
 			else{
 //				if (ssm.getSelectedObject() == null){
-					Window.alert("Bitte Bewerbung ausw�hlen");
+					Window.alert("Bitte Bewerbung auswählen");
 //				}
 				
 			}
@@ -199,12 +199,12 @@ public class MeineBewerbungenSeite extends Showcase {
 							@Override
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
-								Window.alert("L�schen fehlgeschlagen");
+								Window.alert("Löschen fehlgeschlagen");
 							}
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Bewerbung erfolgreich gel�scht");
+								Window.alert("Bewerbung erfolgreich gelöscht");
 								Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
@@ -251,6 +251,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
 			 adminService.findByOrgaID(is.getSelectedIdentityAsObject().getID(), new BewerbungAnzeigenCallback() );
+			 
+		
 			
 			}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){	
 				ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
@@ -375,18 +377,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		public void setAusschreibungsbezeichung(String ausschreibungsbezeichung) {
 			this.ausschreibungsbezeichung = ausschreibungsbezeichung;
 		}
-		public String getTeam() {
-			return Team;
-		}
-		public void setTeam(String team) {
-			Team = team;
-		}
-		public String getUnternehmen() {
-			return Unternehmen;
-		}
-		public void setUnternehmen(String unternehmen) {
-			Unternehmen = unternehmen;
-		}
+		
 		public String getAusschreibender() {
 			return ausschreibender;
 		}
@@ -424,6 +415,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	/*
 	 * Implementieren des Callbacks
+	 * Über die Callbacks werden die benötigten Attribute im lokalen Hyrbid gespeichert, um diese später in der Tabelle anzeigen zu können
 	 */
 	
 	private class BewerbungAnzeigenCallback implements AsyncCallback<Vector<Bewerbung>>{

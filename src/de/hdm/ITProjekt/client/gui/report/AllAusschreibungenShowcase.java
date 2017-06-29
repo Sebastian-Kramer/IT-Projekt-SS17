@@ -1,19 +1,26 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import com.google.gwt.user.client.rpc.AsyncCallback;
+
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenReport;
 import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
+
+/**
+ * Diese Klasse gibt einen Report aller Ausschreibungen qus. 
+ * Hierfür wird die ReportGeneratorAsync Instanz ausgelesen. 
+ * Bei erfolgreichem Callback werden alle Ausschreibungen in Form eines Reports ausgegeben.
+ * @author Giuseppe
+ */
 
 public class AllAusschreibungenShowcase extends Showcase {
 
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Alle Ausschreibungen";
+		return "<h1>Alle Ausschreibungen</h1>";
 	}
 
 	@Override
@@ -22,7 +29,7 @@ public class AllAusschreibungenShowcase extends Showcase {
 
 		final Showcase showcase = this;
 		
-		this.append("Auslesen aller Ausschreibungen auf dem Projektmarktplatz");
+		this.append("<h3>Auslesen aller Ausschreibungen auf dem Projektmarktplatz</h3>");
 		
 		/**
 		 * Auslesen der ReportGeneratorAsync Instanz

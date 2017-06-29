@@ -20,7 +20,9 @@ public class Menuleiste extends HorizontalPanel{
 	
 	 
 	public Menuleiste(){
-		
+
+		agbAnchor.setStylePrimaryName("menuleistereportanchor");
+		impressumAnchor.setStylePrimaryName("menuleistereportanchor");
 		this.add(agbAnchor);
 		this.add(impressumAnchor);
 		

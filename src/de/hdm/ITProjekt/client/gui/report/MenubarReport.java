@@ -1,30 +1,21 @@
 package de.hdm.ITProjekt.client.gui.report;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
-import de.hdm.ITProjekt.client.gui.IdentitySelection;
-import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
-import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
-import de.hdm.ITProjekt.client.gui.MeineProjekteAnzeigen;
-import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
-import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
-import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Person;
-import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
-import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 
-public class MenubarReport extends StackPanel{
+/**
+ * In dieser Klasse wird die Menubar der ReportSeite erstellt.
+ * @author Giuseppe
+ */
+
+public class MenubarReport extends HorizontalPanel{
 	// Clickhandler auf "null" setzen
 	
 	private static ClickHandler currentClickHandler = null;
@@ -36,7 +27,7 @@ public class MenubarReport extends StackPanel{
 	// Buttons für die Panels erstellen
 	
 	// Buttons in dem Panel "home"
-	
+	private Button startseite = new Button ("Startseite");	
 	private Button alleBewerbungenByPerson = new Button("Eigene Bewerbungen");
 	private Button alleAusschreibungen = new Button("Alle Ausschreibungen");
 	private Button alleAusschreibungenzupartnerprofil = new Button("Ausschreibungen zu Partnerprofil");
@@ -48,44 +39,33 @@ public class MenubarReport extends StackPanel{
 			
 	public MenubarReport(final Person person){
 		
-		homePanel.add(alleBewerbungenByPerson);
-		alleBewerbungenByPerson.setWidth("200px");
-		alleBewerbungenByPerson.setStylePrimaryName("navi-button");
+		this.setSpacing(10);
+		this.add(startseite);
+		this.add(alleBewerbungenByPerson);
+		this.add(alleAusschreibungen);
+		this.add(alleAusschreibungenzupartnerprofil);
+		this.add(alleeigenenbewerbungen);
+		this.add(faninfanoutanalyse);
+		this.add(projektverflechtungen);
+		startseite.setSize("100px", "47.78px");
 		
-		homePanel.add(alleAusschreibungen);
-		alleAusschreibungen.setWidth("200px");
-		alleAusschreibungen.setStylePrimaryName("navi-button");
-		
-		homePanel.add(alleAusschreibungenzupartnerprofil);
-		alleAusschreibungenzupartnerprofil.setWidth("200px");
-		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");	
-		
-		homePanel.add(alleeigenenbewerbungen);
-		alleBewerbungenByPerson.setWidth("200px");
-		alleBewerbungenByPerson.setStylePrimaryName("navi-button");
-		
-		homePanel.add(faninfanoutanalyse);
-		alleAusschreibungen.setWidth("200px");
-		alleAusschreibungen.setStylePrimaryName("navi-button");
-		
-		homePanel.add(projektverflechtungen);
-		alleAusschreibungenzupartnerprofil.setWidth("200px");
-		alleAusschreibungenzupartnerprofil.setStylePrimaryName("navi-button");
-
-		homePanel.setSpacing(10);
-		homePanel.setWidth("100%");
-		
+			startseite.addClickHandler(new ClickHandler() {
 				
-		this.setWidth("230px");
-		this.addStyleName("gwt-StackPanel");
-		this.add(homePanel, "Report Generator");
+				@Override
+				public void onClick(ClickEvent event) {
+					Showcase reportShowcase = new StartseiteReport();
+					RootPanel.get("DetailsReport").clear();
+					RootPanel.get("DetailsReport").add(reportShowcase);
+					currentClickHandler=this;
+					currentClickEvent=event;
+				}
+			});
 		
 			alleBewerbungenByPerson.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-			Showcase reportShowcase = new AllBewerbungenByPersonShowcase(isreport);
-			RootPanel.get("DetailsReport").clear();
-			RootPanel.get("DetailsReport").add(reportShowcase);
-
+				Showcase reportShowcase = new AllBewerbungenByPersonShowcase(isreport);
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(reportShowcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 				

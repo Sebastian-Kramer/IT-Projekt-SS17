@@ -1,18 +1,15 @@
 package de.hdm.ITProjekt.client.gui.report;
 
-import com.google.gwt.core.shared.GWT;
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.gui.IdentitySelection;
-import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
@@ -20,12 +17,15 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
+
 public class IdentitySelectionReport extends FlexTable{
 
 	private static IdentitySelection navigation=null;
 	
+	// ListBox mithilfe derer man zwischen den Rollen wechseln kann.
 	private ListBox orgEinheit = new ListBox();
 	
+	//Formatierungsobjekt für die ListBox
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
 	
 	private AdministrationProjektmarktplatzAsync adminService;
@@ -50,7 +50,19 @@ public class IdentitySelectionReport extends FlexTable{
 	cellFormatter.setHorizontalAlignment(1, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 	cellFormatter.setHorizontalAlignment(2, 1, HasHorizontalAlignment.ALIGN_RIGHT);
 	orgEinheit.setWidth("200px");
+	
+	/**
+	 * Ruft einen RPC auf, um die Identitätsleiste mit den Daten des 
+	 * eben eingeloggten Users befüllen zu können.  
+	 * @author Giuseppe
+	 */
 	reportGenerator.findPersonByKey(person.getID(), new getUserReport());
+	
+	/**
+	 * Sollte der User einen neuen Eintrag innerhalb der ListBox wählen, wird die Seite
+	 * neu geladen.
+	 * @author Giuseppe
+	 */
 	orgEinheit.addChangeHandler(new ChangeHandler() {
 
 		@Override
@@ -61,13 +73,19 @@ public class IdentitySelectionReport extends FlexTable{
 
 	});
 	
-}public int getSelectedIndexReport(){
+}
+	
+	public int getSelectedIndexReport(){
 	
 	int selectedID = orgEinheit.getSelectedIndex();
 	
 	return selectedID;
 }
-
+	/**
+	 * Gibt die jeweilige ID zurück. Somit kann unterschieden werden zwischen 
+	 * Person, Team oder Unternehmen.
+	 * @author Giuseppe
+	 */
 public int getSelectedIdentityIDReport(){
 	if(person.getTeam_ID() != null){
 		if(orgEinheit.getSelectedIndex() == 0){
@@ -87,6 +105,10 @@ public int getSelectedIdentityIDReport(){
 return 0; 
 }
 
+/**
+ * Gibt die jeweilige ID als Objekt zurück
+ * @author Giuseppe
+ */
 public Organisationseinheit getSelectedIdentityAsObjectReport(){
 
 	if(person.getTeam_ID() != null){
@@ -151,6 +173,11 @@ public void reinitializeReport(){
 private IdentitySelectionReport getThis(){
 	return this;
 }
+
+/**
+ * Private Klasse, die die Daten des eingeloggten Users aus der DB erhält.
+ * @author Giuseppe
+ */
 	private class getUserReport implements AsyncCallback<Person>{
 
 		@Override
@@ -178,6 +205,11 @@ private IdentitySelectionReport getThis(){
 		}
 		
 	}
+	
+	/**
+	 * Private Klasse, um das Team eines Users in die Identitätsleiste schreiben zu können.
+	 * @author Giuseppe
+	 */
 	private class getTeamReport implements AsyncCallback<Team>{
 
 		@Override
@@ -198,6 +230,11 @@ private IdentitySelectionReport getThis(){
 			
 		}
 }
+	
+	/**
+	 * Private Klasse, um das Team eines Unternehmens in die Identitätsleiste schreiben zu können.
+	 * @author Giuseppe
+	 */
 	private class getUnternehmenReport implements AsyncCallback<Unternehmen>{
 
 		@Override

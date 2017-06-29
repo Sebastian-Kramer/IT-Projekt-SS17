@@ -1,7 +1,6 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import java.util.Vector;
-
 import com.google.gwt.event.dom.client.ChangeEvent;
 import com.google.gwt.event.dom.client.ChangeHandler;
 import com.google.gwt.user.client.Window;
@@ -18,17 +17,24 @@ import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 
+/**
+ * Diese Klasse gibt einen Report mit Projektverflechtungen qus. 
+ * Hierfür wird die ReportGeneratorAsync Instanz ausgelesen. 
+ * Bei erfolgreichem Callback wird sie
+ * in Form eines Reports ausgegeben.
+ * @author Giuseppe
+ */
+
+
 public class ProjektverflechtungenShowcase extends Showcase {
-
-
 
 	
 private IdentitySelectionReport identitySelectionReport = null;
 	
-	/**
-	 * Konstruktor, dem eine Instanz der IdentityChoiceReport und der Navigation übergeben wird.
-	 * @param identityChoiceReport
-	 */
+/**
+ * Konstruktor, dem eine Instanz der IdentitySelectionReport und der Menubar übergeben wird.
+ * @param identitySelectionReport
+ */
 
 	public ProjektverflechtungenShowcase(IdentitySelectionReport identitySelectionReport) {
 		this.identitySelectionReport=identitySelectionReport;
@@ -36,21 +42,15 @@ private IdentitySelectionReport identitySelectionReport = null;
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Report Projektverpflechtungen";
+		return "<h1>Report Projektverpflechtungen</h1>";
 	}
 
 	@Override
 	protected void run() {
 
 
-		/**
-		 * Auslesen der ReportGeneratorAsync Instanz
-		 */
 		ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
 		
-		/**
-		 * GUI- Elemente
-		 */
 		VerticalPanel inputPanel = new VerticalPanel();
 		final HTMLResultPanel resultPanel = new HTMLResultPanel();
 		final Showcase showcase = this;
@@ -100,10 +100,7 @@ private IdentitySelectionReport identitySelectionReport = null;
 	inputPanel.add(resultPanel);
 	this.add(inputPanel);
 	
-	/**
-	 * Anlegen Click-Handler
-	 * 
-	 */
+
 	bewerberBox.addChangeHandler(new ChangeHandler() {
 		
 		@Override
@@ -117,10 +114,7 @@ private IdentitySelectionReport identitySelectionReport = null;
 			String last = s.substring(s.indexOf(':')+1, s.length());
 			int selectedId = Integer.valueOf(last);	
 		
-			/**
-			 * Bei erfolgreichem Callback wird zu dem in der Listbox ausgewählten Bewerber 
-			 * ein Report mit dessen Projektverflechtungen ausgegeben.
-			 */
+
 			reportGenerator.createProjektverflechtungReport
 			(selectedId, new AsyncCallback<ProjektverflechtungReport>(){
 

@@ -19,7 +19,7 @@ public class Projektmarktplatz extends BusinessObject {
 	}
 	
 	private static final long serialVersionUID = 1L;
-	 
+
 	/*
 	 * Bezeichnung des Projektmarktplatzes
 	 */
@@ -33,6 +33,7 @@ public class Projektmarktplatz extends BusinessObject {
 	public Projektmarktplatz(String bez){
 		this.bez = bez;
 	}
+
 	
 	/*
 	 * Auslesen der Bezeichnung
@@ -61,6 +62,7 @@ public class Projektmarktplatz extends BusinessObject {
 		return bez;
 	}
 		
+	
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Projektmarktplatz) {

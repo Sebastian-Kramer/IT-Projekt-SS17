@@ -59,7 +59,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 
 	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 
-	  private Button zumReportgenerator = new Button("Report Generator");
+	  private Button zumReportgenerator = new Button("Zum Report Generator");
 	    
 	  private Anchor reportLink = new Anchor();
 	/**
@@ -146,8 +146,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	 
 			public void load(Person person){
 	  			signOutLink.setHref(loginInfo.getLogoutUrl());
-		  		
-				signOutLink.setHref(loginInfo.getLogoutUrl());//
+
+				signOutLink.setStylePrimaryName("ausloggenanchorreport");
 				mainPanel.add(addPanel);
 				Showcase showcase = new Homeseite();
 		  		Menubar mb = new Menubar(person);
@@ -156,7 +156,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				IdentitySelection is = new IdentitySelection(person, mb);
 				mb.setIdSelection(is);
 				RootPanel.get("header-top").clear();
-				RootPanel.get("header-top").add(new MenuleisteMitReportGenerator());
+				RootPanel.get("header-top").add(new Menuleiste());
 				RootPanel.get("idendity").add(mb.getIdSelection());
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);
