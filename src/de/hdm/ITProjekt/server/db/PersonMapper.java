@@ -282,7 +282,10 @@ Vector <Person> result = new Vector<Person>();
 		      p.setID(super.insert(p));
 		      		      
 		      stmt = con.createStatement();
-		     		
+		      
+		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
+		              + "FROM organisationseinheit ");
+		     	if(rs.next()){	
 		      if(p.getTeam_ID()==null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede) "
 				            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
@@ -304,6 +307,7 @@ Vector <Person> result = new Vector<Person>();
 			            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
 			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +"')");
 		        } 
+		     	}
 		      
 		}
 		catch(SQLException e2){

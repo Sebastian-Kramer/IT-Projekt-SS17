@@ -158,7 +158,6 @@ public class Menubar extends StackPanel {
 		
 		meineBewerbungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Window.alert(""+ is.getSelectedIdentityAsObject().getID());
 				Showcase showcase = new MeineBewerbungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);

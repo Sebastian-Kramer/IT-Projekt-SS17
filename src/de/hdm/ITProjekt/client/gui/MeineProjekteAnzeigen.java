@@ -47,7 +47,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	VerticalPanel vpanel_projekte = new VerticalPanel();
 	VerticalPanel vpanel_projekte2 = new VerticalPanel();
 	
-	Button projektmarktplatz = new Button("Projekte Suchen");
+	
 	Button delete_projekt = new Button("Projekt Löschen");
 	Button show_projekt = new Button("Projekt anzeigen");
 	
@@ -81,24 +81,9 @@ public class MeineProjekteAnzeigen extends Showcase{
 		ct_verwProjekte.setWidth("100%", true);
 		ct_verwProjekte.setSelectionModel(ssm_meineprojekt);
 		hpanel_projekte.add(delete_projekt);
-		hpanel_projekte.add(projektmarktplatz);
 		hpanel_projekte.add(show_projekt);
 		this.add(hpanel_projekte);
 		
-		
-//		if(is.getSelectedIdentityAsObject() instanceof Person){
-//		this.append("<br><h3>Meine Projekte als Teilnehmer</h3></br>");
-//		vpanel_projekte.add(ct_meineProjekte);
-//		this.add(vpanel_projekte);
-//		}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){
-//			this.append("<br><h3>Meine Projekte als Teilnehmer</h3></br>");
-//			vpanel_projekte.add(ct_meineProjekteUnternehmen);
-//			this.add(vpanel_projekte);
-//		}else if(is.getSelectedIdentityAsObject() instanceof Team){
-//			this.append("<br><h3>Meine Projekte als Teilnehmer</h3></br>");
-//			vpanel_projekte.add(ct_meineProjekteTeam);
-//			this.add(vpanel_projekte);
-//		}
 		
 		Column<Projekt, String> projektname = 
 			    new Column<Projekt, String>(new ClickableTextCell())  {
@@ -192,36 +177,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 						filltableMeineProjekteTeam();
 					}
 		
-		
-//		if(is.getSelectedIdentityAsObject() instanceof Person){
-//		this.append(" ");
-//		this.append("<br><h3>Meine Projekte als Projektleiter</h3></br>");
-//		vpanel_projekte2.add(ct_verwProjekte);
-//		this.add(vpanel_projekte2);
-//		
-//		}
-		
-		projektmarktplatz.addClickHandler(new ClickHandler() {
-			
-			@Override
-			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite(is);
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
-			}
-		});
-		
-//		delete_projekt.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//				 if (adminService == null) {
-//			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//			    }
-//				 adminService.deleteTeilnahme(person, ssm_meineprojekt.getSelectedObject().getProjektmarktplatz_ID(), new deleteTeilnehmerEinesProjekts());
-//			}
-//		});
+
 		
 		show_projekt.addClickHandler(new ClickHandler(){
 
