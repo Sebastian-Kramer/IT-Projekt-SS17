@@ -73,14 +73,9 @@ public class MeinProfilAnzeigen extends Showcase{
 	private FlexTable form = new FlexTable();
 	private FlexTable pe_form = new FlexTable();
 	private FlexTable pe_buttonPanel = new FlexTable();
-//	private FlexTable ftable_team = new FlexTable();
-//	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
 	private static DialogBox db_team = new DialogBox();
 	private static DialogBox db_unternehmen = new DialogBox();
-//	private Button closeTeam = new Button("Schließen");
-//	private Button closeUnternehmen = new Button("Schließen");
-
 	//Anlegen der Buttons für verschiedene Funktionen
 	private Button bearbeiten = new Button("Bearbeiten");
 	private Button speichern = new Button("Speichern");
@@ -97,17 +92,6 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button unternehmen_speichern = new Button("Speichern");
 	private Button unternehmen_abbrechen = new Button("Abbrechen");
 	
-	
-//	private Button teamErstellenButton = new Button("Team Erstellen");
-//	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_teamHinzufuegen = new SuggestBox(oracle_teamHinzufuegen);
-//	private Button teamHinzufuegenButton = new Button("OK");
-//	
-//	private Button unternehmenErstellenButton = new Button("Unternehmen Erstellen");
-//	private MultiWordSuggestOracle oracle_unternehmenHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_unternehmenHinzufuegen = new SuggestBox(oracle_unternehmenHinzufuegen);
-//	private Button unternehmenHinzufuegenButton = new Button("OK");
-
 	//Erstellen der Text- bzw. ListBoxen
 	private ListBox anredeListBox = new ListBox();
 	private TextBox anredeBox = new TextBox();
