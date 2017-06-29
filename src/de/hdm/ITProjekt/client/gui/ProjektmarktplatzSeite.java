@@ -54,7 +54,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 	public ProjektmarktplatzSeite(IdentitySelection is){
 		this.is = is;
-		
+	}
+	public ProjektmarktplatzSeite(IdentitySelection is, Menubar menubar){
+		this.is = is;
+		this.menubar = menubar;
 	}
 	
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
@@ -136,7 +139,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			public void onSelectionChange(SelectionChangeEvent event) {
 				// TODO Auto-generated method stub
 				p1 = ssm_alleProjektmarktplaetze.getSelectedObject();
-				Showcase showcase = new Projekte(p1, is);
+				Showcase showcase = new Projekte(p1, is, menubar);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				

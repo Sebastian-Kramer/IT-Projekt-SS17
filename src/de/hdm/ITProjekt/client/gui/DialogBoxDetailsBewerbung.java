@@ -46,21 +46,22 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 	private Label personVorname = new Label("Vorname: ");
 	private Label personName = new Label("Name: ");
 	private Label personEmail = new Label("E-Mail: ");
-	private Label info = new Label("Die Bewerbung wurde von folgender Person abgegeben");
+	private Label info = new Label("Persönliche Daten des Bewerbers: ");
 	
 	private TextBox anredeBox = new TextBox();
 	private TextBox vornameBox = new TextBox();
 	private TextBox nameBox = new TextBox();
 	private TextBox emailBox = new TextBox();
-	
-	
+	private TextBox nameTeam = new TextBox();
+	private TextBox nameUn = new TextBox();
 	
 	private Bewerbung bewerbungId;
 	private Person p;
-
+	private IdentitySelection is;
 	
-	public DialogBoxDetailsBewerbung(Bewerbung selectedId){
+	public DialogBoxDetailsBewerbung(Bewerbung selectedId, IdentitySelection is){
 		this.bewerbungId = selectedId;
+		this.is = is;
 		
 		ct_eigenschaft.setWidth("100%");
 		schliessen.setStylePrimaryName("navi-button");
@@ -68,29 +69,22 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
 		this.center();
-		anredeBox.setReadOnly(true);
-		vornameBox.setReadOnly(true);
-		nameBox.setReadOnly(true);
-		emailBox.setReadOnly(true);
+
 		bewerbungstext.setReadOnly(true);
 		bewerbungstext.setText(selectedId.getBewerbungstext());
 		bewerbungstext.setCharacterWidth(30);
 		bewerbungstext.setVisibleLines(30);
 
-
+		if(is.getSelectedIdentityAsObject() instanceof Person){
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }
-		 
+	    }	 
 		adminService.getPersonFromBewerbung(selectedId.getOrga_ID(), new BewerberDatails());
-
-		
-		
-		bewerbungstextft.setWidget(0, 0, bewerbungstext);
-		bewerbungstextft.setWidget(0, 1, ct_eigenschaft);
-		
-		bewerbungstextft.setWidget(1, 0, info);
+		anredeBox.setReadOnly(true);
+		vornameBox.setReadOnly(true);
+		nameBox.setReadOnly(true);
+		emailBox.setReadOnly(true);
 		
 		bewerbungstextft.setWidget(2, 0, personAnrede);
 		bewerbungstextft.setWidget(2, 1, anredeBox);
@@ -103,6 +97,15 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		
 		bewerbungstextft.setWidget(5, 0, personEmail);
 		bewerbungstextft.setWidget(5, 1, emailBox);
+		}
+		
+		
+		bewerbungstextft.setWidget(0, 0, bewerbungstext);
+		bewerbungstextft.setWidget(0, 1, ct_eigenschaft);
+		
+		bewerbungstextft.setWidget(1, 0, info);
+		
+	
 		
 		bewerbungstextft.setWidget(5, 0, schliessen);
 		

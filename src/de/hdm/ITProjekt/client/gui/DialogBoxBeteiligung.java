@@ -47,7 +47,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 	
 	private Button beteiligunganlegen = new Button("Projektbeteiligung erstellen");
 		
-	private Label umfang = new Label("Umfang der Beteiligung: ");
+	private Label umfang = new Label("Beteiligung in Personentagen: ");
 	private Label startdatum = new Label("Beteiligung startet am: ");
 	private Label enddatum = new Label("Beteiligung geht bis zum: ");
 	private Label zuprojekt = new Label("Beteiligung an folgendem Projekt wird erstellt: ");

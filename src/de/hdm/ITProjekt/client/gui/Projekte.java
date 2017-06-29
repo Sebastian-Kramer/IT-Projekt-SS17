@@ -30,6 +30,7 @@ import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 
 import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -75,7 +76,7 @@ public class Projekte extends Showcase {
 	}
 	
 	
-	
+	private Menubar menubar;
 	private Person person = new Person();
 	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
 	
@@ -83,7 +84,11 @@ public class Projekte extends Showcase {
 		this.selectedProjektmarktplatz = selectedObject;
 		this.is = is;
 	}
-
+	public Projekte(Projektmarktplatz selectedObject, IdentitySelection is, Menubar menubar){
+		this.selectedProjektmarktplatz = selectedObject;
+		this.is = is;
+		this.menubar = menubar;
+	}
 
 
 	@Override
@@ -164,7 +169,7 @@ public class Projekte extends Showcase {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				    }
 					 projekt = ssm_projekt.getSelectedObject();
-					 Showcase showcase = new Projektseite(projekt, is, selectedProjektmarktplatz);
+					 Showcase showcase = new Projektseite(projekt, is, selectedProjektmarktplatz, menubar);
 					 RootPanel.get("Details").clear();
 					 RootPanel.get("Details").add(showcase);
 					 

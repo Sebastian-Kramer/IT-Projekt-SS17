@@ -116,26 +116,9 @@ public class Menubar extends StackPanel {
 		this.add(homePanel, "Eigene Seite");
 		this.add(projektmarktplatzPanel, "Marktplatz");
 		
-		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
-		
-//		this.add(projektPanel, "Projekte");
-	
-	
-//		zurstartseiteButton.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				Showcase showcase = new Homeseite();
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(showcase);
-//				currentClickHandler=this;
-//				currentClickEvent=event;
-//				
-//			}
-//		});
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite(is);
+				Showcase showcase = new ProjektmarktplatzSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -145,8 +128,7 @@ public class Menubar extends StackPanel {
 		});
 		
 		meineProjekteButton.addClickHandler(new ClickHandler() {
-			public void onClick(ClickEvent event) {
-				
+			public void onClick(ClickEvent event) {				
 				Showcase showcase = new MeineProjekteAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
@@ -158,7 +140,6 @@ public class Menubar extends StackPanel {
 		
 		meineBewerbungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Window.alert(""+ is.getSelectedIdentityAsObject().getID());
 				Showcase showcase = new MeineBewerbungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
@@ -177,24 +158,6 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
-		
-//		projektmarktplatzButton.addClickHandler(new ClickHandler() {
-//			
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				Showcase showcase = new ProjektmarktplatzSeite();
-//				//Unser Detail Container wird geleert, damit der Container neu befüllt werden kann
-//				RootPanel.get("Details").clear();
-//				// Unser Container wird mit dem instanziierten showcase befüllt
-//				RootPanel.get("Details").add(showcase);
-//				//Der ClickHandel und das ClickEvent referenziert auf die aktuelle Methode
-//				currentClickHandler=this;
-//				currentClickEvent=event;
-//				
-//				
-//			}
-//		});
-		
 		meinProfilButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
@@ -202,30 +165,6 @@ public class Menubar extends StackPanel {
 				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
-		
-		
-//				is.activateOrgUnits();
-//			
-//				Organisationseinheit selectedIdentity = is.getSelectedIdentityAsObject();	
-//				
-//				if(selectedIdentity instanceof Person){
-//					Showcase showcase = new MeinProfilAnzeigen(selectedIdentity);
-//					RootPanel.get("Details").clear();
-//					RootPanel.get("Details").add(showcase);}
-//				}else if(selectedIdentity instanceof Team){
-//					Showcase showcase = new TeamProfilAnzeigenForm(identityMarketChoice, getNavigation());
-//					RootPanel.get("Details").clear();
-//					RootPanel.get("Details").add(showcase);
-//					
-//				//Falls der Index 2 ist, dann ist ein Unternehmen aktiv und es wird die UnternehmenProfilAnzeigenForm geladen.
-//				}else if(selectedIdentity instanceof Unternehmen){
-//					Showcase showcase = new UnternehmenProfilAnzeigenForm(identityMarketChoice, getNavigation());
-//					RootPanel.get("Details").clear();
-//					RootPanel.get("Details").add(showcase);
-//				}
-
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(showcase);
 
 			}
 		});
@@ -236,12 +175,6 @@ public class Menubar extends StackPanel {
 		// TODO Auto-generated method stub
 		
 	}
-
-
-//	public Button getProjektmarktplaetzeButton() {
-//		return projektmarktplaetzeButton;
-//	}
-
 
 	public IdentitySelection getIdSelection() {
 		return is;

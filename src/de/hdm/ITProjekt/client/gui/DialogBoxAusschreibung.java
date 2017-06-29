@@ -133,13 +133,9 @@ public class DialogBoxAusschreibung extends DialogBox {
 				@Override
 				public void onSuccess(Vector<Partnerprofil> result) {
 
-					for(Partnerprofil a : result){
-						
-						Window.alert(" " + result.elementAt(0).getID());
+					for(Partnerprofil a : result){						
 						
 						if(ausschreibung.getPartnerprofil_ID() == a.getID()){
-							
-							Window.alert(" Springt in schleifen rein");
 							
 							adminService.getAllEigenschaftenbyPartnerprofilID(a.getID(), new AsyncCallback<Vector<Eigenschaft>>(){
 
@@ -152,6 +148,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 								@Override
 								public void onSuccess(Vector<Eigenschaft> result) {
+
 									Window.alert(" Die Eigenschaften wurden gefunden");
 									ct_eigenschaften.setRowData(0, result);
 									ct_eigenschaften.setRowCount(result.size(),true);

@@ -333,7 +333,7 @@ public class AusschreibungMapper {
 			try {
 			      Statement stmt = con.createStatement();
 			      
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung WHERE Projekt_ID = " + projektID );
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung WHERE Projekt_ID = " + projektID );
 			      
 			      while(rs.next()){
 			    	  Ausschreibung a = new Ausschreibung();
@@ -343,6 +343,7 @@ public class AusschreibungMapper {
 			    	  a.setDatum(rs.getDate("datum"));
 			    	  a.setProjekt_ID(rs.getInt("Projekt_ID"));
 			    	  a.setOrga_ID(rs.getInt("Orga_ID"));
+			    	  a.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 			    	  
 			    	  result.addElement(a);
 			    	  		

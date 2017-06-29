@@ -93,6 +93,13 @@ public class Projektseite extends Showcase{
 		this.projektmarktplatz = projektmarktplatz;
 	}
 	
+	public Projektseite(Projekt selectedObject, IdentitySelection is, Projektmarktplatz projektmarktplatz, Menubar mb){
+		this.selectedProjekt = selectedObject;
+		this.is = is;
+		this.projektmarktplatz = projektmarktplatz;
+		this.mb = mb;
+	}
+	
 	@Override
 	protected String getHeadlineText() {
 		return "<h2>" + selectedProjekt.getName() +  "</h2>";

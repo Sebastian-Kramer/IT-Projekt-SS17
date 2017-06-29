@@ -133,7 +133,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBoxDetailsBewerbung dialogbox = new DialogBoxDetailsBewerbung(ssm_bew.getSelectedObject());
+				DialogBoxDetailsBewerbung dialogbox = new DialogBoxDetailsBewerbung(ssm_bew.getSelectedObject(), is);
 				dialogbox.center();
 				
 			}
