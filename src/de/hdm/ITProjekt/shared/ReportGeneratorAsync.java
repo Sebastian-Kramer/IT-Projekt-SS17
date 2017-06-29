@@ -18,7 +18,11 @@ import de.hdm.ITProjekt.shared.report.FanInFanOutReport;
 import de.hdm.ITProjekt.shared.report.FanOut;
 import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 
-
+/*
+ * Dieses Interface ist das asynchrone Gegenstück zu ReportGenerator.
+ * Die Erstellung und Pflege erfolgt semiautomatisch durch das Google Plugin. Um weitere Informationen
+ * zu erstellten kann in der Dokumentation des Interface ReportGenerator geschaut werden.
+ */
 
 public interface ReportGeneratorAsync {
 
@@ -59,7 +63,6 @@ public interface ReportGeneratorAsync {
 
 	void getAllPersonen(AsyncCallback<Vector<Person>> callback);
 	
-
 	void getAusschreibungByMatchingPartnerprofil(Organisationseinheit o,
 			AsyncCallback<AllAusschreibungenByPartnerprofilReport> callback);
 
@@ -69,5 +72,4 @@ public interface ReportGeneratorAsync {
 
 	void getUnternehmenByKey(int unternehmenID, AsyncCallback<Unternehmen> callback);
 
-
-}
+	}

@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.shared;
 
 import java.sql.Date;
+
 import java.util.Vector;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -19,6 +20,12 @@ import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
+/*
+ * Dieses Interface ist das asynchrone Gegenstück zu AdministrationProjektmarktplatz.
+ * Die Erstellung und Pflege erfolgt semiautomatisch durch das Google Plugin. Um weitere Informationen
+ * zu erstellten kann in der Dokumentation des Interface AdministrationProjektmarktplatz geschaut werden.
+ */
+
 public interface AdministrationProjektmarktplatzAsync {
 
 	void init(AsyncCallback<Void> callback);
@@ -33,8 +40,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getProjektmarktplatzById(int ID, AsyncCallback<Projektmarktplatz> callback);
 
-//	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
-
 	void updateProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Projektmarktplatz> callback);
 
 	void addProjektmarktplatz(String bez, AsyncCallback<Projektmarktplatz> callback);
@@ -42,8 +47,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	void findByBez(String bez, AsyncCallback<Projektmarktplatz> callback);
 
 	void deleteProjektmarktplatz(Projektmarktplatz p, AsyncCallback<Void> callback);
-
-//	void findByProjektmarktplatz(int projektmarktplatzID, AsyncCallback<Vector<Projekt>> callback);
 
 	void deleteProjekt(Projekt a, AsyncCallback<Void> callback);
 
@@ -64,18 +67,13 @@ public interface AdministrationProjektmarktplatzAsync {
 	void createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID,
 				 AsyncCallback<Projekt> callback);
 
-
 	void getAllBewerbungen(AsyncCallback<Vector<Bewerbung>> callback);
-	
-	// Methodenköpfe von AusschreibungMapper
 
 	void findByKey(int id, AsyncCallback<Ausschreibung> callback);
 
 	void getAlLAuscchreibungenBy(int projektId, AsyncCallback<Vector<Ausschreibung>> callback);
 
 	void getAll(AsyncCallback<Vector<Ausschreibung>> callback);
-
-//	void addAusschreibung(String text, String bezeichnung, java.util.Date date, AsyncCallback<Ausschreibung> callback);
 
 	void deleteAusschreibung(Ausschreibung a, AsyncCallback<Void> callback);
 
@@ -85,9 +83,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	
 	void findBewerbungByAusschreibungId(int id, AsyncCallback<Vector<Bewerbung>> callback);
 		
-
-	//void getProjektmaktplaetzeOf(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
-
 	void addProjekt(Projekt pmp, AsyncCallback<Projekt> callback);
 
 	void getMarktplatzByPerson(Person p, AsyncCallback<Vector<Projektmarktplatz>> callback);
@@ -102,17 +97,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	
 	void insert(Beteiligung b, AsyncCallback<Beteiligung> callback);
 
-	
-
-	// Methoden für Organisationseinheit
-	
-	// void insert(Organisationseinheit o, AsyncCallback<Organisationseinheit> callback);
-
-	// Methoden für Person
-	
-//	void createPerson(String email, String vorname, String nachname, String anrede, String strasse, int hausnr, int plz,
-//			String ort, int partnerprofilId, Integer teamId, Integer unternehmenId, AsyncCallback<Person> callback);
-
 	void getAllPerson(AsyncCallback<Vector<Person>> callback);
 
 	void savePerson(Person p, AsyncCallback<Void> callback);
@@ -123,8 +107,6 @@ public interface AdministrationProjektmarktplatzAsync {
 			int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId,
 			AsyncCallback<Person> callback);
 
-	// Methoden für Partnerprofil
-	
 	void createPartnerprofil(AsyncCallback<Partnerprofil> callback);
 
 	void findByProjekt(Projekt projekt, AsyncCallback<Vector<Ausschreibung>> callback);
@@ -132,11 +114,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deleteTeilnahme(Person p, int projektmarktplatzid, AsyncCallback<Void> callback);
 
 	void addAusschreibung(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
-
-
-//	void getAllEigenschaftenByOrgaID(int id, AsyncCallback<Vector<Eigenschaft>> callback);
-
-	// Methoden für Team
 
 	void deleteTeam(Team team, AsyncCallback<Void> callback);
 	
@@ -150,9 +127,6 @@ public interface AdministrationProjektmarktplatzAsync {
 	void deletePartnerprofil(Partnerprofil p, AsyncCallback<Void> callback);
 
 	void getPartnerprofilOfOrganisationseinheit(Organisationseinheit o, AsyncCallback<Partnerprofil> callback);
-
-
-	// Unternehmen Methoden
 	
 	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
 			AsyncCallback<Unternehmen> callback);
@@ -211,14 +185,9 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void findByOrgaID(int Orga_ID, AsyncCallback<Vector<Bewerbung>> callback);
 
-
-
 	void getOrgaEinheitFromBewerbung(Integer id, AsyncCallback<Organisationseinheit> callback);
 
 	void getAllEigenschaftenFromOrga(Integer id, AsyncCallback<Vector<Eigenschaft>> callback);
-	
-	
-
 
 	void findPartnerprofilByID(int id, AsyncCallback<Partnerprofil> callback);
 
@@ -242,7 +211,4 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getAusschreibungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Ausschreibung>> callback);
 
-
-	
-
-}
+	}

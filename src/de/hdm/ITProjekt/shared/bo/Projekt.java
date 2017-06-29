@@ -2,6 +2,11 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Auf einem Projektmarktplatz können ein oder mehrere Projekte angelegt werden. Diese Projekte enthalten
+ * einen Namen, eine Beschreibung, ein Start- und ein Enddatum. Jedes Projekt hat genau einen Projektleiter.
+ */
+
 public class Projekt extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -41,14 +46,12 @@ public class Projekt extends BusinessObject {
 	 */
 	
 	private Integer Projektmarktplatz_ID = 0;
-
 	
 	/*
 	 * Realisierung einer Beziehung zu einem Projektleiter mittels Fremdschlüssel
 	 */
 	
 	private Integer Projektleiter_ID = 0;
-
 	
 	/*
 	 * Auslesen der ID
@@ -158,8 +161,7 @@ public class Projekt extends BusinessObject {
 			this.Projektmarktplatz_ID = null;
 		}else{
 			this.Projektmarktplatz_ID = projektmarktplatz_ID;
-		}
-		
+		}		
 	}
 	
 	/*
@@ -196,9 +198,6 @@ public class Projekt extends BusinessObject {
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
 	
-	
-
-
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Projekt) {
@@ -212,9 +211,6 @@ public class Projekt extends BusinessObject {
 	    }
 	    return false;
 	  }
-
-
-
 }
 
 

@@ -2,11 +2,15 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Realisierung einer Stellenausschreibung, die einen Ausschreibungstext, eine Bezeichnung und
+ * ein Erstellungsdatum hat.
+ */
+
 public class Ausschreibung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
 	
-	private int ID = 0; 
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
 	private Date datum = null;
@@ -45,22 +49,6 @@ public class Ausschreibung extends BusinessObject {
 	
 	public Ausschreibung() {
 		// TODO Auto-generated constructor stub
-	}
-	
-	/*
-	 * @return ID
-	 */
-	
-	public int getID() {
-		return ID;
-	}
-	
-	/*
-	 *  @param ID
-	 */
-	
-	public void setID(int iD) {
-		ID = iD;
 	}
 	
 	/*
@@ -191,7 +179,7 @@ public class Ausschreibung extends BusinessObject {
 	 */
 	
 	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
+		return "\n" + "Ausschreibungstext: " + ausschreibungstext + "\n"
 				+ "Bezeichnung: " + bezeichnung + "\n" + "Datum: " + datum;
 	}
 	

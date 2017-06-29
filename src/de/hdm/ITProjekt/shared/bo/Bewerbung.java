@@ -2,15 +2,14 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Für jede vorhandene Ausschreibung können Bewerbungen abgegeben werden, die einen Bewerbungstext, einen Status
+ * und ein Erstelldatum haben.
+ */
+
 public class Bewerbung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
-	
-	/*
-	 * eindeutige Identifikationsnummer einer Instanz der Klasse
-	 */
-	
-	private int ID = 0; 
 	
 	/*
 	 * Bewerbungstext der Bewerbung
@@ -19,8 +18,7 @@ public class Bewerbung extends BusinessObject {
 	private String bewerbungstext = "";
 	
 	/*
-	 * Status der Bewerbung kann auf laufend, abgeleht, angenommen
-	 * von Bewerbung das aktuelle Datum durch Null-Argument-Konstruktor der importierten Klasse Date setzt
+	 * Der Status der Bewerbung kann auf laufend, abgeleht, angenommen gesetzt werden.
 	 */
 	
 	private String status = "";
@@ -43,24 +41,6 @@ public class Bewerbung extends BusinessObject {
 	 */
 	
 	private Integer Orga_ID = 0;
-	
-	/*
-	 * Auslesen der ID
-	 * @return ID 
-	 */
-	
-	public int getID() {
-		return ID;
-	}
-	
-	/*
-	 * Setzen der ID
-	 * @param ID
-	 */
-	
-	public void setID(int iD) {
-		ID = iD;
-	}
 	
 	/*
 	 * Auslesen des Bewerbungstextes
@@ -166,7 +146,7 @@ public class Bewerbung extends BusinessObject {
 	 */
 	
 	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Text: " + bewerbungstext + "\n"
+		return "\n" + "Text: " + bewerbungstext + "\n"
 				+ "erstelldatum: " + erstelldatum
 				+ "\n" + "gehört zur Ausschreibung: " + Ausschreibungs_ID + "\n" 
 				+ "Und wurde von folgender Person erstellt: " + Orga_ID;

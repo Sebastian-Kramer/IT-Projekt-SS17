@@ -6,10 +6,14 @@ import java.util.Vector;
 
 
 /*
- * Realisierung eines Partnerprofils
+ * Realisierung eines Partnerprofils. Ein Partnerprofil gehört genau zu einer Organisationseinheit und 
+ * besitzt mindestens ein Erstellungs- und Änderungsdatum. Das Partnerprofil hat eine Verbindung zur Klasse
+ * Eigenschaften und wird durch diese Eigenschaften dargestellt.
  */
 
 public class Partnerprofil extends BusinessObject{
+	
+	private static final long serialVersionUID = 1L;
 	
 	/*
 	 * Erstellungsdatum des Partnerprofils
@@ -23,9 +27,6 @@ public class Partnerprofil extends BusinessObject{
 	
 	private Date aenderungsdatum = null;
 	
-	private static final long serialVersionUID = 1L;
-	
-
 	/*
 	 * Standartkonstruktor 
 	 */
@@ -47,14 +48,14 @@ public class Partnerprofil extends BusinessObject{
 	 * @return erstellungsdatum
 	 */
 	
-public Date getErstellungsdatum() {
+	public Date getErstellungsdatum() {
 		return erstellungsdatum;
 	}
 
-/*
- * Setzen des Erstellungsdatums
- * @param erstellungsdatum
- */
+	/*
+	 * Setzen des Erstellungsdatums
+	 * @param erstellungsdatum
+	 */
 
 	public void setErstellungsdatum(Date erstellungsdatum) {
 		this.erstellungsdatum = erstellungsdatum;

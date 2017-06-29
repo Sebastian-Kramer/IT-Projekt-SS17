@@ -4,47 +4,34 @@ import java.io.Serializable;
 
 import com.google.gwt.user.client.rpc.IsSerializable;
 
+/*
+ * Die Klasse Projektmarktplatz bezieht nur eine Bezeichnung, mit der der jeweilige Projektmarktplatz
+ * im System dargestellt wird
+ */
+
 public class Projektmarktplatz extends BusinessObject {
 	
+	/*
+	 * Null-Argument Konstructor der für andere Klassen benötigt wird
+	 */
+	public Projektmarktplatz(){
+		
+	}
+	
 	private static final long serialVersionUID = 1L;
-	
-	
 	 
-	private int ID = 0;  //eventeull löschen da ID von BO übergeben wird
-	
 	/*
 	 * Bezeichnung des Projektmarktplatzes
 	 */
 	
 	private String bez = "";	
 
-	public Projektmarktplatz(){
-		
-	}
-	
 	/*
 	 * Konstruktor
 	 * 
 	 */
 	public Projektmarktplatz(String bez){
 		this.bez = bez;
-	}
-	
-	/*
-	 * Auslesen der ID
-	 * @return ID
-	 */
-	public int getID() {
-		return ID;
-	}
-	
-	/*
-	 * Setzen der ID
-	 * @param iD
-	 */
-
-	public void setID(int iD) {
-		ID = iD;
 	}
 	
 	/*
@@ -71,10 +58,9 @@ public class Projektmarktplatz extends BusinessObject {
 	 */
 	
 	public String toString(){
-		return ID + " " + bez;
+		return bez;
 	}
-	
-	
+		
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Projektmarktplatz) {
@@ -88,6 +74,4 @@ public class Projektmarktplatz extends BusinessObject {
 	    }
 	    return false;
 	  }
-	
-
 }

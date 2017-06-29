@@ -1,15 +1,16 @@
 package de.hdm.ITProjekt.shared.bo;
+
 import java.util.Date;
+
+/*
+ * Jede Bewerbung die auf eine Stellenausschreibung abgegeben wurde kann vom Projektleiter bewertet werden.
+ * Die Möglichkeite der Bewertung liegen zwischen 0.0 (sehr schlecht) und 1.0 (sehr gut).
+ * Eine Bewertung enthält eine Stellungnahme und die Höhe der Bewertung, sowie ein Erstelldatum
+ */
 
 public class Bewertung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
-	
-	/*
-	 * eindeutige Identifikationsnummer einer Instanz der Klasse
-	 */
-	
-	private int ID = 0;
 	
 	/*
 	 * Text der Stellungsnahme 
@@ -40,25 +41,7 @@ public class Bewertung extends BusinessObject {
 	 */
 	
 	private Integer Bewerbungs_ID = 0;
-	
-	/*
-	 * Auslesen der ID
-	 * @return ID
-	 */
-	
-	public int getID() {
-		return ID;
-	}
-	 
-	/*
-	 * Setzen der ID
-	 * @param ID
-	 */
 
-	public void setID(int iD) {
-		ID = iD;
-	}
-	
 	/*
 	 * Auslesen der Stellungnahme
 	 * @return stellungnahme
@@ -143,7 +126,7 @@ public class Bewertung extends BusinessObject {
 	 */
 
 	public String toString(){
-		return "\n" + "\n" + "Stellungnahme: " + stellungnahme + "\n"
+		return "\n" + "Stellungnahme: " + stellungnahme + "\n"
 				+ "Höhe der Bewertung: " + bewertung + "\n";
 	}
 	

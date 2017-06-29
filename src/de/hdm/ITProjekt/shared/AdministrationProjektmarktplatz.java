@@ -9,6 +9,14 @@ import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.shared.bo.*;
 
+/*
+ * Das Interface AdministrationProjektmarktplatz ist eine synchrone Schnitte für eine RPC-fähig Klasse 
+ * zur Verwaltung von Projektmarktplätzen.
+ * Diese Schnittestelle wird benötigt um über Projektverflechtung zwischen verschiedenen Funktionen 
+ * Aufschluss zu geben. Das Wissen, wie einzelene Daten-Objekte koexistieren, wird in dieser gekapselt.
+ * Außerdem gilt dieser Klasse der Übersicht, welche funktionen alles von unserem System realisiert wurden
+ * und ausgeführt werden können
+ */
 
 @RemoteServiceRelativePath("projektmarktplatz")
 public interface AdministrationProjektmarktplatz extends RemoteService {
@@ -17,58 +25,45 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Projektmarktplatz createProjektmarktplatz(String bez)throws IllegalArgumentException;
 	
-	public Projektmarktplatz save(Projektmarktplatz p)throws IllegalArgumentException; //speichern eines Projektmarktplatz-Objekts in der Datenbank
+	public Projektmarktplatz save(Projektmarktplatz p)throws IllegalArgumentException; 
 	
-	public Projektmarktplatz getProjektmarktplatzById (int ID)throws IllegalArgumentException; //Anzeigen eines bekannten Projektmarktplatz
+	public Projektmarktplatz getProjektmarktplatzById (int ID)throws IllegalArgumentException; 
 	
-	Vector<Projektmarktplatz> getProjektmarktplatzAll()throws IllegalArgumentException;
+	public Vector<Projektmarktplatz> getProjektmarktplatzAll()throws IllegalArgumentException; 
 	
-//	public void deleteProjektmarktplatz(Projektmarktplatz p); //L�schen eines Projektmarktplatzes
+	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p)throws IllegalArgumentException; 
 	
-	Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p)throws IllegalArgumentException;
-	
-	public Projektmarktplatz addProjektmarktplatz(String bez)throws IllegalArgumentException;
+	public Projektmarktplatz addProjektmarktplatz(String bez)throws IllegalArgumentException; 
 	
 	public Projektmarktplatz findByBez(String bez)throws IllegalArgumentException;
 
-	void deleteProjektmarktplatz(Projektmarktplatz p);
+	public void deleteProjektmarktplatz(Projektmarktplatz p) throws IllegalArgumentException;
 
 	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p)throws IllegalArgumentException;
 	
-//	Projektmarktplatz addProjektmarktplatz(Projektmarktplatz p2);
-	
-	//public Vector <Projektmarktplatz> getProjektmaktplaetzeOf(Person p);
-	
-//	public Vector<Projekt> findByProjektmarktplatz (int projektmarktplatzID);
-	
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz projektmarktplatz)throws IllegalArgumentException;
 	
-	public void deleteProjekt(Projekt a)throws IllegalArgumentException;
+	public void deleteProjekt(Projekt a) throws IllegalArgumentException;
 	
-	Projekt getProjektByID(int id);
+	public Projekt getProjektByID(int id) throws IllegalArgumentException;
 	
 	public Person getPersonbyID(int id)throws IllegalArgumentException;
 	
 	public Projekt updateProjekt(Projekt c)throws IllegalArgumentException;
 	
-	void savePerson(Person p)throws IllegalArgumentException;
+	public void savePerson(Person p)throws IllegalArgumentException;
 	
-	Vector<Projekt> getAllProjekte()throws IllegalArgumentException;
+	public Vector<Projekt> getAllProjekte()throws IllegalArgumentException;
 	
 	public Vector<Projekt>getAllProjekteByProjektleiter(int personId) throws IllegalArgumentException;
 	
-	Vector<Bewerbung> getAllBewerbungen()throws IllegalArgumentException;
+	public Vector<Bewerbung> getAllBewerbungen()throws IllegalArgumentException;
 	
 	public void deleteBewerbung(Bewerbung a)throws IllegalArgumentException;
 	
-	Vector<Bewerbung> findByPerson(Person person)throws IllegalArgumentException; 
+	public Vector<Bewerbung> findByPerson(Person person)throws IllegalArgumentException; 
 	
 	public Bewerbung updateBewerbung(Bewerbung c)throws IllegalArgumentException;
-	
-	
-	
-	
-		// Methoden von Ausschreibung
 	
 	public Ausschreibung findByKey(int id)throws IllegalArgumentException;
 	
@@ -78,9 +73,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Ausschreibung addAusschreibung(Ausschreibung a) throws IllegalArgumentException;
 	
-	
-//	public Ausschreibung addAusschreibung(String text, String bezeichnung, java.util.Date date);
-	
 	public void deleteAusschreibung(Ausschreibung a)throws IllegalArgumentException;
 	
 	public Ausschreibung update(Ausschreibung c) throws IllegalArgumentException;
@@ -89,42 +81,22 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Vector<Ausschreibung> getAllAusschreibungen() throws IllegalArgumentException;
 
-	
-/*
- * Methoden von Projekten
- */
 	public Projekt addProjekt(Projekt pmp) throws IllegalArgumentException;
+	
+	public Projekt createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID) throws IllegalArgumentException;
+	
+	public Bewertung insert(Bewertung a) throws IllegalArgumentException;
 
-	
-	Projekt createProjekt(java.util.Date date, java.util.Date date2, String name, String beschreibung, int person_ID);
-	
-	/*
-	 * Methoden von Bewerbung
-	 */
-	
-	Bewertung insert(Bewertung a) throws IllegalArgumentException;
-
-	
-	// Methoden von Organisationseinheit
-	
-	// public Organisationseinheit insert ( Organisationseinheit o);
-
-	//Methoden von Person
-	
-//	public Person createPerson(String email, String vorname, String nachname, String anrede, 
-//			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId);
 	public Person createPerson(String email, String vorname, String nachname, String anrede, 
 			String strasse, int hausnr, int plz, String ort, int partnerprofilId, Integer teamId, Integer unternehmenId) throws IllegalArgumentException;
 	
 	public Person updatePerson(Person p) throws IllegalArgumentException;
+	
 	public Vector<Person> getAllPerson() throws IllegalArgumentException;
 
 	public void deletePerson(Person p) throws IllegalArgumentException;
 	
 	public Vector<Person> getPersonByID(Integer id) throws IllegalArgumentException;
-	
-	//Methoden von Partnerprofil
-
 	
 	public Partnerprofil createPartnerprofil() throws IllegalArgumentException;
 	
@@ -132,15 +104,11 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Partnerprofil getPartnerprofilOfOrganisationseinheit (Organisationseinheit o) throws IllegalArgumentException;
 	
-	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException;
-	
-	// Methoden von Teilnahme
+	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException;	
 	
 	public Vector<Projekt> getAllProjekteByTeilnahme(Person p) throws IllegalArgumentException;
 	
 	public void deleteTeilnahme(Person p, int projektmarktplatzid) throws IllegalArgumentException;
-
-	// Methoden von Eigenschaft
 	
 	public Vector<Eigenschaft> getAllEigenschaftofPerson(Partnerprofil p) throws IllegalArgumentException;
 	
@@ -153,8 +121,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Eigenschaft getPartnerprofilfromPerson(int id) throws IllegalArgumentException;
 
 	public Vector<Eigenschaft> getAllEigenschaftenbyPartnerprofilID(int id) throws IllegalArgumentException;
-
- // Methoden von Team
 	
 	public Team updateTeam(Team team) throws IllegalArgumentException;
 	
@@ -163,8 +129,6 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Team getTeamByID(int id) throws IllegalArgumentException;
 	
 	public void deleteTeam(Team team) throws IllegalArgumentException;
-		
-	// Methoden von Unternehmen
 	
 	public void deleteUnternehmen(Unternehmen u) throws IllegalArgumentException;
 	
@@ -190,7 +154,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void deleteBewertung(Bewertung bew) throws IllegalArgumentException;
 
-	public Vector<Bewertung> getAllBewertungen();
+	public Vector<Bewertung> getAllBewertungen() throws IllegalArgumentException;
 
 	public Bewertung insertWithoutBeteil(Bewertung a) throws IllegalArgumentException;
 	
@@ -212,16 +176,10 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException;
 	
-	Vector<Eigenschaft> getAllEigenschaftenFromOrga(Integer id);
-
-
+	public Vector<Eigenschaft> getAllEigenschaftenFromOrga(Integer id) throws IllegalArgumentException;
 	
 	public Partnerprofil findPartnerprofilByID(int id) throws IllegalArgumentException;
-	
-
-
-
-	
+		
 	public Partnerprofil getPartnerprofilByAusschreibung(Ausschreibung a) throws IllegalArgumentException;
 	
 	public Organisationseinheit getOrgaeinheitByID(int o) throws IllegalArgumentException;

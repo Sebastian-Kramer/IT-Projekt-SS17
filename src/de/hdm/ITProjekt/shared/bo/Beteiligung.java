@@ -2,12 +2,13 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Eine Beteilgung besitzt verschiedene Attribute, die sich aus dem Umfang der Beteiligung, einem Start- und 
+ * Enddatum zusammensetzen. Die Beteiligung an einem Projekt erhält man bei einer guten Bewertung seiner Bewerbung.
+ */
+
 public class Beteiligung extends BusinessObject {
 	
-	/*
-	 * Eine Beteilgung besitzt verschiedene Attribute, die sich aus dem Umfang der Beteiligung, einem Start- und 
-	 * Enddatum zusammensetzen. Die Beteiligung an einem Projekt erhält man bei einer guten Bewertung seiner Bewerbung
-	 */
 	
 	private static final long serialVersionUID = 1L;
 	

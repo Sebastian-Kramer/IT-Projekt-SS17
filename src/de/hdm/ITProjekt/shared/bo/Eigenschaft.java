@@ -1,5 +1,12 @@
 package de.hdm.ITProjekt.shared.bo;
 
+/*
+ * Jeder Bewerber und jede Ausschreibung hat Eigenschaften. Bei einem Bewerber bilden die Eigenschaften
+ * das 'Können' des Bewerbers ab. Bei einer Ausschreibung bilden die Eigenschaften die Anforderungen ab, 
+ * die ein Bewerber für diese Stelle haben sollte. Eine oder mehrere Eigenschaften gehören zu einem Partnerprofil.
+ * Eine Eigenschaft hat einen Namen und einen Wert.
+ */
+
 public class Eigenschaft extends BusinessObject{
 	private static final long serialVersionUID = 1L;
 
