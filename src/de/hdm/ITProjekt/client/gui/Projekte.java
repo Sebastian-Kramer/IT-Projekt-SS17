@@ -179,7 +179,9 @@ public class Projekte extends Showcase {
 				if(is.getUser().getID() == selectedProjektObject.getProjektleiter_ID()){
 				selectedProjektObject.setProjektmarktplatz_ID(0);
 				selectedProjektObject.setProjektleiter_ID(0);
+				Window.alert("Geht");
 				if (selectedProjektObject != null){
+					Window.alert("Geht nicht");
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
@@ -188,7 +190,7 @@ public class Projekte extends Showcase {
 
 						@Override
 						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
+							Window.alert("Geht nicht");
 							
 						}
 
@@ -196,7 +198,7 @@ public class Projekte extends Showcase {
 						public void onSuccess(Vector<Beteiligung> result) {
 							for(Beteiligung bet : result){
 								adminService.delete(bet, new AsyncCallback<Void>(){
-
+									
 									@Override
 									public void onFailure(Throwable caught) {
 										// TODO Auto-generated method stub

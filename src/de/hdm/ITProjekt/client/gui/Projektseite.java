@@ -286,6 +286,7 @@ public class Projektseite extends Showcase{
 																				public void onSuccess(Void result) {
 																					Showcase Showcase = new Projektseite(selectedProjekt, is);
 																					Window.alert("Die Ausschreibung wurde erfolgreich gelöscht");
+																					RootPanel.get("Details").clear();
 																					RootPanel.get("Details").add(Showcase);
 																					
 																				}
