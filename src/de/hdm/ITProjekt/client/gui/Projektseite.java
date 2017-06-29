@@ -28,6 +28,7 @@ import com.google.gwt.view.client.SelectionChangeEvent.Handler;
 import com.google.gwt.view.client.SingleSelectionModel;
 
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
@@ -47,9 +48,8 @@ public class Projektseite extends Showcase{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	private Button createStelle = new Button("Stellenausschreibung anlegen");
-	private Button detailsButton = new Button("Stellendetails anzeigen");
+	private Button detailsButton = new Button("Stellendetails anzeigen und bewerben");
 	private Button alleBewerbungen = new Button("Bewerbungen anzeigen");
-//	private Button showausschreibung = new Button("Stellenausschreibung anzeigen");
 	private Button delete = new Button("Stellenausschreibung löschen");
 	private Button deleteTeilnehmer = new Button("Teilnehmer entfernen");
 	
@@ -71,6 +71,7 @@ public class Projektseite extends Showcase{
 	final SingleSelectionModel<Person> ssm_person = new SingleSelectionModel<>();
 	
 	private IdentitySelection is = null;
+	private Menubar mb = null;
 	
 	private Person person = new Person();
 	private Projekt selectedProjekt = new Projekt();
@@ -151,14 +152,17 @@ public class Projektseite extends Showcase{
 		this.add(vp_projekt2);
 		
 		
-		hp_projekt.add(detailsButton);
+		
+		
 		if(is.getUser().getID()== selectedProjekt.getProjektleiter_ID()){
-		hp_projekt.add(alleBewerbungen);
-		hp_projekt.add(createStelle);
-		hp_projekt.add(delete);
+		
+			hp_projekt.add(alleBewerbungen);		
+			hp_projekt.add(createStelle);		
+			hp_projekt.add(delete);
+		}else{
+			hp_projekt.add(detailsButton);
 		}
-
-//		hp_projekt.add(showausschreibung);
+		
 		
 		ct_projektausschreibungen.setSelectionModel(ssm);
 		
@@ -182,12 +186,14 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
-					DialogBoxDetails dialogBox = new DialogBoxDetails(selectedProjekt, is);
+					a1 = ssm.getSelectedObject();
+					DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, mb);
 					dialogBox.center();
 					
 				}
 							
 			});
+			
 			delete.addClickHandler(new ClickHandler(){
 
 				@Override
@@ -446,36 +452,7 @@ public class Projektseite extends Showcase{
 					
 				}
 				
-			});
-			
-//			showausschreibung.addClickHandler(new ClickHandler(){
-//
-//				@Override
-//				public void onClick(ClickEvent event) {
-//					// TODO Auto-generated method stub
-//					if(ssm !=null){
-//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//						 if (adminService == null) {
-//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//					    }
-//						 adminService.getPersonbyID(person.getID(), new getPersonByID());
-//						a1 = ssm.getSelectedObject();
-//						Window.alert("Bis hier geht es");
-//						DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, person);
-//						Window.alert("Bis hier geht es");
-//						int left = Window.getClientHeight() / 3;
-//						int top = Window.getClientWidth() / 3;
-//						dialogBox.setPopupPosition(left, top);
-//						dialogBox.center();
-//					}
-//					else{
-//						Window.alert("Bitte Ausschreibung ausw�hlen");
-//					}
-//				}
-//				
-//			});
-			
-		
+			});		
 		
 		Column<Ausschreibung, String> bezeichnung =
 					new Column<Ausschreibung, String>(new ClickableTextCell()){
@@ -497,17 +474,6 @@ public class Projektseite extends Showcase{
 					}
 		
 		};
-		
-//		TextColumn<Ausschreibung> projektverantwortlicher = new TextColumn<Ausschreibung>(){
-//
-//			@Override
-//			public String getValue(Ausschreibung object) {
-//				// TODO Auto-generated method stub
-//				return object.getAusschreibungstext();
-//			}
-//			
-//		};
-	
 		
 	
 	ct_projektausschreibungen.addColumn(bezeichnung, "Stellenbezeichnung");

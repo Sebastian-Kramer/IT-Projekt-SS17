@@ -8,6 +8,7 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.cellview.client.CellTable;
 import com.google.gwt.user.cellview.client.Column;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
 import com.google.gwt.user.client.ui.Button;
@@ -49,6 +50,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 	
 	public DialogBoxAusschreibung (final Ausschreibung selectedAusschreibung,final IdentitySelection is, final Menubar menubar){
 		this.ausschreibung = selectedAusschreibung;
+		this.menubar = menubar;
 		setText(selectedAusschreibung.getBezeichnung());
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
@@ -69,7 +71,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 		this.add(vp);
 		
 		
-		Column<Eigenschaft, String> name = 
+	Column<Eigenschaft, String> name = 
 			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
 			    
 					@Override
@@ -78,6 +80,7 @@ public class DialogBoxAusschreibung extends DialogBox {
 					}
 					    
 	 };
+	 
 	 Column<Eigenschaft, String> wert = 
 			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
 			    
@@ -129,18 +132,27 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 				@Override
 				public void onSuccess(Vector<Partnerprofil> result) {
+
 					for(Partnerprofil a : result){
+						
+						Window.alert(" " + result.elementAt(0).getID());
+						
 						if(ausschreibung.getPartnerprofil_ID() == a.getID()){
+							
+							Window.alert(" Springt in schleifen rein");
+							
 							adminService.getAllEigenschaftenbyPartnerprofilID(a.getID(), new AsyncCallback<Vector<Eigenschaft>>(){
 
+								
 								@Override
 								public void onFailure(Throwable caught) {
-									// TODO Auto-generated method stub
+									Window.alert(" Die Eigenschaften konnten nicht geladen werden");
 									
 								}
 
 								@Override
 								public void onSuccess(Vector<Eigenschaft> result) {
+									Window.alert(" Die Eigenschaften wurden gefunden");
 									ct_eigenschaften.setRowData(0, result);
 									ct_eigenschaften.setRowCount(result.size(),true);
 									

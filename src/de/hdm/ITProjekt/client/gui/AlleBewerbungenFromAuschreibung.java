@@ -152,7 +152,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		
 		if (selectedAusschreibung.getOrga_ID() == is.getUser().getID()){
-			Window.alert("Sie haben die Ausschreibung angelegt, können alle Bewerbungen einsehen "
+			Window.alert("Sie haben die Ausschreibung angelegt und können alle Bewerbungen einsehen "
 					+ "und entsprechende Bewertungen abgeben");
 			
 			ssm_bew.addSelectionChangeHandler(new Handler() {
@@ -178,79 +178,8 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 		}else{
 			Window.alert("Leider kann nur der Stellenausschreibende die Bewerbungen sehen");
-//			form.setWidget(0, 0, ct_bewerbungen);
-//			hp_bew.add(zurueck);
-//			hp_bew1.add(form);
-//			this.add(hp_bew);
-//			this.add(hp_bew1);
-//			
-//			Column<Bewerbung, String> text = 
-//					new Column<Bewerbung, String>(new ClickableTextCell()){
-//
-//				@Override
-//				public String getValue(Bewerbung object) {
-//					// TODO Auto-generated method stub
-//					return object.getBewerbungstext();
-//				}
-//			
-//			};
-//			Column<Bewerbung, String> erstelldatum = 
-//					new Column<Bewerbung, String>(new ClickableTextCell()){
-//
-//				@Override
-//				public String getValue(Bewerbung object) {
-//					// TODO Auto-generated method stub
-//					return object.getErstelldatum().toString();
-//				}
-//		
-//			};
-//			
-//			ct_bewerbungen.addColumn(text, "Bewerbungstext"); 
-//			ct_bewerbungen.addColumn(erstelldatum, "Einreichungsdatum");
-//			
-//			
-//			
-//			filltablebewerbung();
 		}
 		
-//		bewerten.addClickHandler(new ClickHandler(){
-//
-//			@Override
-//			public void onClick(ClickEvent event) {
-//				
-//				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//				 
-//				if (adminService == null) {
-//				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
-//				 }
-//				adminService.getAllBewertungen(new getAllBewertungen());
-//					
-//					b = ssm_bew.getSelectedObject();
-//					
-//					Boolean vorhanden = false;
-//					for (Bewertung bewertung : bewe){
-//								
-//					
-//					if(bewertung.getBewerbungs_ID() == b.getID()){
-//						Window.alert("Es wurde bereits eine Bewertung abgegeben");
-//						Window.alert(bewertung.toString());
-//						vorhanden = false;
-//						break;
-//					}
-//					else if(bewertung.getBewerbungs_ID() != b.getID()){
-//						vorhanden = true;
-//
-//					}
-//					}
-//					if(vorhanden == true){					
-//					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(b, selectedAusschreibung, angemeldetePerson);
-//					dialogBox.center();}
-//
-//				
-//			}
-//			
-//			
-//		});
 		Column<Bewerbung, String> text = 
 				new Column<Bewerbung, String>(new ClickableTextCell()){
 
@@ -258,8 +187,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			public String getValue(Bewerbung object) {
 				// TODO Auto-generated method stub
 				return object.getBewerbungstext();
-			}
-		
+			}		
 		};
 		Column<Bewerbung, String> erstelldatum = 
 				new Column<Bewerbung, String>(new ClickableTextCell()){
@@ -268,8 +196,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			public String getValue(Bewerbung object) {
 				// TODO Auto-generated method stub
 				return object.getErstelldatum().toString();
-			}
-	
+			}	
 		};
 		
 		Column<Bewerbung, String> buttoncell =
@@ -279,17 +206,13 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					public String getValue(Bewerbung object) {
 						// TODO Auto-generated method stub
 						return "Bewerbung bewerten";
-					}
-			
+				}			
 		};
-		
-		
-		
+			
 		buttoncell.setFieldUpdater(new FieldUpdater<Bewerbung,String>(){
 
 			@Override
 			public void update(int index, Bewerbung object, String value) {
-				Window.alert(" " + is.getUser().getName());
 				object = ssm_bew.getSelectedObject();
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -305,7 +228,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					dialogBox.center();
 					}else{
 				for (Bewertung bewertung : bewe){
-					Window.alert(" " +object.getID());	
+
 				
 				if(bewertung.getBewerbungs_ID() == object.getID()){
 					Window.alert("Es wurde bereits eine Bewertung abgegeben");
@@ -314,28 +237,20 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 					break;
 				}
 				else if(bewertung.getBewerbungs_ID() != object.getID()){
-					Window.alert(" Es geht");
 					vorhanden = true;
 
-				}
-				}
-					}
-//				if(bewe.size() == 0){
-//
-//					vorhanden = true;
-//					
-//				}
+				}			
+			}
+					
+		}
+
 				if(vorhanden == true){					
 				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
 				dialogBox.center();
-				}
-
-			
+				}			
 				}	
 				
-			}
-			
-		);
+			});
 		
 		zurstartseite.addClickHandler(new ClickHandler() {
 			
@@ -368,7 +283,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new Projektseite(pro, is);
+				Showcase showcase = new Projektseite(pro, is, pmp);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}

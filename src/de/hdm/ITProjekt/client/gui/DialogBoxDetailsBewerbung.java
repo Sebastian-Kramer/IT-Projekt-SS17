@@ -183,7 +183,6 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 
 		@Override
 		public void onSuccess(Organisationseinheit result) {
-			Window.alert(" Es hat geklappt");
 			
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			 if (adminService == null) {

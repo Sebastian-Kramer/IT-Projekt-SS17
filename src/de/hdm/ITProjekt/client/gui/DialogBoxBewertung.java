@@ -149,6 +149,9 @@ public class DialogBoxBewertung extends DialogBox{
 					adminService.insertWithoutBeteil(bewert, new BewertungAnlegen());
 					adminService.setBewerbungsStatus(bew, new BewerbungStatus());
 					DialogBoxBewertung.this.hide();
+					Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, seleceted_is);
+					RootPanel.get("Details").clear();
+					RootPanel.get("Details").add(showcase);
 				}
 				
 			}

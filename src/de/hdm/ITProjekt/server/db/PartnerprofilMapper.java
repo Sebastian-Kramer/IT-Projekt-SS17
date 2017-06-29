@@ -90,6 +90,8 @@ public Vector<Partnerprofil> getAllPartnerprofile(){
 	  while (rs.next()) {
 		  	Partnerprofil p = new Partnerprofil();
 		  	p.setID(rs.getInt("ID"));
+			p.setErstellungsdatum(rs.getDate("erstellungsdatum"));
+			p.setAenderungsdatum(rs.getDate("aenderungsdatum"));
 			result.addElement(p);
 		  
 		  result.addElement(p);
