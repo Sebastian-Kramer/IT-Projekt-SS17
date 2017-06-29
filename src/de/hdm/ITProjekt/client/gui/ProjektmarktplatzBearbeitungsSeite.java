@@ -48,6 +48,10 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 	
 	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
 	
+	ProjektmarktplatzBearbeitungsSeite(IdentitySelection is){
+		this.is = is;
+	}
+	
 	private Person person;
 	private IdentitySelection is = null;
 	
@@ -215,7 +219,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																			@Override
 																			public void onSuccess(Void result) {
 																				Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																				RootPanel.get("Details").clear();
 																				RootPanel.get("Details").add(showcase);
 																				
@@ -268,7 +272,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																										@Override
 																										public void onSuccess(Void result) {
 																											Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																											Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																											Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																											RootPanel.get("Details").clear();
 																											RootPanel.get("Details").add(showcase);
 																											
@@ -341,7 +345,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																	public void onSuccess(
 																																			Void result) {
 																																		Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																																		Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																		Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																																		RootPanel.get("Details").clear();
 																																		RootPanel.get("Details").add(showcase);
 																																	}
@@ -433,7 +437,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																								public void onSuccess(
 																																										Void result) {
 																																									Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																																									Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																									Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																																									RootPanel.get("Details").clear();
 																																									RootPanel.get("Details").add(showcase);
 																																									
@@ -542,7 +546,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																															public void onSuccess(
 																																																	Void result) {
 																																																Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																																																Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																																Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																																																RootPanel.get("Details").clear();
 																																																RootPanel.get("Details").add(showcase);
 																																																
@@ -606,7 +610,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																																				public void onSuccess(
 																																																						Void result) {
 																																																					Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
-																																																					Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+																																																					Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 																																																					RootPanel.get("Details").clear();
 																																																					RootPanel.get("Details").add(showcase);
 																																																					

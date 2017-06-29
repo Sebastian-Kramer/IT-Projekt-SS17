@@ -177,7 +177,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}

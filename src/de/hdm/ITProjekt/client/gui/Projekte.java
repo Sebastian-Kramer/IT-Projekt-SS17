@@ -108,6 +108,8 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(show_projekt);
+		
+
 		hpanel_projekte.add(add_projekt);
 		hpanel_projekte.add(delete_projekt);
 		
@@ -143,8 +145,12 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				if(is.getSelectedIdentityAsObject() instanceof Person){
 				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz, is);
 				dialogbox.center();
+			}else{
+				Window.alert("Ein Team oder Unternehmen kann kein Projekt anlegen");
+			}
 			}
 		});
 		
@@ -177,6 +183,7 @@ public class Projekte extends Showcase {
 				// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
 				final Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
 				if(is.getUser().getID() == selectedProjektObject.getProjektleiter_ID()){
+					
 				selectedProjektObject.setProjektmarktplatz_ID(0);
 				selectedProjektObject.setProjektleiter_ID(0);
 				Window.alert("Geht");
@@ -190,7 +197,11 @@ public class Projekte extends Showcase {
 
 						@Override
 						public void onFailure(Throwable caught) {
+
 							Window.alert("Geht nicht");
+
+							Window.alert("Das hat nicht geklappt");
+
 							
 						}
 
@@ -201,8 +212,7 @@ public class Projekte extends Showcase {
 									
 									@Override
 									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
-										
+										Window.alert("Löschen hat nicht funktioniert 0");
 									}
 
 									@Override
