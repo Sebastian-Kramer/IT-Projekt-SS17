@@ -251,6 +251,8 @@ public class MeineBewerbungenSeite extends Showcase {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 		    }
 			 adminService.findByOrgaID(is.getSelectedIdentityAsObject().getID(), new BewerbungAnzeigenCallback() );
+			 
+		
 			
 			}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){	
 				ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
@@ -375,18 +377,7 @@ public class MeineBewerbungenSeite extends Showcase {
 		public void setAusschreibungsbezeichung(String ausschreibungsbezeichung) {
 			this.ausschreibungsbezeichung = ausschreibungsbezeichung;
 		}
-		public String getTeam() {
-			return Team;
-		}
-		public void setTeam(String team) {
-			Team = team;
-		}
-		public String getUnternehmen() {
-			return Unternehmen;
-		}
-		public void setUnternehmen(String unternehmen) {
-			Unternehmen = unternehmen;
-		}
+		
 		public String getAusschreibender() {
 			return ausschreibender;
 		}
@@ -424,6 +415,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	
 	/*
 	 * Implementieren des Callbacks
+	 * Über die Callbacks werden die benötigten Attribute im lokalen Hyrbid gespeichert, um diese später in der Tabelle anzeigen zu können
 	 */
 	
 	private class BewerbungAnzeigenCallback implements AsyncCallback<Vector<Bewerbung>>{
