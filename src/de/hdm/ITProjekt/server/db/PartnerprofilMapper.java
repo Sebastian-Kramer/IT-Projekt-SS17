@@ -1,20 +1,43 @@
 package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
+
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 
+/*
+ * Mapper für Patnerprofil-Objekte
+ */
+
 public class PartnerprofilMapper {
+	
+	/*
+	 * Definieren des Datumsformats
+	 */
 
 	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 
 	private static PartnerprofilMapper ppMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse Ausschreibungsmapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected PartnerprofilMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return ppMapper
+	 */
 	
 	public static PartnerprofilMapper ppMapper(){
 		if(ppMapper == null){
@@ -22,6 +45,12 @@ public class PartnerprofilMapper {
 		}
 		return ppMapper;
 	}
+	
+	/*
+	 * Partnerprofil wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Partnerprofil entsprechend der übergebenen ID
+	 * @param ID Primärschlüssel ID der Partnerprofil Ausschreibung
+	 */
 	
 public Partnerprofil findByKey(int id){
 		
@@ -48,6 +77,11 @@ public Partnerprofil findByKey(int id){
 		}
 		return null;	
 	}
+
+/*
+ * Auslesen aller Partnerprofile auf der Datenbenk
+ * @return result
+ */
 
 public Vector<Partnerprofil> getAll(){
 	
@@ -105,6 +139,13 @@ public Vector<Partnerprofil> getAll(){
 //	return pp1;		
 //}
 
+/*
+ * 
+ * @param pp1
+ * @return Uebergebenes Objekt als neue Entitaet in die Datenbank schreiben.
+ * Die Methode ben�tigt kein �bergebenes Partnerprofil, da die Attribute eines neuen Partnerprofils ohnehin
+ * automatisch gesetzt werden. 
+ */
 
 public Partnerprofil insert(Partnerprofil pp1){
 	
@@ -133,6 +174,11 @@ public Partnerprofil insert(Partnerprofil pp1){
 	}
 	return pp1;		
 }
+
+/*
+ * Löschen der Übergebenen 
+ * @param a Ausschreibungsobjekt, das gelöscht werden soll
+ */
 public void delete(Partnerprofil a){
 	
 	Connection con = DBConnection.connection();
@@ -149,6 +195,12 @@ public void delete(Partnerprofil a){
 			e2.printStackTrace();
 		}
 	}
+
+/*
+ * Erneutes schreiben eines Partnerprofilobjekts in die Datenbank
+ * @param c
+ * @return das als Parameter übergebene und aktualisierte Partnerprofilobjekt
+ */
 
 public Partnerprofil update(Partnerprofil c) {
     Connection con = DBConnection.connection();

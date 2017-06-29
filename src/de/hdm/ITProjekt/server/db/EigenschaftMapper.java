@@ -5,17 +5,37 @@ import java.sql.*;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
 
+/*
+ * Mapper für Eigenschaft-Objekte
+ */
+
 public class EigenschaftMapper {
 	
+	/*
+	 * Festlegung des Datumformats
+	 */
 	
-		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		
+		/*
+		 * Speicherung der einzigen Instanz der dieser Mapperklasse
+		 */
+		
 		private static EigenschaftMapper eMapper = null;
+		
+		/*
+		 * Konstruktor wird geschützt, damit Objekte der Klasse EigenschaftMapper
+		 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+		 */
 		
 		protected EigenschaftMapper(){
 			
 		}
+		
+		/*
+		 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+		 * @return eMapper
+		 */
 		
 		public static EigenschaftMapper eMapper(){
 			if(eMapper == null){
@@ -23,6 +43,12 @@ public class EigenschaftMapper {
 			}
 			return eMapper;
 		}
+		
+		/*
+		 * Eigenschaft wird anhand der übergebenen, eindeutigen ID zurückgegeben
+		 * @return Eigenschaft entsprechend der übergebenen ID
+		 * @param ID Primärschlüssel ID der Tabelle EIgenschaft
+		 */
 		
 		public Eigenschaft findByKey(int id){
 			Connection con = DBConnection.connection();
@@ -48,6 +74,13 @@ public class EigenschaftMapper {
 			}
 			return null;	
 		}
+		
+		/*
+		 * /*
+		 * Alle Eigenscahft aus der Datenbank werden ausgegeben
+		 * @return result
+		 */
+		 
 		
 		public Vector<Eigenschaft> getAll(){
 			
@@ -77,6 +110,11 @@ public class EigenschaftMapper {
 			      }
 			  return result;
 		}
+		 
+		/*
+		 * @param e
+		 * @return Uebergebenes Objekt als neue Entitaet in die Datenbank schreiben
+		 */
 		
 		public Eigenschaft insert(Eigenschaft e){
 			
@@ -107,6 +145,11 @@ public class EigenschaftMapper {
 			
 		}
 		
+		/*
+		 * Löschen der Übergebenen Eigenschaft
+		 * @param e Eigenschaftobjekt, das gelöscht werden soll
+		 */
+		
 	public void delete(Eigenschaft e){
 			
 			Connection con = DBConnection.connection();
@@ -122,6 +165,12 @@ public class EigenschaftMapper {
 					e2.printStackTrace();
 				}
 			}
+	
+		/*
+		 * Erneutes schreiben eines Eigenschaftsobjekts in die Datenbank
+		 * @param e
+		 * @return das als Parameter übergebene und aktualisierte Eigenschaftsobjekt
+		 */
 		
 		public Eigenschaft update(Eigenschaft e) {
 		    Connection con = DBConnection.connection();
@@ -140,6 +189,11 @@ public class EigenschaftMapper {
 		    return e;
 		  }
 		
+	    /*
+	     * @param partnerprofilId
+	     * @return Liefert alle Eigenschaften zu dem uebergenen Partnerprofil
+	     */
+
 		public Vector<Eigenschaft> getEigenschaftbyID(int Partnerprofil_ID ){
 			
 			Vector<Eigenschaft> eObj = new Vector<Eigenschaft>();

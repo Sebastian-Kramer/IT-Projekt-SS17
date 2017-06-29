@@ -8,14 +8,30 @@ import java.util.Vector;
 
 import de.hdm.ITProjekt.shared.bo.*;
 
+/*
+ * Mapper für Teilnahmeobjekte
+ */
 public class TeilnahmeMapper {
+	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 	
 	public static TeilnahmeMapper tnMapper = null;
 	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse Teilnahmemapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected TeilnahmeMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return tMapper
+	 */
 	
 	
 	public static TeilnahmeMapper tnMapper(){
@@ -24,6 +40,12 @@ public class TeilnahmeMapper {
 		}
 		return tnMapper;
 	}
+	
+	/*
+	 *  Hinzufügen eines Teilnahmeobejkts in die Datenbank
+	 *  @param p das Teilnahmeobjekt das gespeichert werden soll
+	 *  @return p
+	 */
 	
 	public void hinzufuegenTeilnahme(Person p, Projektmarktplatz pm){
 		
@@ -45,6 +67,11 @@ public class TeilnahmeMapper {
 		return;
 	} 
 	
+	/*
+	 * Löschen der Übergebenen Teilnahme
+	 * @param p , projektmarktplatzid Ausschreibungsobjekt, das gelöscht werden soll
+	 */
+	
 	public void entfernenTeilnahme(Person p, int projektmarktplatzid){
 		
 		Connection con = DBConnection.connection();
@@ -61,6 +88,11 @@ public class TeilnahmeMapper {
 
 	    return;
 	}
+	
+	  /* 
+	   * @param p
+	   * @return Vector mit allen projektmarktplätzen auf der sich die übergebene Person p befindet
+	   */
 	
 	 public Vector<Projektmarktplatz> findRelatedProjektMarktplaetze(Person p){
 	        
@@ -92,6 +124,11 @@ public class TeilnahmeMapper {
 	        }
 	        return pm;
 	  }
+	 
+	  /*
+	   * @param pm
+	   * @return Vector mit allen Personen die sich auf dem übergebenen Projektmarktplatz pm befinden
+	   */
 	  
 	  public Vector<Person> findRelatedPersonen(Projektmarktplatz pm){
 	        
@@ -120,8 +157,15 @@ public class TeilnahmeMapper {
 	        catch (SQLException e) {
 	          e.printStackTrace();
 	        }
+	 
 	        return p;
 }
+	  
+	  
+	  /*
+	   * @param pm
+	   * @return Vector mit allen Projekten auf der sich die übergebene Person pm befindet
+	   */  
 	  public Vector<Projekt> findTeilnahmeProjekte(Person pm){
 	        
 	         Connection con = DBConnection.connection();

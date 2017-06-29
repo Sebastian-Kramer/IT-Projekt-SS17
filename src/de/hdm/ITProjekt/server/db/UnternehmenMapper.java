@@ -11,14 +11,32 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
+/*
+ * Mapper für Unternehmenobjekte
+ */
+
 public class UnternehmenMapper extends OrganisationseinheitMapper{
+	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 
 	
 	private static UnternehmenMapper unMapper = null;
 	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse UnternehmenMapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
+	
 	protected UnternehmenMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return unMapper
+	 */
 
 	public static UnternehmenMapper unMapper(){
 		if(unMapper == null){
@@ -26,6 +44,12 @@ public class UnternehmenMapper extends OrganisationseinheitMapper{
 		}
 		return unMapper;
 	}
+	
+	/*
+	 * Unternehmen wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Unternehmen entsprechend der übergebenen ID
+	 * @param id Primärschlüssel ID der Tabelle Unternehmen
+	 */
 
 
 public Unternehmen findByKey(int id){
@@ -56,10 +80,20 @@ public Unternehmen findByKey(int id){
 	return null;	
 	
 }
+
+/*
+ * @param u
+ * @return Liefert die ID entsprechend des übergebenen Objekts zurück.
+ */
 	
 	public Unternehmen findByObject(Unternehmen u){
 		return this.findByKey(u.getID());
 	}
+	
+	/*
+	 * Alle Unternehmen aus der Datenbank werden ausgegeben
+	 * @return result
+	 */
 
 	
 	public Vector<Unternehmen> getAllUnternehmen(){
@@ -92,6 +126,12 @@ public Unternehmen findByKey(int id){
 		  return result;
 	}
 	
+	/*
+	 *  Hinzufügen eines Unternehmensobejkts in die Datenbank
+	 *  @param u das Unternehmensobjekt das gespeichert werden soll
+	 *  @return u
+	 */
+	
 public Unternehmen createUnternehmen(Unternehmen u){
 		
 		Connection con = DBConnection.connection();
@@ -122,7 +162,11 @@ public Unternehmen createUnternehmen(Unternehmen u){
 	}
 
 
-
+/*
+ * Erneutes schreiben eines Unternehmensobjekts in die Datenbank
+ * @param u
+ * @return das als Parameter übergebene und aktualisierte Unternehmensobjekt
+ */
 
 
 public Unternehmen updateUnternehmen(Unternehmen u) {
@@ -142,6 +186,11 @@ public Unternehmen updateUnternehmen(Unternehmen u) {
     return u;
   }
 
+
+/*
+ * Löschen der Übergebenen Unternehmen
+ * @param u Unternehmensobjekt, das gelöscht werden soll
+ */
 
 
 public void deleteUnternehmen(Unternehmen u) {

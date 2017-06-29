@@ -6,13 +6,31 @@ import java.sql.*;
 import java.util.Vector;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 
+/*
+ * Mapper für TeamObjekte
+ */
+
 public class TeamMapper extends OrganisationseinheitMapper{
+	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 
 private static TeamMapper tMapper = null;
+
+/*
+ * Konstruktor wird geschützt, damit Objekte der Klasse TeamMapper
+ *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+ */
 	
 	protected TeamMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return tMapper
+	 */
 	
 	public static TeamMapper tMapper(){
 		if(tMapper == null){
@@ -20,6 +38,12 @@ private static TeamMapper tMapper = null;
 		}
 		return tMapper;
 	}
+	
+	/*
+	 * Team wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Team entsprechend der übergebenen ID
+	 * @param id Primärschlüssel ID der Tabelle Team
+	 */
 	
 public Team findByKey(int id){
 		
@@ -50,10 +74,20 @@ public Team findByKey(int id){
 		return null;	
 	}
 
+/*
+ * @param t
+ * @return Liefert ein Team entsprechend des übergebenen Objekts zurueck.
+ */
+
 public Team findByObject(Team t){
 	return this.findByKey(t.getID());
 	  
   }
+
+/*
+ * Alle Teams aus der Datenbank werden ausgegeben
+ * @return result
+ */
 
 public Vector<Team> getAll(){
 	
@@ -81,6 +115,11 @@ public Vector<Team> getAll(){
 	      }
 	  return result;
 }
+
+/* 
+ * @param unternehmenId
+ * @return Liefert alle Team-Objekte des uebergebenen Unternehmens zurueck.
+ */
 
 public Vector<Team> findByUN(int unternehmenId){
 	
@@ -111,6 +150,12 @@ public Vector<Team> findByUN(int unternehmenId){
         }
 	  return t;
   }
+
+/*
+ *  Hinzufügen einesTeamobejkts in die Datenbank
+ *  @param p1 das Teamsobjekt das gespeichert werden soll
+ *  @return p1
+ */
 
 public Team insert(Team p1){
 	
@@ -152,6 +197,12 @@ public Team insert(Team p1){
 	return p1;		
 }
 
+/*
+ * Löschen des Übergebenen Teams
+ * @param p1 Ausschreibungsobjekt, das gelöscht werden soll
+ * @return t
+ */
+
 public void delete(Team p1){
 	
 	Connection con = DBConnection.connection();
@@ -169,6 +220,12 @@ public void delete(Team p1){
 			e2.printStackTrace();
 		}
 	}
+
+/*
+ * Erneutes schreiben eines Teamobjekts in die Datenbank
+ * @param t
+ * @return das als Parameter übergebene und aktualisierte Teamobjekt
+ */
 
 public Team update(Team t) {
     Connection con = DBConnection.connection();

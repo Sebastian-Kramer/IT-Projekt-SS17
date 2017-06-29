@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server.db;
 
 import java.sql.Connection;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -10,16 +11,32 @@ import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/*
+ * Mapper für Organisationseinheit Objekte
+ */
+
 public class OrganisationseinheitMapper {
 
 
-	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 	
 	private static OrganisationseinheitMapper orgMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse OrganisatoinseinheitMapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected OrganisationseinheitMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return orgMapper
+	 */
 	
 	public static OrganisationseinheitMapper orgMapper(){
 		if(orgMapper == null){
@@ -27,6 +44,12 @@ public class OrganisationseinheitMapper {
 		}
 		return orgMapper;
 	}
+	
+	/*
+	 * Organisationseinheit wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Organisationseinheit entsprechend der übergebenen ID
+	 * @param ID Primärschlüssel ID der Tabelle Organisationseinheit
+	 */
 	
 	
 	public Organisationseinheit findByKey(int id){
@@ -56,9 +79,19 @@ public class OrganisationseinheitMapper {
 		return null;	
 	
 	}
+	
+	/*
+	 * @param o
+	 * @return Liefert die Id entsprechend des übergebenen Objekts zurück
+	 */
+	
 	protected Organisationseinheit findByObject(Organisationseinheit o){
 		return this.findByKey(o.getID()); 
 	}
+	
+	/*Suche von einer Organisationseinheit durch ein übergebendes Partnerprofil.
+	 *Ein Organisationseinheit-Objekt wird zurueckgegeben.
+	 */
 	
 	public Organisationseinheit findByForeignPartnerprofilId(int partnerprofilId){
 		Connection con = DBConnection.connection();
@@ -88,6 +121,12 @@ public class OrganisationseinheitMapper {
 			return null;
 		}
 	
+	/*
+	 *Durch die insert-Methode kann eine neue Organisationseinheit in die Datenbank geschrieben werden.
+	 *Die id des Projekts wird überprüft und im Verlauf der Methode ggf. angepasst.
+	 *@param o
+	 *@return Übergebenes Organisationseinheit-Objekt o wird in DB geschrieben
+	 */
 	
 		protected int insert(Organisationseinheit o){
 		 
@@ -125,6 +164,12 @@ public class OrganisationseinheitMapper {
 	    return id;
 	  
   }
+		
+		/*
+		 * Erneutes schreiben eines Ausschreibungsobjekts in die Datenbank
+		 * @param a
+		 * @return das als PArameter übergebene und aktualisierte Ausschreibungsobjekt
+		 */
 	
 	
 	public int update(Organisationseinheit o){
@@ -154,6 +199,11 @@ public class OrganisationseinheitMapper {
 
 		    return id;
 	  }
+	
+	/*
+	 * Löschen der Übergebenen Organisationseinheit
+	 * @param o Organisationseinheitobjekt, das gelöscht werden soll
+	 */
 	
 	
 	public void delete(Organisationseinheit o){

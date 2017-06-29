@@ -8,15 +8,31 @@ import java.util.Vector;
 
 import de.hdm.ITProjekt.shared.bo.Person;
 
+/*
+ * Mapper fuer Person Objekte
+ */
 
 public class PersonMapper extends OrganisationseinheitMapper{
 	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 	
 	private static PersonMapper perMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse Personenmapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected PersonMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return perMapper
+	 */
 	
 	public static PersonMapper perMapper(){
 		if(perMapper == null){
@@ -58,6 +74,12 @@ public class PersonMapper extends OrganisationseinheitMapper{
 //		return null;	
 //		
 //	}
+	
+	/*
+	 * Person wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Person entsprechend der übergebenen ID
+	 * @param id Primärschlüssel ID der Tabelle Person
+	 */
 	public Person findByKey(int id){
 		
 		Connection con = DBConnection.connection();
@@ -92,6 +114,11 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		return null;	
 	}
 	
+	/* 
+	 * @param p
+	 * @return Liefert die ID entsprechend des übergebenen Objekts zurück.
+	 */
+	
 	public Person findByObject(Person p){
 		
 		return this.findByKey(p.getID());	
@@ -100,6 +127,12 @@ public class PersonMapper extends OrganisationseinheitMapper{
 	/*
 	 * Notiz von Mert: Nochmal dr�ber schauen und ausgeben lassen in TestStart!
 	 */
+	
+	/* 
+	 * @param int id
+	 * @return Liefert alle Personen des uebergebenen Teams zurueck.
+	 */
+	
 	public Vector<Person> findByForeignTeamId(int id){
 		
 		Connection con = DBConnection.connection();
@@ -137,6 +170,11 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		
 	}
 	
+	/*
+	 * @param int id
+	 * @return Liefer alle Personen des uebergebenen Unternehmens zurueck.
+	 */
+	
 public Vector<Person> findByForeignUnternehmenId(int id){
 		
 		Connection con = DBConnection.connection();
@@ -173,6 +211,11 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		}
 		return result;
 	}
+
+/*
+ * Alle Personen aus der Datenbank werden ausgegeben
+ * @return result
+ */
 	
 	public Vector<Person> getAll(){
 		
@@ -209,6 +252,10 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		  return result;
 	}
 	
+	  /*
+	   * @param p
+	   * @return Uebergebenes Objekt als neue Entitaet in die Datenbank schreiben.
+	   */
 
 	public Person createPerson(Person p){
 		
@@ -250,6 +297,12 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		}
 		return p;
 	}
+	
+	/*
+	 * Erneutes schreiben eines Personenobjekts in die Datenbank
+	 * @param p
+	 * @return das als PArameter übergebene und aktualisierte Personobjekt
+	 */
 
 	public Person updatePerson(Person p) {
 		
@@ -289,7 +342,10 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 	    return p;
 	  }
 	
-	
+	/*
+	 * Löschen der Übergebenen Person
+	 * @param p Personobjekt, das gelöscht werden soll
+	 */
 	
 	public void deletePerson(Person p) {
 	    Connection con = DBConnection.connection();

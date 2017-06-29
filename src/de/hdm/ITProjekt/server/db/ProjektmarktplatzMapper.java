@@ -5,16 +5,31 @@ import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 
-
+/*
+ * Mapper für ProjektmarktplatzObjekte
+ */
 
 public class ProjektmarktplatzMapper {
 	
+	/*
+	 * Speicherung der einzigen Instanz dieser Mapperklasse
+	 */
 	
 	private static ProjektmarktplatzMapper pmpMapper = null;
+	
+	/*
+	 * Konstruktor wird geschützt, damit Objekte der Klasse Projektmarktplatzmapper
+	 *  nicht außerhalb der Vererbungshirarchie der Klasse erstellt werden können
+	 */
 	
 	protected ProjektmarktplatzMapper(){
 		
 	}
+	
+	/*
+	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
+	 * @return pmpMapper
+	 */
 	
 	public static ProjektmarktplatzMapper pmpMapper(){
 		if(pmpMapper == null){
@@ -22,6 +37,12 @@ public class ProjektmarktplatzMapper {
 		}
 		return pmpMapper;
 	}
+	
+	/*
+	 * Projektmarktplatz wird anhand der übergebenen, eindeutigen ID zurückgegeben
+	 * @return Ausschreibung entsprechend der übergebenen ID
+	 * @param id Primärschlüssel ID der Tabelle Projektmarktplatz
+	 */
 	
 	
 	public Projektmarktplatz findByKey(int id){
@@ -46,6 +67,10 @@ public class ProjektmarktplatzMapper {
 		return null;	
 	}
 	
+	/*
+	 * Alle Projektmarktplätze aus der Datenbank werden ausgegeben
+	 * @return result
+	 */
 	
 	public Vector<Projektmarktplatz> getAll(){
 		
@@ -71,6 +96,12 @@ public class ProjektmarktplatzMapper {
 		      }
 		  return result;
 	}
+	
+	/*
+	 *  Hinzufügen eines Projektmarktplatzobejkts in die Datenbank
+	 *  @param pmp das Projektmarktplatzobjekt das gespeichert werden soll
+	 *  @return pmp
+	 */
 	
 	
 	public Projektmarktplatz addMarktplatz(Projektmarktplatz pmp){
@@ -102,7 +133,12 @@ public class ProjektmarktplatzMapper {
 		
 	}
 	
-	
+	/*
+	 * Erneutes schreiben eines Projektmarktplatzobjekts in die Datenbank
+	 * @param p
+	 * @return p das als Parameter übergebene und aktualisierte Projektmarktplatzobjekt
+	 */
+
 	public Projektmarktplatz updateMarktplatz(Projektmarktplatz p){
 		
 		Connection con = DBConnection.connection();
@@ -122,6 +158,12 @@ public class ProjektmarktplatzMapper {
 			
 		return p;
 	}
+	
+	/*
+	 * Löschen der Übergebenen Projektmarktplatz
+	 * @param p Projektmarktplatzobjekt, das gelöscht werden soll
+	 */
+	
 	public Projektmarktplatz deleteMarktplatz(Projektmarktplatz p){
 		
 		Connection con = DBConnection.connection();
@@ -139,6 +181,12 @@ public class ProjektmarktplatzMapper {
 			
 		return p;
 	}
+	
+	/*
+	 * Projektmarktl´platz wird anhand der übergebenen Bezeichnung zurückgegeben
+	 * @param bez
+	 * @return p oder null
+	 */
 
 	public Projektmarktplatz findByBez(String bez){
 		Connection con = DBConnection.connection();
