@@ -180,7 +180,7 @@ public class MeineBewerbungenSeite extends Showcase {
 				}
 			else{
 //				if (ssm.getSelectedObject() == null){
-					Window.alert("Bitte Bewerbung ausw�hlen");
+					Window.alert("Bitte Bewerbung auswählen");
 //				}
 				
 			}
@@ -199,12 +199,12 @@ public class MeineBewerbungenSeite extends Showcase {
 							@Override
 							public void onFailure(Throwable caught) {
 								// TODO Auto-generated method stub
-								Window.alert("L�schen fehlgeschlagen");
+								Window.alert("Löschen fehlgeschlagen");
 							}
 
 							@Override
 							public void onSuccess(Void result) {
-								Window.alert("Bewerbung erfolgreich gel�scht");
+								Window.alert("Bewerbung erfolgreich gelöscht");
 								Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);

@@ -18,7 +18,8 @@ public class MenuleisteReport extends HorizontalPanel{
 		
 		 
 		public MenuleisteReport(){
-			
+			agbReportAnchor.setStylePrimaryName("menuleistereportanchor");
+			impressumReportAnchor.setStylePrimaryName("menuleistereportanchor");
 			this.add(agbReportAnchor);
 			this.add(impressumReportAnchor);
 			
@@ -27,8 +28,8 @@ public class MenuleisteReport extends HorizontalPanel{
 				@Override
 				public void onClick(ClickEvent event) {
 					Showcase showcase = new AGBReport();
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					RootPanel.get("DetailsReport").clear();
+					RootPanel.get("DetailsReport").add(showcase);
 					currentClickHandler=this;
 					currentClickEvent=event;
 			
@@ -39,9 +40,9 @@ public class MenuleisteReport extends HorizontalPanel{
 				@Override
 			public void onClick(ClickEvent event) {
 
-				ReportShowcase showcase = new ImpressumReport();
-				RootPanel.get("Details").clear();
-				RootPanel.get("Details").add(showcase);
+				Showcase showcase = new ImpressumReport();
+				RootPanel.get("DetailsReport").clear();
+				RootPanel.get("DetailsReport").add(showcase);
 				currentClickHandler=this;
 				currentClickEvent=event;
 			}

@@ -1,10 +1,18 @@
 package de.hdm.ITProjekt.client.gui;
 
+import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 
 import de.hdm.ITProjekt.client.Showcase;
 
 public class Impressum extends Showcase{
+	private Button zumLoginButton = new Button("Zum Login");
+	private Anchor zumLoginAnchor = new Anchor();
 
 	@Override
 	protected String getHeadlineText() {
@@ -16,6 +24,18 @@ public class Impressum extends Showcase{
 	protected void run() {
 		
 		RootPanel.get("Details").setWidth("100%");
+		
+		zumLoginButton.addClickHandler(new ClickHandler() {
+			
+			@Override
+			public void onClick(ClickEvent event) {
+				zumLoginAnchor.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");
+				Window.open(zumLoginAnchor.getHref(), "_self", "");
+				}
+			
+		});
+		
+		this.add(zumLoginButton);
 		
 		this.append("<div class='Impressum'>"
 				+ "Hochschule der Medien"+ "</br>"

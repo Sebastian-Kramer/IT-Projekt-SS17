@@ -52,7 +52,7 @@ public class MenuleisteReportMitProjektmarktplatz extends HorizontalPanel{
 			@Override
 		public void onClick(ClickEvent event) {
 
-			ReportShowcase showcase = new ImpressumReport();
+			Showcase showcase = new ImpressumReport();
 			RootPanel.get("DetailsReport").clear();
 			RootPanel.get("DetailsReport").add(showcase);
 			currentClickHandler=this;

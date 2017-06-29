@@ -1,18 +1,19 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import de.hdm.ITProjekt.client.ReportShowcase;
+import de.hdm.ITProjekt.client.Showcase;
 
-public class StartseiteReport extends ReportShowcase{
+public class StartseiteReport extends Showcase{
 
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
-		return "Projektmarktplatz Reports";
+		return "<h1>Projektmarktplatz Reports</h1>";
 	}
 
 	@Override
 	protected void run() {
-		this.append("Hier können Sie Reports erstellen");
+		this.append("<h3>Hier können Sie Reports erstellen</h3>");
 	}
 
 }
