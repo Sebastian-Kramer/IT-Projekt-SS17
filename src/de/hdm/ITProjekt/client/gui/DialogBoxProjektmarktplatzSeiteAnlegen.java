@@ -40,8 +40,8 @@ public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 	
 	private IdentitySelection is = null;
 	
-	public DialogBoxProjektmarktplatzSeiteAnlegen(){
-		
+	public DialogBoxProjektmarktplatzSeiteAnlegen(final IdentitySelection is){
+		this.is = is;
 		this.setText("Projektmarktplatz anlegen");
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
