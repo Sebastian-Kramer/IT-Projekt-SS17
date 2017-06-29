@@ -38,10 +38,14 @@ public class IdentitySelection extends FlexTable{
 	
 	private static IdentitySelection navigation=null;
 	
+//Listbox zur Auswahl von Identität 
 	private ListBox orgEinheit = new ListBox();
 //	private static ListBox Listbox2 = new ListBox();
 	
 	private FlexCellFormatter cellFormatter = this.getFlexCellFormatter();
+	
+	//Objekt zum Zugriff auf die Servermethoden
+
 	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	private static Person person;
 
@@ -50,12 +54,18 @@ public class IdentitySelection extends FlexTable{
 		IdentitySelection.person = person;
 	}
 
+	//Objekte zum Speichern der Identitätsinformationen
 	private static Team team;
 	private static Unternehmen unternehmen;
 	private static Vector<Projektmarktplatz> projektmarktplaetze;
 	private Menubar menubar;
 	private boolean marktplatz = false;
 	
+	/**
+	 * Ein Objekt dieser Klasse stellt ein Menü zur Auswahl von Identität zur Verfügung
+	 * @param id
+	 * @param menubar
+	 */
 	
 	public IdentitySelection (Person person, final Menubar menubar){
 	
@@ -98,14 +108,18 @@ public class IdentitySelection extends FlexTable{
 		});
 	}
 
-
+	/**
+	 * Gibt den gewählten Index der Identitäts-Listbox zurück
+	 */
 	public int getSelectedIndex(){
 		
 		int selectedID = orgEinheit.getSelectedIndex();
 		
 		return selectedID;
 	}
-
+	/**
+	 * Gibt die ID der gewählten Identität zurück
+	 */
 	public int getSelectedIdentityID(){
 		if(person.getTeam_ID() != null){
 			if(orgEinheit.getSelectedIndex() == 0){
@@ -125,6 +139,9 @@ public class IdentitySelection extends FlexTable{
 	return 0; 
 	}
 	
+	/**
+	 * Gibt die gewählte Identität als Objekt zurück
+	 */
 	public Organisationseinheit getSelectedIdentityAsObject(){
 
 		if(person.getTeam_ID() != null){
@@ -155,18 +172,30 @@ public class IdentitySelection extends FlexTable{
 //		return 0;
 //	}
 	
+	/**
+	 * Gibt den User zurück
+	 */
 	public Person getUser(){
 		return person;
 	}
 	
+	/**
+	 * Gibt das Team zurück
+	 */
 	public Team getTeamOfUser(){
 		return team;
 	}
 	
+	/**
+	 * Gibt das Unternehmen zurück
+	 */
 	public Unternehmen getUnternehmenOfUser(){
 		return unternehmen;
 	}
 	
+	/**
+	 * Gibt das Listbox zurück
+	 */
 	public  ListBox getOwnOrgUnits(){
 		return orgEinheit;
 	}
@@ -175,6 +204,9 @@ public class IdentitySelection extends FlexTable{
 //		return Listbox2;
 //	}
 	
+	/**
+	 * Deaktiviert die Listbox
+	 */
 	public void deactivateOrgUnits(){
 		orgEinheit.setEnabled(false);
 	}
@@ -183,6 +215,9 @@ public class IdentitySelection extends FlexTable{
 //		Listbox2.setEnabled(false);
 //	}
 	
+	/**
+	 * Aktiviert die IdentitätsListbox
+	 */
 	public void activateOrgUnits(){
 		orgEinheit.setEnabled(true);
 	}
@@ -191,10 +226,17 @@ public class IdentitySelection extends FlexTable{
 //		Listbox2.setEnabled(true);
 //	}
 	
+	/**
+	 * Setzt den Index der IdentitästsListbox auf 0, 
+	 * sodass der User eingeloggt ist
+	 */
 	public void setOwnOrgUnitToZero(){
 		orgEinheit.setSelectedIndex(0);
 	}
 	
+	/**
+	 * Lädt die Listbox neu
+	 */
 	public void reinitialize(){
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
@@ -211,7 +253,10 @@ public class IdentitySelection extends FlexTable{
 //		return marktplatz;
 //	}
 
-	
+	/**
+	 * Private Klasse, um die verknüpften Informationen des Users aus
+	 * der DB zu erhalten
+	 */
 	
 private class getUser implements AsyncCallback<Person>{
 
@@ -224,16 +269,22 @@ private class getUser implements AsyncCallback<Person>{
 
 	@Override
 	public void onSuccess(Person result) {
+		//löschen der alten Einträge
 			orgEinheit.clear();
 //			Listbox2.clear();
+			//Speichern des eingeloggten Users
 			person = result;
 			Integer personID = result.getID();
+			
+			//Hinzufügen der Person-Identität zur Listbox
 			orgEinheit.addItem("Person: " + result.getVorname() + " " +
 												result.getName() , personID.toString());
 			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 			 if (adminService == null) {
 		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-		    }	
+		    }
+			
+			 //Ruft RPCs auf, nachdem geprüft wurde, ob Team oder Unternehmen 
 			if (person.getTeam_ID() !=null) {
 				adminService.getTeamByID(result.getTeam_ID(), new getTeam());
 			}else if (person.getUN_ID() != null){
@@ -245,6 +296,11 @@ private class getUser implements AsyncCallback<Person>{
 	
 	}
 	
+/**
+ * Private Klasse, um die verknüpften Informationen des Teams aus
+ * der DB zu erhalten
+ */
+
 	private class getTeam implements AsyncCallback<Team>{
 
 		@Override
@@ -256,8 +312,14 @@ private class getUser implements AsyncCallback<Person>{
 		public void onSuccess(Team result) {
 			
 			Integer TeamID=result.getID();
+			
+			//Hinzufügen der Team-Identität zur Listbox
 			orgEinheit.addItem("Team: "+result.getName(),TeamID.toString());	
+			
+			//Team wird gespeichert
 			team=result;
+			
+			 //Ruft RPCs auf, wenn der User zusätzlich einem Team zugewiesen ist  
 			if(person.getUN_ID()!=null){
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 if (adminService == null) {
@@ -270,6 +332,10 @@ private class getUser implements AsyncCallback<Person>{
 		
 	}
 	
+	/**
+	 * Private Klasse, um das verknüpfte Unternehmen des Users 
+	 * in die Listbox schreiben zu können
+	 */
 	private class getUnternehmen implements AsyncCallback<Unternehmen>{
 
 		@Override
