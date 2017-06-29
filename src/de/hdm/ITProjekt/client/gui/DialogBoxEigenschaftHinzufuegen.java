@@ -83,6 +83,20 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 		auswahlEigenschaften.addItem("Excel");
 		auswahlEigenschaften.addItem("PowerPoint");
 		auswahlEigenschaften.addItem("C++");
+		auswahlEigenschaften.addItem("Datenbank Oracle");
+		auswahlEigenschaften.addItem("Bildbearbeitung mit Adobe Photoshop");
+		auswahlEigenschaften.addItem("MySQL");
+		auswahlEigenschaften.addItem("Betriebssysteme");
+		auswahlEigenschaften.addItem("Hardware");
+		auswahlEigenschaften.addItem("Netzwerk");
+		auswahlEigenschaften.addItem("JScript");
+		auswahlEigenschaften.addItem("Matlab");
+		auswahlEigenschaften.addItem("PEARL");
+		auswahlEigenschaften.addItem("ERP-Systeme");
+		auswahlEigenschaften.addItem("Englisch");
+		auswahlEigenschaften.addItem("Spanisch");
+		auswahlEigenschaften.addItem("Microsoft Access");
+		auswahlEigenschaften.addItem("Microsoft Outlook");
 		
 
 		wertEigenschaften.addItem("Grundkenntisse");
@@ -95,6 +109,20 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 		auswahlEigenschaften1.addItem("Excel");
 		auswahlEigenschaften1.addItem("PowerPoint");
 		auswahlEigenschaften1.addItem("C++");
+		auswahlEigenschaften1.addItem("Datenbank Oracle");
+		auswahlEigenschaften1.addItem("Bildbearbeitung mit Adobe Photoshop");
+		auswahlEigenschaften1.addItem("MySQL");
+		auswahlEigenschaften1.addItem("Betriebssysteme");
+		auswahlEigenschaften1.addItem("Hardware");
+		auswahlEigenschaften1.addItem("Netzwerk");
+		auswahlEigenschaften1.addItem("JScript");
+		auswahlEigenschaften1.addItem("Matlab");
+		auswahlEigenschaften1.addItem("PEARL");
+		auswahlEigenschaften1.addItem("ERP-Systeme");
+		auswahlEigenschaften1.addItem("Englisch");
+		auswahlEigenschaften1.addItem("Spanisch");
+		auswahlEigenschaften1.addItem("Microsoft Access");
+		auswahlEigenschaften1.addItem("Microsoft Outlook");
 		
 
 		wertEigenschaften1.addItem("Grundkenntisse");
@@ -107,7 +135,20 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 		auswahlEigenschaften2.addItem("Excel");
 		auswahlEigenschaften2.addItem("PowerPoint");
 		auswahlEigenschaften2.addItem("C++");
-		
+		auswahlEigenschaften2.addItem("Datenbank Oracle");
+		auswahlEigenschaften2.addItem("Bildbearbeitung mit Adobe Photoshop");
+		auswahlEigenschaften2.addItem("MySQL");
+		auswahlEigenschaften2.addItem("Betriebssysteme");
+		auswahlEigenschaften2.addItem("Hardware");
+		auswahlEigenschaften2.addItem("Netzwerk");
+		auswahlEigenschaften2.addItem("JScript");
+		auswahlEigenschaften2.addItem("Matlab");
+		auswahlEigenschaften2.addItem("PEARL");
+		auswahlEigenschaften2.addItem("ERP-Systeme");
+		auswahlEigenschaften2.addItem("Englisch");
+		auswahlEigenschaften2.addItem("Spanisch");
+		auswahlEigenschaften2.addItem("Microsoft Access");
+		auswahlEigenschaften2.addItem("Microsoft Outlook");
 
 		wertEigenschaften2.addItem("Grundkenntisse");
 		wertEigenschaften2.addItem("Fortgeschritten");
@@ -131,6 +172,15 @@ public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 		
 		vpanel.add(pe_form);
 		this.add(vpanel);
+		
+		abbrechen.addClickHandler(new ClickHandler(){
+
+			@Override
+			public void onClick(ClickEvent event) {
+				DialogBoxEigenschaftHinzufuegen.this.hide();
+			}
+			
+		});
 		
 		
 		hinzufuegen.addClickHandler(new ClickHandler(){

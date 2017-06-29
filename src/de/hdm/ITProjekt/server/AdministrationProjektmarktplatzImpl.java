@@ -578,7 +578,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}	
 	@Override
 	public void deleteTeam(Team team) throws IllegalArgumentException {
-		this.tMapper.delete(team);
+		this.tMapper.deleteTeam(team);
 		
 	}
 	@Override
@@ -856,6 +856,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 	}
 	@Override
+
 	public Vector<Organisationseinheit> findOrgaByID(Integer id) throws IllegalArgumentException {
 		
 		return this.orgMapper.findOrgaByID(id);
@@ -874,6 +875,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID) throws IllegalArgumentException {
 		// TODO Auto-generated method stub
 		return this.getBewertungByBeteiligung(beteiligungID);
+	}
+
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException {
+		this.bewertMapper.deleteBewertungByBeteiligung(id);;
+		
+
 	}
 
 	

@@ -73,15 +73,9 @@ public class MeinProfilAnzeigen extends Showcase{
 	private FlexTable form = new FlexTable();
 	private FlexTable pe_form = new FlexTable();
 	private FlexTable pe_buttonPanel = new FlexTable();
-//	private FlexTable ftable_team = new FlexTable();
-//	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
 	private static DialogBox db_team = new DialogBox();
 	private static DialogBox db_unternehmen = new DialogBox();
-//	private Button closeTeam = new Button("Schließen");
-//	private Button closeUnternehmen = new Button("Schließen");
-
-	//Anlegen der Buttons für verschiedene Funktionen
 	private Button bearbeiten = new Button("Bearbeiten");
 	private Button speichern = new Button("Speichern");
 	private Button abbrechen = new Button("Abbrechen");
@@ -97,17 +91,6 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button unternehmen_speichern = new Button("Speichern");
 	private Button unternehmen_abbrechen = new Button("Abbrechen");
 	
-	
-//	private Button teamErstellenButton = new Button("Team Erstellen");
-//	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_teamHinzufuegen = new SuggestBox(oracle_teamHinzufuegen);
-//	private Button teamHinzufuegenButton = new Button("OK");
-//	
-//	private Button unternehmenErstellenButton = new Button("Unternehmen Erstellen");
-//	private MultiWordSuggestOracle oracle_unternehmenHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_unternehmenHinzufuegen = new SuggestBox(oracle_unternehmenHinzufuegen);
-//	private Button unternehmenHinzufuegenButton = new Button("OK");
-
 	//Erstellen der Text- bzw. ListBoxen
 	private ListBox anredeListBox = new ListBox();
 	private TextBox anredeBox = new TextBox();
@@ -187,7 +170,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				@Override
 				public void onClick(ClickEvent event) {
 				if (is.getUser().getUN_ID() == null && is.getUser().getTeam_ID() == null){
-					DialogBox dbox = new DialogBoxProfilLoeschen(user);
+					DialogBox dbox = new DialogBoxProfilLoeschen(is.getUser());
 					dbox.center();
 					
 				}else{
@@ -326,8 +309,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			ft_buttonPanel.setWidget(0, 0, bearbeiten);
 			ft_buttonPanel.setWidget(0, 1, speichern);
 			ft_buttonPanel.setWidget(0, 2, abbrechen);
-//			ft_buttonPanel.setWidget(0, 3, newTeam);
-//			ft_buttonPanel.setWidget(0, 4, newUN);
+
 			
 		
 			unternehmen_abbrechen.setVisible(false);
@@ -336,8 +318,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			team_speichern.setVisible(false);
 			speichern.setVisible(false);
 			abbrechen.setVisible(false);
-//			newTeam.setVisible(false);
-//			newUN.setVisible(false);
+
 			
 			un_flextable.setWidget(0, 0, unternehmen_bearbeiten);
 			un_flextable.setWidget(1, 0, unternehmen_speichern);
@@ -399,8 +380,6 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			partnerprofilDaten.add(team_flextable);
 			
-//			partnerprofilDaten.add(eigenschaften);
-//			partnerprofilDaten.add(pe_alleEigenschaften);
 			
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
@@ -408,10 +387,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			hpanel.add(partnerprofilDaten);	
 			
 			this.add(hpanel);
-			//-------------------- RootPanel wird vergrößert!
-//			RootPanel.get("Details").setWidth("1000px");
 
-//			hpanel.add(vpanel);
 			
 
 			this.setSpacing(8);
@@ -589,7 +565,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Team>(){
+				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getUser().getTeam_ID(), new AsyncCallback<Team>(){
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -599,23 +575,15 @@ public class MeinProfilAnzeigen extends Showcase{
 
 					@Override
 					public void onSuccess(Team result) {
-						Window.alert("Success get team by id" + result.getID());
-						result.setHausnummer(Integer.parseInt(teamstrasse.getText()));
-						Window.alert("hausnummer");
+						result.setHausnummer(Integer.parseInt(teamhausnummer.getText()));
 						result.setName(teamname.getText());
-						Window.alert("name");
 						result.setOrt(teamort.getText());
-						Window.alert("ort");
 						result.setPlz(Integer.parseInt(teamplz.getText()));
-						Window.alert("plz");
 						result.setStrasse(teamstrasse.getText());
-						Window.alert("straße");
-						Window.alert("Nach variablen");
 						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 						 if (adminService == null) {
 					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 					    }
-						 Window.alert("nach adminservice");
 						ClientsideSettings.getpmpVerwaltung().updateTeam(result, new AsyncCallback<Team>(){
 
 							@Override
@@ -625,8 +593,6 @@ public class MeinProfilAnzeigen extends Showcase{
 
 							@Override
 							public void onSuccess(Team result) {
-
-								Window.alert("Success get team update");
 								Showcase showcase = new MeinProfilAnzeigen(is);
 								RootPanel.get("Details").clear();
 								RootPanel.get("Details").add(showcase);
@@ -730,7 +696,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
 				 ClientsideSettings.getpmpVerwaltung().
-					getPersonbyID(user.getID(), new ProfilBearbeitenCallback());
+					getPersonbyID(is.getUser().getID(), new ProfilBearbeitenCallback());
 				
 			}
 		});

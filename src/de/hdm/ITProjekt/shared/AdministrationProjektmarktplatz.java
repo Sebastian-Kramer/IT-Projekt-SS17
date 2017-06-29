@@ -210,4 +210,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID) throws IllegalArgumentException;
 
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException;
+
+
 	}

@@ -177,10 +177,6 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 								@Override
 								public void onSuccess(Vector<Eigenschaft> result) {
-
-
-									Window.alert(" Die Eigenschaften wurden gefunden");
-
 									ct_eigenschaften.setRowData(0, result);
 									ct_eigenschaften.setRowCount(result.size(),true);
 									

@@ -132,17 +132,30 @@ public class DialogBoxUnternehmen extends DialogBox{
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
 					adminService.updatePerson(is.getUser(), new updateperson());
-					hide();
-					Menubar menubar = new Menubar(is.getUser());
-					RootPanel.get("idendity").clear();
-					RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
-					
-					RootPanel.get("Navigator").clear();
-					RootPanel.get("Navigator").add(menubar);
-					
-					Showcase showcase = new MeinProfilAnzeigen(is);
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					hide(); 
+					adminService.getPersonbyID(is.getUser().getID(), new AsyncCallback<Person>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Person result) {
+								Menubar menubar = new Menubar(is.getUser());
+								RootPanel.get("idendity").clear();
+								RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
+								
+								RootPanel.get("Navigator").clear();
+								RootPanel.get("Navigator").add(menubar);
+									
+								Showcase showcase = new MeinProfilAnzeigen(is);
+								RootPanel.get("Details").clear();
+								RootPanel.get("Details").add(showcase);
+							}
+							 
+						 });
 				}
 				 
 			 });
