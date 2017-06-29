@@ -15,19 +15,19 @@ public class Ausschreibung extends BusinessObject {
 	 * Realisierung der Beziehungen zu Projekt mittels Fremdschlüssel
 	 */
 	
-	private int Projekt_ID = 0;
+	private Integer Projekt_ID = 0;
 	
 	/*
 	 * Realisierung der Beziehung zu einem Partnerprofil mittels Fremdschlüssel
 	 */
 	
-	private int Partnerprofil_ID = 0;
+	private Integer Partnerprofil_ID = 0;
 	
 	/*
 	 * Realisierung der Beziehung zu Organisationseinheit mittels Fremdschlüssel
 	 */
 	
-	private int Orga_ID = 0;
+	private Integer Orga_ID = 0;
 	
 	/*
 	 * 
@@ -121,7 +121,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getProjekt_ID() {
+	public Integer getProjekt_ID() {
 		return Projekt_ID;
 	}
 	
@@ -139,7 +139,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getPartnerprofil_ID() {
+	public Integer getPartnerprofil_ID() {
 		return Partnerprofil_ID;
 	}
 	
@@ -157,7 +157,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @return
 	 */
 	
-	public int getOrga_ID() {
+	public Integer getOrga_ID() {
 		return Orga_ID;
 	}
 	

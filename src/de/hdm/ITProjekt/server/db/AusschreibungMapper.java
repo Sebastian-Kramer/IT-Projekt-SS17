@@ -2,6 +2,7 @@ package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
@@ -74,6 +75,34 @@ public class AusschreibungMapper {
 				return null;
 			}
 			return null;	
+		}		
+		public Vector<Ausschreibung> findAusschreibungByOrga(Organisationseinheit o){
+			
+			Connection con = DBConnection.connection();
+			 Vector<Ausschreibung> result = new Vector<Ausschreibung>();
+
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung "
+	          + "WHERE Orga_ID=" + o.getID());
+				
+				if(rs.next()){
+					Ausschreibung p = new Ausschreibung();
+					p.setID(rs.getInt("ID"));
+					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
+					p.setBezeichnung(rs.getString("bezeichnung"));
+					p.setDatum(rs.getDate("datum"));
+					p.setProjekt_ID(rs.getInt("Projekt_ID"));
+					p.setOrga_ID(rs.getInt("Orga_ID"));
+					 result.addElement(p);
+
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
 		}
 		
 		/*
@@ -94,7 +123,6 @@ public class AusschreibungMapper {
 				  
 				  while (rs.next()) {
 					Ausschreibung a = new Ausschreibung();
-					
 				 	a.setID(rs.getInt("ID"));
 					a.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					a.setBezeichnung(rs.getString("bezeichnung"));
@@ -115,7 +143,7 @@ public class AusschreibungMapper {
 		 * Alle Auschreibungen aus der Datenbank werden ausgegeben
 		 * @return result
 		 */
-		 
+		
 		public Vector<Ausschreibung> getAll(){
 			
 			 Connection con = DBConnection.connection();
@@ -126,7 +154,7 @@ public class AusschreibungMapper {
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID FROM Ausschreibung");
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung");
 			  
 			  while (rs.next()) {
 				  	Ausschreibung p = new Ausschreibung();
@@ -136,6 +164,7 @@ public class AusschreibungMapper {
 					p.setDatum(rs.getDate("datum"));
 					p.setProjekt_ID(rs.getInt("Projekt_ID"));
 					p.setOrga_ID(rs.getInt("Orga_ID"));
+					p.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
 				  
 				  result.addElement(p);
 			  }
@@ -170,9 +199,9 @@ public class AusschreibungMapper {
 			   	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID)" 
+			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID,Partnerprofil_ID)" 
 			    		+ "VALUES (" + a.getID() + ", " + "'" + a.getAusschreibungstext() + "'" + ", " + "'" + a.getBezeichnung() 
-			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID()  +")"); 
+			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID() + ", " + a.getPartnerprofil_ID()  +")"); 
 			    	  
 			      }
 			}
@@ -215,11 +244,25 @@ public class AusschreibungMapper {
 
 		    try {
 		      Statement stmt = con.createStatement();
+		      
+		      if(c.getProjekt_ID()==null && c.getOrga_ID()==null && c.getPartnerprofil_ID()==null){
+		    	  stmt.executeUpdate("UPDATE Ausschreibung " + "SET ausschreibungstext=\""
+				          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\", "
+		    			  + "Projekt_ID = NULL, Orga_ID = NULL, Partnerprofil_ID = NULL"  
+				          + " WHERE Ausschreibung.ID=" + c.getID());
+		      }else if(c.getProjekt_ID()!= null && c.getOrga_ID()==null && c.getPartnerprofil_ID()==null){
+		    	  stmt.executeUpdate("UPDATE Ausschreibung " + "SET ausschreibungstext=\""
+				          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\", " + "Projekt_ID=\"" + c.getProjekt_ID() + "\", "
+		    			  + "Orga_ID=NULL, Partnerprofil_ID=NULL" + "\", "
+				          + "WHERE Ausschreibung.ID=" + c.getID());
+		      }else if(c.getProjekt_ID()!= null &&  c.getOrga_ID()!=null && c.getPartnerprofil_ID()!= null){  
+	    		  stmt.executeUpdate("UPDATE Ausschreibung " + "SET ausschreibungstext=\""
+	          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\", "
+	          + "WHERE Ausschreibung.ID=" + c.getID());
 
-		      stmt.executeUpdate("UPDATE Ausschreibung " + "SET ausschreibungstext=\""
-		          + c.getAusschreibungstext() + "\", " + "bezeichnung=\"" + c.getBezeichnung() + "\" "
-		          + "WHERE Ausschreibung.ID=" + c.getID());
-
+		      }
+		      
+		    		  
 		    }
 		    catch (SQLException e) {
 		      e.printStackTrace();
@@ -233,8 +276,6 @@ public class AusschreibungMapper {
 		 * @param a
 		 * @return projekt.getID
 		 */
-		
-		
 		public Vector<Ausschreibung> findByProjekt(int projektID){
 			Connection con = DBConnection.connection();
 			Vector<Ausschreibung> result = new Vector<Ausschreibung>();
