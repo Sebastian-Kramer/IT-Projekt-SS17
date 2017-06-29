@@ -146,7 +146,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 				dialogBox.center();
 			}
 			else{
-				Window.alert("Bitte Ausschreibung ausw�hlen");
+				Window.alert("Bitte Ausschreibung auswählen");
 			}
 		}
 		

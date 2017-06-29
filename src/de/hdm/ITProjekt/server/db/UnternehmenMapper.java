@@ -92,6 +92,36 @@ public Unternehmen findByKey(int id){
 		  return result;
 	}
 	
+	public Vector<Unternehmen> getUnternehmenByID(Integer id){
+	
+			
+			Connection con = DBConnection.connection();
+			 Vector<Unternehmen> result = new Vector<Unternehmen>();
+			 
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, name FROM Unternehmen "
+		      + "WHERE ID=" + id);
+				
+				while(rs.next()){
+					Unternehmen un = new Unternehmen();
+					un.setID(rs.getInt("ID"));
+					un.setName(rs.getString("name"));
+					un.setStrasse(super.findByKey(id).getStrasse());
+					un.setHausnummer(super.findByKey(id).getHausnummer());
+					un.setOrt(super.findByKey(id).getOrt());
+					un.setPlz(super.findByKey(id).getPlz());
+					un.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+					result.addElement(un);
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
+	}
+	
 public Unternehmen createUnternehmen(Unternehmen u){
 		
 		Connection con = DBConnection.connection();

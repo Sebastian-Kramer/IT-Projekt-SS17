@@ -107,7 +107,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				be.setUmfang(umfangBox.getText());
 				be.setStartdatum(startBox.getValue());
 				be.setEnddatum(endBox.getValue());
-				be.setOrga_ID(aus.getOrga_ID());
+				be.setOrga_ID(bewerbung.getOrga_ID());
 				be.setProjekt_ID(aus.getProjekt_ID());
 				bewerbung.setStatus("angenommen");
 

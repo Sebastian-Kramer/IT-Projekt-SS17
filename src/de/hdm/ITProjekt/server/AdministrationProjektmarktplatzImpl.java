@@ -855,6 +855,26 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		this.unMapper.deleteUnternehmen(u);
 		
 	}
+	@Override
+	public Vector<Organisationseinheit> findOrgaByID(Integer id) throws IllegalArgumentException {
+		
+		return this.orgMapper.findOrgaByID(id);
+	}
+	@Override
+	public Vector<Team> findTeamByID(Integer id) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.tMapper.findTeamByID(id);
+	}
+	@Override
+	public Vector<Unternehmen> getUnternehmenByID(Integer id) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.unMapper.getUnternehmenByID(id);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID) throws IllegalArgumentException {
+		// TODO Auto-generated method stub
+		return this.getBewertungByBeteiligung(beteiligungID);
+	}
 
 	
 }

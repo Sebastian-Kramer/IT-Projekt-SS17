@@ -39,6 +39,7 @@ import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
+import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.bo.Beteiligung;
 
@@ -63,9 +64,13 @@ public class Projektseite extends Showcase{
 	VerticalPanel vp_projekt = new VerticalPanel();
 	HorizontalPanel hp_projekt = new HorizontalPanel();
 	VerticalPanel vp_projekt2 = new VerticalPanel();
+	VerticalPanel vp_projekt3 = new VerticalPanel();
+	VerticalPanel vp_projekt4 = new VerticalPanel();
 	
 	CellTable<Ausschreibung> ct_projektausschreibungen = new CellTable<Ausschreibung>();
 	CellTable<Person> ct_teilnehmer = new CellTable<Person>();
+	CellTable<Team> ct_teamteilnehmer = new CellTable<Team>();
+	CellTable<Unternehmen> ct_unternehmenteilnehmer = new CellTable<Unternehmen>();
 	
 	final SingleSelectionModel<Ausschreibung> ssm = new SingleSelectionModel<>();
 	final SingleSelectionModel<Person> ssm_person = new SingleSelectionModel<>();
@@ -156,17 +161,26 @@ public class Projektseite extends Showcase{
 		
 		vp_projekt2.add(ct_teilnehmer);
 		this.append("<br><h3>Die Teilnehmer des Projekts</h3></br>");
+		this.append("Personen");
 		this.add(vp_projekt2);
 		
+		vp_projekt3.add(ct_teamteilnehmer);
+		this.append("Teams");
+		this.add(vp_projekt3);
+		
+		vp_projekt4.add(ct_unternehmenteilnehmer);
+		this.append("Unternehmen");
+		this.add(vp_projekt4);
 		
 		
-		
+		if(is.getSelectedIdentityAsObject() instanceof Person){
 		if(is.getUser().getID()== selectedProjekt.getProjektleiter_ID()){
 		
 			hp_projekt.add(alleBewerbungen);		
 			hp_projekt.add(createStelle);		
 			hp_projekt.add(delete);
 			hp_projekt.add(deleteTeilnehmer);
+		}
 		}else{
 			hp_projekt.add(detailsButton);
 		}
@@ -427,6 +441,7 @@ public class Projektseite extends Showcase{
 					
 					final Person selectedPerson = ssm_person.getSelectedObject();
 					if(is.getUser().getID()==selectedProjekt.getProjektleiter_ID()){
+						Window.alert("Hi");
 						adminService.getBeteiligungByOrga(selectedPerson.getID(), new AsyncCallback<Vector<Beteiligung>>(){
 
 							@Override
@@ -516,12 +531,72 @@ public class Projektseite extends Showcase{
 						}
 				
 			};
-			
-			ct_teilnehmer.addColumn(name, "Name");
-			ct_teilnehmer.addColumn(email, "E-Mail");
+	
+	Column<Unternehmen, String>	nameunternehmen = 
+			new Column<Unternehmen, String>(new ClickableTextCell()){
+
+				@Override
+				public String getValue(Unternehmen object) {
+					// TODO Auto-generated method stub
+					return object.getName();
+				}
+
+				
+		
+	};
+	
+	Column<Unternehmen, String>	anschriftunt = 
+			new Column<Unternehmen, String>(new ClickableTextCell()){
+
+				@Override
+				public String getValue(Unternehmen object) {
+					// TODO Auto-generated method stub
+					return object.getStrasse() + " " + object.getHausnummer() + ", " + object.getPlz() + " " + object.getOrt();
+				}
+
+				
+		
+	};
+	
+	Column<Team, String>	nameteam = 
+			new Column<Team, String>(new ClickableTextCell()){
+
+				@Override
+				public String getValue(Team object) {
+					// TODO Auto-generated method stub
+					return object.getName();
+				}
+
+				
+		
+	};
+	
+	Column<Team, String>	anschriftteam = 
+			new Column<Team, String>(new ClickableTextCell()){
+
+				@Override
+				public String getValue(Team object) {
+					// TODO Auto-generated method stub
+					return object.getStrasse() + " " + object.getHausnummer() + ", " + object.getPlz() + " " + object.getOrt();
+				}
+
+				
+		
+	};
+	
+	ct_teamteilnehmer.addColumn(nameteam, "Name");
+	ct_teamteilnehmer.addColumn(anschriftteam, "Anschrift");
+	
+	ct_unternehmenteilnehmer.addColumn(nameunternehmen, "Name");
+	ct_unternehmenteilnehmer.addColumn(anschriftunt, "Anschrift");
+	
+	ct_teilnehmer.addColumn(name, "Name");
+	ct_teilnehmer.addColumn(email, "E-Mail");
 	
 	filltableauschreibungen();
 	filltableteilnehmer();
+	filltableteam();
+	filltableunternehmen();
 	
 	}
 
@@ -600,22 +675,84 @@ public class Projektseite extends Showcase{
 		}
 		
 	}
-//	private class getPersonByID implements AsyncCallback<Person>{
-//
-//		@Override
-//		public void onFailure(Throwable caught) {
-//			Window.alert("Fehler Person laden");
-//			
-//		}
-//
-//		@Override
-//		public void onSuccess(Person result) {
-//			result = person;
-//			Window.alert("Person wurde gefunden");
-//			
-//		}
-//		
-//	}
+	
+	private void filltableunternehmen(){
+		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+		 if (adminService == null) {
+	     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+	   }
+		 adminService.getBeteiligungByProjekt(selectedProjekt.getID(), new AsyncCallback<Vector<Beteiligung>>(){
+
+			@Override
+			public void onFailure(Throwable caught) {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onSuccess(Vector<Beteiligung> result) {
+				for(Beteiligung b : result){
+					adminService.getUnternehmenByID(b.getOrga_ID(), new AsyncCallback<Vector<Unternehmen>>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+							// TODO Auto-generated method stub
+							
+						}
+
+						@Override
+						public void onSuccess(Vector<Unternehmen> result) {
+							ct_unternehmenteilnehmer.setRowData(0, result);
+							ct_unternehmenteilnehmer.setRowCount(result.size(), true);
+							
+						}
+						
+					});
+				}
+				
+			}
+			 
+		 });
+	}
+	
+private void filltableteam(){
+	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+	 if (adminService == null) {
+     adminService = GWT.create(AdministrationProjektmarktplatz.class);
+   }
+	adminService.getBeteiligungByProjekt(selectedProjekt.getID(), new AsyncCallback<Vector<Beteiligung>>(){
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Beteiligung> result) {
+			for(Beteiligung b : result){
+				adminService.findTeamByID(b.getOrga_ID(), new AsyncCallback<Vector<Team>>(){
+
+					@Override
+					public void onFailure(Throwable caught) {
+						// TODO Auto-generated method stub
+						
+					}
+
+					@Override
+					public void onSuccess(Vector<Team> result) {
+						ct_teamteilnehmer.setRowData(0, result);
+						ct_teamteilnehmer.setRowCount(result.size(), true);
+						
+					}
+					
+				});
+			}
+			
+		}
+		
+	});
+}
 
 	
 	private void filltableteilnehmer(){
@@ -623,6 +760,7 @@ public class Projektseite extends Showcase{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
+
 		 adminService.getAllBeteiligungen(new AsyncCallback<Vector<Beteiligung>>(){
 
 			@Override
@@ -645,7 +783,7 @@ public class Projektseite extends Showcase{
 
 							@Override
 							public void onSuccess(Vector<Person> result) {
-//								Window.alert("funktioniert");
+								
 								ct_teilnehmer.setRowData(0, result);
 								ct_teilnehmer.setRowCount(result.size(), true);
 								

@@ -150,14 +150,16 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				
 				if(is.getSelectedIdentityAsObject() instanceof Person){
 				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz, is);
 				dialogbox.center();
 			}else{
 				Window.alert("Ein Team oder Unternehmen kann kein Projekt anlegen");
 			}
-			}
-		});
+			
+		}
+	});
 		
 		show_projekt.addClickHandler(new ClickHandler(){
 
@@ -174,6 +176,8 @@ public class Projekte extends Showcase {
 					 RootPanel.get("Details").add(showcase);
 					 
 					 
+				}else{
+					Window.alert("Bitte wählen Sie ein Projekt");
 				}
 				
 			}
@@ -185,6 +189,7 @@ public class Projekte extends Showcase {
 			@Override
 			public void onClick(ClickEvent event) {
 				final Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				if(is.getSelectedIdentityAsObject() instanceof Person){
 				if(is.getUser().getID() == selectedProjektObject.getProjektleiter_ID()){
 					
 				selectedProjektObject.setProjektmarktplatz_ID(0);
@@ -405,6 +410,7 @@ public class Projekte extends Showcase {
 																												@Override
 																												public void onSuccess(
 																														Bewertung result) {
+																													
 																													adminService.deleteBewertung(bew, new AsyncCallback<Void>(){
 
 																														@Override
@@ -522,6 +528,7 @@ public class Projekte extends Showcase {
 
 											@Override
 											public void onSuccess(Beteiligung result) {
+												
 												adminService.delete(bet, new AsyncCallback<Void>(){
 
 													@Override
@@ -852,6 +859,10 @@ public class Projekte extends Showcase {
 					Window.alert("Nur der Projektleiter kann ein Projekt löschen");
 				}
 				
+			}else{
+				Window.alert("Nur der Projektleiter kann ein Projekt löschen");
+				
+			}
 			}
 			
 		});

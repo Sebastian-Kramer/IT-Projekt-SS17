@@ -57,6 +57,35 @@ public class OrganisationseinheitMapper {
 		  return result;
 	}
 	
+	public Vector <Organisationseinheit> findOrgaByID(Integer id){
+		Connection con = DBConnection.connection();
+		Vector<Organisationseinheit> result = new Vector<Organisationseinheit>();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, strasse, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
+          + "WHERE ID=" + id);
+			
+			while(rs.next()){
+				Organisationseinheit o = new Organisationseinheit();
+				o.setID(rs.getInt("ID"));
+				o.setStrasse(rs.getString("strasse"));
+				o.setHausnummer(rs.getInt("hausnummer"));
+				o.setPlz(rs.getInt("plz"));
+				o.setOrt(rs.getString("ort"));
+				o.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+				
+				result.add(o);
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return result;	
+	
+	}
+	
 	public Organisationseinheit findByKey(int id){
 		Connection con = DBConnection.connection();
 		

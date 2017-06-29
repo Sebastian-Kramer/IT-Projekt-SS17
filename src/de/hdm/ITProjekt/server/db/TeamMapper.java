@@ -50,6 +50,36 @@ public Team findByKey(int id){
 		return null;	
 	}
 
+public Vector <Team> findTeamByID(Integer id){
+	
+	Connection con = DBConnection.connection();
+	Vector<Team> result = new Vector<Team>();
+	
+	try{
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT ID, name, UN_ID FROM Team " + "WHERE ID=" + id);
+		
+		while(rs.next()){
+				Team t = new Team();
+				t.setID(rs.getInt("ID"));
+				t.setName(rs.getString("name"));
+				t.setUN_ID(rs.getInt("UN_ID"));
+				t.setStrasse(super.findByKey(id).getStrasse());
+				t.setHausnummer(super.findByKey(id).getHausnummer());
+				t.setOrt(super.findByKey(id).getOrt());
+				t.setPlz(super.findByKey(id).getPlz());
+				t.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+				
+				result.add(t);
+		}
+	}
+	catch(SQLException e2){
+		e2.printStackTrace();
+		return null;
+	}
+	return result;	
+}
+
 public Team findByObject(Team t){
 	return this.findByKey(t.getID());
 	  
