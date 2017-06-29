@@ -15,6 +15,10 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
 
+/**
+ * AGB der ReportSeite.
+ * @author Giuseppe
+ */
 public class AGBReport extends Showcase{
 
 	private Button zumLoginButton = new Button("Zum Login");

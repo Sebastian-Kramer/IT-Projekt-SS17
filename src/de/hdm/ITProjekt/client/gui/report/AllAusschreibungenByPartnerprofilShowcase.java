@@ -2,22 +2,33 @@ package de.hdm.ITProjekt.client.gui.report;
 
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 import de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport;
 import de.hdm.ITProjekt.shared.report.HTMLReportWriter;
 
+/**
+ * Diese Klasse gibt einen Report mit passenden Ausschreibungen auf das Partnerprofil der Users qus. 
+ * Hierfür wird die ReportGeneratorAsync Instanz ausgelesen. 
+ * Bei erfolgreichem Callback werden alle Ausschreibungen, die zum Partnerprofil des Users passen,
+ * in Form eines Reports ausgegeben.
+ * @author Giuseppe
+ */
+
 public class AllAusschreibungenByPartnerprofilShowcase extends Showcase {
 
 	private IdentitySelectionReport isreport = null;
 	
-	
+
 	public AllAusschreibungenByPartnerprofilShowcase(IdentitySelectionReport isreport) {
 		this.isreport = isreport;
 	}
+
+	public AllAusschreibungenByPartnerprofilShowcase(){
+	}
+	
+	
 	
 	@Override
 	protected String getHeadlineText() {

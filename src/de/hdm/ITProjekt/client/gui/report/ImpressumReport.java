@@ -7,14 +7,16 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
-
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 
 public class ImpressumReport extends Showcase{
 	private Button zumLoginButton = new Button("Zum Login");
 	private Anchor zumLoginAnchor = new Anchor();
-
+/**
+ * Impressum der ReportSeite.
+ * @author Giuseppe
+ */
 	@Override
 	protected String getHeadlineText() {
 		// TODO Auto-generated method stub
