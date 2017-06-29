@@ -8,6 +8,11 @@ import com.google.gwt.user.client.ui.RootPanel;
 import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
 
+/**
+ * Diese Klasse erstellt die Menuleiste und dessen Anchors. 
+ * Hierzu werden jeweils ClickHandler erstellt.
+ * @author Giuseppe
+ */
 public class MenuleisteReport extends HorizontalPanel{
 		
 		private static ClickHandler currentClickHandler = null;

@@ -1,28 +1,18 @@
 package de.hdm.ITProjekt.client.gui.report;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
-
-import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
 import de.hdm.ITProjekt.client.Showcase;
-import de.hdm.ITProjekt.client.gui.IdentitySelection;
-import de.hdm.ITProjekt.client.gui.MeinProfilAnzeigen;
-import de.hdm.ITProjekt.client.gui.MeineBewerbungenSeite;
-import de.hdm.ITProjekt.client.gui.MeineProjekteAnzeigen;
-import de.hdm.ITProjekt.client.gui.ProjektmarktplatzSeite;
-import de.hdm.ITProjekt.client.gui.StellenausschreibungenSeite;
-import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Person;
-import de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport;
-import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
+
+/**
+ * In dieser Klasse wird die Menubar der ReportSeite erstellt.
+ * @author Giuseppe
+ */
 
 public class MenubarReport extends StackPanel{
 	// Clickhandler auf "null" setzen

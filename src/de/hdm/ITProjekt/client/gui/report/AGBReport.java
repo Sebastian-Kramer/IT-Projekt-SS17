@@ -5,6 +5,10 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 
+/**
+ * AGB der ReportSeite.
+ * @author Giuseppe
+ */
 public class AGBReport extends Showcase{
 	
 	/**

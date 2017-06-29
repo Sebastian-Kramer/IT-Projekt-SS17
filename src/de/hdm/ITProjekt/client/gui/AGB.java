@@ -1,10 +1,10 @@
 package de.hdm.ITProjekt.client.gui;
 
 import com.google.gwt.user.client.ui.RootPanel;
-
 import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+
 
 public class AGB extends Showcase {
 
