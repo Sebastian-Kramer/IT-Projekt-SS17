@@ -1,6 +1,7 @@
 package de.hdm.ITProjekt.server.db;
 
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Projekt;
@@ -8,6 +9,10 @@ import de.hdm.ITProjekt.server.db.DBConnection;
 import java.sql.*;
 import java.util.Vector;
 import java.text.SimpleDateFormat;
+
+/*
+ * Mapper für Ausschreibungsobjekte
+ */
 
 public class AusschreibungMapper {
 	
@@ -75,7 +80,13 @@ public class AusschreibungMapper {
 				return null;
 			}
 			return null;	
-		}		
+		}
+		
+		/*
+		 * @param o
+		 * @return result
+		 */
+		
 		public Vector<Ausschreibung> findAusschreibungByOrga(Organisationseinheit o){
 			
 			Connection con = DBConnection.connection();
@@ -110,6 +121,7 @@ public class AusschreibungMapper {
 		 * @return result
 		 * @param projektId
 		 */
+		
 		 public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId){
 				
 			  Connection con = DBConnection.connection();
