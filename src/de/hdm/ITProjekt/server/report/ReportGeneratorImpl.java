@@ -32,22 +32,64 @@ import de.hdm.ITProjekt.shared.report.FanInFanOutReport;
 import de.hdm.ITProjekt.shared.report.FanOut;
 import de.hdm.ITProjekt.shared.report.ProjektverflechtungReport;
 import de.hdm.ITProjekt.shared.report.Row;
-
+/**
+ * Implementierung des <code>ReportGenerator</code>-Interface. Die technische
+ * Realisierung bzgl. <code>RemoteServiceServlet</code> bzw. GWT RPC erfolgt
+ * analog zu {@lBankAdministrationImplImpl}. Für Details zu GWT RPC siehe dort.
+ * 
+ * @see ReportGenerator
+ * @author thies
+ */
 	@SuppressWarnings("serial")
 	public class ReportGeneratorImpl extends RemoteServiceServlet implements ReportGenerator{
 
+		  /**
+		   * Ein ReportGenerator benötigt Zugriff auf die AdministrationProjektmarktplatz, da diese die
+		   * essentiellen Methoden für die Koexistenz von Datenobjekten (vgl.
+		   * bo-Package) bietet.
+		   */
 		private AdministrationProjektmarktplatz adminService = null;
+		
+		  /**
+		   * <p>
+		   * Ein <code>RemoteServiceServlet</code> wird unter GWT mittels
+		   * <code>GWT.create(Klassenname.class)</code> Client-seitig erzeugt. Hierzu
+		   * ist ein solcher No-Argument-Konstruktor anzulegen. Ein Aufruf eines anderen
+		   * Konstruktors ist durch die Client-seitige Instantiierung durch
+		   * <code>GWT.create(Klassenname.class)</code> nach derzeitigem Stand nicht
+		   * möglich.
+		   * </p>
+		   * <p>
+		   * Es bietet sich also an, eine separate Instanzenmethode zu erstellen, die
+		   * Client-seitig direkt nach <code>GWT.create(Klassenname.class)</code>
+		   * aufgerufen wird, um eine Initialisierung der Instanz vorzunehmen.
+		   * </p>
+		   */
 		
 		public ReportGeneratorImpl() throws IllegalArgumentException {
 		}
 		
+		  /**
+		   * Initialsierungsmethode. Siehe dazu Anmerkungen zum No-Argument-Konstruktor.
+		   * 
+		   * @see #ReportGeneratorImpl()
+		   */
 		public void init() throws IllegalArgumentException{
-			
+		    /*
+		     * Ein ReportGeneratorImpl-Objekt instantiiert für seinen Eigenbedarf eine
+		     * AdministrationProjektmarktplatzImpl-Instanz.
+		     */
 			
 			AdministrationProjektmarktplatzImpl ap = new AdministrationProjektmarktplatzImpl();
 			ap.init();
 			this.adminService = ap;
 		}
+		
+		  /**
+		   * Auslesen der zugehörigen BankAdministration (interner Gebrauch).
+		   * 
+		   * @return das Verwaltungsobjekt
+		   */
 		
 		protected AdministrationProjektmarktplatz getAdminservice(){
 			return this.adminService;
@@ -57,7 +99,9 @@ import de.hdm.ITProjekt.shared.report.Row;
 			return adminService.getAllPerson();
 		}
 		
-		
+		  /**
+		   * Erstellen aller benötigten Methoden
+		   */	
 	
 	@Override
 	public AllAusschreibungenByPartnerprofilReport createAllAusschreibungenByPartnerprofilReport(Organisationseinheit o)
