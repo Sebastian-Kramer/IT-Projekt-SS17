@@ -33,7 +33,7 @@ public class Bewertung extends BusinessObject {
 	 * Realisieren der Beziehung zu einer Beteiligung mittels Fremdschlüssel
 	 */
 	
-	private int Beteiligungs_ID = 0;
+	private Integer Beteiligungs_ID = 0;
 	
 	/*
 	 * Realisieren der Beziehung zu einer Bewerbung mittels Fremdschlüssel
@@ -109,8 +109,12 @@ public class Bewertung extends BusinessObject {
 	 * @param Beteiligungs_ID
 	 */
 
-	public void setBeteiligungs_ID(int beteiligungs_ID) {
-		Beteiligungs_ID = beteiligungs_ID;
+	public void setBeteiligungs_ID(Integer beteiligungs_ID) {
+		if(beteiligungs_ID==0){
+			this.Beteiligungs_ID=null;
+		}else{
+			this.Beteiligungs_ID=beteiligungs_ID;
+		}
 	}
 	
 	/*

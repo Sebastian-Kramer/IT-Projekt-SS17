@@ -31,10 +31,14 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
+import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
  
 
 
@@ -58,134 +62,5 @@ public class DialogBoxPartnerprofilAnlegen extends DialogBox {
 	
 	
 	
-
-	
-	
-	DialogBoxPartnerprofilAnlegen( final Ausschreibung ausschreibung, final Person person, final Projekt projekt){
-		this.ausschreibung = ausschreibung;
-		this.person = person;
-		this.projekt = projekt;
-		
-		setText("Partnerprofil zu Ausschreibung hinzufügen");
-		setAnimationEnabled(true);
-		setGlassEnabled(true);
-		ct_eigenschaften.setWidth("100%");
-		
-		vp.add(hinzufuegen);
-		vp.add(ct_eigenschaften);
-		this.add(vp);
-		
-		hp.add(anlegen);
-		hp.add(abbrechen);
-		this.add(hp);
-	
-		
-		hinzufuegen.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-			
-				
-			}
-			
-		});
-		
-		
-		anlegen.addClickHandler(new ClickHandler(){
-
-			@Override
-			public void onClick(ClickEvent event) {
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 if (adminService == null) {
-			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-			    }	
-				 profil.setErstellungsdatum(profil.getErstellungsdatum());
-				adminService.addPartnerprofil(profil, new AsyncCallback<Partnerprofil>(){
-
-					@Override
-					public void onFailure(Throwable caught) { 
-						
-					}
-
-					@Override
-					public void onSuccess(Partnerprofil result) {
-						adminService.addAusschreibung(ausschreibung, new AsyncCallback<Ausschreibung>(){
-
-							@Override
-							public void onFailure(Throwable caught) {
-								// TODO Auto-generated method stub
-								
-							}
-
-							@Override
-							public void onSuccess(Ausschreibung result) {
-								Window.alert("Die Ausschreibung und das dazugehörige Partnerprofil wurden erfolgreich angelegt");
-//								Showcase showcase = new Projektseite(projekt, is);
-								RootPanel.get("Details").clear();
-//								RootPanel.get("Details").add(showcase);
-								
-								
-							}
-							
-						});
-						
-					}
-					
-				});
-			}
-			
-		});
-		
-		
-		Column<Eigenschaft, String> name = 
-			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
-			    
-					@Override
-					public String getValue(Eigenschaft object) {
-						return object.getName();
-					}
-					    
-	 };
-	 Column<Eigenschaft, String> wert = 
-			    new Column<Eigenschaft, String>(new ClickableTextCell())  {
-			    
-					@Override
-					public String getValue(Eigenschaft object) {
-						return object.getWert();
-					}
-					
-	 };
-	 
-	 
-		ct_eigenschaften.addColumn(name,"Fähigkeit");
-		ct_eigenschaften.addColumn(wert, "Wert");
-		filltableeigenschaften();
-		
-		
-	}
-	
-	private void filltableeigenschaften(){
-		
-		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-		 if (adminService == null) {
-	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }	
-		 adminService.getAllEigenschaftenbyPartnerprofilID(profil.getID(), new AsyncCallback<Vector<Eigenschaft>>(){
-
-			@Override
-			public void onFailure(Throwable caught) {
-				// TODO Auto-generated method stub
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Eigenschaft> result) {
-				ct_eigenschaften.setRowData(0, result);
-				ct_eigenschaften.setRowCount(result.size(), true);
-			}
-			 
-		 });
-	}
-
 
 }
