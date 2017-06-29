@@ -137,11 +137,6 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		public void onClick(ClickEvent event) {
 			// TODO Auto-generated method stub
 			if(ssm !=null){
-				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-				 if (adminService == null) {
-			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-			    }
-				 adminService.getPersonbyID(is.getUser().getID(), new getPersonByID());
 				a1 = ssm.getSelectedObject();
 				DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, menubar);
 				int left = Window.getClientHeight() / 3;

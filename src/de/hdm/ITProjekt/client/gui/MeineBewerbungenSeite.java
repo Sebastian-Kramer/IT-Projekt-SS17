@@ -61,7 +61,7 @@ public class MeineBewerbungenSeite extends Showcase {
 	private Menubar menubar = null;
 	
 	Button bewerbungAnzeigen_button = new Button ("Bewerbung anzeigen");
-	Button bewerbungLoeschen_button	= new Button ("Bewerbung zur�ckziehen");
+	Button bewerbungLoeschen_button	= new Button ("Bewerbung zurückziehen");
 	
 	public MeineBewerbungenSeite(IdentitySelection is, Menubar menubar){
 		this.is = is;
@@ -77,6 +77,8 @@ public class MeineBewerbungenSeite extends Showcase {
 
 	@Override
 	protected void run() {
+		bewerbungAnzeigen_button.setStylePrimaryName("navigationanchor");
+		bewerbungLoeschen_button.setStylePrimaryName("navigationanchor");
 //		is.activateOrgUnits();
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineBewerbungen.setWidth("100%");
