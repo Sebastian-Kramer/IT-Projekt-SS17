@@ -2,6 +2,11 @@ package de.hdm.ITProjekt.client.gui.report;
 
 import de.hdm.ITProjekt.client.ReportShowcase;
 
+
+/**
+ * Startseite der Reports, um Reports erstellen zu können.
+ * @author Giuseppe
+ */
 public class StartseiteReport extends ReportShowcase{
 
 	@Override

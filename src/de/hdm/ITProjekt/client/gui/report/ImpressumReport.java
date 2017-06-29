@@ -1,9 +1,12 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import com.google.gwt.user.client.ui.RootPanel;
-
 import de.hdm.ITProjekt.client.ReportShowcase;
 
+/**
+ * Impressum der ReportSeite.
+ * @author Giuseppe
+ */
 public class ImpressumReport extends ReportShowcase{
 
 	@Override
