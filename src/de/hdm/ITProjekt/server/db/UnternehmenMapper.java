@@ -102,12 +102,12 @@ public Unternehmen createUnternehmen(Unternehmen u){
 		      u.setID(super.insert(u));
 		      
 		      ResultSet rs = stmt.executeQuery("SELECT MAX(ID) AS maxid "
-		              + "FROM Unternehmen ");
+		              + "FROM organisationseinheit ");
 		      
 		
 		      if(rs.next()){
 		    	  
-		    	  	u.setID(rs.getInt("maxid") + 1);
+		    	  	u.setID(rs.getInt("maxid"));
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	

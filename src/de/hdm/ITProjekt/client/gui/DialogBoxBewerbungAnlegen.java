@@ -28,6 +28,8 @@ import de.hdm.ITProjekt.shared.bo.Ausschreibung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
@@ -92,9 +94,16 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 
 
 				bewerbung_dialog.setStatus("laufend");
-
+				if(is.getUser() instanceof Person){
+					Window.alert("Person");
+					bewerbung_dialog.setOrga_ID(is.getUser().getID());
+				}else if(is.getSelectedIdentityAsObject() instanceof Unternehmen){
+					Window.alert("Unternehmen");
 				bewerbung_dialog.setOrga_ID(is.getSelectedIdentityAsObject().getID());
-
+				}else if(is.getSelectedIdentityAsObject() instanceof Team){
+					Window.alert("Team");
+					bewerbung_dialog.setOrga_ID(is.getSelectedIdentityAsObject().getID());
+				}
 				bewerbung_dialog.setErstelldatum(new Date());
 				
 				
