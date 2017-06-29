@@ -1,14 +1,16 @@
 package de.hdm.ITProjekt.client.gui.report;
 
 import com.google.gwt.user.client.ui.RootPanel;
-
 import de.hdm.ITProjekt.client.ClientsideSettings;
-import de.hdm.ITProjekt.client.ReportShowcase;
-import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
+import de.hdm.ITProjekt.client.Showcase;
+import de.hdm.ITProjekt.shared.ReportGeneratorAsync;
 
-public class AGBReport extends ReportShowcase{
-
-	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+public class AGBReport extends Showcase{
+	
+	/**
+	 * Auslesen der ProjektmarktplatzAsync Instanz
+	 */
+	ReportGeneratorAsync reportGenerator = ClientsideSettings.getReportGenerator();
 	
 	
 	protected String getHeadlineText() {
@@ -18,7 +20,8 @@ public class AGBReport extends ReportShowcase{
 
 	protected void run() {
 		
-		RootPanel.get("Details").setWidth("100%");
+				
+		RootPanel.get("DetailsReport").setWidth("100%");
 		
 		this.append("<div class="
 				+ "<b>" +"Hinweise zum Datenschutz</b></br></br>"
