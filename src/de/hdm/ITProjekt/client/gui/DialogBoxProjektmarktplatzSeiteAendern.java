@@ -35,6 +35,8 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 	
 	Label projektmarktplatzname = new Label ("Projektmarktplatzbezeichnung: ");
 	TextArea bezeichnung = new TextArea();
+	
+
 
 	FlexTable projektmarktplatzseite = new FlexTable();
 	private Projektmarktplatz selectedObjectvonAnlegen;
@@ -75,7 +77,7 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
@@ -103,7 +105,7 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 		@Override
 		public void onSuccess(Projektmarktplatz result) {
 			Window.alert("Ver�nderung wurde gespeichert werden!");
-			Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+			Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);			
 		}
