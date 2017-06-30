@@ -469,6 +469,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 										for(final Beteiligung bet : result){
 											bet.setOrga_ID(0);
 											bet.setProjekt_ID(0);
+											adminService.deleteBewertungbyBeteiligung(bet.getID(), new BewertungLoeschen());
 											adminService.updateBeteiligung(bet, new AsyncCallback<Beteiligung>(){
 
 												@Override
@@ -1027,9 +1028,9 @@ public class MeineProjekteAnzeigen extends Showcase{
 			}
 
 			@Override
-			public void onSuccess(Vector<Beteiligung> result) {
+			public void onSuccess(Vector<Beteiligung> result) { 
 				for(Beteiligung b : result){
-					if(b.getOrga_ID()==is.getUser().getID()){
+					if(b.getOrga_ID()==is.getSelectedIdentityAsObject().getID() && is.getSelectedIdentityAsObject() instanceof Team){
 						adminService.getProjektByOrgaID(b.getProjekt_ID(), new AsyncCallback<Vector<Projekt>>(){
 
 							@Override
@@ -1114,6 +1115,22 @@ public class MeineProjekteAnzeigen extends Showcase{
 			Showcase showcase = new MeineProjekteAnzeigen(is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
+		}
+		
+	}
+	
+	private class BewertungLoeschen implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			// TODO Auto-generated method stub
+			
 		}
 		
 	}

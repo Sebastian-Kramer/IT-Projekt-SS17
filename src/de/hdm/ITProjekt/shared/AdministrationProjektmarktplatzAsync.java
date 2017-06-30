@@ -215,7 +215,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteBewertungbyBeteiligung(int id, AsyncCallback<Void> callback);
 
-
 	void findOrgaByID(Integer id, AsyncCallback<Vector<Organisationseinheit>> callback);
 
 	void findTeamByID(Integer id, AsyncCallback<Vector<Team>> callback);
