@@ -35,6 +35,16 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Team;
+
+/**
+ * In dieser Klasse können die Bewerbungen einer Organisationseinheit eingesehen werden und
+ * über den Button <code>bewerbungLoeschen_button</code> auch wieder vom Bewerber zurückgezogen werden.
+ * Um die Übersicht zu verbessern werden Attribute aus verschiedenen Tabellen mithilfe der CellTables
+ * ausgegeben. Da sowohl Personen, Unternehmen und Teams Bewerbungen schreiben können erhalten diese verschiedene
+ * CellTables, je nachdem welche <code>IdentitySelection</code> gerade unterwegs ist.
+ * @author Raphael
+ *
+ */
 public class MeineBewerbungenSeite extends Showcase {
 	
 	private static ClickHandler currentClickHandler = null;
@@ -196,6 +206,13 @@ public class MeineBewerbungenSeite extends Showcase {
 					if(ssm != null){
 						Bewerbung ausgewaehlteBew = new Bewerbung();
 						ausgewaehlteBew.setID(ssm.getSelectedObject().getBewerbungId());
+						ausgewaehlteBew.setStatus(ssm.getSelectedObject().getBewerbungsstatus());
+						if(ausgewaehlteBew.getStatus() == "angenommen"){
+							Window.alert("Ihre Bewerbung wurde angenommen und kann daher nicht mehr gelöscht werden");
+							
+						}else if(ausgewaehlteBew.getStatus() == "abgelehnt"){
+							Window.alert("Eine bereits abgelehnte Bewerbung kann nicht gelöscht werden");
+						}
 						adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
 
 							@Override
@@ -220,7 +237,10 @@ public class MeineBewerbungenSeite extends Showcase {
 							}
 				});
 		
-
+	/**
+ * 		Je nachdem welche <code>IdentitySelection</code> geladen wird, wird eine andere Tabelle 
+ * 		hinzugefügt und mit Daten aus dem zuvor erstellten Hybrid <code>localHybrid</code> befüllt
+ */
 		
 		if(is.getSelectedIdentityAsObject() instanceof Person){	
 		ct_meineBewerbungen.addColumn(ausschreibungsbezeichnung, "Ausschreibung");
@@ -514,41 +534,6 @@ public class MeineBewerbungenSeite extends Showcase {
 		
 	}
 		
-	
-	
-	
-		
-//	private void bewerbungLoeschen(){
-//		bewerbungLoeschen_button.addClickHandler(new ClickHandler(){
-//
-//			@Override
-//		public void onClick(ClickEvent event) {
-//				if(ssm != null){
-//					Bewerbung ausgewaehlteBew = new Bewerbung();
-//					ausgewaehlteBew.setID(ssm.getSelectedObject().getID());
-//					adminService.deleteBewerbung(ausgewaehlteBew, new AsyncCallback<Void>(){
-//
-//						@Override
-//						public void onFailure(Throwable caught) {
-//							// TODO Auto-generated method stub
-//							Window.alert("L�schen fehlgeschlagen");
-//						}
-//
-//						@Override
-//						public void onSuccess(Void result) {
-//							// TODO Auto-generated method stub
-//							
-//						}
-//						
-//					});
-//				}
-//				
-//						}
-//			});
-//	
-//		
-//		
-//		}
 			
 		}
 }

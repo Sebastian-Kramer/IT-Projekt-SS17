@@ -80,7 +80,8 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 			}
 		});
-		  
+
+		  RootPanel.get("header-top").clear();
 		  RootPanel.get("header-top").add(new Menuleiste());
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
@@ -156,7 +157,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 				IdentitySelection is = new IdentitySelection(person, mb);
 				mb.setIdSelection(is);
 				RootPanel.get("header-top").clear();
-				RootPanel.get("header-top").add(new Menuleiste());
+				RootPanel.get("header-top").add(new MenuleisteOhneLogin());
 				RootPanel.get("idendity").add(mb.getIdSelection());
 				RootPanel.get("login").add(signOutLink);
 				RootPanel.get("Details").add(mainPanel);

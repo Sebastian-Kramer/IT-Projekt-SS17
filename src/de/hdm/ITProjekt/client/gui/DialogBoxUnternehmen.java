@@ -55,12 +55,12 @@ public class DialogBoxUnternehmen extends DialogBox{
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	public DialogBoxUnternehmen(final IdentitySelection is){
-		this.is = is;
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
 		this.setText("Unternehmen");
 		ok.setStylePrimaryName("button");
 		abbrechen.setStylePrimaryName("button");
+		this.is = is;
 		
 			hpanel.add(ok);
 			hpanel.add(abbrechen);
@@ -115,7 +115,7 @@ public class DialogBoxUnternehmen extends DialogBox{
 			    }
 			
 			 adminService.insertUnternehmen(unternehmennametext.getText(), Integer.parseInt(unternehmenplztext.getText()), 
-					 Integer.parseInt(unternehmenhausnummertext.getText()), unternehmenorttext.getText(), unternehmenstrassetext.getText(), result.getID(), new AsyncCallback<Unternehmen>(){
+					 Integer.parseInt(unternehmenhausnummertext.getText()), unternehmenorttext.getText(), unternehmenstrassetext.getText(), result.getID(), is.getUser().getID(), new AsyncCallback<Unternehmen>(){
 
 				@Override
 				public void onFailure(Throwable caught) {
@@ -132,17 +132,30 @@ public class DialogBoxUnternehmen extends DialogBox{
 				     adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				   }
 					adminService.updatePerson(is.getUser(), new updateperson());
-					hide();
-					Menubar menubar = new Menubar(is.getUser());
-					RootPanel.get("idendity").clear();
-					RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
-					
-					RootPanel.get("Navigator").clear();
-					RootPanel.get("Navigator").add(menubar);
-					
-					Showcase showcase = new MeinProfilAnzeigen(is);
-					RootPanel.get("Details").clear();
-					RootPanel.get("Details").add(showcase);
+					hide(); 
+					adminService.getPersonbyID(is.getUser().getID(), new AsyncCallback<Person>(){
+
+							@Override
+							public void onFailure(Throwable caught) {
+								// TODO Auto-generated method stub
+								
+							}
+
+							@Override
+							public void onSuccess(Person result) {
+								hide();
+								RootPanel.get("idendity").clear();
+								RootPanel.get("Navigator").clear();
+								RootPanel.get("Details").clear();
+								Showcase showcase = new MeinProfilAnzeigen(is);
+								Menubar mb = new Menubar(is.getUser());
+								mb.setIdSelection(is);
+								RootPanel.get("Details").add(showcase);
+								RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+								RootPanel.get("Navigator").add(mb);
+							}
+							 
+						 });
 				}
 				 
 			 });

@@ -27,7 +27,14 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
-
+/**
+ * Die Klasse DialogBoxAusschreibung zeigt die Stellenausschreibung im Detail an.
+ * Hierzu gehört der Ausschreibungstext, das in der CellTable <code>ct_eigenschaften</code> anhand der 
+ * Eigenschaften gespeicherte Partnerprofil, sowie die Möglichkeit sich über den Button <code>bewerben</code>
+ * direkt auf die Ausschreibung zu bewerben.
+ * @author Raphael
+ *
+ */
 
 public class DialogBoxAusschreibung extends DialogBox {
 	
@@ -112,6 +119,10 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				if(selectedAusschreibung.getStatus() == "besetzt"){
+					Window.alert("Die Stelle wurde schon besetzt");
+				}else{
+				
 				adminService.getAllProjekte(new AsyncCallback<Vector<Projekt>>(){
 
 					@Override
@@ -138,6 +149,8 @@ public class DialogBoxAusschreibung extends DialogBox {
 					
 				});
 			
+				}
+				
 			}
 			
 		});
@@ -177,10 +190,6 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 								@Override
 								public void onSuccess(Vector<Eigenschaft> result) {
-
-
-									Window.alert(" Die Eigenschaften wurden gefunden");
-
 									ct_eigenschaften.setRowData(0, result);
 									ct_eigenschaften.setRowCount(result.size(),true);
 									

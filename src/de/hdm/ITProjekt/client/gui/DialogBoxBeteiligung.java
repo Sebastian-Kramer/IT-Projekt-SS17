@@ -34,6 +34,13 @@ import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/**
+ * Diese Klasse ermöglicht das Erstellen einer Beteiligung, wenn dies bei der Bewertung
+ * einer Bewerbung in der DialogBoxBewertung gewünscht ist.
+ * Eine Beteiligung stellt eine Teilnahme an einem Projekt dar.
+ * @author Raphael
+ *
+ */
 public class DialogBoxBeteiligung extends DialogBox{
 	
 	DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");
@@ -107,10 +114,10 @@ public class DialogBoxBeteiligung extends DialogBox{
 				be.setUmfang(umfangBox.getText());
 				be.setStartdatum(startBox.getValue());
 				be.setEnddatum(endBox.getValue());
-				be.setOrga_ID(aus.getOrga_ID());
+				be.setOrga_ID(bewerbung.getOrga_ID());
 				be.setProjekt_ID(aus.getProjekt_ID());
 				bewerbung.setStatus("angenommen");
-
+				aus.setStatus("besetzt");
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
@@ -119,6 +126,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				 }
 				adminService.insert(be, new BeteiligungAnlegen());
 				adminService.setBewerbungsStatus(bewerbung, new BewerbungStatus());
+				adminService.setAusschreibungsStatus(aus, new AusschreibungsStatus());
 				
 				DialogBoxBeteiligung.this.hide();
 			}
@@ -183,10 +191,26 @@ public class DialogBoxBeteiligung extends DialogBox{
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Der Status der Bewerbung wurde zu 'Angenommen' geändert");
 			
+			
 		}
 		
 	}
-	
+
+	public class AusschreibungsStatus implements AsyncCallback<Ausschreibung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Der Ausschreibungsstatus konnte nicht verändert werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Ausschreibung result) {
+			Window.alert("Der Status der Ausschreibung hat sich zu 'besetzt' geändert");
+			
+		}
+		
+	}
 	
 	
 

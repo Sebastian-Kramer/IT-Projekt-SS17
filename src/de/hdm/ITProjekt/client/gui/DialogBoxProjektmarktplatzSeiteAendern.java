@@ -22,6 +22,14 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+
+/**
+ * Die Klasse ermöglicht das Andern des Namens eines Projektmarktplatzes.
+ * Da diese Klasse nur über die Klasse <code>ProjektmarktplatzBearbeitungsSeite</code> aufgerufen werden kann,
+ * kann nur ein Administrator diese nutzen.
+ * @author Raphael
+ *
+ */
 public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 	// Konflikt gel�st
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -39,13 +47,11 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 
 
 	FlexTable projektmarktplatzseite = new FlexTable();
-	private Projektmarktplatz selectedObjectvonAnlegen;
 	
-	public DialogBoxProjektmarktplatzSeiteAendern(Projektmarktplatz selectedObject) {
+	public DialogBoxProjektmarktplatzSeiteAendern(final Projektmarktplatz selectedObject) {
 		this.setText("Projektmarktplatz anlegen");
 		this.setAnimationEnabled(false);
 		this.setGlassEnabled(true);
-		this.selectedObjectvonAnlegen = selectedObject;
 		ok.setStylePrimaryName("button");
 		abbrechen.setStylePrimaryName("button");
 		
@@ -60,12 +66,13 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 					Window.alert("Bitte Geben Sie einen Projektmarktplatznamen ein");
 					}
 				else{
+					selectedObject.setBez(bezeichnung.getValue());
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 				 
 					if (adminService == null) {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
-					adminService.save(selectedObjectvonAnlegen, new updateProjektmarktplatzausDB());
+					adminService.updateProjektmarktplatz(selectedObject, new updateProjektmarktplatzausDB());
 				    
 					}
 					
@@ -98,13 +105,13 @@ public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			Window.alert("Ver�nderung konnte nicht gespeichert werden!");
+			Window.alert("Veränderung konnte nicht gespeichert werden!");
 			
 		}
 
 		@Override
 		public void onSuccess(Projektmarktplatz result) {
-			Window.alert("Ver�nderung wurde gespeichert werden!");
+			Window.alert("Veränderung wurde gespeichert werden!");
 			Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);			

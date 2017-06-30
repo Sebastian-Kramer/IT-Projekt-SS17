@@ -109,27 +109,37 @@ public class StellenausschreibungenSeite extends Showcase {
 		};
 		
 
-Column<Ausschreibung, String> Datum = 
-new Column<Ausschreibung, String>(new ClickableTextCell()) {
-	
-	public String getValue(Ausschreibung object) {
+		Column<Ausschreibung, String> Datum = 
+		new Column<Ausschreibung, String>(new ClickableTextCell()) {
+			
+			public String getValue(Ausschreibung object) {
+				
+				return object.getDatum().toString();
+				
+			}
+			};	
 		
-		return object.getDatum().toString();
 		
-	}
-	};	
-
-
-Column <Ausschreibung, String> Stellenbeschreibung =
-new Column<Ausschreibung, String>(new ClickableTextCell()) {
-	
-	public String getValue(Ausschreibung object) {
-		
-		return object.getAusschreibungstext().toString();
-	
-	}
-	
-	};
+		Column <Ausschreibung, String> Stellenbeschreibung =
+		new Column<Ausschreibung, String>(new ClickableTextCell()) {
+			
+			public String getValue(Ausschreibung object) {
+				
+				return object.getAusschreibungstext().toString();
+			
+			}
+			
+			};
+		Column <Ausschreibung, String> status =
+		new Column<Ausschreibung, String>(new ClickableTextCell()) {
+						
+			public String getValue(Ausschreibung object) {
+							
+					return object.getStatus();
+						
+			}
+						
+		};
 	
 	showausschreibung.addClickHandler(new ClickHandler(){
 
@@ -146,7 +156,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 				dialogBox.center();
 			}
 			else{
-				Window.alert("Bitte Ausschreibung ausw�hlen");
+				Window.alert("Bitte Ausschreibung auswählen");
 			}
 		}
 		
@@ -156,6 +166,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	ct_alleAusschreibungen.addColumn(Bezeichnung, "Bezeichnung");
 	ct_alleAusschreibungen.addColumn(Datum, "Einstelldatum");
 	ct_alleAusschreibungen.addColumn(Stellenbeschreibung, "Stellenbeschreibung");
+	ct_alleAusschreibungen.addColumn(status, "Ausschreibungsstatus");
 	
 	filltableausschreibung();
 

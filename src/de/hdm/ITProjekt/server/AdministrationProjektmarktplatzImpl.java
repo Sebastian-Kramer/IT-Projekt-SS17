@@ -57,23 +57,10 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   */
 	@Override
 	public Projektmarktplatz createProjektmarktplatz(String bez) {
-//		Log.info("start");
-		return null;
-//		Projektmarktplatz p = new Projektmarktplatz();
-//		p.setBez(bez);
-//		
-//		p.setId(1); //Setzen einer vorl�ufigen ID
-//		
-//		return this.pmpMapper.addMarktplatz(p);   //Projektmarktplatz-Onjekt in Datenbank speichern
-		
-		
+
+		return null;	
 	}
 
-	@Override
-	public Projektmarktplatz save(Projektmarktplatz p){ //Speichern/anpassen eines Objekts in der Datenbank
-		return this.pmpMapper.updateMarktplatz(p);
-		
-	}
 
 	@Override
 	public Projektmarktplatz getProjektmarktplatzById(int ID){
@@ -87,11 +74,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 	}
 
-//	@Override
-//	public void deleteProjektmarktplatz(Projektmarktplatz p){
-//		this.pmpMapper.deleteMarktplatz(p);
-//		
-//	}
 
 	@Override
 	public Projektmarktplatz addProjektmarktplatz(String bez){
@@ -105,37 +87,16 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.pmpMapper.findByBez(bez);
 	}
 
-//	@Override
-//	public Projektmarktplatz deleteProjektmarktplatz(Projektmarktplatz p)  {
-//		// TODO Auto-generated method stub
-//		// Wenn nicht alle Fremdschl�ssel gel�scht sind kann Proejktmarktplatz nicht gel�scht werden. Hier muss deleteprojekt auch aufgerufen werden.
-//		
-//		Vector<Projekt> projekt = this.getProjekteOf(p);
-//		
-//		if(projekt != null){
-//			for(Projekt pr : projekt){
-//				this.deleteProjekt(pr);
-//			}
-//		}
-//		
-//		return this.pmpMapper.deleteMarktplatz(p);
-//	}
+
 
 	@Override
 	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p) {
 		return this.pmpMapper.updateMarktplatz(p);
 		
 	}
-	/*
-	 * Wird noch von Sebi bearbeitet, bitte nicht weiter machen
-	 */
-//	@Override
-//	public Vector<Projektmarktplatz> getProjektmaktplaetzeOf(Person p) {
-//		Vector <Projektmarktplatz> result = new Vector<>();
-//		
-//		if(p != null && this.pmpMapper != null)
-//		return null;
-//	}	
+
+	
+
 	
 	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p){
 		
@@ -173,7 +134,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	@Override
 	public Vector<Projekt> findByProjektmarktplatz(Projektmarktplatz p) {
-		// TODO Auto-generated method stub
+		 
 		
 		
 		return this.pMapper.findByProjektmarktplatz(p);
@@ -252,7 +213,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	@Override
 	public Person updatePerson(Person p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.personMapper.updatePerson(p);
 	}
 	
@@ -296,7 +257,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	@Override
 	public void deletePerson(Person p) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		this.personMapper.deletePerson(p);;
 	}
 	
@@ -326,17 +287,17 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	 */
 	@Override
 	public Ausschreibung findByKey(int id) {
-		// TODO Auto-generated method stub
+		 
 		return this.aMapper.findByKey(id);
 	}
 	@Override
 	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId) {
-		// TODO Auto-generated method stub
+		 
 		return this.aMapper.getAlLAuscchreibungenBy(projektId);
 	}
 	@Override
 	public Vector<Ausschreibung> getAll() {
-		// TODO Auto-generated method stub
+		 
 		return this.aMapper.getAll();
 	}
 	
@@ -362,13 +323,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Ausschreibung update(Ausschreibung c) {
-		// TODO Auto-generated method stub
+		 
 		return this.aMapper.update(c);
 	}
 	
 	@Override
 	public Vector<Ausschreibung> findByProjekt(Projekt projekt) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.aMapper.findByProjekt(projekt);
 	}
 	
@@ -429,13 +390,13 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   */
 	@Override
 	public Vector<Bewerbung> getAllBewerbungen() {
-		// TODO Auto-generated method stub
+		 
 		return this.bewMapper.getAll();
 	}
 
 	@Override
 	public void deleteBewerbung(Bewerbung a) {
-		// TODO Auto-generated method stub
+		 
 		this.bewMapper.delete(a);
 	}
 	@Override
@@ -497,7 +458,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	   */
 //	@Override
 //	public Organisationseinheit insert(Organisationseinheit o) {
-//		// TODO Auto-generated method stub
+//		 
 //		return this.orgMapper.insert(o);
 //	}
 	/*
@@ -553,37 +514,24 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //	public Team findByKeyOfPerson(int id) throws IllegalArgumentException {
 //		return this.tMapper.findByKey(id);
 //	}
-	@Override
-	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse,
-			int partnerprofilID) throws IllegalArgumentException {
-		Unternehmen u = new Unternehmen();
-		u.setID(0);
-		u.setHausnummer(hausnr);
-		u.setName(text);
-		u.setOrt(ort);
-		u.setPartnerprofil_ID(partnerprofilID);
-		u.setPlz(plz);
-		u.setStrasse(strasse);
-		
-		return this.unMapper.createUnternehmen(u);
-	}
+	
 	@Override
 	public void deleteUnternehmen(Unternehmen u) throws IllegalArgumentException {
 		this.unMapper.deleteUnternehmen(u);
 	}
 	@Override
 	public Unternehmen updateUnternehmen(Unternehmen u) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.unMapper.updateUnternehmen(u);
 	}	
 	@Override
 	public void deleteTeam(Team team) throws IllegalArgumentException {
-		this.tMapper.delete(team);
+		this.tMapper.deleteTeam(team);
 		
 	}
 	@Override
 	public Team updateTeam(Team team) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.tMapper.update(team);
 	}
 
@@ -616,7 +564,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Bewertung insertWithoutBeteil(Bewertung a) {
-		// TODO Auto-generated method stub
+		 
 		return this.bewertMapper.insertWithoutBeteil(a);
 	}
 	@Override
@@ -651,18 +599,18 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 
 	public Vector<Bewertung> getAllBewertungen() {
-		// TODO Auto-generated method stub
+		 
 		return this.bewertMapper.getAll();
 
 	}
 
 	public void deleteEigenschaft(Eigenschaft e) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		this.eigenschaftsMapper.deleteEigenschaft(e);
 	}
 	@Override
 	public Eigenschaft updateEigenschaft(Eigenschaft e) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.eigenschaftsMapper.update(e);
 	}
 	@Override
@@ -677,7 +625,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Vector<Projekt> getAllProjekteByProjektleiter(int personId) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.pMapper.getAllProjekteByProjektleiter(personId);
 	}
 	
@@ -730,12 +678,12 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Partnerprofil addPartnerprofil(Partnerprofil pp1) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.partnerprofilMapper.insert(pp1);
 	}
 	@Override
 	public Vector<Bewerbung> findByOrgaID(int Orga_ID) throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.bewMapper.findByPerson(Orga_ID);
 
 	}
@@ -818,7 +766,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 	@Override
 	public Vector<Organisationseinheit> getAllOrganisationseinheiten() throws IllegalArgumentException {
-		// TODO Auto-generated method stub
+		 
 		return this.orgMapper.getAllOrganisationseinheit();
 	}
 	@Override
@@ -854,6 +802,67 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException {
 		this.unMapper.deleteUnternehmen(u);
 		
+	}
+	@Override
+	public Vector<Organisationseinheit> findOrgaByID(Integer id) throws IllegalArgumentException {
+		
+		return this.orgMapper.findOrgaByID(id);
+	}
+	@Override
+	public Vector<Team> findTeamByID(Integer id) throws IllegalArgumentException {
+		 
+		return this.tMapper.findTeamByID(id);
+	}
+	@Override
+	public Vector<Unternehmen> getUnternehmenByID(Integer id) throws IllegalArgumentException {
+		 
+		return this.unMapper.getUnternehmenByID(id);
+	}
+	@Override
+	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID) throws IllegalArgumentException {
+		 
+		return this.getBewertungByBeteiligung(beteiligungID);
+	}
+
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException {
+
+		this.bewertMapper.deleteBewertungByBeteiligung(id);;
+		
+	}
+	@Override
+	public Team getTeamFromBewerbung(Integer id) throws IllegalArgumentException {
+		 
+		return this.tMapper.findByKey(id);
+	}
+	@Override
+	public Unternehmen getUnternehmenFromBewerbung(Integer id) throws IllegalArgumentException {
+		return this.unMapper.findByKey(id);
+
+	}
+		
+
+	public Vector<Unternehmen> getAllUnternehmen() throws IllegalArgumentException {
+		return this.unMapper.getAllUnternehmen();
+	}
+	@Override
+	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse,
+			int partnerprofilID, int erstellerid) {
+		Unternehmen u = new Unternehmen();
+		u.setID(0);
+		u.setHausnummer(hausnr);
+		u.setName(text);
+		u.setOrt(ort);
+		u.setPartnerprofil_ID(partnerprofilID);
+		u.setPlz(plz);
+		u.setStrasse(strasse);
+		u.setErstellerid(erstellerid);
+		
+		return this.unMapper.createUnternehmen(u);
+
+	}
+	@Override
+	public Ausschreibung setAusschreibungsStatus(Ausschreibung a) throws IllegalArgumentException {
+		return this.aMapper.updateAusschreibungsstatus(a);
 	}
 
 	

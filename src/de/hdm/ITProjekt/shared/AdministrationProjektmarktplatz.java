@@ -23,9 +23,9 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void init(); //Initialisierung des Objekts, muss nach Instantiierung aufgerufen werden
 	
-	public Projektmarktplatz createProjektmarktplatz(String bez)throws IllegalArgumentException;
+	public Vector<Unternehmen> getAllUnternehmen() throws IllegalArgumentException;
 	
-	public Projektmarktplatz save(Projektmarktplatz p)throws IllegalArgumentException; 
+	public Projektmarktplatz createProjektmarktplatz(String bez)throws IllegalArgumentException;
 	
 	public Projektmarktplatz getProjektmarktplatzById (int ID)throws IllegalArgumentException; 
 	
@@ -138,7 +138,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
-	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
+	Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
+			int erstellerid);
 
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException;
 
@@ -173,8 +174,14 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Partnerprofil> getAllPartnerprofile() throws IllegalArgumentException;
 
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
+	
+	public Ausschreibung setAusschreibungsStatus(Ausschreibung a) throws IllegalArgumentException;
 
 	public Person getPersonFromBewerbung(Integer id) throws IllegalArgumentException;
+	
+	public Team getTeamFromBewerbung(Integer id) throws IllegalArgumentException;
+	
+	public Unternehmen getUnternehmenFromBewerbung(Integer id) throws IllegalArgumentException;
 	
 	public Organisationseinheit getOrgaEinheitFromBewerbung(Integer id) throws IllegalArgumentException;
 	
@@ -201,5 +208,16 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public void deleteTeamByID(Integer t) throws IllegalArgumentException;
 	
 	public void deleteUnternehmenByID(Integer u) throws IllegalArgumentException;
+	
+	public Vector <Organisationseinheit> findOrgaByID(Integer id) throws IllegalArgumentException;
+	
+	public Vector <Team> findTeamByID(Integer id) throws IllegalArgumentException;
+	
+	public Vector<Unternehmen> getUnternehmenByID(Integer id) throws IllegalArgumentException;
+	
+	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID) throws IllegalArgumentException;
+
+	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException;
+
 
 	}

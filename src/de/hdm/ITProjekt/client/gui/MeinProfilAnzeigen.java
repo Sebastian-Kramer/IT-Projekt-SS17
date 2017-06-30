@@ -73,15 +73,9 @@ public class MeinProfilAnzeigen extends Showcase{
 	private FlexTable form = new FlexTable();
 	private FlexTable pe_form = new FlexTable();
 	private FlexTable pe_buttonPanel = new FlexTable();
-//	private FlexTable ftable_team = new FlexTable();
-//	private FlexTable ftable_unternehmen = new FlexTable();
 	private FlexTable ft_buttonPanel = new FlexTable();
 	private static DialogBox db_team = new DialogBox();
 	private static DialogBox db_unternehmen = new DialogBox();
-//	private Button closeTeam = new Button("Schließen");
-//	private Button closeUnternehmen = new Button("Schließen");
-
-	//Anlegen der Buttons für verschiedene Funktionen
 	private Button bearbeiten = new Button("Bearbeiten");
 	private Button speichern = new Button("Speichern");
 	private Button abbrechen = new Button("Abbrechen");
@@ -89,25 +83,16 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Button newUN = new Button("Unternehmen hinzufügen");
 	private Button eigenschaften = new Button("Eigenschaften hinzufügen");
 	
+	private Anchor team_suchen = new Anchor("Team Suchen");
 	private Button team_bearbeiten = new Button("Bearbeiten");
 	private Button team_speichern = new Button("Speichern");
 	private Button team_abbrechen = new Button("Abbrechen");
 	
+	private Anchor unternehmen_suchen = new Anchor("Suchen");
 	private Button unternehmen_bearbeiten = new Button("Bearbeiten");
 	private Button unternehmen_speichern = new Button("Speichern");
 	private Button unternehmen_abbrechen = new Button("Abbrechen");
 	
-	
-//	private Button teamErstellenButton = new Button("Team Erstellen");
-//	private MultiWordSuggestOracle oracle_teamHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_teamHinzufuegen = new SuggestBox(oracle_teamHinzufuegen);
-//	private Button teamHinzufuegenButton = new Button("OK");
-//	
-//	private Button unternehmenErstellenButton = new Button("Unternehmen Erstellen");
-//	private MultiWordSuggestOracle oracle_unternehmenHinzufuegen= new MultiWordSuggestOracle();
-//	private SuggestBox sb_unternehmenHinzufuegen = new SuggestBox(oracle_unternehmenHinzufuegen);
-//	private Button unternehmenHinzufuegenButton = new Button("OK");
-
 	//Erstellen der Text- bzw. ListBoxen
 	private ListBox anredeListBox = new ListBox();
 	private TextBox anredeBox = new TextBox();
@@ -162,10 +147,6 @@ public class MeinProfilAnzeigen extends Showcase{
 
 	private Anchor profilloeschen = new Anchor ("Profil Löschen");
 	private Anchor klickensiehier = new Anchor("Unternehmen/Team Löschen/Erstellen");
-//	((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//	 if (adminService == null) {
-//   adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//	 }
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
@@ -175,7 +156,7 @@ public class MeinProfilAnzeigen extends Showcase{
 	private Unternehmen unternehmenobject = new Unternehmen();
 	private Team teamobject = new Team();
 	private Team teamupdate = new Team();
-	
+	private Anchor teamaustreten = new Anchor("Verlassen");
 		@Override
 		protected String getHeadlineText() {
 			return "<h2>Mein Profil</h2>";
@@ -183,11 +164,68 @@ public class MeinProfilAnzeigen extends Showcase{
 		@Override
 		protected void run() {
 			
+			unternehmen_suchen.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					if(is.getTeamOfUser() == null){
+					DialogBox dbox = new DialogBoxUnternehmenSuchen(is);
+					dbox.center();
+				}else{
+					Window.alert("Bitte löschen Sie zu erst Ihr Team");
+				}
+			}
+			});
+			
+			teamaustreten.addClickHandler(new ClickHandler() {
+				
+				@Override
+				public void onClick(ClickEvent event) {
+					if (is.getTeamOfUser() == null){
+					is.getUser().getID();
+					is.getUser().getisAdmin();
+					is.getUser().getAnrede();
+					is.getUser().getEmail();
+					is.getUser().getHausnummer();
+					is.getUser().getName();
+					is.getUser().getOrt();
+					is.getUser().getPartnerprofil_ID();
+					is.getUser().getPlz();
+					is.getUser().getStrasse();
+					is.getUser().setUN_ID(0);
+					adminService.updatePerson(is.getUser(), new AsyncCallback<Person>(){
+
+						@Override
+						public void onFailure(Throwable caught) {
+						}
+
+						@Override
+						public void onSuccess(Person result) {
+							Window.alert("Sie haben Ihr Unternehmen verlassen");
+							RootPanel.get("idendity").clear();
+							RootPanel.get("Navigator").clear();
+							RootPanel.get("Details").clear();
+							Showcase showcase = new MeinProfilAnzeigen(is);
+							Menubar mb = new Menubar(is.getUser());
+							mb.setIdSelection(is);
+							RootPanel.get("Details").add(showcase);
+							RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+							RootPanel.get("Navigator").add(mb);
+						}
+						
+					});
+				}else{
+					Window.alert("Sie müssen zu erst Ihr Team löschen!");
+				}
+				}
+			});
+			
+			
 			profilloeschen.addClickHandler(new ClickHandler() {
 				@Override
 				public void onClick(ClickEvent event) {
 				if (is.getUser().getUN_ID() == null && is.getUser().getTeam_ID() == null){
-					DialogBox dbox = new DialogBoxProfilLoeschen(user);
+					DialogBox dbox = new DialogBoxProfilLoeschen(is.getUser());
 					dbox.center();
 					
 				}else{
@@ -326,8 +364,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			ft_buttonPanel.setWidget(0, 0, bearbeiten);
 			ft_buttonPanel.setWidget(0, 1, speichern);
 			ft_buttonPanel.setWidget(0, 2, abbrechen);
-//			ft_buttonPanel.setWidget(0, 3, newTeam);
-//			ft_buttonPanel.setWidget(0, 4, newUN);
+
 			
 		
 			unternehmen_abbrechen.setVisible(false);
@@ -336,29 +373,33 @@ public class MeinProfilAnzeigen extends Showcase{
 			team_speichern.setVisible(false);
 			speichern.setVisible(false);
 			abbrechen.setVisible(false);
-//			newTeam.setVisible(false);
-//			newUN.setVisible(false);
+
 			
-			un_flextable.setWidget(0, 0, unternehmen_bearbeiten);
-			un_flextable.setWidget(1, 0, unternehmen_speichern);
-			un_flextable.setWidget(1, 1, unternehmen_abbrechen);
+			un_flextable.setWidget(0, 0, unternehmen_suchen);
+			un_flextable.setWidget(1, 0, teamaustreten);
 			
-			un_flextable.setWidget(2, 0, unternehmen);
+			un_flextable.setWidget(2, 0, unternehmen_bearbeiten);
+			un_flextable.setWidget(3, 0, unternehmen_speichern);
+			un_flextable.setWidget(3, 1, unternehmen_abbrechen);
 			
-			un_flextable.setWidget(3, 1, unternehmenNameBox);
-			un_flextable.setWidget(3, 0, unternehmenNameLabel);
-			
-			un_flextable.setWidget(4,  1, unternehmenStrasseBox);
-			un_flextable.setWidget(4, 0, unternehmenStrasseLabel);
-			
-			un_flextable.setWidget(5,  1, unternehmenHausnummerBox);
-			un_flextable.setWidget(5, 0, unternehmenHausnummerLabel);
-			
-			un_flextable.setWidget(6,  1, unternehmenPlzBox);
-			un_flextable.setWidget(6, 0, unternehmenPlzLabel);
+			un_flextable.setWidget(4, 0, unternehmen);
 		
-			un_flextable.setWidget(7,  1, unternehmenOrtBox);
-			un_flextable.setWidget(7, 0, unternehmenOrtLabel);
+			un_flextable.setWidget(5, 1, unternehmenNameBox);
+			un_flextable.setWidget(5, 0, unternehmenNameLabel);
+			
+			un_flextable.setWidget(6, 1, unternehmenStrasseBox);
+			un_flextable.setWidget(6, 0, unternehmenStrasseLabel);
+			
+			un_flextable.setWidget(7, 1, unternehmenHausnummerBox);
+			un_flextable.setWidget(7, 0, unternehmenHausnummerLabel);
+			
+			un_flextable.setWidget(8,  1, unternehmenPlzBox);
+			un_flextable.setWidget(8, 0, unternehmenPlzLabel);
+		
+			un_flextable.setWidget(9,  1, unternehmenOrtBox);
+			un_flextable.setWidget(9, 0, unternehmenOrtLabel);
+
+		
 			
 			un_flextable.setCellSpacing(10);
 			
@@ -399,8 +440,6 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			partnerprofilDaten.add(team_flextable);
 			
-//			partnerprofilDaten.add(eigenschaften);
-//			partnerprofilDaten.add(pe_alleEigenschaften);
 			
 			buttonPartnerprofilPanel.add(partnerprofilDaten);
 			hpanel.add(vpanel);
@@ -408,10 +447,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			hpanel.add(partnerprofilDaten);	
 			
 			this.add(hpanel);
-			//-------------------- RootPanel wird vergrößert!
-//			RootPanel.get("Details").setWidth("1000px");
 
-//			hpanel.add(vpanel);
 			
 
 			this.setSpacing(8);
@@ -489,9 +525,16 @@ public class MeinProfilAnzeigen extends Showcase{
 					selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
 					if(selectedObject_alleEigenschaften != null){
 						
+						RootPanel.get("idendity").clear();
+						RootPanel.get("Navigator").clear();
+						Menubar mb = new Menubar(is.getUser());
+						mb.setIdSelection(is);
 						Showcase showcase= new EigenschaftenHinzufuegen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
+						RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+						RootPanel.get("Navigator").add(mb);
+				
 			}else{
 				Window.alert("Zum Bearbeiten muss eine Eigenschaft ausgewählt werden");
 				}
@@ -510,6 +553,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				if(is.getUnternehmenOfUser().getErstellerid() == is.getUser().getID()){
 				unternehmenNameBox.setReadOnly(false);
 				unternehmenStrasseBox.setReadOnly(false);
 				unternehmenHausnummerBox.setReadOnly(false);
@@ -519,7 +563,9 @@ public class MeinProfilAnzeigen extends Showcase{
 				unternehmen_bearbeiten.setVisible(false);
 				unternehmen_speichern.setVisible(true);
 				unternehmen_abbrechen.setVisible(true);
-				
+				}else{
+					Window.alert("Sie sind nicht berechtigt Änderungen an diesem Unternehmen durchzuführen!");
+				}
 			}
 		});	
 		unternehmen_speichern.addClickHandler(new ClickHandler() {
@@ -559,10 +605,17 @@ public class MeinProfilAnzeigen extends Showcase{
 							}
 
 							@Override
-							public void onSuccess(Unternehmen result) {
-								Showcase showcase = new MeinProfilAnzeigen(is);
-								RootPanel.get("Details").clear();
-								RootPanel.get("Details").add(showcase);
+							public void onSuccess(Unternehmen result) {	
+							RootPanel.get("idendity").clear();
+							RootPanel.get("Navigator").clear();
+							RootPanel.get("Details").clear();
+							Showcase showcase = new MeinProfilAnzeigen(is);
+							Menubar mb = new Menubar(is.getUser());
+							mb.setIdSelection(is);
+							RootPanel.get("Details").add(showcase);
+							RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+							RootPanel.get("Navigator").add(mb);
+					
 							}
 							
 						});
@@ -575,9 +628,17 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		
 			}
 		});
 		team_speichern.addClickHandler(new ClickHandler() {
@@ -589,7 +650,7 @@ public class MeinProfilAnzeigen extends Showcase{
 				 if (adminService == null) {
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
-				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getSelectedIdentityAsObject().getID(), new AsyncCallback<Team>(){
+				 ClientsideSettings.getpmpVerwaltung().getTeamByID(is.getUser().getTeam_ID(), new AsyncCallback<Team>(){
 
 					@Override
 					public void onFailure(Throwable caught) {
@@ -599,23 +660,15 @@ public class MeinProfilAnzeigen extends Showcase{
 
 					@Override
 					public void onSuccess(Team result) {
-						Window.alert("Success get team by id" + result.getID());
-						result.setHausnummer(Integer.parseInt(teamstrasse.getText()));
-						Window.alert("hausnummer");
+						result.setHausnummer(Integer.parseInt(teamhausnummer.getText()));
 						result.setName(teamname.getText());
-						Window.alert("name");
 						result.setOrt(teamort.getText());
-						Window.alert("ort");
 						result.setPlz(Integer.parseInt(teamplz.getText()));
-						Window.alert("plz");
 						result.setStrasse(teamstrasse.getText());
-						Window.alert("straße");
-						Window.alert("Nach variablen");
 						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 						 if (adminService == null) {
 					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 					    }
-						 Window.alert("nach adminservice");
 						ClientsideSettings.getpmpVerwaltung().updateTeam(result, new AsyncCallback<Team>(){
 
 							@Override
@@ -625,11 +678,16 @@ public class MeinProfilAnzeigen extends Showcase{
 
 							@Override
 							public void onSuccess(Team result) {
-
-								Window.alert("Success get team update");
-								Showcase showcase = new MeinProfilAnzeigen(is);
+								RootPanel.get("idendity").clear();
+								RootPanel.get("Navigator").clear();
 								RootPanel.get("Details").clear();
+								Showcase showcase = new MeinProfilAnzeigen(is);
+								Menubar mb = new Menubar(is.getUser());
+								mb.setIdSelection(is);
 								RootPanel.get("Details").add(showcase);
+								RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+								RootPanel.get("Navigator").add(mb);
+						
 							}
 							
 						});
@@ -642,9 +700,16 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		
 			}
 		});
 		team_bearbeiten.addClickHandler(new ClickHandler() {
@@ -700,26 +765,47 @@ public class MeinProfilAnzeigen extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		
 			}
 		});
 		unternehmen_abbrechen.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		;
 			}
 		});
 		
 		abbrechen.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		
 			}
 		});
 		
@@ -730,7 +816,7 @@ public class MeinProfilAnzeigen extends Showcase{
 			      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 			    }
 				 ClientsideSettings.getpmpVerwaltung().
-					getPersonbyID(user.getID(), new ProfilBearbeitenCallback());
+					getPersonbyID(is.getUser().getID(), new ProfilBearbeitenCallback());
 				
 			}
 		});
@@ -775,9 +861,16 @@ public class MeinProfilAnzeigen extends Showcase{
 
 			@Override
 			public void onSuccess(Void result) {
-				Showcase showcase = new MeinProfilAnzeigen(is);
+				RootPanel.get("idendity").clear();
+				RootPanel.get("Navigator").clear();
 				RootPanel.get("Details").clear();
+				Showcase showcase = new MeinProfilAnzeigen(is);
+				Menubar mb = new Menubar(is.getUser());
+				mb.setIdSelection(is);
 				RootPanel.get("Details").add(showcase);
+				RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+				RootPanel.get("Navigator").add(mb);
+		
 			}
 			
 		}
@@ -877,9 +970,16 @@ public class MeinProfilAnzeigen extends Showcase{
 					@Override
 					public void onSuccess(Void result) {
 						hide();
-						Showcase showcase = new MeinProfilAnzeigen(is);
+						RootPanel.get("idendity").clear();
+						RootPanel.get("Navigator").clear();
 						RootPanel.get("Details").clear();
+						Showcase showcase = new MeinProfilAnzeigen(is);
+						Menubar mb = new Menubar(is.getUser());
+						mb.setIdSelection(is);
 						RootPanel.get("Details").add(showcase);
+						RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+						RootPanel.get("Navigator").add(mb);
+				
 					}
 					
 				});

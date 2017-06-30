@@ -34,13 +34,14 @@ public Unternehmen findByKey(int id){
 	
 	try{
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery("SELECT ID, name FROM Unternehmen "
+		ResultSet rs = stmt.executeQuery("SELECT ID, name, erstellerid FROM Unternehmen "
       + "WHERE ID=" + id);
 		
 		if(rs.next()){
 			Unternehmen un = new Unternehmen();
 			un.setID(rs.getInt("ID"));
 			un.setName(rs.getString("name"));
+			un.setErstellerid(rs.getInt("erstellerid"));
 			un.setStrasse(super.findByKey(id).getStrasse());
 			un.setHausnummer(super.findByKey(id).getHausnummer());
 			un.setOrt(super.findByKey(id).getOrt());
@@ -75,7 +76,7 @@ public Unternehmen findByKey(int id){
 		  
 		  while (rs.next()) {
 			  Unternehmen u = new Unternehmen();
-				u.setID(rs.getInt("Unternehmen_Id"));
+				u.setID(rs.getInt("ID"));
 				u.setName(rs.getString("Name"));
 				u.setStrasse(super.findByObject(u).getStrasse());
 				u.setHausnummer(super.findByObject(u).getHausnummer());
@@ -90,6 +91,36 @@ public Unternehmen findByKey(int id){
 		        return null;
 		      }
 		  return result;
+	}
+	
+	public Vector<Unternehmen> getUnternehmenByID(Integer id){
+	
+			
+			Connection con = DBConnection.connection();
+			 Vector<Unternehmen> result = new Vector<Unternehmen>();
+			 
+			try{
+				Statement stmt = con.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT ID, name FROM Unternehmen "
+		      + "WHERE ID=" + id);
+				
+				while(rs.next()){
+					Unternehmen un = new Unternehmen();
+					un.setID(rs.getInt("ID"));
+					un.setName(rs.getString("name"));
+					un.setStrasse(super.findByKey(id).getStrasse());
+					un.setHausnummer(super.findByKey(id).getHausnummer());
+					un.setOrt(super.findByKey(id).getOrt());
+					un.setPlz(super.findByKey(id).getPlz());
+					un.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+					result.addElement(un);
+				}
+			}
+			catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+			return result;	
 	}
 	
 public Unternehmen createUnternehmen(Unternehmen u){
@@ -111,8 +142,8 @@ public Unternehmen createUnternehmen(Unternehmen u){
 		    	  
 		    	  	stmt = con.createStatement();
 		    	  	
-		    		stmt.executeUpdate("INSERT INTO Unternehmen (ID , name)" + "VALUES "
-		    				+ "("+  u.getID()+ "," + "'" + u.getName() + "'" +")");		    				    			    	  
+		    		stmt.executeUpdate("INSERT INTO Unternehmen (ID , name, erstellerid)" + "VALUES "
+		    				+ "("+  u.getID()+ "," + "'" + u.getName() + "'" + "," + u.getErstellerid() +")");		    				    			    	  
 		      }
 		}
 		catch(SQLException e2){
@@ -121,9 +152,27 @@ public Unternehmen createUnternehmen(Unternehmen u){
 		return u;
 	}
 
+public Unternehmen getUnternehmenbyOrgaID(Integer id){
+	
+	Connection con = DBConnection.connection();
+	Unternehmen u = new Unternehmen();
+	try{
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT ID, name FROM Unternehmen "
+		          + "WHERE ID=" + id);
+		
+		if(rs.next()){
+			u.setID(rs.getInt("ID"));
+			u.setName(rs.getString("name"));
 
-
-
+		}
+		
+	}catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+	return u;
+}
 
 public Unternehmen updateUnternehmen(Unternehmen u) {
     Connection con = DBConnection.connection();

@@ -31,6 +31,14 @@ import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
+/**
+ * Diese Klasse ermöglicht das Anlegen von Bewerbungen zu einer Stellenausschreibung.
+ * Für den Bewerbungstext wird die TextArea <code>bewerbungstext</code> genutzt.
+ * 
+ * @author Raphael
+ *
+ */
+
 public class DialogBoxBewerbungAnlegen extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -114,6 +122,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 					 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 					 }
 					adminService.insert(bewerbung_dialog, new addBewerbungInDB());
+					
 				}
 				
 			}
@@ -136,7 +145,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 		@Override
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Ihr Bewerbung wurde erfolgreich versendet");
-			hide();
+			DialogBoxBewerbungAnlegen.this.hide();
 			Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);

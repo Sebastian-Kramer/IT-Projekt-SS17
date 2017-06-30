@@ -37,6 +37,14 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/**
+ * Diese Klasse ermöglicht das Erstellen von Projekten.
+ * Durch das Setzen der Attribute des Projekt-Objekts <code>projekt_dialogbox</code> erhält
+ * das Projekt die gewünschten Attribute und wird durch den Clickhandler des Button <code>ok</code>
+ * in die Datenbank gespeichert.
+ * @author Raphael
+ *
+ */
 public class DialogBoxProjekte extends DialogBox {
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -192,12 +200,11 @@ public class DialogBoxProjekte extends DialogBox {
 
 		@Override
 		public void onSuccess(Projekt result) {
-			Window.alert(" " + result.getProjektleiter_ID());
+
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
-			
-			hide();
-			Showcase showcase = new Projektseite(projekt_dialogbox, is);
+			Showcase showcase = new Projektseite(result, is);
         	RootPanel.get("Details").clear();
+        	hide();
 			RootPanel.get("Details").add(showcase);
 		}
 	}
@@ -219,7 +226,6 @@ public class DialogBoxProjekte extends DialogBox {
 				 AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 				 }
 				 adminService.createProjekt(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
-				 //(startdatum.getValue(), enddatum.getValue(), bezeichnung.getText(), beschreibung.getText(), result.getID(), new addProjekteinDB());
 			}
 			
 		}

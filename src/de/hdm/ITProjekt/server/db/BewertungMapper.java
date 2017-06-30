@@ -154,6 +154,33 @@ public class BewertungMapper {
 			}	 
 	 			return result;
 	}
+	
+	public Vector<Bewertung> getBewertungByBeteiligung(int beteiligungID){
+		
+		Connection con = DBConnection.connection();	 
+		Vector<Bewertung> result = new Vector<Bewertung>();
+	 	
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, stellungnahme, bewertung, Beteiligungs_ID, Bewerbungs_ID FROM bewertung " 
+				 						+ "WHERE Beteiligungs_ID=" + beteiligungID);
+			while(rs.next()){
+				 Bewertung b = new Bewertung();
+				 
+				 b.setID(rs.getInt("ID"));
+				 b.setStellungnahme(rs.getString("stellungnahme"));
+				 b.setBewertung(rs.getDouble("bewertung"));
+				 b.setBeteiligungs_ID(rs.getInt("Beteiligungs_ID"));
+				 b.setBewerbungs_ID(rs.getInt("Bewerbungs_ID"));
+				 
+				 result.add(b);			 
+		 	}
+	 	}
+		 catch (SQLException e) {
+				e.printStackTrace();
+			}	 
+	 			return result;
+	}
 
 	/*
 	 * Hilfsmethode die alle Bewertungen einer Bewerbung mit Hilfe eines
@@ -254,6 +281,23 @@ public class BewertungMapper {
 	
 		      stmt.executeUpdate("DELETE FROM Bewertung " 
 		    		  			+ "WHERE Bewertung.ID = " + bew.getID());
+	
+			}
+		
+		catch (SQLException e2) {
+				e2.printStackTrace();
+			}
+	}
+	
+	public void deleteBewertungByBeteiligung(int id){
+		
+		Connection con = DBConnection.connection();
+		
+		try {
+		      Statement stmt = con.createStatement();
+	
+		      stmt.executeUpdate("DELETE FROM Bewertung " 
+		    		  			+ " WHERE Beteiligungs_ID = " + id);
 	
 			}
 		

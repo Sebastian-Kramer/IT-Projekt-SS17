@@ -18,6 +18,13 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 
+/**
+ * Durch diese Klasse bekommt der Nutzer die Möglichkeit seine Bewerbung anzuschauen.
+ * 
+ * @author Raphael
+ *
+ */
+
 public class DialogBoxBewerbung extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -35,8 +42,6 @@ public class DialogBoxBewerbung extends DialogBox {
 		this.bewerbungId = selectedId;
 	
 	}
-//	private static ClickHandler currentClickHandler = null;
-//	private static ClickEvent currentClickEvent = null;
 	
 	public DialogBoxBewerbung(String text){
 		schliessen.setStylePrimaryName("navi-button");

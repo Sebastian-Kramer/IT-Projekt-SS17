@@ -38,6 +38,13 @@ import de.hdm.ITProjekt.shared.bo.Projekt;
 
 import com.google.gwt.user.client.ui.TextArea;
 
+/**
+ * Diese Klasse ermölicht das Anlegen von Ausschreibungen und das Hinzufügen eines dazugehörigen Partnerprofils.
+ * Der Button <hinzufuegen> ermöglicht das Anlegen des Partnerprofils und dessen Eigenschaften.
+ * @author Raphael
+ *
+ */
+
 public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -72,13 +79,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	private Person person1 = new Person();
 	private Projekt projekt1 = new Projekt();
 	
-//	public DialogBoxAusschreibungAnlegen(Projekt projekt, Person person){
-//		this.projekt = projekt;
-//		this.person = person;
-//	}
-	
 
-	
 	public DialogBoxAusschreibungAnlegen (final Projekt projekt, final IdentitySelection is){
 		this.projekt1 = projekt;
 		this.is = is;
@@ -143,7 +144,6 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 					@Override
 					public void onSuccess(Partnerprofil result) {
 						DialogBoxEigenschaftHinzufuegen dialog_eigenschaft = new DialogBoxEigenschaftHinzufuegen(result);
-						Window.alert(" " + result.getID());
 						profil.setID(result.getID());
 						dialog_eigenschaft.center();
 						
@@ -176,6 +176,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
 			ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
 			ausschreibung_dialog.setDatum(ablaufDatum.getValue());
+			ausschreibung_dialog.setStatus("laufend");
 			ausschreibung_dialog.setOrga_ID(projekt.getProjektleiter_ID());
 			ausschreibung_dialog.setProjekt_ID(projekt.getID());
 			ausschreibung_dialog.setPartnerprofil_ID(profil.getID());
@@ -215,9 +216,6 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 								
 				 };
 					
-//					ct_eigenschaften.addColumn(name,"Fähigkeit");
-//					ct_eigenschaften.addColumn(wert, "Wert");
-//					filltableeigenschaften();
 					
 				}
 				
@@ -268,6 +266,7 @@ private void filltableeigenschaften(){
 			@Override
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
+				Window.alert(" Die 'Ausschreibung' befindet sich nun im Status 'laufend'");
 				hide();
 				Showcase showcase = new Projektseite(projekt1, is);
 				RootPanel.get("Details").clear();

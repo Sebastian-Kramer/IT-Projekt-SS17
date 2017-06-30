@@ -11,9 +11,12 @@ import com.google.gwt.user.cellview.client.Column;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.rpc.ServiceDefTarget;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
+import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.view.client.SingleSelectionModel;
@@ -43,10 +46,16 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel_funktionen = new HorizontalPanel();
+	private HorizontalPanel hpanel_navigation = new HorizontalPanel();
+	
+	private FlexTable ft_anchor = new FlexTable();
 	
 	final SingleSelectionModel<Projektmarktplatz> ssm_alleProjektmarktplaetze = new SingleSelectionModel<Projektmarktplatz>();
 	
 	private Projektmarktplatz selectedObject_alleProjektmarktplaetze;
+	
+	private Label labelprojektmarktplatz = new Label("/Projektmarktplatz");
+	private Anchor zurstartseite = new Anchor("Startseite");
 	
 	ProjektmarktplatzBearbeitungsSeite(IdentitySelection is){
 		this.is = is;
@@ -67,10 +76,24 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 	@Override
 	protected void run() {
-		//Größe des "div" Containers, sprich der Seite
+				//Größe des "div" Containers, sprich der Seite
 				RootPanel.get("Details").setWidth("100%");
 				// Größe der Tablle im div Container, sprich der Seite
 				ct_alleProjektmarktplaetze.setWidth("100%", true);
+				
+				zurstartseite.setStylePrimaryName("navigationanchor");
+				labelprojektmarktplatz.setStylePrimaryName("navigationanchor");
+				
+				bearbeitungsmodus_aktiv.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_anlegen.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_loeschen.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_aendern.setStylePrimaryName("myprofil-button");
+				
+				ft_anchor.setWidget(0, 0, zurstartseite);
+				ft_anchor.setWidget(0, 1, labelprojektmarktplatz);
+				ft_anchor.setCellPadding(10);
+				hpanel_navigation.add(ft_anchor);
+				
 				// Hinzufügen der Buttons und Textbox zum Panel
 				hpanel_projektmarktplatz.add(bearbeitungsmodus_aktiv);
 				hpanel_funktionen.add(projektmarktplatz_anlegen);
@@ -80,15 +103,14 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 				vpanel.add(ct_alleProjektmarktplaetze);
 				
 				// In die seite laden
+				this.add(hpanel_navigation);
 				this.add(hpanel_projektmarktplatz);
 				this.add(hpanel_funktionen);
 				this.add(vpanel);
 				
 				//Stylen der Buttons 
 				bearbeitungsmodus_aktiv.setStylePrimaryName("bearbungsmodusaktiv-button");
-//				projektmarktplatz_anlegen.setStylePrimaryName(style);
-//				projektmarktplatz_loeschen.setStylePrimaryName(style);
-//				projektmarktplatz_aendern.setStylePrimaryName(style);
+
 				// "selectionmodel" aussuchen single oder multi
 				ct_alleProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
 				
@@ -98,7 +120,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 						    
 								@Override
 								public String getValue(Projektmarktplatz object) {
-									// TODO Auto-generated method stub
+	
 									
 									return object.getBez();
 								}	    
@@ -116,7 +138,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 					
 					@Override
 					public void onClick(ClickEvent event) {
-						DialogBox DialogBoxProjektmarktplatzSeite = new DialogBoxProjektmarktplatzSeiteAnlegen();
+						DialogBox DialogBoxProjektmarktplatzSeite = new DialogBoxProjektmarktplatzSeiteAnlegen(is);
 						RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(DialogBoxProjektmarktplatzSeite);
 					}
@@ -164,7 +186,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 						@Override
 						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
+							
 							
 						}
 
@@ -175,7 +197,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 									@Override
 									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
+								
 										
 									}
 
@@ -195,7 +217,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 									@Override
 									public void onFailure(Throwable caught) {
-										// TODO Auto-generated method stub
+									
 										
 									}
 
@@ -208,7 +230,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 												@Override
 												public void onFailure(Throwable caught) {
-													// TODO Auto-generated method stub
+											
 													
 												}
 
@@ -218,7 +240,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 														@Override
 														public void onFailure(Throwable caught) {
-															// TODO Auto-generated method stub
+														
 															
 														}
 
@@ -229,7 +251,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																	@Override
 																	public void onFailure(Throwable caught) {
-																		// TODO Auto-generated method stub
+																		
 																		
 																	}
 
@@ -239,7 +261,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																			@Override
 																			public void onFailure(Throwable caught) {
-																				// TODO Auto-generated method stub
+																			
 																				
 																			}
 
@@ -266,7 +288,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																		@Override
 																		public void onFailure(Throwable caught) {
-																			// TODO Auto-generated method stub
+																			
 																			
 																		}
 
@@ -277,7 +299,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																				@Override
 																				public void onFailure(
 																						Throwable caught) {
-																					// TODO Auto-generated method stub
+																				
 																					
 																				}
 
@@ -290,7 +312,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																							@Override
 																							public void onFailure(
 																									Throwable caught) {
-																								// TODO Auto-generated method stub
+																								
 																								
 																							}
 
@@ -301,7 +323,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																									@Override
 																									public void onFailure(Throwable caught) {
-																										// TODO Auto-generated method stub
+																										
 																										
 																									}
 
@@ -311,7 +333,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																											@Override
 																											public void onFailure(Throwable caught) {
-																												// TODO Auto-generated method stub
+																												
 																												
 																											}
 
@@ -343,7 +365,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																								@Override
 																								public void onFailure(
 																										Throwable caught) {
-																									// TODO Auto-generated method stub
+																									
 																									
 																								}
 
@@ -355,7 +377,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																									@Override
 																									public void onFailure(
 																											Throwable caught) {
-																										// TODO Auto-generated method stub
+																								
 																										
 																									}
 
@@ -368,7 +390,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																												@Override
 																												public void onFailure(
 																														Throwable caught) {
-																													// TODO Auto-generated method stub
+																													
 																													
 																												}
 
@@ -380,7 +402,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																														@Override
 																														public void onFailure(
 																																Throwable caught) {
-																															// TODO Auto-generated method stub
+																															
 																															
 																														}
 
@@ -391,7 +413,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																@Override
 																																public void onFailure(Throwable caught) {
-																																	// TODO Auto-generated method stub
+																																	
 																																	
 																																}
 
@@ -401,7 +423,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																		@Override
 																																		public void onFailure(Throwable caught) {
-																																			// TODO Auto-generated method stub
+																																	
 																																			
 																																		}
 
@@ -436,7 +458,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																													@Override
 																													public void onFailure(
 																															Throwable caught) {
-																														// TODO Auto-generated method stub
+																														
 																														
 																													}
 
@@ -448,7 +470,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																															@Override
 																															public void onFailure(
 																																	Throwable caught) {
-																																// TODO Auto-generated method stub
+																															
 																																
 																															}
 
@@ -460,7 +482,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																	@Override
 																																	public void onFailure(
 																																			Throwable caught) {
-																																		// TODO Auto-generated method stub
+																																
 																																		
 																																	}
 
@@ -472,7 +494,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																			@Override
 																																			public void onFailure(
 																																					Throwable caught) {
-																																				// TODO Auto-generated method stub
+																																		
 																																				
 																																			}
 
@@ -483,7 +505,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																					@Override
 																																					public void onFailure(Throwable caught) {
-																																						// TODO Auto-generated method stub
+																																					
 																																						
 																																					}
 
@@ -493,7 +515,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																							@Override
 																																							public void onFailure(Throwable caught) {
-																																								// TODO Auto-generated method stub
+																																							
 																																								
 																																							}
 
@@ -559,11 +581,12 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 											});
 										}else{
 											for(Beteiligung bet : result){
+												adminService.deleteBewertungbyBeteiligung(bet.getID(), new BewertungLoeschen());
 												adminService.delete(bet, new AsyncCallback<Void>(){
 
 													@Override
 													public void onFailure(Throwable caught) {
-														// TODO Auto-generated method stub
+														
 														
 													}
 
@@ -575,7 +598,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 															@Override
 															public void onFailure(Throwable caught) {
-																// TODO Auto-generated method stub
+															
 																
 															}
 
@@ -585,7 +608,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																	@Override
 																	public void onFailure(Throwable caught) {
-																		// TODO Auto-generated method stub
+																
 																		
 																	}
 
@@ -596,7 +619,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																				@Override
 																				public void onFailure(Throwable caught) {
-																					// TODO Auto-generated method stub
+																					
 																					
 																				}
 
@@ -606,7 +629,6 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																						@Override
 																						public void onFailure(Throwable caught) {
-																							// TODO Auto-generated method stub
 																							
 																						}
 
@@ -633,7 +655,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																					@Override
 																					public void onFailure(Throwable caught) {
-																						// TODO Auto-generated method stub
+																						 
 																						
 																					}
 
@@ -644,7 +666,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																							@Override
 																							public void onFailure(
 																									Throwable caught) {
-																								// TODO Auto-generated method stub
+																								 
 																								
 																							}
 
@@ -657,7 +679,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																										@Override
 																										public void onFailure(
 																												Throwable caught) {
-																											// TODO Auto-generated method stub
+																											 
 																											
 																										}
 
@@ -668,7 +690,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																												@Override
 																												public void onFailure(Throwable caught) {
-																													// TODO Auto-generated method stub
+																													 
 																													
 																												}
 
@@ -678,7 +700,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																														@Override
 																														public void onFailure(Throwable caught) {
-																															// TODO Auto-generated method stub
+																															 
 																															
 																														}
 
@@ -710,7 +732,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																											@Override
 																											public void onFailure(
 																													Throwable caught) {
-																												// TODO Auto-generated method stub
+																												 
 																												
 																											}
 
@@ -722,7 +744,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																												@Override
 																												public void onFailure(
 																														Throwable caught) {
-																													// TODO Auto-generated method stub
+																													 
 																													
 																												}
 
@@ -735,7 +757,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																															@Override
 																															public void onFailure(
 																																	Throwable caught) {
-																																// TODO Auto-generated method stub
+																																 
 																																
 																															}
 
@@ -747,7 +769,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																	@Override
 																																	public void onFailure(
 																																			Throwable caught) {
-																																		// TODO Auto-generated method stub
+																																		 
 																																		
 																																	}
 
@@ -758,7 +780,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																			@Override
 																																			public void onFailure(Throwable caught) {
-																																				// TODO Auto-generated method stub
+																																				 
 																																				
 																																			}
 
@@ -768,7 +790,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																					@Override
 																																					public void onFailure(Throwable caught) {
-																																						// TODO Auto-generated method stub
+																																						 
 																																						
 																																					}
 
@@ -803,7 +825,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																@Override
 																																public void onFailure(
 																																		Throwable caught) {
-																																	// TODO Auto-generated method stub
+																																	 
 																																	
 																																}
 
@@ -815,7 +837,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																		@Override
 																																		public void onFailure(
 																																				Throwable caught) {
-																																			// TODO Auto-generated method stub
+																																			 
 																																			
 																																		}
 
@@ -827,7 +849,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																				@Override
 																																				public void onFailure(
 																																						Throwable caught) {
-																																					// TODO Auto-generated method stub
+																																					 
 																																					
 																																				}
 
@@ -839,7 +861,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 																																						@Override
 																																						public void onFailure(
 																																								Throwable caught) {
-																																							// TODO Auto-generated method stub
+																																							 
 																																							
 																																						}
 
@@ -850,7 +872,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																								@Override
 																																								public void onFailure(Throwable caught) {
-																																									// TODO Auto-generated method stub
+																																									 
 																																									
 																																								}
 
@@ -860,7 +882,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 																																										@Override
 																																										public void onFailure(Throwable caught) {
-																																											// TODO Auto-generated method stub
+																																											 
 																																											
 																																										}
 
@@ -952,13 +974,13 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			 
 			Window.alert("Fehler beim Laden der Daten aus der Datenbank");
 		}
 
 		@Override
 		public void onSuccess(Vector<Projektmarktplatz> result) {
-			// TODO Auto-generated method stub	
+			 	
 			ct_alleProjektmarktplaetze.setRowData(0, result);
 			ct_alleProjektmarktplaetze.setRowCount(result.size(), true);
 			
@@ -969,19 +991,36 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
+			 
 			Window.alert("Fehler beim Löschen");
 			
 		}
 
 		@Override
 		public void onSuccess(Projektmarktplatz result) {
-			// TODO Auto-generated method stub
+			 
 			Window.alert("Der Projektmarktplatz wurde erfolgreich gelöscht");
 			
 		}
 		
+		
 	}
+	private class BewertungLoeschen implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("Bewertungen und Beteiligungen gelöscht");
+			
+		}
+		
+	}
+	
 	
 	
 }

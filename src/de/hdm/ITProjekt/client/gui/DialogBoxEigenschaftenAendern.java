@@ -22,7 +22,13 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
-
+/**
+ * Diese Klasse ermöglicht die Änderung der Eigenschaften eines 
+ * Partnerprofils.
+ * 
+ * @author Raphael
+ *
+ */
 public class DialogBoxEigenschaftenAendern extends DialogBox{
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();

@@ -31,7 +31,17 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
-
+/**
+ * Die DialogBoxBewertung ermöglicht die Bewertung von Bewerbungen und die darauffolgende Erstellung
+ * einer Projektbeteiligung.
+ * Über die Listbox <code>janein</code> kann entschieden werden, ob eine Beteiligung erstellt wird.
+ * Dies wird durch das hinzufügen der Auswahlmöglichkeiten "Ja" und "nein" realisiert, die über <code/>additem</code>
+ * der Listbox hinzugefügt werden. Wird durch den User "Ja gewählt" öffnet sich die <code>DialogBoxBeteiligung</code>,
+ * ansonsten wird lediglich eine Bewertung erstellt.
+ *
+ * @author Raphael
+ *
+ */
 public class DialogBoxBewertung extends DialogBox{
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -40,7 +50,6 @@ public class DialogBoxBewertung extends DialogBox{
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private Button bewertungAbgaben = new Button("Abgeben");
-//	private Button beteiligungErstellen = new Button("Projektbeteiligung erstellen");
 	private Button close = new Button("Zurück zu Ausschreibungen");
 	
 	private ListBox bewertung = new ListBox();
@@ -51,7 +60,7 @@ public class DialogBoxBewertung extends DialogBox{
 	private FlexTable form = new FlexTable();
 	
 	private Label meineBewertung = new Label("Bewertung");
-	private Label stellungname = new Label("Stellungname");
+	private Label stellungname = new Label("Stellungnahme");
 	private Label beteiligung = new Label("Projektbeteiligung erstellen?");
 	
 	private Bewerbung bew;
@@ -71,11 +80,6 @@ public class DialogBoxBewertung extends DialogBox{
 		this.setGlassEnabled(true);
 
 
-//		bewertung.addItem(Double.toString(0.1));
-//		bewertung.addItem(Double.toString(0.2));
-//		bewertung.addItem(Double.toString(0.3));
-//		bewertung.addItem(Double.toString(0.4));
-//		bewertung.addItem(Double.toString(0.5));
 		bewertung.addItem("0.0");
 		bewertung.addItem("0.1");
 		bewertung.addItem("0.2");
@@ -105,7 +109,6 @@ public class DialogBoxBewertung extends DialogBox{
 		vpanel.add(form);
 		
 		vpanel.add(bewertungAbgaben);
-//		vpanel.add(beteiligungErstellen);
 		vpanel.add(close);
 		hpanel.add(vpanel);
 		this.add(hpanel);
@@ -129,7 +132,6 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
-				
 					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, seleceted_is , bew);		
 					dialogBox.center();
 					DialogBoxBewertung.this.hide();		
