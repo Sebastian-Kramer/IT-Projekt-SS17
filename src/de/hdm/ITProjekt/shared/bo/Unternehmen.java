@@ -9,11 +9,15 @@ public class Unternehmen extends Organisationseinheit{
 	
 	private static final long serialVersionUID = 1L;
 	
+	private int erstellerid;
+	
 	/*
 	 * Unternehmensname
 	 */
 	
 	private String name;
+	
+	
 	
 	/*
 	 * Auslesen des Unternehmensnamens
@@ -29,6 +33,14 @@ public class Unternehmen extends Organisationseinheit{
 	 * @param name
 	 */
 	
+	public int getErstellerid() {
+		return erstellerid;
+	}
+
+	public void setErstellerid(int erstellerid) {
+		this.erstellerid = erstellerid;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}

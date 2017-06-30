@@ -1,4 +1,4 @@
-/** Add css rules here for your application. */
+^/** Add css rules here for your application. */
 /** Example rules used by the template application (remove for your app) */
 /**h1 {
   font-size: 2em;
@@ -18,7 +18,7 @@
 
 .IdentityPanel {
 	position: absolute;
-    right: -122px;
+    right: -305px;
     top: 85px
 }
 
@@ -77,7 +77,7 @@ div#footer {
 	color: black;
 	position: absolute;
 	top: 8px;
-	right: 25px;
+    right: -163px;
 }
 
 .bearbungsmodusdeaktiv-button {
@@ -176,7 +176,7 @@ a {
 header {
 	background: lavender;
     border-radius: 33px;
-	width: 1150px;
+	width: 1320px;
 	height: 240px;
 	margin: 20px auto 0px;
 }
@@ -205,7 +205,8 @@ header h1 span {
 	border-radius: 30px;
     background: darkgray;
     border-color: aliceblue;
-	
+	height: 110px;
+    font-size: 32px;
 	
 	
 	margin: 10px 0 50px;
@@ -254,7 +255,7 @@ header a#navlink {
 ul#header-topreport {
 	position: absolute;
 	top: 0px;
-	right: -130px;
+	right: -315px;
 	float: right;
 	list-style-type: none;
 	color: blue;
@@ -262,22 +263,22 @@ ul#header-topreport {
 div#body-body{
 	background: rgba(230, 230, 250, 0.14);
     border-radius: 19px;
-    width: 1150px;
+    width: 1320px;
 }
 div#TopLevelFrame{
 	background: rgba(230, 230, 250, 0.14);
     border-radius: 19px;
-    width: 1150px;
+    width: 1320px;
 }
 div#footer{
 	background: lavender;
 	border-radius: 33px;
-	width: 1150px;
+	width: 1320px;
 }
 ul#header-top {
 	position: absolute;
 	top: 0px;
-	right: -130px;
+	right: -315px;
 	float: right;
 	list-style-type: none;
 	color: blue;
