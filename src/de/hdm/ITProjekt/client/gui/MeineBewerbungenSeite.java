@@ -87,8 +87,8 @@ public class MeineBewerbungenSeite extends Showcase {
 
 	@Override
 	protected void run() {
-		bewerbungAnzeigen_button.setStylePrimaryName("navigationanchor");
-		bewerbungLoeschen_button.setStylePrimaryName("navigationanchor");
+		bewerbungAnzeigen_button.setStylePrimaryName("myprofil-button");
+		bewerbungLoeschen_button.setStylePrimaryName("myprofil-button");
 //		is.activateOrgUnits();
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineBewerbungen.setWidth("100%");

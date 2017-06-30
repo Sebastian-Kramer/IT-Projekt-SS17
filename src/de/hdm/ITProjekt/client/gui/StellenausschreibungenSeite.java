@@ -178,7 +178,6 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		 Window.alert("Geht");
 		 adminService.getAllAusschreibung(new AlleGefunden());
 		 
 //		 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){

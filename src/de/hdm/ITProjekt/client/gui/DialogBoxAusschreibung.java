@@ -134,11 +134,13 @@ public class DialogBoxAusschreibung extends DialogBox {
 								Window.alert("Der Projektleiter kann sich nicht auf Stellen seines eigenen Projekts bewerben!");
 								
 							}else{
-								DialogBoxAusschreibung.this.hide();
+								hide();
 								DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
 								DialogBoxBewerbungAnlegen.center();
 								
-							}
+								
+							}break;
+							
 						}
 						
 					}

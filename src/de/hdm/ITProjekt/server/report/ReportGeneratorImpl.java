@@ -267,7 +267,7 @@ import de.hdm.ITProjekt.shared.report.Row;
 			      
 			      ausschreibungRow.addColumn(new Column(a.getAusschreibungstext()));
 			      
-//			      ausschreibungRow.addColumn(new Column(a..toString()));		
+			      ausschreibungRow.addColumn(new Column(a.getStatus()));		
 			      
 			      result.addRow(ausschreibungRow);
 			}
@@ -557,11 +557,11 @@ import de.hdm.ITProjekt.shared.report.Row;
 				
 
 				
-				if(b.getStatus().toString().equals("laufend")){
+				if(b.getStatus().equals("laufend")){
 					laufendeBewerbungen.add(b);
-				} else if(b.getStatus().toString().equals("abgelehnt")){
+				} else if(b.getStatus().equals("abgelehnt")){
 					abgelehnteBewerbungen.add(b);
-				} else if(b.getStatus().toString().equals("angenommen")){
+				} else if(b.getStatus().equals("angenommen")){
 					angenommeneBewerbungen.add(b);
 				}
 			}
@@ -610,7 +610,6 @@ import de.hdm.ITProjekt.shared.report.Row;
 		headline.addColumn(new Column("ID"));
 		headline.addColumn(new Column("Organisationseinheit"));
 		headline.addColumn(new Column("besetzt"));
-		headline.addColumn(new Column("abgebrochen"));
 		headline.addColumn(new Column("laufend"));
 		
 		result.addRow(headline);
@@ -624,7 +623,6 @@ import de.hdm.ITProjekt.shared.report.Row;
 		for(Organisationseinheit orga : alleOrganisationseinheiten) {
 			
 			Vector<Ausschreibung> besetzteAusschreibungen = new Vector<Ausschreibung>();
-			Vector<Ausschreibung> abgebrocheneAusschreibungen = new Vector<Ausschreibung>();
 			Vector<Ausschreibung> laufendeAusschreibungen = new Vector<Ausschreibung>();
 			
 			/**
@@ -633,18 +631,15 @@ import de.hdm.ITProjekt.shared.report.Row;
 			 */
 			Vector<Ausschreibung> alleAusschreibungen = adminService.getAusschreibungByOrgaeinheit(orga);
 				
-//-------------------------------------- AUSSCHREIBUNG 
-//			for(Ausschreibung a: alleAusschreibungen){
-//				
-//				if(a.getStatus().toString().equals("besetzt")){
-//					besetzteAusschreibungen.add(a);
-//				} else if(a.getStatus().toString().equals("abgebrochen")){
-//					abgebrocheneAusschreibungen.add(a);
-//				} else if(a.getStatus().toString().equals("laufend")){
-//					laufendeAusschreibungen.add(a);
-//				}
-//				
-//			}
+			for(Ausschreibung a: alleAusschreibungen){
+				
+				if(a.getStatus().toString().equals("besetzt")){
+					besetzteAusschreibungen.add(a); 
+				} else if(a.getStatus().toString().equals("laufend")){
+					laufendeAusschreibungen.add(a);
+				}
+				
+			}
 			
 			Row anzahlRow = new Row();
 			
@@ -659,7 +654,6 @@ import de.hdm.ITProjekt.shared.report.Row;
 			}
 			
 			anzahlRow.addColumn(new Column(String.valueOf(besetzteAusschreibungen.size())));
-			anzahlRow.addColumn(new Column(String.valueOf(abgebrocheneAusschreibungen.size())));
 			anzahlRow.addColumn(new Column(String.valueOf(laufendeAusschreibungen.size())));		
 			
 			result.addRow(anzahlRow);

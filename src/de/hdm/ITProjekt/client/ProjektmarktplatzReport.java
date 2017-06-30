@@ -54,7 +54,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	 private VerticalPanel mainPanel = new VerticalPanel();
 	 private Person p1 = new Person();
 
-	 private Label projektmarktplatzlabel = new Label("Sie wollen auf den Report Generator?");
+	 private Label projektmarktplatzlabel = new Label("Sie wollen auf den Projektmarktplatz?");
 	  
 	 private Button loginButton = new Button("Login");
 	 private Button seiteVerlassen = new Button("Seite verlassen");

@@ -145,7 +145,7 @@ public class DialogBoxBewerbungAnlegen extends DialogBox {
 		@Override
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Ihr Bewerbung wurde erfolgreich versendet");
-			DialogBoxBewerbungAnlegen.this.hide();
+			hide();
 			Showcase showcase = new MeineBewerbungenSeite(is, menubar);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
