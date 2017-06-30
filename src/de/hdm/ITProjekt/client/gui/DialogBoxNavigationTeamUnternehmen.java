@@ -117,8 +117,8 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 					Window.alert("Bearbeiten Sie bitte Ihr bestehendes Unternehmen");
 				}else{
 				DialogBox dialogbox = new DialogBoxUnternehmen(is);
-				dialogbox.center();
 				hide();
+				dialogbox.center();
 				}
 				
 			}
@@ -132,8 +132,9 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 					Window.alert("Sie haben kein Unternehmen");
 				}else{
 				DialogBox dialogbox = new DialogBoxUnternehmenLoeschen(is);
-				dialogbox.center();
+
 				hide();
+				dialogbox.center();	
 				}
 			}
 		});
@@ -254,6 +255,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 													RootPanel.get("Details").clear();
 													Showcase showcase = new MeinProfilAnzeigen(is);
 													Menubar mb = new Menubar(is.getUser());
+													mb.setIdSelection(is);
 													RootPanel.get("Details").add(showcase);
 													RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
 													RootPanel.get("Navigator").add(mb);
@@ -327,6 +329,7 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				
 				@Override
 				public void onClick(ClickEvent event) {
+					if (is.getUnternehmenOfUser().getErstellerid() == is.getUser().getID()){
 					unternehmen.setID(is.getUser().getUN_ID());
 					if (is.getUser().getTeam_ID() == null){
 						is.getUser().setUN_ID(0);
@@ -391,11 +394,12 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 												@Override
 												public void onSuccess(Void result) {
 													hide();
-												 	RootPanel.get("idendity").clear();
+													RootPanel.get("idendity").clear();
 													RootPanel.get("Navigator").clear();
 													RootPanel.get("Details").clear();
 													Showcase showcase = new MeinProfilAnzeigen(is);
 													Menubar mb = new Menubar(is.getUser());
+													mb.setIdSelection(is);
 													RootPanel.get("Details").add(showcase);
 													RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
 													RootPanel.get("Navigator").add(mb);
@@ -422,6 +426,10 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 					Window.alert("Löschen Sie erst Ihr Team");
 					hide();
 				}
+			}else{
+				Window.alert("Sie sind nicht berechtigt dieses Unternehmen zu löschen!");
+				hide();
+			}
 			}
 		});
 			nein.addClickHandler(new ClickHandler() {
@@ -429,9 +437,16 @@ public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 				@Override
 				public void onClick(ClickEvent event) {
 					hide();
-					Showcase showcase = new MeinProfilAnzeigen(is);
+					RootPanel.get("idendity").clear();
+					RootPanel.get("Navigator").clear();
 					RootPanel.get("Details").clear();
+					Showcase showcase = new MeinProfilAnzeigen(is);
+					Menubar mb = new Menubar(is.getUser());
+					mb.setIdSelection(is);
 					RootPanel.get("Details").add(showcase);
+					RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+					RootPanel.get("Navigator").add(mb);
+			
 					
 				}
 			});

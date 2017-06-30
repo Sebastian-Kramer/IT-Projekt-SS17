@@ -23,9 +23,11 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public void init(); //Initialisierung des Objekts, muss nach Instantiierung aufgerufen werden
 	
+	public Vector<Unternehmen> getAllUnternehmen() throws IllegalArgumentException;
+	
 	public Projektmarktplatz createProjektmarktplatz(String bez)throws IllegalArgumentException;
 	
-	public Projektmarktplatz save(Projektmarktplatz p)throws IllegalArgumentException; 
+//	public Projektmarktplatz save(Projektmarktplatz p)throws IllegalArgumentException; 
 	
 	public Projektmarktplatz getProjektmarktplatzById (int ID)throws IllegalArgumentException; 
 	
@@ -138,7 +140,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	
 	public Unternehmen getUnByID(int id) throws IllegalArgumentException;
 	
-	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID) throws IllegalArgumentException;
+	Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
+			int erstellerid);
 
 	public Vector<Bewerbung> findBewerbungByAusschreibungId(int id) throws IllegalArgumentException;
 

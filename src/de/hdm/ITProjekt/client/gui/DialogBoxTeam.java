@@ -146,16 +146,16 @@ public class DialogBoxTeam extends DialogBox{
 
 						@Override
 						public void onSuccess(Person result) {
-							Menubar menubar = new Menubar(is.getUser());
+							hide();
 							RootPanel.get("idendity").clear();
-							RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), menubar));
-							
 							RootPanel.get("Navigator").clear();
-							RootPanel.get("Navigator").add(menubar);
-								
-							Showcase showcase = new MeinProfilAnzeigen(is);
 							RootPanel.get("Details").clear();
+							Showcase showcase = new MeinProfilAnzeigen(is);
+							Menubar mb = new Menubar(is.getUser());
+							mb.setIdSelection(is);
 							RootPanel.get("Details").add(showcase);
+							RootPanel.get("idendity").add(new IdentitySelection(is.getUser(), mb));
+							RootPanel.get("Navigator").add(mb);
 						}
 						 
 					 });
