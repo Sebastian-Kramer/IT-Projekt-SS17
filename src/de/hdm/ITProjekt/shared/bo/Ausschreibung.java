@@ -56,13 +56,7 @@ public class Ausschreibung extends BusinessObject {
 	 * @param 
 	 */
 	
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
+	
 
 	public Ausschreibung() {
 		// TODO Auto-generated constructor stub
