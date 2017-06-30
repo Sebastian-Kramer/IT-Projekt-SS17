@@ -32,6 +32,7 @@ import de.hdm.ITProjekt.shared.bo.Beteiligung;
 import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
 /**
@@ -73,12 +74,23 @@ public class DialogBoxBeteiligung extends DialogBox{
 	private Beteiligung newBeteiligung;
 	private Person person;
 	private Bewerbung bewerbung;
+	private Projekt p;
+	private Projektmarktplatz pmp;
+	
 	
 	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, IdentitySelection is, Bewerbung bew){
 		this.aus = a;
 		this.bewe = b;
 		this.is = is;
 		this.bewerbung = bew;
+	}
+	public DialogBoxBeteiligung(Bewertung b, Ausschreibung a, IdentitySelection is, Bewerbung bew, Projekt p, Projektmarktplatz pmp){
+			this.aus = a;
+			this.bewe = b;
+			this.is = is;
+			this.bewerbung = bew;
+			this.p = p;
+			this.pmp = pmp;
 		
 		this.setText("Projektbeteiligung erstellen");
 		this.setAnimationEnabled(true);
@@ -117,6 +129,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				be.setOrga_ID(bewerbung.getOrga_ID());
 				be.setProjekt_ID(aus.getProjekt_ID());
 				bewerbung.setStatus("angenommen");
+				aus.setStatus("besetzt");
 
 				
 				((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
@@ -126,6 +139,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 				 }
 				adminService.insert(be, new BeteiligungAnlegen());
 				adminService.setBewerbungsStatus(bewerbung, new BewerbungStatus());
+				adminService.updateStatus(aus, new AusschreibungStatus());
 				
 				DialogBoxBeteiligung.this.hide();
 			}
@@ -171,7 +185,7 @@ public class DialogBoxBeteiligung extends DialogBox{
 		@Override
 		public void onSuccess(Bewertung result) {
 			Window.alert("Die Bewertung wurde erfolgreich abgegeben");
-			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, is);
+			Showcase showcase = new AlleBewerbungenFromAuschreibung(aus, is, p, pmp);
 			RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 			
@@ -190,11 +204,26 @@ public class DialogBoxBeteiligung extends DialogBox{
 		public void onSuccess(Bewerbung result) {
 			Window.alert("Der Status der Bewerbung wurde zu 'Angenommen' geändert");
 			
+			
 		}
 		
 	}
 	
-	
+	public class AusschreibungStatus implements AsyncCallback<Ausschreibung>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+
+			
+		}
+
+		@Override
+		public void onSuccess(Ausschreibung result) {
+			Window.alert("Der Status der Ausschreibung wurde auf 'besetzt' geändert");
+			
+		}
+		
+	}
 	
 
 }

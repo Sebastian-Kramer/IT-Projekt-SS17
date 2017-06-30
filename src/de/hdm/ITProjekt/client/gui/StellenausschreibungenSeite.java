@@ -130,6 +130,16 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	}
 	
 	};
+	Column<Ausschreibung, String> status =
+			new Column<Ausschreibung, String>(new ClickableTextCell()){
+
+				@Override
+				public String getValue(Ausschreibung object) {
+					// TODO Auto-generated method stub
+					return object.getStatus();
+				}
+	
+	};
 	
 	showausschreibung.addClickHandler(new ClickHandler(){
 
@@ -156,6 +166,7 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 	ct_alleAusschreibungen.addColumn(Bezeichnung, "Bezeichnung");
 	ct_alleAusschreibungen.addColumn(Datum, "Einstelldatum");
 	ct_alleAusschreibungen.addColumn(Stellenbeschreibung, "Stellenbeschreibung");
+	ct_alleAusschreibungen.addColumn(status, "Ausschreibungsstatus");
 	
 	filltableausschreibung();
 
@@ -167,24 +178,46 @@ new Column<Ausschreibung, String>(new ClickableTextCell()) {
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
+		 Window.alert("Geht");
+		 adminService.getAllAusschreibung(new AlleGefunden());
 		 
-		 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
-
-		 	@Override
-	public void onFailure(Throwable caught) {
-
-		Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+//		 AsyncCallback<Vector<Ausschreibung>> callback = new AsyncCallback<Vector<Ausschreibung>>(){
+//
+//		 	@Override
+//	public void onFailure(Throwable caught) {
+//
+//		Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+//	}
+//
+//	@Override
+//	public void onSuccess(Vector<Ausschreibung> result) {
+//		for (Ausschreibung a : result){
+//			Window.alert(a.getStatus());
+//		}
+//		ct_alleAusschreibungen.setRowData(0, result);
+//		ct_alleAusschreibungen.setRowCount(result.size(), true);	
+//		
+//	}
+//		 };
+//		adminService.getAllAusschreibung(callback);
+//
 	}
+	
+	public class AlleGefunden implements AsyncCallback<Vector<Ausschreibung>>{
 
-	@Override
-	public void onSuccess(Vector<Ausschreibung> result) {
-		ct_alleAusschreibungen.setRowData(0, result);
-		ct_alleAusschreibungen.setRowCount(result.size(), true);	
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Vector<Ausschreibung> result) {
+			ct_alleAusschreibungen.setRowData(0, result);
+			ct_alleAusschreibungen.setRowCount(result.size(), true);	
+			
+		}
 		
-	}
-		 };
-		adminService.getAll(callback);
-
 	}
 	
 	public class getAusschreibungAusDB implements AsyncCallback<Vector<Ausschreibung>>{

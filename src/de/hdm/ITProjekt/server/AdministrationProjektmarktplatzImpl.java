@@ -860,6 +860,15 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return this.unMapper.createUnternehmen(u);
 
 	}
+	@Override
+	public Ausschreibung updateStatus(Ausschreibung a) throws IllegalArgumentException {
+	
+		return this.aMapper.updateStatus(a);
+	}
+	@Override
+	public Vector<Ausschreibung> getAllAusschreibung() throws IllegalArgumentException {
+		return this.aMapper.getAllAusschreibung();
+	}
 
 	
 }

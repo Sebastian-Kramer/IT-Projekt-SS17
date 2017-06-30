@@ -14,11 +14,20 @@ public class Ausschreibung extends BusinessObject {
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
 	private Date datum = null;
+	private String status = "";
 	
 	/*
 	 * Realisierung der Beziehungen zu Projekt mittels Fremdschlüssel
 	 */
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	private Integer Projekt_ID = 0;
 	
 	/*

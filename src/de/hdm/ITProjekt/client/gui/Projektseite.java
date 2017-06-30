@@ -192,6 +192,8 @@ public class Projektseite extends Showcase{
 			hp_projekt.add(deleteTeilnehmer);
 			hp_projekt.add(deleteUN);
 			hp_projekt.add(deleteTeam);
+		}else{
+			hp_projekt.add(detailsButton);
 		}
 		}else{
 			hp_projekt.add(detailsButton);
@@ -220,10 +222,13 @@ public class Projektseite extends Showcase{
 
 				@Override
 				public void onClick(ClickEvent event) {
+					if(ssm.getSelectedObject().getStatus() == "besetzt"){
+						Window.alert("Die Stelle wurde schon besetzt");
+					}else{
 					a1 = ssm.getSelectedObject();
 					DialogBoxAusschreibung dialogBox = new DialogBoxAusschreibung(a1, is, mb);
 					dialogBox.center();
-					
+					}
 				}
 							
 			});
@@ -671,10 +676,21 @@ public class Projektseite extends Showcase{
 					}
 		
 		};
+		Column<Ausschreibung, String> status =
+				new Column<Ausschreibung, String>(new ClickableTextCell()){
+
+					@Override
+					public String getValue(Ausschreibung object) {
+						// TODO Auto-generated method stub
+						return object.getStatus();
+					}
+		
+		};
 		
 	
 	ct_projektausschreibungen.addColumn(bezeichnung, "Stellenbezeichnung");
-	ct_projektausschreibungen.addColumn(ablauffrist, "Ablauffrist");
+	ct_projektausschreibungen.addColumn(ablauffrist, "Bewerbungsfrist");
+	ct_projektausschreibungen.addColumn(status, "Ausschreibungsstatus");
 	
 	
 	Column<Person, String> name =
