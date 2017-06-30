@@ -34,6 +34,13 @@ import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/**
+ * Diese Klasse ermöglicht das Erstellen einer Beteiligung, wenn dies bei der Bewertung
+ * einer Bewerbung in der DialogBoxBewertung gewünscht ist.
+ * Eine Beteiligung stellt eine Teilnahme an einem Projekt dar.
+ * @author Raphael
+ *
+ */
 public class DialogBoxBeteiligung extends DialogBox{
 	
 	DateTimeFormat dateformat = DateTimeFormat.getFormat("dd.MM.yyyy");

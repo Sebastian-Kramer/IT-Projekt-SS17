@@ -2,6 +2,15 @@ package de.hdm.ITProjekt.client.gui;
 
 import java.util.Vector;
 
+/**
+ * Die <code>DialogBoxDetailsBewerbung</code> ermöglicht dem Stellenausschreibenden,
+ * die Bewerberinfos und die Bewerbung einzusehen.
+ * In der <code>TextArea</code> wird der Bewerbungstext ausgegeben,
+ * mithilfe der Celltable <code>ct_eigenschaft</code> werden die im Partnerprofil
+ * des Bewerbenden angelegten Eigenschaften aufgeführt.
+ *
+ */
+
 import com.google.gwt.cell.client.ClickableTextCell;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;

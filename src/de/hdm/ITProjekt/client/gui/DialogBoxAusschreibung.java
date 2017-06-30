@@ -27,7 +27,14 @@ import de.hdm.ITProjekt.client.ClientsideSettings;
 import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 
-
+/**
+ * Die Klasse DialogBoxAusschreibung zeigt die Stellenausschreibung im Detail an.
+ * Hierzu gehört der Ausschreibungstext, das in der CellTable <code>ct_eigenschaften</code> anhand der 
+ * Eigenschaften gespeicherte Partnerprofil, sowie die Möglichkeit sich über den Button <code>bewerben</code>
+ * direkt auf die Ausschreibung zu bewerben.
+ * @author Raphael
+ *
+ */
 
 public class DialogBoxAusschreibung extends DialogBox {
 	
