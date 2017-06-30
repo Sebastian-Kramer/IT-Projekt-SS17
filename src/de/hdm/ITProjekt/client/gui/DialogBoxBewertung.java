@@ -51,7 +51,7 @@ public class DialogBoxBewertung extends DialogBox{
 	private FlexTable form = new FlexTable();
 	
 	private Label meineBewertung = new Label("Bewertung");
-	private Label stellungname = new Label("Stellungname");
+	private Label stellungname = new Label("Stellungnahme");
 	private Label beteiligung = new Label("Projektbeteiligung erstellen?");
 	
 	private Bewerbung bew;

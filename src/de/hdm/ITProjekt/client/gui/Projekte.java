@@ -518,6 +518,7 @@ public class Projekte extends Showcase {
 									for(final Beteiligung bet : result){
 										bet.setOrga_ID(0);
 										bet.setProjekt_ID(0);
+										adminService.deleteBewertungbyBeteiligung(bet.getID(),new BewertungLoeschen());
 										adminService.updateBeteiligung(bet, new AsyncCallback<Beteiligung>(){
 
 											@Override
@@ -981,7 +982,21 @@ public class Projekte extends Showcase {
 		 
 	}
 				
-	
+	private class BewertungLoeschen implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("Beteiligungen gelöscht");
+			
+		}
+		
+	}
 		
 		
 		
