@@ -33,6 +33,14 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/**
+ * In dieser Klasse werden die Bewerbungen auf eine Ausschreibung angezeigt.
+ * Der Projektleiter kann mithilfe von <code>bewertung_abgeben</code> die Bewerbung bewerten und je nach
+ * Wunsch auch eine Beteiligung erstellen. 
+ * @author Raphael
+ *
+ */
+
 public class AlleBewerbungenFromAuschreibung extends Showcase{
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -133,8 +141,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		
 		
 		if (selectedAusschreibung.getOrga_ID() == is.getUser().getID()){
-			Window.alert("Sie haben die Ausschreibung angelegt und können alle Bewerbungen einsehen "
-					+ "und entsprechende Bewertungen abgeben");
+		
 			
 			ssm_bew.addSelectionChangeHandler(new Handler() {
 			

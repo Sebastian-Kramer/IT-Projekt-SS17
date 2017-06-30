@@ -32,6 +32,16 @@ import de.hdm.ITProjekt.shared.bo.Projekt;
 
 import com.google.gwt.user.client.ui.TextArea;
 
+
+/**
+ * In dieser Klasse kann der Nutzer Eigenschaften eines Partnerprofils zu einer Ausschreibung hinzufügen.
+ * in den ListBoxen <code>auswahlEigenschaften</code> und <code>wertEigenschaften</code> sind vordefinierte 
+ * Werte und Kenntnisse gespeichert.
+ * Die ausgewählten Eigenschafte werden bei einem Klick auf den Button <code>hinzufuegen</code> im Partnerprofil
+ * der Ausschreibung gesetzt.
+ * @author Raphael
+ *
+ */
 public class DialogBoxEigenschaftHinzufuegen extends DialogBox {
 	
 	

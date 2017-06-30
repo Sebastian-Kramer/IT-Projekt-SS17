@@ -31,7 +31,17 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
-
+/**
+ * Die DialogBoxBewertung ermöglicht die Bewertung von Bewerbungen und die darauffolgende Erstellung
+ * einer Projektbeteiligung.
+ * Über die Listbox <code>janein</code> kann entschieden werden, ob eine Beteiligung erstellt wird.
+ * Dies wird durch das hinzufügen der Auswahlmöglichkeiten "Ja" und "nein" realisiert, die über <code/>additem</code>
+ * der Listbox hinzugefügt werden. Wird durch den User "Ja gewählt" öffnet sich die <code>DialogBoxBeteiligung</code>,
+ * ansonsten wird lediglich eine Bewertung erstellt.
+ *
+ * @author Raphael
+ *
+ */
 public class DialogBoxBewertung extends DialogBox{
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
