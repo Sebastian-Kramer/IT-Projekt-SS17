@@ -1,5 +1,12 @@
 package de.hdm.ITProjekt.shared.bo;
 
+/*
+ * Die Klasse Person ist eine Organisationseinheit und erbt von dieser Klasse die Attribute und Methoden
+ * Eine Person, die auf einem Projektmarktplatz angemeldet ist, hat einen Vor- und Nachnamen, eine E-Mail
+ * Adresse und eine Anrede. Die Person kann als Administrator festgelegt sein und kann dadruch Projektmarktplätze
+ * löschen. Außderdem ist jede Person, die ein Projekt anlegt automatisch der jeweilige Projektleiter
+ */
+
 public class Person extends Organisationseinheit{
 	
 	private static final long serialVersionUID = 1L;
@@ -27,6 +34,11 @@ public class Person extends Organisationseinheit{
 	 */
 	
 	private String anrede;
+	/*
+	 * isAdmin der Organisationseinheit
+	 */
+	
+	private boolean isAdmin;
 	
 	/*
 	 * Realisierung der Beziehung zu einem Team mittels Fremdschlüsselbeziehung
@@ -45,9 +57,6 @@ public class Person extends Organisationseinheit{
 	 * @return email
 	 */
 	
-	
-	
-	
 	public String getEmail() {
 		return email;
 	}
@@ -56,9 +65,23 @@ public class Person extends Organisationseinheit{
 	 * Setzen der Emailadresse
 	 * @param email
 	 */
-	
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	
+	/*
+	 * Auslesen isAdmin
+	 * @return isAdmin 
+	 */
+	public boolean getisAdmin() {
+		return isAdmin;
+	}
+	/*
+	 * Setzen des isAdmin Befehls
+	 * @param isAdmin
+	 */
+	public void setAdmin(boolean isAdmin) {
+		this.isAdmin = isAdmin;
 	}
 	
 	/*

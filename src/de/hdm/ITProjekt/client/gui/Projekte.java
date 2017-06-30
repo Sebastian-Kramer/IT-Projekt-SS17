@@ -34,6 +34,9 @@ import de.hdm.ITProjekt.client.Showcase;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Ausschreibung;
+import de.hdm.ITProjekt.shared.bo.Beteiligung;
+import de.hdm.ITProjekt.shared.bo.Bewerbung;
+import de.hdm.ITProjekt.shared.bo.Bewertung;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
@@ -43,12 +46,11 @@ public class Projekte extends Showcase {
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
 	CellTable<Projekt> ct_alleProjekte = new CellTable<Projekt>();
-	CellTable<HybridProjektPerson> ct_projekte = new CellTable<HybridProjektPerson>();
-	Vector<HybridProjektPerson> projekte = new Vector<HybridProjektPerson>();
+	
 
 	ButtonCell detailsButton = new ButtonCell();
 	
-	private TextBox projektbox = new TextBox();
+	
 	HorizontalPanel hpanel_projekte = new HorizontalPanel();
 	VerticalPanel vpanel_projekte = new VerticalPanel();
 	
@@ -58,14 +60,15 @@ public class Projekte extends Showcase {
 	
 	final SingleSelectionModel<Projekt> ssm_projekt = new SingleSelectionModel<Projekt>();
 	
-	private Projekt projekt;
-
+	private Projekt projekt = new Projekt();
+	private Vector<Ausschreibung> aus;
 	private Anchor zurstartseite = new Anchor("Startseite");
 	private Anchor zuprojektmarktplaetze = new Anchor("/Projektmarktplätze");
 	private Label projektelabel = new Label("/Projekte");
 	private HorizontalPanel hpanelnavigator = new HorizontalPanel();  
 	private FlexTable ft_navi = new FlexTable();
 	
+	private IdentitySelection is = null;
 	
 	public Projekte(){
 		
@@ -76,9 +79,9 @@ public class Projekte extends Showcase {
 	private Person person = new Person();
 	private Projektmarktplatz selectedProjektmarktplatz = new Projektmarktplatz();
 	
-	public Projekte(Projektmarktplatz selectedObject, Person person){
+	public Projekte(Projektmarktplatz selectedObject, IdentitySelection is){
 		this.selectedProjektmarktplatz = selectedObject;
-		this.person = person;
+		this.is = is;
 	}
 
 
@@ -105,6 +108,8 @@ public class Projekte extends Showcase {
 		ct_alleProjekte.setWidth("100%", true);
 		ct_alleProjekte.setSelectionModel(ssm_projekt);
 		hpanel_projekte.add(show_projekt);
+		
+
 		hpanel_projekte.add(add_projekt);
 		hpanel_projekte.add(delete_projekt);
 		
@@ -112,6 +117,8 @@ public class Projekte extends Showcase {
 		this.add(ft_navi);
 		this.add(hpanel_projekte);
 		this.add(vpanel_projekte);
+		
+		
 		
 		zurstartseite.addClickHandler(new ClickHandler() {
 			
@@ -128,7 +135,7 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzSeite(person);
+				Showcase showcase = new ProjektmarktplatzSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -138,8 +145,12 @@ public class Projekte extends Showcase {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz, person);
+				if(is.getSelectedIdentityAsObject() instanceof Person){
+				DialogBox dialogbox = new DialogBoxProjekte(selectedProjektmarktplatz, is);
 				dialogbox.center();
+			}else{
+				Window.alert("Ein Team oder Unternehmen kann kein Projekt anlegen");
+			}
 			}
 		});
 		
@@ -153,9 +164,10 @@ public class Projekte extends Showcase {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				    }
 					 projekt = ssm_projekt.getSelectedObject();
-					 Showcase showcase = new Projektseite(projekt, person, selectedProjektmarktplatz);
+					 Showcase showcase = new Projektseite(projekt, is, selectedProjektmarktplatz);
 					 RootPanel.get("Details").clear();
 					 RootPanel.get("Details").add(showcase);
+					 
 					 
 				}
 				
@@ -164,92 +176,682 @@ public class Projekte extends Showcase {
 		});
 		
 		delete_projekt.addClickHandler(new ClickHandler(){
-			 
+
 			@Override
 			public void onClick(ClickEvent event) {
-				// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
-				Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				final Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
+				if(is.getUser().getID() == selectedProjektObject.getProjektleiter_ID()){
+					
+				selectedProjektObject.setProjektmarktplatz_ID(0);
+				selectedProjektObject.setProjektleiter_ID(0);
+				Window.alert("Geht");
 				if (selectedProjektObject != null){
+					Window.alert("Geht nicht");
 					((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 					 if (adminService == null) {
 				      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 				    }
-					 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
+					 adminService.getBeteiligungByProjekt(selectedProjektObject.getID(), new AsyncCallback<Vector<Beteiligung>>(){
 
 						@Override
 						public void onFailure(Throwable caught) {
-							// TODO Auto-generated method stub
-							Window.alert("Fehler beim Löschen");
+
+							Window.alert("Geht nicht");
+
+							Window.alert("Das hat nicht geklappt");
+
 							
 						}
 
-						@Override
-						public void onSuccess(Projekt result) {
-							Window.alert("Projekt wurde erfolgreich gelöscht");
-							filltableprojekte();
-							
-						}
-						};
-						adminService.deleteProjekt(selectedProjektObject, callback);
+							@Override
+							public void onSuccess(Vector<Beteiligung> result) {
+								if(result.isEmpty()){
+									adminService.updateProjekt(selectedProjektObject, new AsyncCallback<Projekt>(){
+									
+										@Override
+										public void onFailure(Throwable caught) {
+											Window.alert("Löschen hat nicht funktioniert 1");
+											
+										}
+
+										@Override
+										public void onSuccess(Projekt result) {
+											adminService.getAlLAuscchreibungenBy(result.getID(), new AsyncCallback<Vector<Ausschreibung>>(){
+
+												@Override
+												public void onFailure(Throwable caught) {
+													Window.alert("Löschen hat nicht funktioniert 2");
+													
+												}
+
+												@Override
+												public void onSuccess(Vector<Ausschreibung> result) {
+													if(result.isEmpty()){
+														adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+															@Override
+															public void onFailure(Throwable caught) {
+																// TODO Auto-generated method stub
+																
+															}
+
+															@Override
+															public void onSuccess(Void result) {
+																Window.alert("Projekt erfolgreich gelöscht");
+																Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																RootPanel.get("Details").clear();
+																RootPanel.get("Details").add(showcase);
+																
+															}
+															
+														});
+													}else{
+														for(final Ausschreibung a : result){
+															a.setOrga_ID(0);
+															a.setPartnerprofil_ID(0);
+															a.setProjekt_ID(0);
+															adminService.update(a, new AsyncCallback<Ausschreibung>(){
+
+																@Override
+																public void onFailure(Throwable caught) {
+																	// TODO Auto-generated method stub
+																	
+																}
+
+																@Override
+																public void onSuccess(Ausschreibung result) {
+																	adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
+
+																		@Override
+																		public void onFailure(Throwable caught) {
+																			// TODO Auto-generated method stub
+																			
+																		}
+
+																		@Override
+																		public void onSuccess(
+																				Vector<Bewerbung> result) {
+																			if(result.isEmpty()){
+																				adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																					@Override
+																					public void onFailure(
+																							Throwable caught) {
+																						// TODO Auto-generated method stub
+																						
+																					}
+
+																					@Override
+																					public void onSuccess(Void result) {
+																						adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																							@Override
+																							public void onFailure(
+																									Throwable caught) {
+																								
+																								
+																							}
+
+																							@Override
+																							public void onSuccess(
+																									Void result) {
+																								Window.alert("Projekt erfolgreich gelöscht");
+																								Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																								RootPanel.get("Details").clear();
+																								RootPanel.get("Details").add(showcase);
+																								
+																							}
+																							
+																						});
+																						
+																					}
+																					
+																				});
+																			}else{
+																				for(final Bewerbung b : result){
+																					b.setOrga_ID(0);
+																					b.setAusschreibungs_ID(0);
+																					adminService.updateBewerbung(b, new AsyncCallback<Bewerbung>(){
+
+																						@Override
+																						public void onFailure(
+																								Throwable caught) {
+																							// TODO Auto-generated method stub
+																							
+																						}
+
+																						@Override
+																						public void onSuccess(
+																								Bewerbung result) {
+																							adminService.getBewertungByBewerbung(result.getID(), new AsyncCallback<Vector<Bewertung>>(){
+
+																								@Override
+																								public void onFailure(
+																										Throwable caught) {
+																									// TODO Auto-generated method stub
+																									
+																								}
+
+																								@Override
+																								public void onSuccess(
+																										Vector<Bewertung> result) {
+																									if(result.isEmpty()){
+																										adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																											@Override
+																											public void onFailure(
+																													Throwable caught) {
+																												// TODO Auto-generated method stub
+																												
+																											}
+
+																											@Override
+																											public void onSuccess(
+																													Void result) {
+																												adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																													@Override
+																													public void onFailure(
+																															Throwable caught) {
+																														// TODO Auto-generated method stub
+																														
+																													}
+
+																													@Override
+																													public void onSuccess(
+																															Void result) {
+																														adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																															@Override
+																															public void onFailure(
+																																	Throwable caught) {
+																																// TODO Auto-generated method stub
+																																
+																															}
+
+																															@Override
+																															public void onSuccess(
+																																	Void result) {
+																																Window.alert("Projekt erfolgreich gelöscht");
+																																Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																																RootPanel.get("Details").clear();
+																																RootPanel.get("Details").add(showcase);
+																																
+																															}
+																															
+																														});
+																														
+																													}
+																													
+																												});
+																												
+																											}
+																											
+																										});
+																									}else{
+																										for(final Bewertung bew : result){
+																											bew.setBewerbungs_ID(0);
+																											bew.setBeteiligungs_ID(0);
+																											adminService.updateBewertung(bew, new AsyncCallback<Bewertung>(){
+
+																												@Override
+																												public void onFailure(
+																														Throwable caught) {
+																													// TODO Auto-generated method stub
+																													
+																												}
+
+																												@Override
+																												public void onSuccess(
+																														Bewertung result) {
+																													adminService.deleteBewertung(bew, new AsyncCallback<Void>(){
+
+																														@Override
+																														public void onFailure(
+																																Throwable caught) {
+																															// TODO Auto-generated method stub
+																															
+																														}
+
+																														@Override
+																														public void onSuccess(
+																																Void result) {
+																															adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																																@Override
+																																public void onFailure(
+																																		Throwable caught) {
+																																	// TODO Auto-generated method stub
+																																	
+																																}
+
+																																@Override
+																																public void onSuccess(
+																																		Void result) {
+																																	adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																																		@Override
+																																		public void onFailure(
+																																				Throwable caught) {
+																																			// TODO Auto-generated method stub
+																																			
+																																		}
+
+																																		@Override
+																																		public void onSuccess(
+																																				Void result) {
+																																			adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																																				@Override
+																																				public void onFailure(
+																																						Throwable caught) {
+																																					// TODO Auto-generated method stub
+																																					
+																																				}
+
+																																				@Override
+																																				public void onSuccess(
+																																						Void result) {
+																																					Window.alert("Projekt erfolgreich gelöscht");
+																																					Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																																					RootPanel.get("Details").clear();
+																																					RootPanel.get("Details").add(showcase);
+																																					
+																																				}
+																																				
+																																			});
+																																			
+																																		}
+																																		
+																																	});
+																																	
+																																}
+																																
+																															});
+																															
+																														}
+																														
+																													});
+																													
+																												}
+																												
+																											});
+																										}
+																									}
+																									
+																								}
+																								
+																							});
+																							
+																						}
+																						
+																					});
+																				}
+																			}
+																			
+																		}
+																		
+																	});
+																	
+																}
+																
+															});
+														}
+														
+													}
+													
+												}
+												
+											});
+											
+										}
+										
+									});
+								}else{
+									for(final Beteiligung bet : result){
+										bet.setOrga_ID(0);
+										bet.setProjekt_ID(0);
+										adminService.updateBeteiligung(bet, new AsyncCallback<Beteiligung>(){
+
+											@Override
+											public void onFailure(Throwable caught) {
+												// TODO Auto-generated method stub
+												
+											}
+
+											@Override
+											public void onSuccess(Beteiligung result) {
+												adminService.delete(bet, new AsyncCallback<Void>(){
+
+													@Override
+													public void onFailure(Throwable caught) {
+														// TODO Auto-generated method stub
+														
+													}
+
+													@Override
+													public void onSuccess(Void result) {
+														adminService.updateProjekt(selectedProjektObject, new AsyncCallback<Projekt>(){
+
+															@Override
+															public void onFailure(Throwable caught) {
+																Window.alert("Löschen hat nicht funktioniert 1");
+																
+															}
+
+															@Override
+															public void onSuccess(Projekt result) {
+																adminService.getAlLAuscchreibungenBy(result.getID(), new AsyncCallback<Vector<Ausschreibung>>(){
+
+																	@Override
+																	public void onFailure(Throwable caught) {
+																		Window.alert("Löschen hat nicht funktioniert 2");
+																		
+																	}
+
+																	@Override
+																	public void onSuccess(Vector<Ausschreibung> result) {
+																		if(result.isEmpty()){
+																			adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																				@Override
+																				public void onFailure(Throwable caught) {
+																					// TODO Auto-generated method stub
+																					
+																				}
+
+																				@Override
+																				public void onSuccess(Void result) {
+																					Window.alert("Projekt erfolgreich gelöscht");
+																					Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																					RootPanel.get("Details").clear();
+																					RootPanel.get("Details").add(showcase);
+																					
+																				}
+																				
+																			});
+																		}else{
+																			for(final Ausschreibung a : result){
+																				a.setOrga_ID(0);
+																				a.setPartnerprofil_ID(0);
+																				a.setProjekt_ID(0);
+																				adminService.update(a, new AsyncCallback<Ausschreibung>(){
+
+																					@Override
+																					public void onFailure(Throwable caught) {
+																						// TODO Auto-generated method stub
+																						
+																					}
+
+																					@Override
+																					public void onSuccess(Ausschreibung result) {
+																						adminService.findBewerbungByAusschreibungId(result.getID(), new AsyncCallback<Vector<Bewerbung>>(){
+
+																							@Override
+																							public void onFailure(Throwable caught) {
+																								// TODO Auto-generated method stub
+																								
+																							}
+
+																							@Override
+																							public void onSuccess(
+																									Vector<Bewerbung> result) {
+																								if(result.isEmpty()){
+																									adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																										@Override
+																										public void onFailure(
+																												Throwable caught) {
+																											// TODO Auto-generated method stub
+																											
+																										}
+
+																										@Override
+																										public void onSuccess(Void result) {
+																											adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																												@Override
+																												public void onFailure(
+																														Throwable caught) {
+																													
+																													
+																												}
+
+																												@Override
+																												public void onSuccess(
+																														Void result) {
+																													Window.alert("Projekt erfolgreich gelöscht");
+																													Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																													RootPanel.get("Details").clear();
+																													RootPanel.get("Details").add(showcase);
+																													
+																												}
+																												
+																											});
+																											
+																										}
+																										
+																									});
+																								}else{
+																									for(final Bewerbung b : result){
+																										b.setOrga_ID(0);
+																										b.setAusschreibungs_ID(0);
+																										adminService.updateBewerbung(b, new AsyncCallback<Bewerbung>(){
+
+																											@Override
+																											public void onFailure(
+																													Throwable caught) {
+																												// TODO Auto-generated method stub
+																												
+																											}
+
+																											@Override
+																											public void onSuccess(
+																													Bewerbung result) {
+																												adminService.getBewertungByBewerbung(result.getID(), new AsyncCallback<Vector<Bewertung>>(){
+
+																													@Override
+																													public void onFailure(
+																															Throwable caught) {
+																														// TODO Auto-generated method stub
+																														
+																													}
+
+																													@Override
+																													public void onSuccess(
+																															Vector<Bewertung> result) {
+																														if(result.isEmpty()){
+																															adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																																@Override
+																																public void onFailure(
+																																		Throwable caught) {
+																																	// TODO Auto-generated method stub
+																																	
+																																}
+
+																																@Override
+																																public void onSuccess(
+																																		Void result) {
+																																	adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																																		@Override
+																																		public void onFailure(
+																																				Throwable caught) {
+																																			// TODO Auto-generated method stub
+																																			
+																																		}
+
+																																		@Override
+																																		public void onSuccess(
+																																				Void result) {
+																																			adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																																				@Override
+																																				public void onFailure(
+																																						Throwable caught) {
+																																					// TODO Auto-generated method stub
+																																					
+																																				}
+
+																																				@Override
+																																				public void onSuccess(
+																																						Void result) {
+																																					Window.alert("Projekt erfolgreich gelöscht");
+																																					Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																																					RootPanel.get("Details").clear();
+																																					RootPanel.get("Details").add(showcase);
+																																					
+																																				}
+																																				
+																																			});
+																																			
+																																		}
+																																		
+																																	});
+																																	
+																																}
+																																
+																															});
+																														}else{
+																															for(final Bewertung bew : result){
+																																bew.setBewerbungs_ID(0);
+																																bew.setBeteiligungs_ID(0);
+																																adminService.updateBewertung(bew, new AsyncCallback<Bewertung>(){
+
+																																	@Override
+																																	public void onFailure(
+																																			Throwable caught) {
+																																		// TODO Auto-generated method stub
+																																		
+																																	}
+
+																																	@Override
+																																	public void onSuccess(
+																																			Bewertung result) {
+																																		adminService.deleteBewertung(bew, new AsyncCallback<Void>(){
+
+																																			@Override
+																																			public void onFailure(
+																																					Throwable caught) {
+																																				// TODO Auto-generated method stub
+																																				
+																																			}
+
+																																			@Override
+																																			public void onSuccess(
+																																					Void result) {
+																																				adminService.deleteBewerbung(b, new AsyncCallback<Void>(){
+
+																																					@Override
+																																					public void onFailure(
+																																							Throwable caught) {
+																																						// TODO Auto-generated method stub
+																																						
+																																					}
+
+																																					@Override
+																																					public void onSuccess(
+																																							Void result) {
+																																						adminService.deleteAusschreibung(a, new AsyncCallback<Void>(){
+
+																																							@Override
+																																							public void onFailure(
+																																									Throwable caught) {
+																																								// TODO Auto-generated method stub
+																																								
+																																							}
+
+																																							@Override
+																																							public void onSuccess(
+																																									Void result) {
+																																								adminService.deleteProjekt(selectedProjektObject, new AsyncCallback<Void>(){
+
+																																									@Override
+																																									public void onFailure(
+																																											Throwable caught) {
+																																										// TODO Auto-generated method stub
+																																										
+																																									}
+
+																																									@Override
+																																									public void onSuccess(
+																																											Void result) {
+																																										Window.alert("Projekt erfolgreich gelöscht");
+																																										Showcase showcase = new Projekte(selectedProjektmarktplatz, is);
+																																										RootPanel.get("Details").clear();
+																																										RootPanel.get("Details").add(showcase);
+																																										
+																																									}
+																																									
+																																								});
+																																								
+																																							}
+																																							
+																																						});
+																																						
+																																					}
+																																					
+																																				});
+																																				
+																																			}
+																																			
+																																		});
+																																		
+																																	}
+																																	
+																																});
+																															}
+																														}
+																														
+																													}
+																													
+																												});
+																												
+																											}
+																											
+																										});
+																									}
+																								}
+																								
+																							}
+																							
+																						});
+																						
+																					}
+																					
+																				});
+																			}
+																			
+																		}
+																		
+																	}
+																	
+																});
+																
+															}
+															
+														});
+														
+													}
+													
+												});
+												
+											}
+											
+										});
+									}
+								}
+								
+							}
+							 
+						 });
+					}
 				}
-}
+				
+			}
+			
 		});
-		
-//		ssm_projekt.addSelectionChangeHandler(new Handler(){
-//
-//			@Override
-//			public void onSelectionChange(SelectionChangeEvent event) {
-//				projekt = ssm_projekt.getSelectedObject();
-//				Showcase showcase = new Projektseite(projekt, person);
-//				RootPanel.get("Details").clear();
-//				RootPanel.get("Details").add(showcase);
-////				
-//			}
-//			
-//		});
-		
-//		Column<HybridProjektPerson, String> projektname =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getProjektname();
-//					}
-//		};
-//					
-//		Column<HybridProjektPerson, String>	startdatum =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getStartdatum().toString();
-//				}
-//			
-//		};
-//		
-//		Column<HybridProjektPerson, String> enddatum =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getEnddatum().toString();
-//					}
-//			
-//		};
-//		
-//		Column<HybridProjektPerson, String> projektleiter =
-//				new Column<HybridProjektPerson, String>(new ClickableTextCell()){
-//
-//					@Override
-//					public String getValue(HybridProjektPerson object) {
-//						// TODO Auto-generated method stub
-//						return object.getProjektleiter();
-//					}
-//			
-//		};
 			
 		
 		Column<Projekt, String> projektname = 
@@ -294,276 +896,78 @@ public class Projekte extends Showcase {
 			  			return object.getEnddatum().toString();
 		  			}
 		  };
-		  
+
 		  //Erstellen der Buttonspalte um Details öffnen zu können
 		  Column<Projekt,String> buttonCell =
 				  new Column<Projekt,String>(detailsButton){
 
-					@Override
+				@Override
 					public String getValue(Projekt object) {
-						
+					object = ssm_projekt.getSelectedObject();						
 						return "Details";
 					}
 			  
 		  };
+		  
+		  
 		  // implementieren des FieldUpdater um die Zeile anklicken zu können
-		  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
+	  buttonCell.setFieldUpdater(new FieldUpdater<Projekt,String>(){
 
 			@Override
-			public void update(int index, Projekt object, String value) {
-				DialogBoxProjektdetails dialogbox = new DialogBoxProjektdetails(object, person);
-				dialogbox.center();
+			public void update(int index, Projekt object , String value) {
+				object = ssm_projekt.getSelectedObject();
+				DialogBoxProjektdetails dialogbox_details  = new DialogBoxProjektdetails(object, is);
+				dialogbox_details.center();
 				
 					
 				
 			}
-			  
-		  });
-		  
-		 
-			  
-		  
 		  
 	
+			
+		  
+		  });
+		  
 
 		ct_alleProjekte.addColumn(projektname, "Projektname");		    
 		ct_alleProjekte.addColumn(startdatum, "Startdatum");	
 		ct_alleProjekte.addColumn(enddatum, "Enddatum");	
 		ct_alleProjekte.addColumn(beschreibung, "Beschreibung");
-		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");
-//		ct_projekte.addColumn(projektname, "Projektname");
-//		ct_projekte.addColumn(startdatum, "Startdatum");
-//		ct_projekte.addColumn(enddatum, "Enddatum");
-//		ct_projekte.addColumn(projektleiter, "Projektleiter");
-		
-//		ct_projekte.setRowCount(projekte.size(), true);
-//		ct_projekte.setRowData(0, projekte);
-		
-//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//		 if (adminService == null) {
-//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//	    }
-//		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new ProjekteAnzeigenCallback());
-		
-		
-//		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//		 if (adminService == null) {
-//	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//	    }
-		
-//		adminService.findByProjektmarktplatz(projektid, new getProjekteOfProjektmarktplatz());
-//		adminService.getAllProjekte(new getProjekteOfProjektmarktplatz());
+		ct_alleProjekte.addColumn(buttonCell, "Details anzeigen");	
+
+
 		filltableprojekte();
-//		deleteProjekt();
+
 	
 	
 }
-	
-//	private void deleteProjekt(){
-//
-//		 delete_projekt.addClickHandler(new ClickHandler(){
-//			 
-//				@Override
-//				public void onClick(ClickEvent event) {
-//					// "selectedobject" sprich die angewÃ¤hlte Zeile in der Tabelle wird instanziiert
-//					Projekt selectedProjektObject = ssm_projekt.getSelectedObject();
-//					if (selectedProjektObject != null){
-//						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-//						 if (adminService == null) {
-//					      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-//					    }
-//						 AsyncCallback<Projekt> callback = new AsyncCallback<Projekt>(){
-//	
-//							@Override
-//							public void onFailure(Throwable caught) {
-//								// TODO Auto-generated method stub
-//								Window.alert("Fehler beim Löschen");
-//								
-//							}
-//	
-//							@Override
-//							public void onSuccess(Projekt result) {
-//								Window.alert("Projekt wurde erfolgreich gelöscht");
-//								filltableprojekte();
-//								
-//							}
-//							};
-//							adminService.deleteProjekt(selectedProjektObject, callback);
-//					}
-//	}
-//			});
-//		 }
+
 	private void filltableprojekte(){
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		
-		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
-			 
+		 adminService.findByProjektmarktplatz(selectedProjektmarktplatz, new AsyncCallback<Vector<Projekt>>(){
+
 			@Override
 			public void onFailure(Throwable caught) {
-				Window.alert("Fehler beim Laden der Daten aus der Datenbank");
+		
 			}
 
 			@Override
 			public void onSuccess(Vector<Projekt> result) {
-				if (result != null){
 				ct_alleProjekte.setRowData(0, result);
 				ct_alleProjekte.setRowCount(result.size(), true);
-				} else{
-					Window.alert("Keine Projekte");
-				}
+				
+				
 			}
-		 };
-		adminService.findByProjektmarktplatz(selectedProjektmarktplatz, callback);
-
+			 
+		 });
 		 
-//		 		 AsyncCallback<Vector<Projekt>> callback = new AsyncCallback<Vector<Projekt>>(){
-//			 
-//				@Override
-//				public void onFailure(Throwable caught) {
-//					Window.alert("Fehler beim Laden der Daten aus der Datenbank");
-//				}
-//
-//				@Override
-//				public void onSuccess(Vector<Projekt> result) {
-//					Window.alert("Halloonsuccess");
-//					ct_alleProjekte.setRowData(0, result);
-//					ct_alleProjekte.setRowCount(result.size(), true);
-//					
-//				}
-//			 };
-//			adminService.getProjekteOf(projektid, callback);
-//		
-//		
-//	}
-//		class getProjekteOfProjektmarktplatz implements AsyncCallback<Vector<Projekt>>{
-//
-//			
-//			@Override
-//			public void onFailure(Throwable caught) {
-//				// TODO Auto-generated method stub
-//				Window.alert("Failed bro");
-//				
-//			}
-//
-//			@Override
-//			public void onSuccess(Vector<Projekt> result) {
-//				Window.alert("onsuccess");
-//				ct_alleProjekte.setRowData(0, result);
-//				ct_alleProjekte.setRowCount(result.size(), true);
-//			}
-//			
-//		}
 	}
+				
 	
-	private class HybridProjektPerson{
-		private int projekt_id;
-		private String projektname;
-		private Date startdatum;
-		private Date enddatum;
-		private String projektbezeichnung;
-		private String projektleiter;
-		private int projektmarktplatz_id;
-		
-		public int getProjekt_id() {
-			return projekt_id;
-		}
-		
-		public void setProjekt_id(int projekt_id) {
-			this.projekt_id = projekt_id;
-		}
-		
-		public String getProjektname() {
-			return projektname;
-		}
-		
-		public void setProjektname(String projektname) {
-			this.projektname = projektname;
-		}
-		
-		public Date getStartdatum() {
-			return startdatum;
-		}
-		
-		public void setStartdatum(Date startdatum) {
-			this.startdatum = startdatum;
-		}
-		
-		public Date getEnddatum() {
-			return enddatum;
-		}
-		
-		public void setEnddatum(Date enddatum) {
-			this.enddatum = enddatum;
-		}
-		
-		public String getProjektbezeichnung() {
-			return projektbezeichnung;
-		}
-		
-		public void setProjektbezeichnung(String projektbezeichnung) {
-			this.projektbezeichnung = projektbezeichnung;
-		}
-		
-		public String getProjektleiter() {
-			return projektleiter;
-		}
-		
-		public void setProjektleiter(String projektleiter) {
-			this.projektleiter = projektleiter;
-		}
-	}
-		
-		private class ProjekteAnzeigenCallback implements AsyncCallback<Vector<Projekt>>{
-
-			@Override
-			public void onFailure(Throwable caught) {
-				Window.alert("Schritt 1 ist fehlgeschlagen");
-				
-			}
-
-			@Override
-			public void onSuccess(Vector<Projekt> result) {
-				
-				for (int i=0;i< result.size();i++ ){
-					final Projekt localProjekt = result.get(i);
-					final HybridProjektPerson localHybrid = new HybridProjektPerson();
-					
-					ClientsideSettings.getpmpVerwaltung().getPersonbyID(result.get(i).getProjektleiter_ID(), new AsyncCallback<Person>(){
-						
-						@Override
-						public void onFailure(Throwable caught) {
-							Window.alert("Schritt 1 fehlgeschlagen");
-							
-						}
-
-						@Override
-						public void onSuccess(Person result) {
-							final Person p = result;
-							localHybrid.setProjektleiter(p.getName());
-							projekte.add(localHybrid);
-							ct_projekte.setRowCount(projekte.size(), true);
-							ct_projekte.setRowData(0, projekte);
-							
-							
-						}
-						
-					});
-						localHybrid.setProjekt_id(localProjekt.getID());
-						localHybrid.setProjektname(localProjekt.getName());
-						localHybrid.setEnddatum(localProjekt.getEnddatum());
-						localHybrid.setStartdatum(localProjekt.getStartdatum());
-						
-						
-				}
-				
-			}
-			
-		}
-
 		
 		
 		

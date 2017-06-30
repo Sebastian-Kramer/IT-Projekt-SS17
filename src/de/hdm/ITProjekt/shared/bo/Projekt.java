@@ -2,6 +2,11 @@ package de.hdm.ITProjekt.shared.bo;
 
 import java.util.Date;
 
+/*
+ * Auf einem Projektmarktplatz können ein oder mehrere Projekte angelegt werden. Diese Projekte enthalten
+ * einen Namen, eine Beschreibung, ein Start- und ein Enddatum. Jedes Projekt hat genau einen Projektleiter.
+ */
+
 public class Projekt extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
@@ -40,15 +45,13 @@ public class Projekt extends BusinessObject {
 	 * Realisierung der Beziehung zu einem Projektmarktplatz mittels Fremdschlüssel
 	 */
 	
-	private int Projektmarktplatz_ID = 0;
-
+	private Integer Projektmarktplatz_ID = 0;
 	
 	/*
 	 * Realisierung einer Beziehung zu einem Projektleiter mittels Fremdschlüssel
 	 */
 	
-	private int Projektleiter_ID = 1;
-
+	private Integer Projektleiter_ID = 0;
 	
 	/*
 	 * Auslesen der ID
@@ -145,7 +148,7 @@ public class Projekt extends BusinessObject {
 	 * @param Projektmarktplatz_ID
 	 */
 	
-	public int getProjektmarktplatz_ID() {
+	public Integer getProjektmarktplatz_ID() {
 		return Projektmarktplatz_ID;
 	}
 	
@@ -153,8 +156,12 @@ public class Projekt extends BusinessObject {
 	 * Setzen des Fremdschlüssels Projektmarktplatz_ID
 	 */
 
-	public void setProjektmarktplatz_ID(int projektmarktplatz_ID) {
-		Projektmarktplatz_ID = projektmarktplatz_ID;
+	public void setProjektmarktplatz_ID(Integer projektmarktplatz_ID) {
+		if(projektmarktplatz_ID == 0){
+			this.Projektmarktplatz_ID = null;
+		}else{
+			this.Projektmarktplatz_ID = projektmarktplatz_ID;
+		}		
 	}
 	
 	/*
@@ -162,7 +169,7 @@ public class Projekt extends BusinessObject {
 	 * @return Projektleiter_ID
 	 */
 
-	public int getProjektleiter_ID() {
+	public Integer getProjektleiter_ID() {
 		return Projektleiter_ID;
 	}
 
@@ -171,8 +178,12 @@ public class Projekt extends BusinessObject {
 	 * @param Projekteiter_ID
 	 */
 	
-	public void setProjektleiter_ID(int projektleiter_ID) {
-		Projektleiter_ID = projektleiter_ID;
+	public void setProjektleiter_ID(Integer projektleiter_ID) {
+		if(projektleiter_ID == 0){
+			this.Projektleiter_ID = null;
+		}else{
+			this.Projektleiter_ID = projektleiter_ID;
+		}
 	}
 	
 	/*
@@ -187,9 +198,6 @@ public class Projekt extends BusinessObject {
 				+ beschreibung+ "\n" + "Startdatum: " + startdatum+ "\n" + "Enddatum: " + enddatum;
 	}
 	
-	
-
-
 	public boolean equals(Object o) {
 
 	    if (o != null && o instanceof Projekt) {
@@ -203,9 +211,6 @@ public class Projekt extends BusinessObject {
 	    }
 	    return false;
 	  }
-
-
-
 }
 
 

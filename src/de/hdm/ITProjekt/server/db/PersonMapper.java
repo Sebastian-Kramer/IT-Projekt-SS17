@@ -86,7 +86,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID FROM Person "
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID, isAdmin FROM Person "
           + "WHERE ID=" + id);
 			
 			if(rs.next()){
@@ -98,6 +98,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -124,6 +125,30 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		return this.findByKey(p.getID());	
 	}
 
+	public Person getPersonbyOrgaID(Integer id){
+		
+		Connection con = DBConnection.connection();
+		Person p = new Person();
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name FROM Person "
+			          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				p.setID(rs.getInt("ID"));
+				p.setEmail(rs.getString("email"));
+				p.setAnrede(rs.getString("anrede"));
+				p.setVorname(rs.getString("vorname"));
+				p.setName(rs.getString("name"));
+			}
+			
+		}catch(SQLException e2){
+				e2.printStackTrace();
+				return null;
+			}
+		return p;
+	}
+	
 	/*
 	 * Notiz von Mert: Nochmal dr�ber schauen und ausgeben lassen in TestStart!
 	 */
@@ -154,6 +179,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -197,6 +223,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByKey(id).getStrasse());
 				p.setHausnummer(super.findByKey(id).getHausnummer());
 				p.setPlz(super.findByKey(id).getPlz());
@@ -237,6 +264,7 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 				p.setName(rs.getString("name"));
 				p.setTeam_ID(rs.getInt("Team_ID"));
 				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setAdmin(rs.getBoolean("isAdmin"));
 				p.setStrasse(super.findByObject(p).getStrasse());
 				p.setHausnummer(super.findByObject(p).getHausnummer());
 				p.setPlz(super.findByObject(p).getPlz());
@@ -250,6 +278,40 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		        e2.printStackTrace();
 		      }
 		  return result;
+	}
+	
+	public Vector<Person> getPersonByID(Integer id){
+Connection con = DBConnection.connection();
+Vector <Person> result = new Vector<Person>();
+		
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID FROM Person "
+          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				Person p = new Person();
+				p.setID(rs.getInt("ID"));
+				p.setEmail(rs.getString("email"));
+				p.setAnrede(rs.getString("anrede"));
+				p.setVorname(rs.getString("vorname"));
+				p.setName(rs.getString("name"));
+				p.setTeam_ID(rs.getInt("Team_ID"));
+				p.setUN_ID(rs.getInt("UN_ID"));
+				p.setStrasse(super.findByKey(id).getStrasse());
+				p.setHausnummer(super.findByKey(id).getHausnummer());
+				p.setPlz(super.findByKey(id).getPlz());
+				p.setOrt(super.findByKey(id).getOrt());
+				p.setPartnerprofil_ID(super.findByKey(id).getPartnerprofil_ID());
+				
+				result.addElement(p);
+	}
+		}
+		catch (SQLException e2) {
+	        e2.printStackTrace();
+		}
+		return result;
+		
 	}
 	
 	  /*
@@ -276,18 +338,18 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()==null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, Team_ID) "
 				            + "VALUES (" + p.getID() + ",'"  + p.getEmail() + "','" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getTeam_ID() +")");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getTeam_ID() +"')");
 			        
 		        }else if(p.getTeam_ID()==null && p.getUN_ID()!=null){
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, UN_ID) "
 				            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
-				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() +")");
+				            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() +"')");
 			        
 		        }else if(p.getTeam_ID()!=null && p.getUN_ID()!=null){
 			        // Jetzt erst erfolgt die tatsächliche Einfügeoperation
 			        stmt.executeUpdate("INSERT INTO Person (ID, email, name, vorname, anrede, UN_ID, Team_ID) "
 			            + "VALUES (" + p.getID() + ",'" + p.getEmail() + "','" + p.getName() + "','"
-			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +")");
+			            + p.getVorname() + "','" + p.getAnrede() + "'," + p.getUN_ID() + "," + p.getTeam_ID() +"')");
 		        } 
 		      
 		}

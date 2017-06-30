@@ -34,6 +34,7 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.client.ClientsideSettings;
+import de.hdm.ITProjekt.client.Menubar;
 import de.hdm.ITProjekt.client.Showcase;
 
 public class ProjektmarktplatzSeite extends Showcase{
@@ -48,9 +49,12 @@ public class ProjektmarktplatzSeite extends Showcase{
 	
 	private Projektmarktplatz p1;
 	private Person person;
+	private IdentitySelection is = null;
+	private Menubar menubar = null;
 	
-	public ProjektmarktplatzSeite(Person person){
-		this.person = person;
+	public ProjektmarktplatzSeite(IdentitySelection is){
+		this.is = is;
+		
 	}
 	
 	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
@@ -99,8 +103,9 @@ public class ProjektmarktplatzSeite extends Showcase{
 
 		
 		// Hinzufügen der Buttons und Textbox zum Panel
+		if (is.getUser().getisAdmin() == true){
 		hpanel_projektmarktplatz.add(bearbeitungsmodus_deaktiv);
-	
+		}
 		
 		
 		// Hinzufügen der Tabelle ins VerticalPanel
@@ -131,9 +136,10 @@ public class ProjektmarktplatzSeite extends Showcase{
 			public void onSelectionChange(SelectionChangeEvent event) {
 				// TODO Auto-generated method stub
 				p1 = ssm_alleProjektmarktplaetze.getSelectedObject();
-				Showcase showcase = new Projekte(p1, person);
+				Showcase showcase = new Projekte(p1, is);
 	        	RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+				
 			}
 		});
 //		ct_eigeneProjektmarktplaetze.setSelectionModel(ssm_alleProjektmarktplaetze);
@@ -171,7 +177,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite();
+				Showcase showcase = new ProjektmarktplatzBearbeitungsSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 			}
@@ -183,7 +189,7 @@ public class ProjektmarktplatzSeite extends Showcase{
 			    	selectedObject_alleProjektmarktplaetze = ssm_alleProjektmarktplaetze.getSelectedObject();
 			        if (selectedObject_alleProjektmarktplaetze != null){
 			        	
-			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze, person);
+			        	Showcase showcase = new Projekte(selectedObject_alleProjektmarktplaetze, is);
 			        	RootPanel.get("Details").clear();
 						RootPanel.get("Details").add(showcase);
 			        }else{

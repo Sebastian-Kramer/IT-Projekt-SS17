@@ -1,7 +1,10 @@
 package de.hdm.ITProjekt.client;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.StackPanel;
@@ -31,9 +34,11 @@ public class Menubar extends StackPanel {
 	
 	private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	// Die "einzelnen" Seiten in die Panels legen
-	VerticalPanel homePanel = new VerticalPanel();
+	private VerticalPanel homePanel = new VerticalPanel();
 //	VerticalPanel projektPanel = new VerticalPanel();
-	VerticalPanel projektmarktplatzPanel = new VerticalPanel();
+	private VerticalPanel projektmarktplatzPanel = new VerticalPanel();
+	
+
 	
 	
 	
@@ -41,20 +46,24 @@ public class Menubar extends StackPanel {
 	
 	// Buttons in dem Panel "home"
 	
-	Button zurstartseiteButton = new Button("Startseite");
-	Button meineBewerbungenButton = new Button("Meine Bewerbungen");
-	Button meineProjekteButton = new Button("Meine Projekte");
-	Button meinProfilButton = new Button("Mein Profil");
-	Button agbButton = new Button("AGB");
+	private Button zurstartseiteButton = new Button("Startseite");
+	private Button meineBewerbungenButton = new Button("Meine Bewerbungen");
+	private Button meineProjekteButton = new Button("Meine Projekte");
+	private Button meinProfilButton = new Button("Mein Profil");
+	private Button agbButton = new Button("AGB");
 	
 		
 	//Button für den ProjektPanel erstellen, dass heißt Button wird aber noch nicht angezeigt
 	
-	Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
-	Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
-		
+	private Button projektmarktplaetzeButton = new Button("Projektmarktplätze");
+	private Button stellenausschreibungenButton = new Button("Stellenausschreibungen");
+	private Button reportgeneratorButton = new Button("Report Generator");
 	
 	IdentitySelection is = null;
+	
+	public Menubar(final IdentitySelection is){
+		
+	}
 			
 	public Menubar(final Person person){
 		// Zusammensetzen des startseitePanels
@@ -101,11 +110,11 @@ public class Menubar extends StackPanel {
 //		blablaButton.setStylePrimaryName("navi-button");
 //		
 //		projektseitePanel.setSpacing(5);
-//		
-		this.setWidth("250px");
+		
+		this.setWidth("230px");
 		this.addStyleName("gwt-StackPanel");
-		this.add(homePanel, "Startseite");
-		this.add(projektmarktplatzPanel, "Projekte");
+		this.add(homePanel, "Eigene Seite");
+		this.add(projektmarktplatzPanel, "Marktplatz");
 		
 		//ProjektPanel zum StockPanel hinzufügen, dass es angezeigt wird
 		
@@ -124,11 +133,9 @@ public class Menubar extends StackPanel {
 //				
 //			}
 //		});
-		
 		projektmarktplaetzeButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
-				Showcase showcase = new ProjektmarktplatzSeite(person);
+				Showcase showcase = new ProjektmarktplatzSeite(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -137,12 +144,10 @@ public class Menubar extends StackPanel {
 			}
 		});
 		
-		// Dieser ClickHandler geh�rt nicht hierher!! Wurde von Mert als Test angelegt!!!
-		
 		meineProjekteButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				
-				Showcase showcase = new MeineProjekteAnzeigen(person);
+				Showcase showcase = new MeineProjekteAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -153,7 +158,8 @@ public class Menubar extends StackPanel {
 		
 		meineBewerbungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new MeineBewerbungenSeite(person);
+				Window.alert(""+ is.getSelectedIdentityAsObject().getID());
+				Showcase showcase = new MeineBewerbungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -163,7 +169,7 @@ public class Menubar extends StackPanel {
 		
 		stellenausschreibungenButton.addClickHandler(new ClickHandler(){
 			public void onClick(ClickEvent event){
-				Showcase showcase = new StellenausschreibungenSeite(person);
+				Showcase showcase = new StellenausschreibungenSeite(is, getMenubar());
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				currentClickHandler=this;
@@ -193,9 +199,11 @@ public class Menubar extends StackPanel {
 			public void onClick(ClickEvent event){
 				currentClickHandler=this;
 				currentClickEvent=event;
-				Showcase showcase = new MeinProfilAnzeigen(person);
+				Showcase showcase = new MeinProfilAnzeigen(is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+		
+		
 //				is.activateOrgUnits();
 //			
 //				Organisationseinheit selectedIdentity = is.getSelectedIdentityAsObject();	
@@ -224,9 +232,15 @@ public class Menubar extends StackPanel {
 	}
 	
 	
-	public Button getProjektmarktplaetzeButton() {
-		return projektmarktplaetzeButton;
+	private void add(VerticalPanel homePanel2, String string, VerticalPanel projektmarktplatzPanel2, String string2) {
+		// TODO Auto-generated method stub
+		
 	}
+
+
+//	public Button getProjektmarktplaetzeButton() {
+//		return projektmarktplaetzeButton;
+//	}
 
 
 	public IdentitySelection getIdSelection() {

@@ -1,15 +1,16 @@
 package de.hdm.ITProjekt.shared.bo;
+
 import java.util.Date;
+
+/*
+ * Jede Bewerbung die auf eine Stellenausschreibung abgegeben wurde kann vom Projektleiter bewertet werden.
+ * Die Möglichkeite der Bewertung liegen zwischen 0.0 (sehr schlecht) und 1.0 (sehr gut).
+ * Eine Bewertung enthält eine Stellungnahme und die Höhe der Bewertung, sowie ein Erstelldatum
+ */
 
 public class Bewertung extends BusinessObject {
 	
 	private static final long serialVersionUID = 1L;
-	
-	/*
-	 * eindeutige Identifikationsnummer einer Instanz der Klasse
-	 */
-	
-	private int ID = 0;
 	
 	/*
 	 * Text der Stellungsnahme 
@@ -33,32 +34,14 @@ public class Bewertung extends BusinessObject {
 	 * Realisieren der Beziehung zu einer Beteiligung mittels Fremdschlüssel
 	 */
 	
-	private int Beteiligungs_ID = 0;
+	private Integer Beteiligungs_ID = 0;
 	
 	/*
 	 * Realisieren der Beziehung zu einer Bewerbung mittels Fremdschlüssel
 	 */
 	
-	private int Bewerbungs_ID = 0;
-	
-	/*
-	 * Auslesen der ID
-	 * @return ID
-	 */
-	
-	public int getID() {
-		return ID;
-	}
-	 
-	/*
-	 * Setzen der ID
-	 * @param ID
-	 */
+	private Integer Bewerbungs_ID = 0;
 
-	public void setID(int iD) {
-		ID = iD;
-	}
-	
 	/*
 	 * Auslesen der Stellungnahme
 	 * @return stellungnahme
@@ -109,8 +92,12 @@ public class Bewertung extends BusinessObject {
 	 * @param Beteiligungs_ID
 	 */
 
-	public void setBeteiligungs_ID(int beteiligungs_ID) {
-		Beteiligungs_ID = beteiligungs_ID;
+	public void setBeteiligungs_ID(Integer beteiligungs_ID) {
+		if(beteiligungs_ID==0){
+			this.Beteiligungs_ID=null;
+		}else{
+			this.Beteiligungs_ID=beteiligungs_ID;
+		}
 	}
 	
 	/*
@@ -118,7 +105,7 @@ public class Bewertung extends BusinessObject {
 	 * @return Bewerbungs_ID
 	 */
 	
-	public int getBewerbungs_ID() {
+	public Integer getBewerbungs_ID() {
 		return Bewerbungs_ID;
 	}
 	
@@ -127,8 +114,12 @@ public class Bewertung extends BusinessObject {
 	 * @param Bewerbungs_ID
 	 */
 
-	public void setBewerbungs_ID(int bewerbungs_ID) {
-		Bewerbungs_ID = bewerbungs_ID;
+	public void setBewerbungs_ID(Integer bewerbungs_ID) {
+		if(bewerbungs_ID==0){
+			this.Bewerbungs_ID=null;
+		}else{
+			this.Bewerbungs_ID=bewerbungs_ID;
+		}
 	}
 	
 	/*
@@ -139,9 +130,8 @@ public class Bewertung extends BusinessObject {
 	 */
 
 	public String toString(){
-		return "\n" + "ID: " + ID + "\n" + "Stellungnahme: " + stellungnahme + "\n"
-				+ "Beurteilung: " + bewertung + "\n" + "Diese Beteiligung gehört zu folgender Bewerbung: " + Bewerbungs_ID
-				 + "\n";
+		return "\n" + "Stellungnahme: " + stellungnahme + "\n"
+				+ "Höhe der Bewertung: " + bewertung + "\n";
 	}
 	
 }

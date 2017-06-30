@@ -66,9 +66,11 @@ public class DialogBoxProjektdetails extends DialogBox {
 	private Projekt projekt;
 	private Person person;
 	
-	public DialogBoxProjektdetails(final Projekt projekt, final Person person){
+	IdentitySelection is = null;
+	
+	public DialogBoxProjektdetails(final Projekt projekt, final IdentitySelection is){
 		this.projekt = projekt;
-		this.person = person;
+		this.is = is;
 		
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
@@ -76,6 +78,7 @@ public class DialogBoxProjektdetails extends DialogBox {
 	    }
 		 adminService.getProjektByID(projekt.getID(), new getProjektAusDB());
 		 adminService.getPersonbyID(projekt.getProjektleiter_ID(), new getPersonAusDB());
+		
 		 
 		 setText(projekt.getName());
 		 setAnimationEnabled(true);
@@ -121,7 +124,7 @@ public class DialogBoxProjektdetails extends DialogBox {
 			@Override
 			public void onClick(ClickEvent event) {
 				DialogBoxProjektdetails.this.hide();
-				Showcase showcase = new Projektseite(projekt, person);
+				Showcase showcase = new Projektseite(projekt, is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
 				
@@ -166,6 +169,7 @@ public class DialogBoxProjektdetails extends DialogBox {
 			strasse_box.setText(result.getStrasse() + " " + result.getHausnummer());
 			ort_box.setText(result.getPlz() + " " + result.getOrt());
 			email_box.setText(result.getEmail());
+			
 		}
 		
 	}

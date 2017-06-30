@@ -25,12 +25,14 @@ private static TeamMapper tMapper = null;
 	
 	protected TeamMapper(){
 		
+
 	}
 	
 	/*
 	 * Singelton Eigenschaft der Mapperklasse, nur eine Instanz kann Existieren
 	 * @return tMapper
 	 */
+
 	
 	public static TeamMapper tMapper(){
 		if(tMapper == null){
@@ -157,6 +159,7 @@ public Vector<Team> findByUN(int unternehmenId){
  *  @return p1
  */
 
+
 public Team insert(Team p1){
 	
 	Connection con = DBConnection.connection();
@@ -197,29 +200,41 @@ public Team insert(Team p1){
 	return p1;		
 }
 
+
 /*
  * Löschen des Übergebenen Teams
  * @param p1 Ausschreibungsobjekt, das gelöscht werden soll
  * @return t
  */
 
-public void delete(Team p1){
+
 	
+
+public void deleteTeam(Integer t){
+	Team team = new Team();
+	team.setID(t);
+
 	Connection con = DBConnection.connection();
 	
 	try {
 	      Statement stmt = con.createStatement();
 
 	      stmt.executeUpdate("DELETE FROM Team " 
-	    		  			+ "WHERE ID = " + p1.getID());
-	      super.delete(p1);
+	    		  			+ "WHERE ID = " + t);
+	      super.delete(team);
 
 		}
 	
 	catch (SQLException e2) {
 			e2.printStackTrace();
 		}
+	
+}
+public void deleteTeam(Team p1){
+	this.deleteTeam(p1.getID());
 	}
+
+
 
 /*
  * Erneutes schreiben eines Teamobjekts in die Datenbank
@@ -240,12 +255,11 @@ public Team update(Team t) {
       if(t.getUN_ID() == null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" +  "WHERE ID = " + t.getID());
-    	  super.update(t);
     	  
       }else if (t.getUN_ID() != null){
     	  stmt.executeUpdate("UPDATE Team SET name='"
     	          + t.getName() +"'" + ", UN_ID = " + t.getUN_ID() + " WHERE ID = " + t.getID());
-    	  super.update(t);
+    	  
       }
       
     }

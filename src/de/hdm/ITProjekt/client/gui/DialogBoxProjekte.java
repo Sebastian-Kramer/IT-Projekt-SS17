@@ -41,7 +41,7 @@ public class DialogBoxProjekte extends DialogBox {
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
 	
-	private IdentitySelection identitySelection = null;
+	private IdentitySelection is = null;
 	
 	VerticalPanel vpanel = new VerticalPanel();
 	HorizontalPanel hpanel = new HorizontalPanel();
@@ -73,7 +73,7 @@ public class DialogBoxProjekte extends DialogBox {
 	private Person person;
 	
 	
-	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt, final Person person){
+	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt, final IdentitySelection is){
 		
 		
 		Label label_objekt = new Label(selectedobjectinprojekt.getBez());
@@ -139,7 +139,7 @@ public class DialogBoxProjekte extends DialogBox {
 				projekt_dialogbox.setName(bezeichnung.getText());
 				projekt_dialogbox.setStartdatum(datepicker_startdatum.getValue());
 				projekt_dialogbox.setEnddatum(datepicker_enddatum.getValue());
-				projekt_dialogbox.setProjektleiter_ID(person.getID());
+				projekt_dialogbox.setProjektleiter_ID(is.getUser().getID());
 				projekt_dialogbox.setProjektmarktplatz_ID(selectedobjectinprojekt.getID());
 				if (bezeichnung.getText().isEmpty()){
 					Window.alert("Bitte geben Sie ein Projektenamen an");
@@ -192,9 +192,11 @@ public class DialogBoxProjekte extends DialogBox {
 
 		@Override
 		public void onSuccess(Projekt result) {
+			Window.alert(" " + result.getProjektleiter_ID());
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
+			
 			hide();
-			Showcase showcase = new Projektseite(projekt_dialogbox, person);
+			Showcase showcase = new Projektseite(projekt_dialogbox, is);
         	RootPanel.get("Details").clear();
 			RootPanel.get("Details").add(showcase);
 		}

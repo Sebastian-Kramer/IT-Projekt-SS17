@@ -41,7 +41,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 	private static ClickHandler currentClickHandler = null;
 	private static ClickEvent currentClickEvent = null;
 	
-	private IdentitySelection identitySelection = null;
+	private IdentitySelection is = null;
 	private Menubar mb = null;
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -52,8 +52,8 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 	private Eigenschaft eigen;
 	private Eigenschaft selectedObject_alleEigenschaften;
 	
-	public MeinPartnerprofilEigenschaften(Person person){
-		user = person;
+	public MeinPartnerprofilEigenschaften(IdentitySelection is){
+		this.is = is;
 	}
 	
 	//Festlegen der Variabeln, um VerticalPanel und und die Flextables anzulegen
@@ -129,7 +129,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 				selectedObject_alleEigenschaften = ssm_alleEigenschaften.getSelectedObject();
 				if(selectedObject_alleEigenschaften != null){
 					
-					Showcase showcase= new EigenschaftenHinzufuegen(user);
+					Showcase showcase= new EigenschaftenHinzufuegen(is);
 					RootPanel.get("Details").clear();
 					RootPanel.get("Details").add(showcase);
 		}else{
@@ -156,7 +156,7 @@ public class MeinPartnerprofilEigenschaften extends Showcase{
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
-		adminService.getAllEigenschaftenbyPartnerprofilID(user.getPartnerprofil_ID(), new getEigenschaftByPartnerprofil());
+		adminService.getAllEigenschaftenbyPartnerprofilID(is.getUser().getPartnerprofil_ID(), new getEigenschaftByPartnerprofil());
 
 		
 		

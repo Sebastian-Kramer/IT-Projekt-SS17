@@ -51,6 +51,34 @@ public class OrganisationseinheitMapper {
 	 * @param ID Primärschlüssel ID der Tabelle Organisationseinheit
 	 */
 	
+	public Vector<Organisationseinheit> getAllOrganisationseinheit(){
+		
+		 Connection con = DBConnection.connection();
+		 
+		 Vector<Organisationseinheit> result = new Vector<Organisationseinheit>();
+		 
+		  try {
+		      Statement stmt = con.createStatement();
+
+		      ResultSet rs = stmt.executeQuery("SELECT * FROM Organisationseinheit");
+		  
+		  while (rs.next()) {
+			    Organisationseinheit p = new Organisationseinheit();
+				p.setID(rs.getInt("ID"));
+				p.setStrasse(rs.getString("strasse"));
+				p.setHausnummer(rs.getInt("hausnummer"));
+				p.setPlz(rs.getInt("plz"));
+				p.setOrt(rs.getString("ort"));
+				p.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+			  
+				result.add(p);
+		  }
+		}
+		    catch (SQLException e2) {
+		        e2.printStackTrace();
+		      }
+		  return result;
+	}
 	
 	public Organisationseinheit findByKey(int id){
 		Connection con = DBConnection.connection();
@@ -68,7 +96,6 @@ public class OrganisationseinheitMapper {
 				o.setPlz(rs.getInt("plz"));
 				o.setOrt(rs.getString("ort"));
 				o.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
-				
 				return o;
 			}
 		}
@@ -79,19 +106,49 @@ public class OrganisationseinheitMapper {
 		return null;	
 	
 	}
+
 	
 	/*
 	 * @param o
 	 * @return Liefert die Id entsprechend des übergebenen Objekts zurück
 	 */
 	
-	protected Organisationseinheit findByObject(Organisationseinheit o){
+
+	public Organisationseinheit findByObject(Organisationseinheit o){
+
 		return this.findByKey(o.getID()); 
 	}
 	
-	/*Suche von einer Organisationseinheit durch ein übergebendes Partnerprofil.
+	/*Suche von einer Organisationseinheit durch eine übergebende id.
 	 *Ein Organisationseinheit-Objekt wird zurueckgegeben.
 	 */
+	
+	public Organisationseinheit findByID(Integer id){
+		Connection con = DBConnection.connection();
+		Organisationseinheit o = new Organisationseinheit();
+		try{
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT ID, strasse, hausnummer, plz, ort, Partnerprofil_ID FROM Organisationseinheit "
+          + "WHERE ID=" + id);
+			
+			if(rs.next()){
+				
+				o.setID(rs.getInt("ID"));
+				o.setStrasse(rs.getString("strasse"));
+				o.setHausnummer(rs.getInt("hausnummer"));
+				o.setPlz(rs.getInt("plz"));
+				o.setOrt(rs.getString("ort"));
+				o.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
+				
+			}
+		}
+		catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+		return o;	
+	
+	}
 	
 	public Organisationseinheit findByForeignPartnerprofilId(int partnerprofilId){
 		Connection con = DBConnection.connection();

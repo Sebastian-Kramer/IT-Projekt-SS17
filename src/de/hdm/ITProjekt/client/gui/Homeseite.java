@@ -19,13 +19,14 @@ public class Homeseite extends Showcase{
 		
 		this.append("<article> <h2>Projektmarktplatz</h2> "
 				+ "<section>"
-				+ "<h3>Unterueberschrift</h3> "
+				+ "<h3>Hier können Sie neue Mitarbeiter suchen und einstellen</h3> "
 				+ "<p>"
-				+ "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam tristique tristique "
-				+ "lacus in varius. Donec nec vestibulum ligula. "
-				+ "Aenean turpis diam, feugiat a luctus in, rhoncus eget risus. Maecenas "
-				+ "consequat porttitor dui, vitae consequat massa imperdiet ut. elit ut tempus lobortis, eros leo "
-				+ "molestie velit, non egestas augue nulla eget erat. </p>"
+				+ "Herzlich Willkommen auf dem Projektmarktplatz "
+				+ "Hier haben Sie die Möglichkeit viele verschiedene Personen für Ihre Projekte zu finden und einzustellen. "
+				+ "Sie können sich natürlich auch auf diverse Stellen bewerben, falls Sie auf der Suche sind. "
+				+ "Es warten viele spannende und neue Herausforderungen auf Sie"
+				+ "Viel Spaß und viel Glück."
+				+ "Falls Sie fragen zur Funktion haben oder einen Support benötigen können Sie unsere Daten im Impresum finden </p>"
 				+ "	</section>	"
 				+ "</article>");
 
