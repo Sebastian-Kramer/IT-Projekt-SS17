@@ -35,8 +35,6 @@ public class DialogBoxBewerbung extends DialogBox {
 		this.bewerbungId = selectedId;
 	
 	}
-//	private static ClickHandler currentClickHandler = null;
-//	private static ClickEvent currentClickEvent = null;
 	
 	public DialogBoxBewerbung(String text){
 		schliessen.setStylePrimaryName("navi-button");

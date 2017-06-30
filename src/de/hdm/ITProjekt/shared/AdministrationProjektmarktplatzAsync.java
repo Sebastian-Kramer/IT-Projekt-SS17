@@ -215,7 +215,6 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void deleteBewertungbyBeteiligung(int id, AsyncCallback<Void> callback);
 
-
 	void findOrgaByID(Integer id, AsyncCallback<Vector<Organisationseinheit>> callback);
 
 	void findTeamByID(Integer id, AsyncCallback<Vector<Team>> callback);
@@ -223,6 +222,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getUnternehmenByID(Integer id, AsyncCallback<Vector<Unternehmen>> callback);
 
 	void getBewertungByBeteiligung(int beteiligungID, AsyncCallback<Vector<Bewertung>> callback);
+
+	void getTeamFromBewerbung(Integer id, AsyncCallback<Team> callback);
+
+	void getUnternehmenFromBewerbung(Integer id, AsyncCallback<Unternehmen> callback);
 
 	
 	}

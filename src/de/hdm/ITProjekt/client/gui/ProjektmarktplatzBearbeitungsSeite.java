@@ -83,6 +83,12 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 				
 				zurstartseite.setStylePrimaryName("navigationanchor");
 				labelprojektmarktplatz.setStylePrimaryName("navigationanchor");
+				
+				bearbeitungsmodus_aktiv.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_anlegen.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_loeschen.setStylePrimaryName("myprofil-button");
+				projektmarktplatz_aendern.setStylePrimaryName("myprofil-button");
+				
 				ft_anchor.setWidget(0, 0, zurstartseite);
 				ft_anchor.setWidget(0, 1, labelprojektmarktplatz);
 				ft_anchor.setCellPadding(10);

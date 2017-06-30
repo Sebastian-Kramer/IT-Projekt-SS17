@@ -103,6 +103,10 @@ public class Projekte extends Showcase {
 		zurstartseite.setStylePrimaryName("navigationanchor");
 		zuprojektmarktplaetze.setStylePrimaryName("navigationanchor");
 		projektelabel.setStylePrimaryName("navigationanchor");
+		add_projekt.setStylePrimaryName("myprofil-button");
+		delete_projekt.setStylePrimaryName("myprofil-button");
+		show_projekt.setStylePrimaryName("myprofil-button");
+		
 		ft_navi.setWidget(0, 0, zurstartseite);
 		ft_navi.setWidget(0, 1, zuprojektmarktplaetze);
 		ft_navi.setWidget(0, 2, projektelabel);

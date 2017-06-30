@@ -151,9 +151,27 @@ public Unternehmen createUnternehmen(Unternehmen u){
 		return u;
 	}
 
+public Unternehmen getUnternehmenbyOrgaID(Integer id){
+	
+	Connection con = DBConnection.connection();
+	Unternehmen u = new Unternehmen();
+	try{
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery("SELECT ID, name FROM Unternehmen "
+		          + "WHERE ID=" + id);
+		
+		if(rs.next()){
+			u.setID(rs.getInt("ID"));
+			u.setName(rs.getString("name"));
 
-
-
+		}
+		
+	}catch(SQLException e2){
+			e2.printStackTrace();
+			return null;
+		}
+	return u;
+}
 
 public Unternehmen updateUnternehmen(Unternehmen u) {
     Connection con = DBConnection.connection();

@@ -130,15 +130,6 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 			
 		});
 		
-//		form.setWidget(0, 1, bewertung);
-//		form.setWidget(0, 0, ct_bewerbungen);
-//			
-//		hp_bew.add(anzeigen);
-//		hp_bew.add(zurueck);
-//		hp_bew1.add(form);
-//		this.add(hp_bew);
-//		this.add(hp_bew1);
-		
 		
 		
 		if (selectedAusschreibung.getOrga_ID() == is.getUser().getID()){

@@ -25,39 +25,6 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		return perMapper;
 	}
 	
-//	public Person getByEmail(Person p1){
-//		Connection con = DBConnection.connection();
-//		
-//		try{
-//			Statement stmt = con.createStatement();
-//			ResultSet rs = stmt.executeQuery("SELECT ID, email, anrede, vorname, name, Team_ID, UN_ID FROM Person "
-//          + " WHERE email=" + p1.getEmail());
-//			
-//			if(rs.next()){
-//				Person p = new Person();
-//				p.setID(rs.getInt("ID"));
-//				p.setEmail(rs.getString("email"));
-//				p.setAnrede(rs.getString("anrede"));
-//				p.setVorname(rs.getString("vorname"));
-//				p.setName(rs.getString("name"));
-//				p.setTeam_ID(rs.getInt("Team_ID"));
-//				p.setUN_ID(rs.getInt("UN_ID"));
-//				p.setStrasse(super.findByKey(p1.getID()).getStrasse());
-//				p.setHausnummer(super.findByKey(p1.getID()).getHausnummer());
-//				p.setPlz(super.findByKey(p1.getID()).getPlz());
-//				p.setOrt(super.findByKey(p1.getID()).getOrt());
-//				p.setPartnerprofil_ID(super.findByKey(p1.getID()).getPartnerprofil_ID());				
-//				
-//				return p;
-//			}
-//		}
-//		catch(SQLException e2){
-//			e2.printStackTrace();
-//			return null;
-//		}
-//		return null;	
-//		
-//	}
 	public Person findByKey(int id){
 		
 		Connection con = DBConnection.connection();
@@ -122,9 +89,7 @@ public class PersonMapper extends OrganisationseinheitMapper{
 		return p;
 	}
 	
-	/*
-	 * Notiz von Mert: Nochmal dr�ber schauen und ausgeben lassen in TestStart!
-	 */
+
 	public Vector<Person> findByForeignTeamId(int id){
 		
 		Connection con = DBConnection.connection();
@@ -238,8 +203,10 @@ public Vector<Person> findByForeignUnternehmenId(int id){
 	}
 	
 	public Vector<Person> getPersonByID(Integer id){
-Connection con = DBConnection.connection();
-Vector <Person> result = new Vector<Person>();
+
+		Connection con = DBConnection.connection();
+
+		Vector <Person> result = new Vector<Person>();
 		
 		try{
 			Statement stmt = con.createStatement();

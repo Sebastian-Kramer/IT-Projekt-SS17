@@ -29,6 +29,8 @@ import de.hdm.ITProjekt.shared.bo.Bewerbung;
 import de.hdm.ITProjekt.shared.bo.Eigenschaft;
 import de.hdm.ITProjekt.shared.bo.Organisationseinheit;
 import de.hdm.ITProjekt.shared.bo.Person;
+import de.hdm.ITProjekt.shared.bo.Team;
+import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
 public class DialogBoxDetailsBewerbung extends DialogBox{
 	
@@ -58,8 +60,9 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 	private Bewerbung bewerbungId;
 	private Person p;
 	private IdentitySelection is;
+	private Organisationseinheit oe;
 	
-	public DialogBoxDetailsBewerbung(Bewerbung selectedId, IdentitySelection is){
+	public DialogBoxDetailsBewerbung(final Bewerbung selectedId, final IdentitySelection is){
 		this.bewerbungId = selectedId;
 		this.is = is;
 		
@@ -68,18 +71,27 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		setText("Bewerbung ");
 		setAnimationEnabled(true);
 		setGlassEnabled(true);
-		this.center();
 
 		bewerbungstext.setReadOnly(true);
 		bewerbungstext.setText(selectedId.getBewerbungstext());
 		bewerbungstext.setCharacterWidth(30);
 		bewerbungstext.setVisibleLines(30);
+		
+		adminService.getOrgaEinheitFromBewerbung(selectedId.getOrga_ID(), new AsyncCallback<Organisationseinheit>(){
 
-		if(is.getSelectedIdentityAsObject() instanceof Person){
+			@Override
+			public void onFailure(Throwable caught) {
+				
+			}
+
+			@Override
+			public void onSuccess(Organisationseinheit result) {
+
 		((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-	    }	 
+	    }	
+		 
 		adminService.getPersonFromBewerbung(selectedId.getOrga_ID(), new BewerberDatails());
 		anredeBox.setReadOnly(true);
 		vornameBox.setReadOnly(true);
@@ -97,7 +109,23 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		
 		bewerbungstextft.setWidget(5, 0, personEmail);
 		bewerbungstextft.setWidget(5, 1, emailBox);
-		}
+		
+		
+	
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }	 
+			adminService.getTeamFromBewerbung(selectedId.getOrga_ID(), new BewerberDatailsFromTeam());
+		
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }	 
+			 adminService.getUnternehmenFromBewerbung(selectedId.getOrga_ID(), new BewerberDatailsFromUnternehmen());
+		}		
+		
+	});
 		
 		
 		bewerbungstextft.setWidget(0, 0, bewerbungstext);
@@ -107,7 +135,7 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		
 	
 		
-		bewerbungstextft.setWidget(5, 0, schliessen);
+		bewerbungstextft.setWidget(6, 0, schliessen);
 		
 		vp.add(bewerbungstextft);
 		
@@ -126,7 +154,7 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 
 			@Override
 			public String getValue(Eigenschaft object) {
-				// TODO Auto-generated method stub
+
 				return object.getWert();
 			}
 		
@@ -136,7 +164,7 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 
 			@Override
 			public String getValue(Eigenschaft object) {
-				// TODO Auto-generated method stub
+
 				return object.getName();
 			}
 	
@@ -180,8 +208,6 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		@Override
 		public void onFailure(Throwable caught) {
 			
-			Window.alert(" " + bewerbungId.getOrga_ID());
-			
 		}
 
 		@Override
@@ -197,13 +223,52 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		}
 		
 	}
+	public class BewerberDatailsFromTeam implements AsyncCallback<Team>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Daten des Bewerbers konnten nicht geladen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Team result) {
+			nameBox.setText(result.getName());
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+			adminService.getOrgaEinheitFromBewerbung(bewerbungId.getOrga_ID(), new OrgaeinheitFromBewerbung());
+			
+		}
+	}
+	
+	public class BewerberDatailsFromUnternehmen implements AsyncCallback<Unternehmen>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			Window.alert("Die Daten des Bewerbers konnten nicht geladen werden");
+			
+		}
+
+		@Override
+		public void onSuccess(Unternehmen result) {
+			nameBox.setText(result.getName());
+			((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
+			 if (adminService == null) {
+		      adminService = GWT.create(AdministrationProjektmarktplatz.class);
+		    }
+			adminService.getOrgaEinheitFromBewerbung(bewerbungId.getOrga_ID(), new OrgaeinheitFromBewerbung());
+			
+		}
+			
+	}
 	
 	public class AllEigenschaftenFromBewerber implements AsyncCallback<Vector<Eigenschaft>>{
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// TODO Auto-generated method stub
-			
+		
 		}
 
 		@Override
@@ -214,5 +279,22 @@ public class DialogBoxDetailsBewerbung extends DialogBox{
 		}
 		
 	}
+	public class OrgaeinheitFromBewerbung1 implements AsyncCallback<Organisationseinheit>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			
+			
+		}
+
+		@Override
+		public void onSuccess(Organisationseinheit result) {
+			oe = result;
+			Window.alert("Geht");
+			
+		}
+		
+	}
+	
 }
 
