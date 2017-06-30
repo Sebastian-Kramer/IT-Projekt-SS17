@@ -14,6 +14,7 @@ public class Ausschreibung extends BusinessObject {
 	private String ausschreibungstext = "";
 	private String bezeichnung = "";
 	private Date datum = null;
+	private String status = "";
 	
 	/*
 	 * Realisierung der Beziehungen zu Projekt mittels Fremdschlüssel
@@ -47,6 +48,14 @@ public class Ausschreibung extends BusinessObject {
 	 * @param 
 	 */
 	
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	public Ausschreibung() {
 		// TODO Auto-generated constructor stub
 	}

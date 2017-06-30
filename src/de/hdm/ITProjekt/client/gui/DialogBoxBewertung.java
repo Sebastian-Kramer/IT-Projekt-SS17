@@ -40,7 +40,6 @@ public class DialogBoxBewertung extends DialogBox{
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private Button bewertungAbgaben = new Button("Abgeben");
-//	private Button beteiligungErstellen = new Button("Projektbeteiligung erstellen");
 	private Button close = new Button("Zurück zu Ausschreibungen");
 	
 	private ListBox bewertung = new ListBox();
@@ -71,11 +70,6 @@ public class DialogBoxBewertung extends DialogBox{
 		this.setGlassEnabled(true);
 
 
-//		bewertung.addItem(Double.toString(0.1));
-//		bewertung.addItem(Double.toString(0.2));
-//		bewertung.addItem(Double.toString(0.3));
-//		bewertung.addItem(Double.toString(0.4));
-//		bewertung.addItem(Double.toString(0.5));
 		bewertung.addItem("0.0");
 		bewertung.addItem("0.1");
 		bewertung.addItem("0.2");
@@ -105,7 +99,6 @@ public class DialogBoxBewertung extends DialogBox{
 		vpanel.add(form);
 		
 		vpanel.add(bewertungAbgaben);
-//		vpanel.add(beteiligungErstellen);
 		vpanel.add(close);
 		hpanel.add(vpanel);
 		this.add(hpanel);
@@ -129,7 +122,6 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
-				
 					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, seleceted_is , bew);		
 					dialogBox.center();
 					DialogBoxBewertung.this.hide();		

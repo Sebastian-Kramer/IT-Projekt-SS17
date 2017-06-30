@@ -231,5 +231,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getUnternehmenFromBewerbung(Integer id, AsyncCallback<Unternehmen> callback);
 
+	void setAusschreibungsStatus(Ausschreibung a, AsyncCallback<Ausschreibung> callback);
+
 	
 	}

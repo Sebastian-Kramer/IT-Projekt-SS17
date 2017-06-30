@@ -112,6 +112,10 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
+				if(selectedAusschreibung.getStatus() == "besetzt"){
+					Window.alert("Die Stelle wurde schon besetzt");
+				}else{
+				
 				adminService.getAllProjekte(new AsyncCallback<Vector<Projekt>>(){
 
 					@Override
@@ -138,6 +142,8 @@ public class DialogBoxAusschreibung extends DialogBox {
 					
 				});
 			
+				}
+				
 			}
 			
 		});

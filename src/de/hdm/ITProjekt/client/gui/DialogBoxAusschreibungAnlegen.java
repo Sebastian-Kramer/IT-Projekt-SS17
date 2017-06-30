@@ -169,6 +169,7 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 			ausschreibung_dialog.setBezeichnung(ausschreibungsbez.getText());
 			ausschreibung_dialog.setAusschreibungstext(ausschreibungstext.getText());
 			ausschreibung_dialog.setDatum(ablaufDatum.getValue());
+			ausschreibung_dialog.setStatus("laufend");
 			ausschreibung_dialog.setOrga_ID(projekt.getProjektleiter_ID());
 			ausschreibung_dialog.setProjekt_ID(projekt.getID());
 			ausschreibung_dialog.setPartnerprofil_ID(profil.getID());
@@ -208,9 +209,6 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 								
 				 };
 					
-//					ct_eigenschaften.addColumn(name,"Fähigkeit");
-//					ct_eigenschaften.addColumn(wert, "Wert");
-//					filltableeigenschaften();
 					
 				}
 				
@@ -261,6 +259,7 @@ private void filltableeigenschaften(){
 			@Override
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
+				Window.alert(" Die 'Ausschreibung' befindet sich nun im Status 'laufend'");
 				hide();
 				Showcase showcase = new Projektseite(projekt1, is);
 				RootPanel.get("Details").clear();

@@ -196,7 +196,7 @@ public class AusschreibungMapper {
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung");
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, status, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung");
 			  
 			  while (rs.next()) {
 				  	Ausschreibung p = new Ausschreibung();
@@ -204,6 +204,7 @@ public class AusschreibungMapper {
 					p.setAusschreibungstext(rs.getString("ausschreibungstext"));
 					p.setBezeichnung(rs.getString("bezeichnung"));
 					p.setDatum(rs.getDate("datum"));
+					p.setStatus(rs.getString("status"));
 					p.setProjekt_ID(rs.getInt("Projekt_ID"));
 					p.setOrga_ID(rs.getInt("Orga_ID"));
 					p.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
@@ -241,9 +242,10 @@ public class AusschreibungMapper {
 			   	  
 			    	  	stmt = con.createStatement();
 			    	  	
-			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID,Partnerprofil_ID)" 
+			    		stmt.executeUpdate("INSERT INTO Ausschreibung (ID , ausschreibungstext, bezeichnung, datum, status, Projekt_ID, Orga_ID,Partnerprofil_ID)" 
 			    		+ "VALUES (" + a.getID() + ", " + "'" + a.getAusschreibungstext() + "'" + ", " + "'" + a.getBezeichnung() 
-			    		+ "'" + ", " + "'" + date.format(a.getDatum()) +"'"+ ", " + a.getProjekt_ID() + ", " +a.getOrga_ID() + ", " + a.getPartnerprofil_ID()  +")"); 
+			    		+ "'" + ", " + "'" + date.format(a.getDatum()) + "'" + ", " + "'" + a.getStatus() + "'" + ", "
+			    		+ a.getProjekt_ID() + ", " +a.getOrga_ID() + ", " + a.getPartnerprofil_ID()  +")"); 
 			    	  
 			      }
 			}
@@ -333,7 +335,7 @@ public class AusschreibungMapper {
 			try {
 			      Statement stmt = con.createStatement();
 			      
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung WHERE Projekt_ID = " + projektID );
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, status, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung WHERE Projekt_ID = " + projektID );
 			      
 			      while(rs.next()){
 			    	  Ausschreibung a = new Ausschreibung();
@@ -341,6 +343,7 @@ public class AusschreibungMapper {
 			    	  a.setAusschreibungstext(rs.getString("ausschreibungstext"));
 			    	  a.setBezeichnung(rs.getString("bezeichnung"));
 			    	  a.setDatum(rs.getDate("datum"));
+			    	  a.setStatus(rs.getString("status"));
 			    	  a.setProjekt_ID(rs.getInt("Projekt_ID"));
 			    	  a.setOrga_ID(rs.getInt("Orga_ID"));
 			    	  a.setPartnerprofil_ID(rs.getInt("Partnerprofil_ID"));
@@ -364,5 +367,18 @@ public class AusschreibungMapper {
 			
 			return findByProjekt(projekt.getID());			
 		}	
+		
+		public Ausschreibung updateAusschreibungsstatus(Ausschreibung a){
+			Connection con = DBConnection.connection();
+			
+			try{
+				Statement stmt = con.createStatement();
+				stmt.executeUpdate("UPDATE ausschreibung " + "SET status= " + "'" + a.getStatus() + "'" 
+				+  "WHERE ID = " +a.getID());
+			}catch(SQLException e){
+				e.printStackTrace();
+			}
+			return a;
+		}
 }
 
