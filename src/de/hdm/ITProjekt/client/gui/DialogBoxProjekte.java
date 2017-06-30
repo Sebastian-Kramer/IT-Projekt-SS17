@@ -194,10 +194,9 @@ public class DialogBoxProjekte extends DialogBox {
 		public void onSuccess(Projekt result) {
 
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
-			
-			hide();
 			Showcase showcase = new Projektseite(result, is);
         	RootPanel.get("Details").clear();
+        	hide();
 			RootPanel.get("Details").add(showcase);
 		}
 	}

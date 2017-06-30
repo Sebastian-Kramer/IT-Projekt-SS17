@@ -59,11 +59,11 @@ public class ProjektmarktplatzSeite extends Showcase{
 		this.menubar = menubar;
 	}
 	
-	HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
-	VerticalPanel vpanel = new VerticalPanel();
+	private HorizontalPanel hpanel_projektmarktplatz = new HorizontalPanel();
+	private VerticalPanel vpanel = new VerticalPanel();
 	
 	// Buttons NUR erstellen
-	Button bearbeitungsmodus_deaktiv = new Button("Bearbeitungsansicht");
+	private Button bearbeitungsmodus_deaktiv = new Button("Bearbeitungsansicht");
 
 	private Label labelprojektmarktplatz = new Label("/Projektmarktplatz");
 	private Anchor zurstartseite = new Anchor("Startseite");

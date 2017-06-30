@@ -61,11 +61,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		return null;	
 	}
 
-	@Override
-	public Projektmarktplatz save(Projektmarktplatz p){ //Speichern/anpassen eines Objekts in der Datenbank
-		return this.pmpMapper.updateMarktplatz(p);
-		
-	}
 
 	@Override
 	public Projektmarktplatz getProjektmarktplatzById(int ID){
@@ -93,12 +88,15 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 
 
+
 	@Override
 	public Projektmarktplatz updateProjektmarktplatz(Projektmarktplatz p) {
 		return this.pmpMapper.updateMarktplatz(p);
 		
 	}
+
 	
+
 	
 	public Vector<Projektmarktplatz> getMarktplatzByPerson (Person p){
 		
@@ -516,20 +514,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 //	public Team findByKeyOfPerson(int id) throws IllegalArgumentException {
 //		return this.tMapper.findByKey(id);
 //	}
-	@Override
-	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse,
-			int partnerprofilID) throws IllegalArgumentException {
-		Unternehmen u = new Unternehmen();
-		u.setID(0);
-		u.setHausnummer(hausnr);
-		u.setName(text);
-		u.setOrt(ort);
-		u.setPartnerprofil_ID(partnerprofilID);
-		u.setPlz(plz);
-		u.setStrasse(strasse);
-		
-		return this.unMapper.createUnternehmen(u);
-	}
+	
 	@Override
 	public void deleteUnternehmen(Unternehmen u) throws IllegalArgumentException {
 		this.unMapper.deleteUnternehmen(u);
@@ -819,7 +804,6 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 		
 	}
 	@Override
-
 	public Vector<Organisationseinheit> findOrgaByID(Integer id) throws IllegalArgumentException {
 		
 		return this.orgMapper.findOrgaByID(id);
@@ -841,6 +825,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	}
 
 	public void deleteBewertungbyBeteiligung(int id) throws IllegalArgumentException {
+
 		this.bewertMapper.deleteBewertungByBeteiligung(id);;
 		
 	}
@@ -852,6 +837,28 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	@Override
 	public Unternehmen getUnternehmenFromBewerbung(Integer id) throws IllegalArgumentException {
 		return this.unMapper.findByKey(id);
+
+	}
+		
+
+	public Vector<Unternehmen> getAllUnternehmen() throws IllegalArgumentException {
+		return this.unMapper.getAllUnternehmen();
+	}
+	@Override
+	public Unternehmen insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse,
+			int partnerprofilID, int erstellerid) {
+		Unternehmen u = new Unternehmen();
+		u.setID(0);
+		u.setHausnummer(hausnr);
+		u.setName(text);
+		u.setOrt(ort);
+		u.setPartnerprofil_ID(partnerprofilID);
+		u.setPlz(plz);
+		u.setStrasse(strasse);
+		u.setErstellerid(erstellerid);
+		
+		return this.unMapper.createUnternehmen(u);
+
 	}
 
 	

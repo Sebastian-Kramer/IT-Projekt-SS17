@@ -32,7 +32,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void createProjektmarktplatz(String bezeichnung, AsyncCallback<Projektmarktplatz> callback);
 
-	void save(Projektmarktplatz p, AsyncCallback<Projektmarktplatz>callback);
+//	void save(Projektmarktplatz p, AsyncCallback<Projektmarktplatz>callback);
 	
 	void getProjektmarktplatzAll(AsyncCallback<Vector<Projektmarktplatz>> callback);
 	
@@ -128,7 +128,7 @@ public interface AdministrationProjektmarktplatzAsync {
 
 	void getPartnerprofilOfOrganisationseinheit(Organisationseinheit o, AsyncCallback<Partnerprofil> callback);
 	
-	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID,
+	void insertUnternehmen(String text, int plz, int hausnr, String ort, String strasse, int partnerprofilID, int erstellerid,
 			AsyncCallback<Unternehmen> callback);
 
 	void findByPerson(Person person, AsyncCallback<Vector<Bewerbung>> callback);
@@ -212,6 +212,10 @@ public interface AdministrationProjektmarktplatzAsync {
 	void getAusschreibungByOrgaeinheit(Organisationseinheit o, AsyncCallback<Vector<Ausschreibung>> callback);
 
 	void getAllEigenschaftByPartnerprofilObjekt(Partnerprofil p, AsyncCallback<Vector<Eigenschaft>> callback);
+
+
+	void getAllUnternehmen(AsyncCallback<Vector<Unternehmen>> callback);
+
 
 	void deleteBewertungbyBeteiligung(int id, AsyncCallback<Void> callback);
 

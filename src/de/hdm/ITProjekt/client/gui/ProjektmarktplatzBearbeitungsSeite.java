@@ -581,6 +581,7 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 											});
 										}else{
 											for(Beteiligung bet : result){
+												adminService.deleteBewertungbyBeteiligung(bet.getID(), new BewertungLoeschen());
 												adminService.delete(bet, new AsyncCallback<Void>(){
 
 													@Override
@@ -1002,7 +1003,24 @@ public class ProjektmarktplatzBearbeitungsSeite extends Showcase{
 			
 		}
 		
+		
 	}
+	private class BewertungLoeschen implements AsyncCallback<Void>{
+
+		@Override
+		public void onFailure(Throwable caught) {
+			// TODO Auto-generated method stub
+			
+		}
+
+		@Override
+		public void onSuccess(Void result) {
+			Window.alert("Bewertungen und Beteiligungen gelöscht");
+			
+		}
+		
+	}
+	
 	
 	
 }

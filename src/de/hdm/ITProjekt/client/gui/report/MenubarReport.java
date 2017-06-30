@@ -47,7 +47,6 @@ public class MenubarReport extends HorizontalPanel{
 		this.add(alleeigenenbewerbungen);
 		this.add(faninfanoutanalyse);
 		this.add(projektverflechtungen);
-		startseite.setSize("100px", "47.78px");
 		
 			startseite.addClickHandler(new ClickHandler() {
 				
