@@ -79,10 +79,11 @@ public class DialogBoxProjekte extends DialogBox {
 	
 	private Projektmarktplatz p1 = new Projektmarktplatz();
 	private Person person;
-	
+
 	
 	public DialogBoxProjekte(final Projektmarktplatz selectedobjectinprojekt, final IdentitySelection is){
 		
+		this.is = is;
 		
 		Label label_objekt = new Label(selectedobjectinprojekt.getBez());
 		
@@ -202,7 +203,7 @@ public class DialogBoxProjekte extends DialogBox {
 		public void onSuccess(Projekt result) {
 
 			Window.alert("Projekt wurde in die Datenbank eingetragen");
-			Showcase showcase = new Projektseite(result, is);
+			Showcase showcase = new MeineProjekteAnzeigen(is);
         	RootPanel.get("Details").clear();
         	hide();
 			RootPanel.get("Details").add(showcase);

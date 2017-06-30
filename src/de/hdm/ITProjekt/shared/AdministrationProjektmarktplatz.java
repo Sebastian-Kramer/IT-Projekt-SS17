@@ -26,7 +26,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Unternehmen> getAllUnternehmen() throws IllegalArgumentException;
 	
 	public Projektmarktplatz createProjektmarktplatz(String bez)throws IllegalArgumentException;
-	
+		
 	public Projektmarktplatz getProjektmarktplatzById (int ID)throws IllegalArgumentException; 
 	
 	public Vector<Projektmarktplatz> getProjektmarktplatzAll()throws IllegalArgumentException; 
@@ -70,6 +70,8 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 	public Vector<Ausschreibung> getAlLAuscchreibungenBy(int projektId)throws IllegalArgumentException;
 	 
 	public Vector<Ausschreibung> getAll()throws IllegalArgumentException;
+	
+	public Vector<Ausschreibung> getAllAusschreibung()throws IllegalArgumentException;
 	
 	public Ausschreibung addAusschreibung(Ausschreibung a) throws IllegalArgumentException;
 	
@@ -175,7 +177,7 @@ public interface AdministrationProjektmarktplatz extends RemoteService {
 
 	public Bewerbung setBewerbungsStatus(Bewerbung b) throws IllegalArgumentException;
 	
-	public Ausschreibung setAusschreibungsStatus(Ausschreibung a) throws IllegalArgumentException;
+	public Ausschreibung updateStatus(Ausschreibung a) throws IllegalArgumentException;
 
 	public Person getPersonFromBewerbung(Integer id) throws IllegalArgumentException;
 	
