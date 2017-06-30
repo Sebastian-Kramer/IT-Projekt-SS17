@@ -37,6 +37,14 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+/**
+ * Diese Klasse ermöglicht das Erstellen von Projekten.
+ * Durch das Setzen der Attribute des Projekt-Objekts <code>projekt_dialogbox</code> erhält
+ * das Projekt die gewünschten Attribute und wird durch den Clickhandler des Button <code>ok</code>
+ * in die Datenbank gespeichert.
+ * @author Raphael
+ *
+ */
 public class DialogBoxProjekte extends DialogBox {
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();

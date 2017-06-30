@@ -38,6 +38,13 @@ import de.hdm.ITProjekt.shared.bo.Projekt;
 
 import com.google.gwt.user.client.ui.TextArea;
 
+/**
+ * Diese Klasse ermölicht das Anlegen von Ausschreibungen und das Hinzufügen eines dazugehörigen Partnerprofils.
+ * Der Button <hinzufuegen> ermöglicht das Anlegen des Partnerprofils und dessen Eigenschaften.
+ * @author Raphael
+ *
+ */
+
 public class DialogBoxAusschreibungAnlegen extends DialogBox {
 	
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();

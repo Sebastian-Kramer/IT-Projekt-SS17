@@ -22,6 +22,14 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+
+/**
+ * Die Klasse ermöglicht das Andern des Namens eines Projektmarktplatzes.
+ * Da diese Klasse nur über die Klasse <code>ProjektmarktplatzBearbeitungsSeite</code> aufgerufen werden kann,
+ * kann nur ein Administrator diese nutzen.
+ * @author Raphael
+ *
+ */
 public class DialogBoxProjektmarktplatzSeiteAendern extends DialogBox {
 	// Konflikt gel�st
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();

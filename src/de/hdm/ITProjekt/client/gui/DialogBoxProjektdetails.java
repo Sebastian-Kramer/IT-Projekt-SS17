@@ -38,6 +38,14 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projekt;
 
+/**
+ * Die Klasse bietet die Möglichkeit Details zu einem Projekt einzusehen.
+ * Mithilfe von <code>adminService.getProjektByID</code> und <code>adminService.getPersonByID</code>
+ * werden die Informationen des Projekts und über den Projektleiter in den TextBoxen ausgegeben.
+ * 
+ * @author Raphael
+ *
+ */
 public class DialogBoxProjektdetails extends DialogBox {
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
@@ -76,6 +84,7 @@ public class DialogBoxProjektdetails extends DialogBox {
 		 if (adminService == null) {
 	      adminService = GWT.create(AdministrationProjektmarktplatz.class);
 	    }
+		 
 		 adminService.getProjektByID(projekt.getID(), new getProjektAusDB());
 		 adminService.getPersonbyID(projekt.getProjektleiter_ID(), new getPersonAusDB());
 		
@@ -118,6 +127,10 @@ public class DialogBoxProjektdetails extends DialogBox {
 			}
 			 
 		 });
+		 
+		 /**
+		  * Öffnen eines Projekts
+		  */
 		 
 		 openProjekt.addClickHandler(new ClickHandler(){
 

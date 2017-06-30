@@ -24,6 +24,16 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 
+
+/**
+ * Hier kann ein Projektmarktplatz angelegt werden.
+ * Der Name des Projektmarktplatzes ergibt sich aus dem in der TextArea <code>bezeichnung</code>
+ * eingegebenen Textes. Dieser wird mithilfe des Aufrufs <code>adminService.addProjektmarktplatz(bezeichnung.getText(), new setProjektmarktplatz());</code>
+ * in der Datenbank gespeichert.
+ * @author Raphael
+ *
+ */
+
 public class DialogBoxProjektmarktplatzSeiteAnlegen extends DialogBox{
 
 	AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
