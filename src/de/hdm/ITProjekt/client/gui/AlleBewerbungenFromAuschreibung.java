@@ -212,7 +212,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 				Boolean vorhanden = false;
 
 				if(bewe.isEmpty()){
-					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
+					DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is, pro, pmp);
 					dialogBox.center();
 					}else{
 				for (Bewertung bewertung : bewe){
@@ -233,7 +233,7 @@ public class AlleBewerbungenFromAuschreibung extends Showcase{
 		}
 
 				if(vorhanden == true){					
-				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is);
+				DialogBoxBewertung dialogBox  = new DialogBoxBewertung(object, selectedAusschreibung, is, pro, pmp);
 				dialogBox.center();
 				}			
 				}	

@@ -12,8 +12,8 @@ public class DBConnection {
 	
 	private static Connection con = null;
 
-	private static String googleUrl = "jdbc:google:mysql://itprojektss17-172302:itprojektss17:europe-west1-b:itprojekt/itprojekt?user=Mert&password=password123";
-	
+	private static String googleUrl = "jdbc:google:mysql://itprojektss17-172302:europe-west1:ITProjektSS17/itprojekt?user=Mert&password=password123";
+    
 	private static String localUrl = "jdbc:mysql://localhost:3306/it projekt?user=root&password=";
    
     

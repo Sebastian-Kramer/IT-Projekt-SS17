@@ -216,6 +216,9 @@ public class DialogBoxAusschreibungAnlegen extends DialogBox {
 								
 				 };
 					
+//					ct_eigenschaften.addColumn(name,"Fähigkeit");
+//					ct_eigenschaften.addColumn(wert, "Wert");
+//					filltableeigenschaften();
 					
 				}
 				
@@ -266,7 +269,7 @@ private void filltableeigenschaften(){
 			@Override
 			public void onSuccess(Ausschreibung result) {
 				Window.alert("Die Ausschreibung wurde erfolgreich angelegt");
-				Window.alert(" Die 'Ausschreibung' befindet sich nun im Status 'laufend'");
+				Window.alert("Der Ausschreibungsstatus ist nun 'laufend'");
 				hide();
 				Showcase showcase = new Projektseite(projekt1, is);
 				RootPanel.get("Details").clear();

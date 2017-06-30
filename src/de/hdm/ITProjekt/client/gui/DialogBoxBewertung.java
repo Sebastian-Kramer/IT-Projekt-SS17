@@ -50,6 +50,7 @@ public class DialogBoxBewertung extends DialogBox{
 	private HorizontalPanel hpanel = new HorizontalPanel();
 	
 	private Button bewertungAbgaben = new Button("Abgeben");
+//	private Button beteiligungErstellen = new Button("Projektbeteiligung erstellen");
 	private Button close = new Button("Zurück zu Ausschreibungen");
 	
 	private ListBox bewertung = new ListBox();
@@ -69,17 +70,26 @@ public class DialogBoxBewertung extends DialogBox{
 	private Beteiligung bet;
 	private Person person;
 	private IdentitySelection seleceted_is = null;
+	private Projekt p;
+	private Projektmarktplatz pmp;
 	
-	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, IdentitySelection is){
+	public DialogBoxBewertung(final Bewerbung b, Ausschreibung a, IdentitySelection is, final Projekt p, final Projektmarktplatz pmp){
 		this.bew = b;
 		this.aus = a;
 		this.seleceted_is = is;
+		this.p = p;
+		this.pmp = pmp;
 		
 		this.setText("Hier können Sie ein Bewertung abgeben");
 		this.setAnimationEnabled(true);
 		this.setGlassEnabled(true);
 
 
+//		bewertung.addItem(Double.toString(0.1));
+//		bewertung.addItem(Double.toString(0.2));
+//		bewertung.addItem(Double.toString(0.3));
+//		bewertung.addItem(Double.toString(0.4));
+//		bewertung.addItem(Double.toString(0.5));
 		bewertung.addItem("0.0");
 		bewertung.addItem("0.1");
 		bewertung.addItem("0.2");
@@ -109,6 +119,7 @@ public class DialogBoxBewertung extends DialogBox{
 		vpanel.add(form);
 		
 		vpanel.add(bewertungAbgaben);
+//		vpanel.add(beteiligungErstellen);
 		vpanel.add(close);
 		hpanel.add(vpanel);
 		this.add(hpanel);
@@ -132,7 +143,8 @@ public class DialogBoxBewertung extends DialogBox{
 					bewert.setBewertung(Double.parseDouble(bewertung.getSelectedItemText()));
 					bewert.setStellungnahme(db.getText());
 					bewert.setBewerbungs_ID(b.getID());
-					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, seleceted_is , bew);		
+				
+					DialogBoxBeteiligung dialogBox  = new DialogBoxBeteiligung(bewert, aus, seleceted_is , bew, p, pmp);		
 					dialogBox.center();
 					DialogBoxBewertung.this.hide();		
 				}
