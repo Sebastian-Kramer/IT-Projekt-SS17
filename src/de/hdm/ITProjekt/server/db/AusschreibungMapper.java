@@ -196,7 +196,8 @@ public class AusschreibungMapper {
 			  try {
 			      Statement stmt = con.createStatement();
 
-			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, status, Projekt_ID, Orga_ID, Partnerprofil_ID FROM Ausschreibung");
+			      ResultSet rs = stmt.executeQuery("SELECT ID, ausschreibungstext, bezeichnung, datum, status, Projekt_ID, Orga_ID, Partnerprofil_ID "
+			      		+ "FROM Ausschreibung WHERE `status` = 'laufend'");
 			  
 			  while (rs.next()) {
 				  	Ausschreibung p = new Ausschreibung();
