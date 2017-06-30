@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <class id="1" language="java" name="de.hdm.ITProjekt.shared.report.FanInFanOutReport" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/FanInFanOutReport.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="160" x="-449" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="2" language="java" name="de.hdm.ITProjekt.shared.report.CompositeReport" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/CompositeReport.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="209" width="207" x="337" y="402"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="3" language="java" name="de.hdm.ITProjekt.shared.report.CompositeParagraph" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/CompositeParagraph.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="245" width="285" x="2968" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="4" language="java" name="de.hdm.ITProjekt.shared.report.HTMLReportWriter" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/HTMLReportWriter.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="443" width="351" x="91" y="-81"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="5" language="java" name="de.hdm.ITProjekt.shared.report.ProjektverflechtungReport" 
+    project="IT-Projekt-SS17" file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/ProjektverflechtungReport.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="205" x="-249" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="6" language="java" name="de.hdm.ITProjekt.shared.report.AllAusschreibungenReport" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllAusschreibungenReport.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="210" x="233" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="7" language="java" name="de.hdm.ITProjekt.shared.report.FanOut" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/FanOut.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="154" x="483" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="8" language="java" name="de.hdm.ITProjekt.shared.report.SimpleReport" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/SimpleReport.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="155" width="159" x="1023" y="402"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="9" language="java" name="de.hdm.ITProjekt.shared.report.Paragraph" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/Paragraph.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="154" x="2968" y="402"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="10" language="java" name="de.hdm.ITProjekt.shared.report.AllBewerbungenByAusschreibungReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllBewerbungenByAusschreibungReport.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="306" x="677" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="11" language="java" name="de.hdm.ITProjekt.shared.report.Column" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/Column.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="154" x="-4" y="936"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="12" language="java" name="de.hdm.ITProjekt.shared.report.SimpleParagraph" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/SimpleParagraph.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="191" width="162" x="3112" y="936"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="13" language="java" name="de.hdm.ITProjekt.shared.report.AllBewerbungenByOrganisationseinheitReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllBewerbungenByOrganisationseinheitReport.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="345" x="1023" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="14" language="java" name="de.hdm.ITProjekt.shared.report.AllBewerbungenWithAusschreibungenReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllBewerbungenWithAusschreibungenReport.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="336" x="1408" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="15" language="java" name="de.hdm.ITProjekt.shared.report.FanIn" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/FanIn.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="154" x="1784" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="16" language="java" name="de.hdm.ITProjekt.shared.report.Report" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/Report.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="245" width="197" x="1023" y="-81"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="de.hdm.ITProjekt.shared.report.Row" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/Row.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="227" width="197" x="-4" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="18" language="java" name="de.hdm.ITProjekt.shared.report.AllAusschreibungenByPartnerprofilReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllAusschreibungenByPartnerprofilReport.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="313" x="1978" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="19" language="java" name="de.hdm.ITProjekt.shared.report.AllBewerbungenToOneAusschreibungReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllBewerbungenToOneAusschreibungReport.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="101" width="334" x="2331" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="20" language="java" name="de.hdm.ITProjekt.shared.report.AllBeteiligungenUsersReport" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/report/AllBeteiligungenUsersReport.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="101" width="223" x="2705" y="651"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <association id="21">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="22" name="header"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="9" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="24">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <association id="25">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="26" name="subReports"/>      
+      <multiplicity id="27" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="28">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="29" name="columns"/>      
+      <multiplicity id="30" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="11" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="31">    
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="16"/>  
+  </generalization>  
+  <generalization id="32">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="33">    
+    <end type="SOURCE" refId="15"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="34">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="35" name="subParagraphs"/>      
+      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="12" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="37">    
+    <end type="SOURCE" refId="1"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="38">    
+    <end type="SOURCE" refId="19"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <association id="39">    
+    <end type="SOURCE" refId="8" navigable="false">      
+      <attribute id="40" name="table"/>      
+      <multiplicity id="41" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <generalization id="42">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="44">    
+    <bendpoint x="3283" y="651"/>    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="9"/>  
+  </generalization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="18"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="47">    
+    <end type="SOURCE" refId="14"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="8"/>  
+  </generalization>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

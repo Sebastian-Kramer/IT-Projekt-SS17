@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<class-diagram version="1.2.0" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true" router="FAN">  
+  <interface id="1" language="java" name="de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync" 
+    project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/AdministrationProjektmarktplatzAsync.java" binary="false" 
+    corner="BOTTOM_RIGHT">    
+    <position height="1829" width="607" x="21" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" language="java" name="de.hdm.ITProjekt.shared.ReportGeneratorAsync" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/ReportGeneratorAsync.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="425" width="801" x="668" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="3" language="java" name="de.hdm.ITProjekt.shared.LoginServiceAsync" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/LoginServiceAsync.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="268" x="1509" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="4" language="java" name="de.hdm.ITProjekt.shared.ReportGenerator" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/ReportGenerator.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="425" width="680" x="1817" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="5" language="java" name="de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz" 
+    project="IT-Projekt-SS17" file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/AdministrationProjektmarktplatz.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="1829" width="486" x="2537" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <interface id="6" language="java" name="de.hdm.ITProjekt.shared.LoginService" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/LoginService.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="147" x="3063" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="7" language="java" name="de.hdm.ITProjekt.shared.CommonSettings" project="IT-Projekt-SS17" 
+    file="/IT-Projekt-SS17/src/de/hdm/ITProjekt/shared/CommonSettings.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="83" width="142" x="3250" y="-738"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+    sort-features="false" accessors="true" visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true" static="true"/>    
+    <operations public="true" package="true" protected="true" private="true" static="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>
