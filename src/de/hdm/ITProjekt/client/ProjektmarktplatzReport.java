@@ -86,7 +86,7 @@ public class ProjektmarktplatzReport implements EntryPoint{
 		this.adminService = ClientsideSettings.getpmpVerwaltung();
 	
 
-			((ServiceDefTarget)adminService).setServiceEntryPoint("/reportgenerator/reportgenerator");
+			((ServiceDefTarget)loginService).setServiceEntryPoint("/reportgenerator/login");
 			loginService.login(GWT.getHostPageBaseURL()+"ProjektmarktplatzReports.html", new AsyncCallback<LogInInfo>() {
 				
 				@Override
@@ -99,7 +99,10 @@ public class ProjektmarktplatzReport implements EntryPoint{
 				public void onSuccess(LogInInfo result) {
 					loginInfo = result;
 					if(loginInfo.isLoggedIn()){
-					
+						((ServiceDefTarget)reportGenerator).setServiceEntryPoint("/reportgenerator/reportgenerator");
+						 if (reportGenerator == null) {
+							 reportGenerator = GWT.create(ReportGenerator.class);
+						    }
 						reportGenerator.getAllPersonen(new AsyncCallback<Vector<Person>>() {
 
 							@Override

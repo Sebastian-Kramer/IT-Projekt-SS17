@@ -14,10 +14,10 @@ import de.hdm.ITProjekt.shared.bo.*;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
+@SuppressWarnings("serial")
 public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 			implements AdministrationProjektmarktplatz{
-	
-	private static final long serialVersionUID = 1L;	
+		
 	private ProjektmarktplatzMapper pmpMapper = null; //Referenz auf den ProjektmarktplatzMapper
 	private ProjektMapper pMapper = null;
 	private PersonMapper personMapper = null; 

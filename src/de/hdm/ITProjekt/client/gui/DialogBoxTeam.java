@@ -25,6 +25,14 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Projektmarktplatz;
 import de.hdm.ITProjekt.shared.bo.Team;
 
+/**
+ * Diese DialogBox ermöglicht das Anlegen eines Teams.
+ * Über <code>adminService.createTeam</code> wird das Team mit den Attributen 
+ * der Datenbank hinzugefügt. 
+ * @author Sebi_0107
+ *
+ */
+
 public class DialogBoxTeam extends DialogBox{	
 	
 	private Person person = new Person();

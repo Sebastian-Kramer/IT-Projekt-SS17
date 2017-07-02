@@ -66,7 +66,7 @@ public class BewerbungMapper {
 		
 		try{
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, Ausschreibungs_ID, Orga_ID FROM Bewerbung "
+			ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, status, Ausschreibungs_ID, Orga_ID FROM Bewerbung "
           + "WHERE ID=" + id + " ORDER BY ID");
 			
 			if(rs.next()){
@@ -74,6 +74,7 @@ public class BewerbungMapper {
 				p.setID(rs.getInt("ID"));
 				p.setBewerbungstext(rs.getString("bewerbungstext"));
 				p.setErstelldatum(rs.getDate("erstelldatum"));
+				p.setStatus(rs.getString("status"));
 				p.setAusschreibungs_ID(rs.getInt("Ausschreibungs_ID"));
 				p.setOrga_ID(rs.getInt("Orga_ID"));
 				return p;
@@ -290,13 +291,14 @@ public class BewerbungMapper {
 		try {
 		      Statement stmt = con.createStatement();
 		      
-		      ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, Ausschreibungs_ID, Orga_ID FROM Bewerbung WHERE Ausschreibungs_ID = " + id);
+		      ResultSet rs = stmt.executeQuery("SELECT ID, bewerbungstext, erstelldatum, status, Ausschreibungs_ID, Orga_ID FROM Bewerbung WHERE Ausschreibungs_ID = " + id);
 		
 		      while(rs.next()){
 		    	  Bewerbung b = new Bewerbung();
 		    	  b.setID(rs.getInt("ID"));
 		    	  b.setBewerbungstext(rs.getString("bewerbungstext"));
 		    	  b.setErstelldatum(rs.getDate("erstelldatum"));
+		    	  b.setStatus(rs.getString("status"));
 		    	  b.setAusschreibungs_ID(rs.getInt("Ausschreibungs_ID"));
 		    	  b.setOrga_ID(rs.getInt("Orga_ID"));
 		    	  

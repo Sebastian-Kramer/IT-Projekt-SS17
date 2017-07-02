@@ -4,7 +4,7 @@ import java.io.Serializable;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 /*
- * Die Klasse Business-Object ist die Basisklasse für alle in diesem Projekt verwendeten Klassen dar
+ * Die Klasse Business-Object ist die Basisklasse für alle in diesem Package verwendeten Klassen dar
  * Alle anderen Business-Object, die in diesem Package enthalten sind erben von dieser Klasse die ID,
  * die in der Datenbank den Primärschlüssel darstellen.
  * Durch die Implementierung von Serializable kann jedes Business-Object in eine textuelle 

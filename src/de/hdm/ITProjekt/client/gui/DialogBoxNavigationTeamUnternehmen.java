@@ -25,6 +25,15 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Team;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 
+
+/**
+ * Die DialogBox lässt den User ein Unternehmen oder Team erstellen oder falls 
+ * eines vorhanden ist dieses auch wieder löschen.
+ * 
+ * 
+ * @author Sebi_0107
+ *
+ */
 public class DialogBoxNavigationTeamUnternehmen extends DialogBox{
 
 	private Person person = new Person();

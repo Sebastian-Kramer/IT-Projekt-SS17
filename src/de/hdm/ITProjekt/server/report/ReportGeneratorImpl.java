@@ -405,43 +405,42 @@ import de.hdm.ITProjekt.shared.report.Row;
 		headline.addColumn(new Column("Erstellungsdatum"));
 		headline.addColumn(new Column("Bewerbungsstatus"));
 		headline.addColumn(new Column("Zugehörige Ausschreibung"));
-		headline.addColumn(new Column("Ausschreibender"));
 		headline.addColumn(new Column("Bewerbungsfrist"));
 		headline.addColumn(new Column("Ausschreibungstext"));
 		
 		result.addRow(headline);
 
 		
-		Vector<Bewerbung> alleEigeneBewerbungen = adminService.getBewerbungByOrgaeinheit(o);
+		Vector<Ausschreibung> alleBewerbungenaufEigeneAuschreibung = adminService.getAusschreibungByOrgaeinheit(o);
 		
-		for(Bewerbung b : alleEigeneBewerbungen){
+		for(Ausschreibung a : alleBewerbungenaufEigeneAuschreibung){
 			
 			
-			Ausschreibung ausschreibung = adminService.getAusschreibungByID(b.getAusschreibungs_ID());
+			Vector<Bewerbung> b = adminService.findBewerbungByAusschreibungId(a.getID());
 			
+			for(Bewerbung bew : b){
 			
-			Person ausschreibender = adminService.getPersonbyID(ausschreibung.getOrga_ID());
-			
+
 		      Row bewerbungRow = new Row();
 		      
-		      bewerbungRow.addColumn(new Column(b.getBewerbungstext()));
+		      bewerbungRow.addColumn(new Column(bew.getBewerbungstext()));
 		        
-		      bewerbungRow.addColumn(new Column(b.getErstelldatum().toString()));
+		      bewerbungRow.addColumn(new Column(bew.getErstelldatum().toString()));
 		      
-		      bewerbungRow.addColumn(new Column(b.getStatus().toString()));
+		      bewerbungRow.addColumn(new Column(bew.getStatus().toString()));
 		       
-		      bewerbungRow.addColumn(new Column(ausschreibung.getBezeichnung()));
+		      bewerbungRow.addColumn(new Column(a.getBezeichnung()));
 		      
-		      bewerbungRow.addColumn(new Column(ausschreibender.getVorname() + " " + ausschreibender.getName()));
-
-		      bewerbungRow.addColumn(new Column(ausschreibung.getAusschreibungstext()));
+		      bewerbungRow.addColumn(new Column(a.getDatum().toString()));
+		      
+		      bewerbungRow.addColumn(new Column(a.getAusschreibungstext()));
 			
 		      
 		      result.addRow(bewerbungRow);
+			}
+			
 		}
-		
 		return result;
-	
 	}
 
 	@Override
@@ -535,8 +534,8 @@ import de.hdm.ITProjekt.shared.report.Row;
 		result.setErstellungsdatum(new Date());
 		
 		Row headline = new Row();
-		headline.addColumn(new Column("ID"));
-		headline.addColumn(new Column("Organisationseinheit"));
+		headline.addColumn(new Column("OrganisationseinheitID"));
+//		headline.addColumn(new Column("Organisationseinheit"));
 		headline.addColumn(new Column("laufend"));
 		headline.addColumn(new Column("abgelehnt"));
 		headline.addColumn(new Column("angenommen"));
@@ -546,6 +545,10 @@ import de.hdm.ITProjekt.shared.report.Row;
 		Vector<Organisationseinheit> alleOrganisationseinheiten = adminService.getAllOrganisationseinheiten();
 		
 		for (Organisationseinheit orga : alleOrganisationseinheiten) {
+			
+			if (orga instanceof Person){
+				Window.alert("HALLO");
+			}
 			
 			Vector<Bewerbung> laufendeBewerbungen = new Vector<Bewerbung>();
 			Vector<Bewerbung> abgelehnteBewerbungen = new Vector<Bewerbung>();
@@ -565,19 +568,11 @@ import de.hdm.ITProjekt.shared.report.Row;
 					angenommeneBewerbungen.add(b);
 				}
 			}
-			
+
+
 			Row anzahlRow = new Row();
 			
 			anzahlRow.addColumn(new Column(String.valueOf(orga.getID())));
-			
-			if(orga instanceof Person){
-				anzahlRow.addColumn(new Column(((Person)orga).getVorname() + " "+((Person)orga).getName()));
-			} else if(orga instanceof Team){
-				anzahlRow.addColumn(new Column(((Team)orga).getName()));
-			} else if(orga instanceof Unternehmen){
-				anzahlRow.addColumn(new Column(((Unternehmen)orga).getName()));		
-			}
-			
 			anzahlRow.addColumn(new Column(String.valueOf(laufendeBewerbungen.size())));
 			anzahlRow.addColumn(new Column(String.valueOf(abgelehnteBewerbungen.size())));
 			anzahlRow.addColumn(new Column(String.valueOf(angenommeneBewerbungen.size())));
@@ -607,8 +602,8 @@ import de.hdm.ITProjekt.shared.report.Row;
 		result.setErstellungsdatum(new Date());
 		
 		Row headline = new Row();
-		headline.addColumn(new Column("ID"));
-		headline.addColumn(new Column("Organisationseinheit"));
+		headline.addColumn(new Column("OrganisationseinheitID"));
+//		headline.addColumn(new Column("Organisationseinheit"));
 		headline.addColumn(new Column("besetzt"));
 		headline.addColumn(new Column("laufend"));
 		

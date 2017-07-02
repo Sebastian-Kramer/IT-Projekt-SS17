@@ -1,6 +1,8 @@
 package de.hdm.ITProjekt.client.gui;
 
 import com.google.gwt.core.client.GWT;
+
+
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
@@ -20,6 +22,17 @@ import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatz;
 import de.hdm.ITProjekt.shared.AdministrationProjektmarktplatzAsync;
 import de.hdm.ITProjekt.shared.bo.Partnerprofil;
 import de.hdm.ITProjekt.shared.bo.Person;
+
+/**
+ * Die DialogBox ermöglicht das Löschen des Profils eines User.
+ * Bei erfolgreicher Durchführung des Löschvorgangs wird der User 
+ * mittels des Aufrufs <code>projektmarktplatzLink.setHref(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html");</code> wieder
+ * auf die BaseUrl des Systems geführt.
+ * 
+ * 
+ * @author Sebi_0107
+ *
+ */
 
 public class DialogBoxProfilLoeschen extends DialogBox{
 	private Person person = new Person();

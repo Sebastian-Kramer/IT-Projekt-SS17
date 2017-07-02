@@ -6,11 +6,16 @@ import de.hdm.ITProjekt.shared.LoginServiceAsync;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserServiceFactory;
 import com.google.appengine.api.users.UserService;
+import com.google.gwt.user.client.rpc.IsSerializable;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
-public class LoginServiceImpl extends RemoteServiceServlet implements LoginService {
+public class LoginServiceImpl extends RemoteServiceServlet implements LoginService{
 	private static final long serialVersionUID = 1L;
 	
+	/**
+	 * 
+	 */
+
 	public LogInInfo login(String requestUrl){
 			UserService userService = UserServiceFactory.getUserService();
 				User user = userService.getCurrentUser();

@@ -70,6 +70,9 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	   */
 	  @Override
 	public void onModuleLoad() {
+
+		  RootPanel.get("header-top").clear();
+		  RootPanel.get("header-top").add(new Menuleiste());
 		  
 		  zumReportgenerator.addClickHandler(new ClickHandler() {
 			
@@ -81,8 +84,6 @@ public class IT_Projekt_SS17 implements EntryPoint {
 			}
 		});
 
-		  RootPanel.get("header-top").clear();
-		  RootPanel.get("header-top").add(new Menuleiste());
 		  LoginServiceAsync loginService = GWT.create(LoginService.class);
 		  
 		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{

@@ -24,7 +24,8 @@ import de.hdm.ITProjekt.shared.bo.Person;
 import de.hdm.ITProjekt.shared.bo.Unternehmen;
 /**
  * Diese Klasse ermöglicht die Änderung der Eigenschaften eines 
- * Partnerprofils.
+ * Partnerprofils. Mithilfe der Listboxen <code>auswahlEigenschaften</code> und <code>wertEigenschaften</wert>
+ * können die entsprechenden Eigenschaften und deren Ausprägung festgelegt werden.
  * 
  * @author Raphael
  *
@@ -64,6 +65,20 @@ public class DialogBoxEigenschaftenAendern extends DialogBox{
 		auswahlEigenschaften.addItem("Excel");
 		auswahlEigenschaften.addItem("PowerPoint");
 		auswahlEigenschaften.addItem("C++");
+		auswahlEigenschaften.addItem("Datenbank Oracle");
+		auswahlEigenschaften.addItem("Bildbearbeitung mit Adobe Photoshop");
+		auswahlEigenschaften.addItem("MySQL");
+		auswahlEigenschaften.addItem("Betriebssysteme");
+		auswahlEigenschaften.addItem("Hardware");
+		auswahlEigenschaften.addItem("Netzwerk");
+		auswahlEigenschaften.addItem("JScript");
+		auswahlEigenschaften.addItem("Matlab");
+		auswahlEigenschaften.addItem("PEARL");
+		auswahlEigenschaften.addItem("ERP-Systeme");
+		auswahlEigenschaften.addItem("Englisch");
+		auswahlEigenschaften.addItem("Spanisch");
+		auswahlEigenschaften.addItem("Microsoft Access");
+		auswahlEigenschaften.addItem("Microsoft Outlook");
 
 		wertEigenschaften.addItem("Grundkenntisse");
 		wertEigenschaften.addItem("Fortgeschritten");
