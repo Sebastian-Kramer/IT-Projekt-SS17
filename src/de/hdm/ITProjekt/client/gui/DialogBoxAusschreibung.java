@@ -119,35 +119,47 @@ public class DialogBoxAusschreibung extends DialogBox {
 
 			@Override
 			public void onClick(ClickEvent event) {
-				adminService.getAllProjekte(new AsyncCallback<Vector<Projekt>>(){
-
-					@Override
-					public void onFailure(Throwable caught) {
-						// TODO Auto-generated method stub
-						
+				
+					if(is.getSelectedIdentityAsObject() instanceof Person && is.getUser().getID() == selectedAusschreibung.getOrga_ID() ){
+						Window.alert("Der Projektleiter kann sich nicht auf Stellen seines eigenen Projekts bewerben!");
 					}
-
-					@Override
-					public void onSuccess(Vector<Projekt> result) {
-						for(Projekt p : result){
-							if(p.getProjektleiter_ID() == is.getUser().getID() && is.getSelectedIdentityAsObject() instanceof Person){
-								Window.alert("Der Projektleiter kann sich nicht auf Stellen seines eigenen Projekts bewerben!");
-								
-							}else{
-								hide();
-								DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
-								DialogBoxBewerbungAnlegen.center();
-								
-								
-							}break;
-							
-						}
-						
-					}
-					
-				});
-			
+				else{
+					hide();
+					DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
+					DialogBoxBewerbungAnlegen.center();
+				}
 			}
+//				adminService.getAllProjekte(new AsyncCallback<Vector<Projekt>>(){
+//
+//					@Override
+//					public void onFailure(Throwable caught) {
+//						// TODO Auto-generated method stub
+//						
+//					}
+//
+//					@Override
+//					public void onSuccess(Vector<Projekt> result) {
+//						for(Projekt p : result){
+//							if(is.getSelectedIdentityAsObject() instanceof Person){
+//							if(p.getProjektleiter_ID() ==  is.getUser().getID()){
+//								Window.alert("Der Projektleiter kann sich nicht auf Stellen seines eigenen Projekts bewerben!");
+//								
+//							}
+//							}else{
+//								hide();
+//								DialogBox DialogBoxBewerbungAnlegen = new DialogBoxBewerbungAnlegen(selectedAusschreibung, is, menubar);
+//								DialogBoxBewerbungAnlegen.center();
+//								
+//								
+//							}break;
+//							
+//						}
+//						
+//					}
+//					
+//				});
+//			
+//			}
 			
 		});
 	}

@@ -263,7 +263,7 @@ public class AdministrationProjektmarktplatzImpl extends RemoteServiceServlet
 	
 	@Override
 	public Vector<Person> getAllPerson() {
-
+System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAa" + personMapper.getAll());
 		return this.personMapper.getAll();
 		}
 	@Override

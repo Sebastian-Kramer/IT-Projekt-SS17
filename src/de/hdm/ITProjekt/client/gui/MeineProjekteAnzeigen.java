@@ -51,7 +51,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 	VerticalPanel vpanel_projekte2 = new VerticalPanel();
 	
 	
-	Button delete_projekt = new Button("Projekt Löschen");
+	Button delete_projekt = new Button("Projekt löschen");
 	Button show_projekt = new Button("Projekt anzeigen");
 	Button delete_Beteiligung = new Button("Eigene Beteiligung löschen");
 	
@@ -78,6 +78,8 @@ public class MeineProjekteAnzeigen extends Showcase{
 		RootPanel.get("Details").setWidth("100%");
 		ct_meineProjekte.setWidth("100%", true);
 		ct_meineProjekte.setSelectionModel(ssm_meineprojekt);
+		ct_meineProjekteTeam.setSelectionModel(ssm_meineprojekt);
+		ct_meineProjekteUnternehmen.setSelectionModel(ssm_meineprojekt);
 		ct_verwProjekte.setWidth("100%", true);
 		ct_verwProjekte.setSelectionModel(ssm_meineprojekt);
 		delete_projekt.setStylePrimaryName("myprofil-button");
@@ -866,6 +868,7 @@ public class MeineProjekteAnzeigen extends Showcase{
 				Showcase showcase = new Projektseite(ssm_meineprojekt.getSelectedObject(), is);
 				RootPanel.get("Details").clear();
 				RootPanel.get("Details").add(showcase);
+			
 				
 			}
 			
