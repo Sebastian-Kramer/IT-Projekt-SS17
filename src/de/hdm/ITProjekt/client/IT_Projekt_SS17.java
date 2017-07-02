@@ -57,10 +57,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 	  private Button loginButton = new Button("Login");
 	  private Button seiteVerlassen = new Button("Seite verlassen");
 	 
-	  private static AdministrationProjektmarktplatzAsync adminService = ClientsideSettings.getpmpVerwaltung();
+	  private AdministrationProjektmarktplatzAsync adminService = null;
 
 	  private Button zumReportgenerator = new Button("Zum Report Generator");
-	    
+	  private LoginServiceAsync loginService = null;
 	  private Anchor reportLink = new Anchor();
 	/**
 	   * Da diese Klasse die Implementierung des Interface <code>EntryPoint</code>
@@ -83,9 +83,10 @@ public class IT_Projekt_SS17 implements EntryPoint {
 
 			}
 		});
+			this.loginService = ClientsideSettings.getLoginService();
+			this.adminService = ClientsideSettings.getpmpVerwaltung();
 
-		  LoginServiceAsync loginService = GWT.create(LoginService.class);
-		  
+			((ServiceDefTarget)loginService).setServiceEntryPoint("/IT_Projekt_SS17/login");
 		  loginService.login(GWT.getHostPageBaseURL()+"IT_Projekt_SS17.html", new AsyncCallback<LogInInfo>()	{
 			  public void onFailure(Throwable Error) {
 				  Window.alert("Fehler Login" + Error.toString());
@@ -100,10 +101,7 @@ public class IT_Projekt_SS17 implements EntryPoint {
 						 * @return Vector mit allen Personen
 						 */ 
 						((ServiceDefTarget)adminService).setServiceEntryPoint("/IT_Projekt_SS17/projektmarktplatz");
-						 if (adminService == null) {
-						      adminService = GWT.create(AdministrationProjektmarktplatz.class);
-						    }
-						adminService.getAllPerson(new AsyncCallback<Vector<Person>>() {
+						 adminService.getAllPerson(new AsyncCallback<Vector<Person>>() {
 
 							@Override
 							public void onFailure(Throwable caught) {

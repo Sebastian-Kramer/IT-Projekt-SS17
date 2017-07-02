@@ -22,7 +22,7 @@
     
     <servlet-mapping>
     <servlet-name>LoginService</servlet-name>
-    <url-pattern>/login</url-pattern>
+    <url-pattern>/IT_Projekt_SS17/login</url-pattern>
     </servlet-mapping>
     
      <servlet-mapping>

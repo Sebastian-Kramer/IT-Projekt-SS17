@@ -62,8 +62,8 @@ public class ProjektmarktplatzReport implements EntryPoint{
 	 private Anchor projektLink = new Anchor();
 	 private VerticalPanel projektmarktpanel = new VerticalPanel();
 	 
-	 private AdministrationProjektmarktplatzAsync adminService;
-	 private ReportGeneratorAsync reportGenerator;
+	 private AdministrationProjektmarktplatzAsync adminService = null;
+	 private ReportGeneratorAsync reportGenerator = null;
 	 private LoginServiceAsync loginService = null;
 	
 	@Override
